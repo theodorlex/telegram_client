@@ -14,7 +14,8 @@ extension TelegramBotApiTypeFileMethodExtensions on TelegramBotApi {
     if (content is String) {
       if (RegExp(r"^http", caseSensitive: false).hasMatch(content)) {
         data = {"@type": 'inputFileRemote', "data": content};
-      } else if (RegExp(r"^(\/|\.\.?\/|~\/)", caseSensitive: false).hasMatch(content)) {
+      } else if (RegExp(r"^(\/|\.\.?\/|~\/)", caseSensitive: false)
+          .hasMatch(content)) {
         File file = File(content);
         // file.uri.;
         data = {
