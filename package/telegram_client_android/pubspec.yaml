@@ -1,38 +1,37 @@
-name: telegram_client_android
-
-description: A Telegram Client Android Library.
-version: 0.0.12
-homepage: https://youtube.com/@azkadev
-repository: https://github.com/azkadev/telegram_client
-issue_tracker: https://github.com/azkadev/telegram_client/issues 
-documentation: https://telegram-client.vercel.app/
-funding:
-  - https://github.com/sponsors/azkadev
-
-false_secrets:
- - android/jniLibs/arm64-v8a/libtdjson.so
- - android/jniLibs/armeabi-v7a/libtdjson.so 
- - android/jniLibs/x86_64/libtdjson.so
- - android/jniLibs
-
-platforms:
- android:
-
-environment:
+name: 'telegram_client_android'
+description: 'Telegram Client Lightweight, blazing and Highly customizable for make application telegram based tdlib, mtproto, or bot api and support server side.'
+version: '0.7.6'
+homepage: 'https://github.com/azkadev/telegram_client'
+repository: 'https://github.com/azkadev/telegram_client'
+issue_tracker: 'https://github.com/azkadev/telegram_client/issues'
+documentation: 'https://github.com/azkadev/telegram_client/tree/main/docs'
+funding: 
+  - 'https://github.com/sponsors/azkadev'
+  - 'https://github.com/sponsors/generalfoss'
+false_secrets: 
+  - 'android/jniLibs/arm64-v8a/libtdjson.so'
+  - 'android/jniLibs/armeabi-v7a/libtdjson.so'
+  - 'android/jniLibs/x86_64/libtdjson.so'
+  - 'android/jniLibs'
+platforms: 
+  android: null
+  ios: null
+  linux: null
+  macos: null
+  web: null
+  windows: null
+environment: 
   sdk: '>=3.0.0 <4.0.0'
-  flutter: ">=3.3.0"
-
-dependencies:
-  flutter:
-    sdk: flutter 
-
+  flutter: '>=3.3.0'
+dependencies: 
+  flutter: 
+    sdk: 'flutter'
 dev_dependencies: 
-  flutter_test:
-    sdk: flutter
-  flutter_lints: ^2.0.0
- 
+  flutter_test: 
+    sdk: 'flutter'
+  flutter_lints: '^2.0.0'
 flutter: 
-  plugin:
-    platforms:
-      android:
-        ffiPlugin: true 
+  plugin: 
+    platforms: 
+      android: 
+        ffiPlugin: true

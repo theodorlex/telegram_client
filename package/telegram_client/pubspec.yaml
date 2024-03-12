@@ -1,50 +1,43 @@
-name: telegram_client
-description: Telegram Client Lightweight, blazing and Highly customizable for make application telegram based tdlib, mtproto, or bot api and support server side.
-version: 0.7.5
-homepage: https://youtube.com/@azkadev
-repository: https://github.com/azkadev/telegram_client
-issue_tracker: https://github.com/azkadev/telegram_client/issues 
-documentation: https://telegram-client.vercel.app/
-funding:
-  - https://github.com/sponsors/azkadev
-  - https://github.com/sponsors/generalfoss
-
-platforms:
- android:
- ios:
- linux:
- macos:
- web:
- windows:
-
-topics:
-  - telegram  
-  - tdlib
-  - mtproto 
-  - userbot
-  - telegram-bot-api
-
-environment:
-  sdk: ">=3.0.0 <4.0.0"
-
-dev_dependencies:
-  lints: ^3.0.0
-
-dependencies:
-  alfred: ^1.1.1
-  ffi: ^2.1.0 
-  http: ">=1.1.2 <=2.1.2"
-  path: ">=1.8.2 <=4.9.0"
-  universal_io: ^2.2.2
-  web_ffi: ^0.7.2
-  mason_logger: ^0.2.11
-  mime: ^1.0.5
-  general_lib: ^0.0.27
-
-executables:
-  telegram_client: telegram_client
-  tg_cli: telegram_client
-
-screenshots:
-  - description: "Telegram Logo"
-    path: "assets/telegram.png"
+name: 'telegram_client'
+description: 'Telegram Client Lightweight, blazing and Highly customizable for make application telegram based tdlib, mtproto, or bot api and support server side.'
+version: '0.7.6'
+homepage: 'https://github.com/azkadev/telegram_client'
+repository: 'https://github.com/azkadev/telegram_client'
+issue_tracker: 'https://github.com/azkadev/telegram_client/issues'
+documentation: 'https://github.com/azkadev/telegram_client/tree/main/docs'
+funding: 
+  - 'https://github.com/sponsors/azkadev'
+  - 'https://github.com/sponsors/generalfoss'
+platforms: 
+  android: null
+  ios: null
+  linux: null
+  macos: null
+  web: null
+  windows: null
+topics: 
+  - 'telegram'
+  - 'tdlib'
+  - 'mtproto'
+  - 'userbot'
+  - 'telegram-bot-api'
+environment: 
+  sdk: '>=3.0.0 <4.0.0'
+dev_dependencies: 
+  lints: '^3.0.0'
+dependencies: 
+  alfred: '^1.1.1'
+  ffi: '^2.1.0'
+  http: '>=1.1.2 <=2.1.2'
+  path: '>=1.8.2 <=4.9.0'
+  universal_io: '^2.2.2'
+  web_ffi: '^0.7.2'
+  mason_logger: '^0.2.11'
+  mime: '^1.0.5'
+  general_lib: '^0.0.27'
+executables: 
+  telegram_client: 'telegram_client'
+  tg_cli: 'telegram_client'
+screenshots: 
+  - description: 'Telegram Logo'
+    path: 'assets/telegram.png'

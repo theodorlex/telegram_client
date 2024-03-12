@@ -2,8 +2,8 @@
 
 git init
 git branch -M main
-git remote add origin https://github.com/{main_username_owner}/telegram_client
-git remote set-url --push origin https://{main_username_owner}:{main_github_token}@github.com/{main_username_owner}/telegram_client
+git remote add origin https://github.com/azkadev/telegram_client
+git remote set-url --push origin https://azkadev:{main_github_token}@github.com/azkadev/telegram_client
 
 echo $(date) > date.lock
 git add date.lock

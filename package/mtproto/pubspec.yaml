@@ -1,4 +1,4 @@
-name: 'telegram_client_server'
+name: 'mtproto'
 description: 'Telegram Client Lightweight, blazing and Highly customizable for make application telegram based tdlib, mtproto, or bot api and support server side.'
 version: '0.7.6'
 homepage: 'https://github.com/azkadev/telegram_client'

@@ -34,8 +34,8 @@ void main(List<String> args) async {
 
 git init
 git branch -M main
-git remote add origin https://github.com/{main_username_owner}/telegram_client
-git remote set-url --push origin https://{main_username_owner}:{main_github_token}@github.com/{main_username_owner}/telegram_client
+git remote add origin https://github.com/azkadev/telegram_client
+git remote set-url --push origin https://azkadev:{main_github_token}@github.com/azkadev/telegram_client
 
 echo \$(date) > date.lock
 git add date.lock
@@ -50,9 +50,10 @@ git add .
 git commit -m "update"
 git push -u origin main
 git push -f origin main
-""".trim();
+"""
+      .trim();
   for (var i = 0; i < rawPaths.length; i++) {
-    if (["command_gh_push_long.sh", "command_gh_push_short.sh"].contains(basename(rawPaths[i]).trim() )) {
+    if (["command_gh_push_long.sh", "command_gh_push_short.sh"].contains(basename(rawPaths[i]).trim())) {
       continue;
     }
     if (RegExp(r"(\.git|/\.git|/\.git/|\.dart_tool)", caseSensitive: false).hasMatch((rawPaths[i]).trim())) {

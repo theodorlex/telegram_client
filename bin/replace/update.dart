@@ -14,16 +14,24 @@ Future<void> pubspecUpdate({
   if (filePubspec.existsSync()) {
     Map yaml_code = (yaml.loadYaml(filePubspec.readAsStringSync(), recover: true) as Map);
     Map yaml_code_clone = yaml_code.clone();
- 
+
+// homepage: https://youtube.com/@azkadev
+// repository: https://github.com/azkadev/telegram_client
+// issue_tracker: https://github.com/azkadev/telegram_client/issues
+// documentation: https://telegram-client.vercel.app/
+// funding:
+    // - https://github.com/sponsors/azkadev
+    // - https://github.com/sponsors/generalfoss
     yaml_code_clone.addAll({
-      "description": "A sample command-line application.",
-      "version": "0.0.0",
-      "repository": "https://github.com/{main_username_owner}/telegram_client",
-      "homepage": "https://github.com/{main_username_owner}/general",
-      "issue_tracker": "https://github.com/{main_username_owner}/general/issues",
-      "documentation": "https://github.com/{main_username_owner}/telegram_client/tree/main/docs",
+      "description": "Telegram Client Lightweight, blazing and Highly customizable for make application telegram based tdlib, mtproto, or bot api and support server side.",
+      "version": "0.7.6",
+      "repository": "https://github.com/azkadev/telegram_client",
+      "homepage": "https://github.com/azkadev/telegram_client",
+      "issue_tracker": "https://github.com/azkadev/telegram_client/issues",
+      "documentation": "https://github.com/azkadev/telegram_client/tree/main/docs",
       "funding": [
         "https://github.com/sponsors/azkadev",
+        "https://github.com/sponsors/generalfoss",
       ],
       "platforms": {
         "android": null,
@@ -38,7 +46,6 @@ Future<void> pubspecUpdate({
       "publish_to",
     ]);
     var yamlDoc = YamlWriter().write(yaml_code_clone);
-
     await filePubspec.writeAsString(yamlDoc);
   }
 }

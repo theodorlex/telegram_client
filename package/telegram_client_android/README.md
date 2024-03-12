@@ -19,7 +19,7 @@ Telegram client dart library untuk membuat telegram based flutter bot userbot bi
 
   Video singkat cara menggunakan library ini untuk membuat project yang ingin anda bikin dengan template yang sudah saya buat.
 
-![](https://raw.githubusercontent.com/azkadev/telegram_client/main/.github/telegram_client_cli_demo.gif)
+<!-- ![](https://raw.githubusercontent.com/azkadev/telegram_client/main/.github/telegram_client_cli_demo.gif) -->
 
  <!-- ![](https://raw.githubusercontent.com/azkadev/telegram_client/main/.github/telegram_app.gif) -->
 
