@@ -1,6 +1,6 @@
 name: 'telegram_client_macos'
 description: 'Telegram Client Lightweight, blazing and Highly customizable for make application telegram based tdlib, mtproto, or bot api and support server side.'
-version: '0.7.7'
+version: '0.7.8'
 homepage: 'https://github.com/azkadev/telegram_client'
 environment: 
   sdk: '>=3.0.0 <4.0.0'
