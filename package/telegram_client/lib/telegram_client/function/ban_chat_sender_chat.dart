@@ -16,7 +16,6 @@ extension BanChatSenderChatDataOn on TelegramClient {
   FutureOr<Map> banChatSenderChat({
     required Map parameters,
     required TelegramClientCallApiInvoke callApiInvoke,
-
     bool? isUseCache = false,
     Duration? durationCacheExpire,
   }) async {

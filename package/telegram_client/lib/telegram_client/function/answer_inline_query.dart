@@ -14,7 +14,6 @@ extension AnswerInlineQueryDataOn on TelegramClient {
   FutureOr<Map> answerInlineQuery({
     required Map parameters,
     required TelegramClientCallApiInvoke callApiInvoke,
-
     bool? isUseCache = false,
     Duration? durationCacheExpire,
   }) async {

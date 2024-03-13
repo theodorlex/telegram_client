@@ -1,5 +1,7 @@
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unused_local_variable
 
+import 'dart:convert';
+
 import 'package:general_lib/general_lib.dart';
 import 'package:mason_logger/mason_logger.dart';
 import 'package:path/path.dart';
@@ -64,11 +66,21 @@ void main(List<String> args) async {
       try {
         await tg.autoSetData(updateTelegramClient);
 
-        Map? update = await updateTelegramClient.update;
+        Map? update = await updateTelegramClient.updateRaw(
+          is_lite: false,
+          updataOptionTelegramClient: UpdataOptionTelegramClient(
+            updataMessageTelegramClient: UpdataMessageTelegramClient(
+              is_use_cache: true,
+              duration_expire_cache: Duration(
+                minutes: 10,
+              ),
+            ),
+          ),
+        );
         if (update == null) {
+          // updateTelegramClient.rawData.printPretty();
           return null;
         }
-
         if (update["@type"] == "updateAuthorizationState") {
           if (update["authorization_state"] is Map) {
             Map authorization_state = update["authorization_state"];
@@ -196,4 +208,15 @@ void main(List<String> args) async {
     ),
   );
   await tg.tdlib.initIsolate();
+  stdin.listen((event) async {
+    String text = utf8.decode(event).trim();
+
+    if (text == "get_me") {
+      var res = await tg.tdlib.invoke(
+        "getMe",
+        isUseCache: true,
+      );
+      res.printPretty();
+    }
+  });
 }

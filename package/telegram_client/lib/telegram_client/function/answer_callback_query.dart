@@ -13,19 +13,20 @@ extension AnswerCallbackQueryDataOn on TelegramClient {
   FutureOr<Map> answerCallbackQuery({
     required Map parameters,
     required TelegramClientCallApiInvoke callApiInvoke,
-
     bool? isUseCache = false,
     Duration? durationCacheExpire,
   }) async {
     dynamic target_chat_id = TgUtils.parse_all_chat_id(parameters: parameters);
-    if (target_chat_id is String && RegExp(r"^((@)[a-z0-9_]+)$", caseSensitive: false).hashData(target_chat_id)) {
+    if (target_chat_id is String &&
+        RegExp(r"^((@)[a-z0-9_]+)$", caseSensitive: false)
+            .hashData(target_chat_id)) {
       var search_public_chat = await callApiInvoke(
         parameters: {
           "@type": "searchPublicChat",
-          "username": (target_chat_id).replaceAll(RegExp(r"@", caseSensitive: false), ""),
+          "username": (target_chat_id)
+              .replaceAll(RegExp(r"@", caseSensitive: false), ""),
         },
         is_invoke_no_relevance: true,
-
       );
       if (search_public_chat["@type"] == "chat") {
         parameters["chat_id"] = search_public_chat["id"];

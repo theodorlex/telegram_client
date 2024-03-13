@@ -1,3 +1,3 @@
-## 0.7.8
+## 0.7.9
 
-- Update New Cache for more decrease ram usage.
+- Succes Add FEatuwe New Cache for more decrease ram usage.
