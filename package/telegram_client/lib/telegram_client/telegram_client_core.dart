@@ -141,6 +141,8 @@ class TelegramClient {
               parameters: {
                 "@type": "getMe",
               },
+              isUseCache: false,
+              durationCacheExpire: null,
               telegramClientData: updateTelegramClient.telegramClientData,
             );
 
@@ -375,8 +377,8 @@ class TelegramClient {
     String? clientType,
     void Function(int bytes, int bytess)? onUploadProgress,
     bool isVoid = false,
-    required bool? isUseCache,
-    required Duration? durationCacheExpire,
+    bool? isUseCache,
+    Duration? durationCacheExpire,
     Duration? delayDuration,
     Duration? invokeTimeOut,
     String? extra,
@@ -465,8 +467,8 @@ class TelegramClient {
     String? clientType,
     void Function(int bytes, int bytess)? onUploadProgress,
     bool isVoid = false,
-    required bool? isUseCache,
-    required Duration? durationCacheExpire,
+    bool? isUseCache,
+    Duration? durationCacheExpire,
     Duration? delayDuration,
     Duration? invokeTimeOut,
     String? extra,
@@ -504,16 +506,16 @@ class TelegramClient {
     FutureOr<Map> callApiInvoke({
       required Map parameters,
       bool? is_invoke_no_relevance,
-      bool? isUseCache_pram,
-      Duration? durationCacheExpire_pram,
+      bool? is_use_cache,
+      Duration? duration_cache_expire,
     }) async {
       return await invoke(
         parameters: parameters,
         telegramClientData: telegramClientData,
         is_form: is_form,
         urlApi: urlApi,
-        isUseCache: isUseCache_pram ?? isUseCache,
-        durationCacheExpire: durationCacheExpire_pram,
+        isUseCache: is_use_cache ?? isUseCache,
+        durationCacheExpire: duration_cache_expire,
         clientType: clientType,
         onUploadProgress: onUploadProgress,
         isVoid: (is_invoke_no_relevance == true) ? false : isVoid,

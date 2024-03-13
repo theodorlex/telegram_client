@@ -16,11 +16,12 @@ extension CallbackQueryDataDataOn on TelegramClient {
     required TelegramClientData telegramClientData,
     bool is_skip_reply_message = false,
     required bool is_lite,
+    bool? isUseCache,
+    Duration? durationCacheExpire,
   }) async {
     Map message_inline_message_id = {};
     if (callbackQuery.containsKey("inline_message_id")) {
-      message_inline_message_id["inline_message_id"] =
-          callbackQuery["inline_message_id"];
+      message_inline_message_id["inline_message_id"] = callbackQuery["inline_message_id"];
     }
     Map message_sender_chat_json = {};
 
@@ -35,6 +36,8 @@ extension CallbackQueryDataDataOn on TelegramClient {
             "@type": "getUser",
             "user_id": callbackQuery["sender_user_id"],
           },
+          isUseCache: isUseCache,
+          durationCacheExpire: durationCacheExpire,
           is_return_as_api: false,
           telegramClientData: telegramClientData,
         );
@@ -55,6 +58,8 @@ extension CallbackQueryDataDataOn on TelegramClient {
             "@type": "getChat",
             "chat_id": callbackQuery["chat_id"],
           },
+          isUseCache: isUseCache,
+          durationCacheExpire: durationCacheExpire,
           is_return_as_api: false,
           telegramClientData: telegramClientData,
         );
@@ -75,6 +80,8 @@ extension CallbackQueryDataDataOn on TelegramClient {
           "chat_id": callbackQuery["chat_id"],
           "message_id": callbackQuery["message_id"],
         },
+        isUseCache: isUseCache,
+        durationCacheExpire: durationCacheExpire,
         telegramClientData: telegramClientData,
       );
       new_scheme_data["message"] = await message_Message(
@@ -82,11 +89,12 @@ extension CallbackQueryDataDataOn on TelegramClient {
         telegramClientData: telegramClientData,
         is_skip_reply_message: true,
         is_lite: is_lite,
+        isUseCache: isUseCache,
+        durationCacheExpire: durationCacheExpire,
       );
     }
     new_scheme_data["chat_instance"] = callbackQuery["chat_instance"];
-    new_scheme_data["data"] =
-        utf8.decode(base64.decode(callbackQuery["payload"]["data"]));
+    new_scheme_data["data"] = utf8.decode(base64.decode(callbackQuery["payload"]["data"]));
 
     return new_scheme_data;
   }
@@ -96,14 +104,17 @@ extension CallbackQueryDataDataOn on TelegramClient {
     required Map update,
     required TelegramClientData telegramClientData,
     required bool is_lite,
+    bool? isUseCache,
+    Duration? durationCacheExpire,
   }) async {
     // http://0.0.0.0:8704/classtd_1_1td__api_1_1message.html
-    if (update["@type"] == "updateNewCallbackQuery" ||
-        update["@type"] == "updateNewInlineCallbackQuery") {
+    if (update["@type"] == "updateNewCallbackQuery" || update["@type"] == "updateNewInlineCallbackQuery") {
       Map callback_query = await callbackQuery_CallbackQuery(
         callbackQuery: update,
         telegramClientData: telegramClientData,
         is_lite: is_lite,
+        isUseCache: isUseCache,
+        durationCacheExpire: durationCacheExpire,
       );
       return {
         "@type": "updateCallbackQuery",

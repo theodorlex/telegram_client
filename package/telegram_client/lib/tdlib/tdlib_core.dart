@@ -199,8 +199,8 @@ class Tdlib extends LibTdJson {
     int? clientId,
     bool isVoid = false,
     String? extra,
-    required bool? isUseCache,
-    required Duration? durationCacheExpire,
+    bool? isUseCache,
+    Duration? durationCacheExpire,
     bool isInvokeThrowOnError = true,
   }) async {
     if (update.raw["authorization_state"] is Map) {
@@ -290,8 +290,8 @@ class Tdlib extends LibTdJson {
   /// getMeClient
   Future<Map> getMeClient({
     required int clientId,
-    required bool? isUseCache,
-    required Duration? durationCacheExpire,
+    bool? isUseCache,
+    Duration? durationCacheExpire,
   }) async {
     return await getMe(
       clientId: clientId,
@@ -302,8 +302,8 @@ class Tdlib extends LibTdJson {
 
   /// getMe all client
   Future<List<Map>> getMeClients({
-    required bool? isUseCache,
-    required Duration? durationCacheExpire,
+    bool? isUseCache,
+    Duration? durationCacheExpire,
   }) async {
     List<int> get_all_client_ids = getAllClientIds();
     List<Map> array = [];
@@ -328,8 +328,8 @@ class Tdlib extends LibTdJson {
     String method, {
     Map? parameters,
     bool isVoid = false,
-    required bool? isUseCache,
-    required Duration? durationCacheExpire,
+    bool? isUseCache,
+    Duration? durationCacheExpire,
     Duration? delayDuration,
     Duration? invokeTimeOut,
     String? extra,
@@ -407,6 +407,8 @@ class Tdlib extends LibTdJson {
     Map? parameters,
     bool isVoid = false,
     String? extra,
+    bool? isUseCache,
+    Duration? durationCacheExpire,
   }) async {
     parameters ??= {};
     List<int> get_all_client_ids = getAllClientIds();
@@ -420,6 +422,8 @@ class Tdlib extends LibTdJson {
           clientId: clientId,
           isVoid: isVoid,
           extra: extra,
+          isUseCache: isUseCache,
+          durationCacheExpire: durationCacheExpire,
         );
         array.add({
           "@type": "invoke",
@@ -676,8 +680,8 @@ class Tdlib extends LibTdJson {
   /// ```
   Future<Map> getMe({
     required int? clientId,
-    required bool? isUseCache,
-    required Duration? durationCacheExpire,
+    bool? isUseCache,
+    Duration? durationCacheExpire,
     String? extra,
   }) async {
     clientId ??= client_id;
@@ -885,8 +889,8 @@ class Tdlib extends LibTdJson {
     FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)? onGetInvokeData,
     bool? isInvokeThrowOnError,
     bool isAutoExtendMessage = false,
-    required bool? isUseCache,
-    required Duration? durationCacheExpire,
+    bool? isUseCache,
+    Duration? durationCacheExpire,
   }) async {
     clientId ??= client_id;
     parameters ??= {};
@@ -1028,6 +1032,8 @@ class Tdlib extends LibTdJson {
               is_skip_reply_message: true,
               is_from_send_message: true,
               is_super_detail: true,
+              isUseCache: isUseCache,
+              durationCacheExpire: durationCacheExpire,
             );
             if (json_message["result"] is Map) {
               if (json_message["ok"] == true) {
@@ -1070,10 +1076,34 @@ class Tdlib extends LibTdJson {
       );
     }
     if (RegExp(r"^editMessageText$", caseSensitive: false).hashData(method)) {
-      return await editMessageText(chat_id: parameters["chat_id"], message_id: parameters["message_id"], text: parameters["text"], inline_message_id: parameters["inline_message_id"], parse_mode: (parameters["parse_mode"] is String) ? parameters["parse_mode"] : "html", entities: (parameters["entities"] is List) ? parameters["entities"] : [], disable_web_page_preview: (parameters["disable_web_page_preview"] is bool) ? parameters["disable_web_page_preview"] : false, reply_markup: parameters["reply_markup"], clientId: clientId);
+      return await editMessageText(
+        chat_id: parameters["chat_id"],
+        message_id: parameters["message_id"],
+        text: parameters["text"],
+        inline_message_id: parameters["inline_message_id"],
+        parse_mode: (parameters["parse_mode"] is String) ? parameters["parse_mode"] : "html",
+        entities: (parameters["entities"] is List) ? parameters["entities"] : [],
+        disable_web_page_preview: (parameters["disable_web_page_preview"] is bool) ? parameters["disable_web_page_preview"] : false,
+        reply_markup: parameters["reply_markup"],
+        clientId: clientId,
+        isUseCache: isUseCache,
+        durationCacheExpire: durationCacheExpire,
+      );
     }
     if (RegExp(r"^editMessageCaption$", caseSensitive: false).hashData(method)) {
-      return await editMessageCaption(chat_id: parameters["chat_id"], message_id: parameters["message_id"], caption: parameters["caption"], inline_message_id: parameters["inline_message_id"], parse_mode: (parameters["parse_mode"] is String) ? parameters["parse_mode"] : "html", entities: (parameters["entities"] is List) ? parameters["entities"] : [], disable_web_page_preview: (parameters["disable_web_page_preview"] is bool) ? parameters["disable_web_page_preview"] : false, reply_markup: parameters["reply_markup"], clientId: clientId);
+      return await editMessageCaption(
+        chat_id: parameters["chat_id"],
+        message_id: parameters["message_id"],
+        caption: parameters["caption"],
+        inline_message_id: parameters["inline_message_id"],
+        parse_mode: (parameters["parse_mode"] is String) ? parameters["parse_mode"] : "html",
+        entities: (parameters["entities"] is List) ? parameters["entities"] : [],
+        disable_web_page_preview: (parameters["disable_web_page_preview"] is bool) ? parameters["disable_web_page_preview"] : false,
+        reply_markup: parameters["reply_markup"],
+        clientId: clientId,
+        isUseCache: isUseCache,
+        durationCacheExpire: durationCacheExpire,
+      );
     }
     if (RegExp(r"^joinChat$", caseSensitive: false).hashData(method)) {
       return await invoke(
@@ -1118,6 +1148,8 @@ class Tdlib extends LibTdJson {
         parameters["chat_id"],
         parameters["user_id"],
         clientId: clientId,
+        isUseCache: isUseCache,
+        durationCacheExpire: durationCacheExpire,
       );
     }
     if (RegExp(r"^getMe$", caseSensitive: false).hashData(method)) {
@@ -1132,6 +1164,8 @@ class Tdlib extends LibTdJson {
         parameters["chat_id"],
         is_detail: true,
         clientId: clientId,
+        isUseCache: isUseCache,
+        durationCacheExpire: durationCacheExpire,
         is_super_detail: (parameters["is_super_detail"] == true),
         is_more_detail: (parameters["is_more_detail"] == true),
       );
@@ -1158,7 +1192,14 @@ class Tdlib extends LibTdJson {
         for (var i = 0; i < chat_ids.length; i++) {
           await Future.delayed(Duration(milliseconds: 1));
           try {
-            var get_chat = await getChat(chat_ids[i], is_detail: true, is_super_detail: true, clientId: clientId);
+            var get_chat = await getChat(
+              chat_ids[i],
+              is_detail: true,
+              is_super_detail: true,
+              clientId: clientId,
+              isUseCache: isUseCache,
+              durationCacheExpire: durationCacheExpire,
+            );
             if (get_chat["ok"]) {
               array_chat.add(get_chat["result"]);
             }
@@ -1172,12 +1213,16 @@ class Tdlib extends LibTdJson {
       return await getUser(
         parameters["chat_id"],
         clientId: clientId,
+        isUseCache: isUseCache,
+        durationCacheExpire: durationCacheExpire,
       );
     }
     if (RegExp(r"^answerCallbackQuery$", caseSensitive: false).hashData(method)) {
       return await answerCallbackQuery(
         parameters["callback_query_id"],
         text: parameters["text"],
+        isUseCache: isUseCache,
+        durationCacheExpire: durationCacheExpire,
         show_alert: parameters["show_alert"] ?? false,
         url: parameters["url"],
         cache_time: parameters["cache_time"],
@@ -1243,8 +1288,8 @@ class Tdlib extends LibTdJson {
     FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)? onGetInvokeData,
     bool? isInvokeThrowOnError,
     bool isAutoExtendMessage = false,
-    required bool? isUseCache,
-    required Duration? durationCacheExpire,
+    bool? isUseCache,
+    Duration? durationCacheExpire,
   }) async {
     clientId ??= client_id;
     parameters ??= {};
@@ -1369,8 +1414,8 @@ class Tdlib extends LibTdJson {
     bool is_super_detail = false,
     required int? clientId,
     String? extra,
-    required bool? isUseCache,
-    required Duration? durationCacheExpire,
+    bool? isUseCache,
+    Duration? durationCacheExpire,
   }) async {
     clientId ??= client_id;
     var get_message = await invoke(
@@ -1386,6 +1431,8 @@ class Tdlib extends LibTdJson {
     );
     return await jsonMessage(
       get_message,
+      isUseCache: isUseCache,
+      durationCacheExpire: durationCacheExpire,
       is_detail: is_detail,
       is_super_detail: is_super_detail,
       is_skip_reply_message: is_skip_reply_message,
@@ -1412,8 +1459,8 @@ class Tdlib extends LibTdJson {
     Map? reply_markup,
     required int? clientId,
     String? extra,
-    required bool? isUseCache,
-    required Duration? durationCacheExpire,
+    bool? isUseCache,
+    Duration? durationCacheExpire,
   }) async {
     clientId ??= client_id;
     entities ??= [];
@@ -1469,8 +1516,8 @@ class Tdlib extends LibTdJson {
     Map? reply_markup,
     required int? clientId,
     String? extra,
-    required bool? isUseCache,
-    required Duration? durationCacheExpire,
+    bool? isUseCache,
+    Duration? durationCacheExpire,
   }) async {
     clientId ??= client_id;
     entities ??= [];
@@ -1520,8 +1567,8 @@ class Tdlib extends LibTdJson {
     dynamic user_id, {
     required int? clientId,
     String? extra,
-    required bool? isUseCache,
-    required Duration? durationCacheExpire,
+    bool? isUseCache,
+    Duration? durationCacheExpire,
   }) async {
     clientId ??= client_id;
     chat_id ??= 0;
@@ -1547,6 +1594,8 @@ class Tdlib extends LibTdJson {
         parameters: {
           "username": user_id,
         },
+        isUseCache: isUseCache,
+        durationCacheExpire: durationCacheExpire,
         clientId: clientId,
         extra: extra,
       );
@@ -1563,6 +1612,8 @@ class Tdlib extends LibTdJson {
           "user_id": user_id,
         }
       },
+      isUseCache: isUseCache,
+      durationCacheExpire: durationCacheExpire,
       clientId: clientId,
       extra: extra,
     );
@@ -1573,6 +1624,8 @@ class Tdlib extends LibTdJson {
       var get_user = await getUser(
         get_chat_member["member_id"]["user_id"],
         clientId: clientId,
+        isUseCache: isUseCache,
+        durationCacheExpire: durationCacheExpire,
       );
       json["user"] = get_user["result"];
       json["join_date"] = get_chat_member["joined_chat_date"];
@@ -1605,6 +1658,8 @@ class Tdlib extends LibTdJson {
     bool is_super_detail = false,
     bool is_more_detail = false,
     required int? clientId,
+    bool? isUseCache,
+    Duration? durationCacheExpire,
     String? extra,
   }) async {
     clientId ??= client_id;
@@ -1615,6 +1670,8 @@ class Tdlib extends LibTdJson {
           parameters: {
             "username": chat_id.replaceAll(RegExp(r"@", caseSensitive: false), ""),
           },
+          isUseCache: isUseCache,
+          durationCacheExpire: durationCacheExpire,
           clientId: clientId,
           extra: extra,
         );
@@ -1627,6 +1684,8 @@ class Tdlib extends LibTdJson {
         parameters: {
           "chat_id": chat_id,
         },
+        isUseCache: isUseCache,
+        durationCacheExpire: durationCacheExpire,
         clientId: clientId,
         extra: extra,
       );
@@ -1641,6 +1700,8 @@ class Tdlib extends LibTdJson {
                 chat_id.toString().replaceAll(RegExp("^-100", caseSensitive: false), ""),
               ),
             },
+            isUseCache: isUseCache,
+            durationCacheExpire: durationCacheExpire,
             clientId: clientId,
             extra: extra,
           );
@@ -1675,6 +1736,8 @@ class Tdlib extends LibTdJson {
                 from_data: json,
                 chat_data: json,
                 clientId: clientId,
+                isUseCache: isUseCache,
+                durationCacheExpire: durationCacheExpire,
               );
               if (last_message["ok"]) {
                 json["last_message"] = last_message["result"];
@@ -1689,6 +1752,8 @@ class Tdlib extends LibTdJson {
                 parameters: {
                   "supergroup_id": int.parse(chat_id.toString().replaceAll(RegExp("^-100", caseSensitive: false), "")),
                 },
+                isUseCache: isUseCache,
+                durationCacheExpire: durationCacheExpire,
                 clientId: clientId,
                 extra: extra,
               );
@@ -1743,6 +1808,8 @@ class Tdlib extends LibTdJson {
             parameters: {
               "basic_group_id": int.parse(chat_id.toString().replaceAll(RegExp("^-", caseSensitive: false), "")),
             },
+            isUseCache: isUseCache,
+            durationCacheExpire: durationCacheExpire,
             clientId: clientId,
             extra: extra,
           );
@@ -1774,6 +1841,8 @@ class Tdlib extends LibTdJson {
                 from_data: json,
                 chat_data: json,
                 clientId: clientId,
+                isUseCache: isUseCache,
+                durationCacheExpire: durationCacheExpire,
               );
               if (last_message["ok"]) {
                 json["last_message"] = last_message["result"];
@@ -1787,6 +1856,8 @@ class Tdlib extends LibTdJson {
             parameters: {
               "user_id": chat_id,
             },
+            isUseCache: isUseCache,
+            durationCacheExpire: durationCacheExpire,
             clientId: clientId,
             extra: extra,
           );
@@ -1836,6 +1907,8 @@ class Tdlib extends LibTdJson {
                     from_data: json["from"],
                     chat_data: json["chat"],
                     clientId: clientId,
+                    isUseCache: isUseCache,
+                    durationCacheExpire: durationCacheExpire,
                   );
                   if (last_message["ok"]) {
                     json.addAll({"last_message": last_message["result"]});
@@ -1852,6 +1925,8 @@ class Tdlib extends LibTdJson {
                     parameters: {
                       "user_id": chat_id,
                     },
+                    isUseCache: isUseCache,
+                    durationCacheExpire: durationCacheExpire,
                     clientId: clientId,
                     extra: extra,
                   );
@@ -1911,6 +1986,8 @@ class Tdlib extends LibTdJson {
         try {
           return await getUser(
             chat_id,
+            isUseCache: isUseCache,
+            durationCacheExpire: durationCacheExpire,
             clientId: clientId,
           );
         } catch (e) {
@@ -1936,6 +2013,8 @@ class Tdlib extends LibTdJson {
     int? cache_time,
     required int? clientId,
     String? extra,
+    bool? isUseCache,
+    Duration? durationCacheExpire,
   }) async {
     clientId ??= client_id;
 
@@ -1961,6 +2040,8 @@ class Tdlib extends LibTdJson {
       parameters: data,
       clientId: clientId,
       extra: extra,
+      isUseCache: isUseCache,
+      durationCacheExpire: durationCacheExpire,
     );
   }
 
@@ -1969,6 +2050,8 @@ class Tdlib extends LibTdJson {
     Map update, {
     Map? from_data,
     Map? chat_data,
+    bool? isUseCache,
+    Duration? durationCacheExpire,
     bool is_detail = false,
     bool is_skip_reply_message = false,
     bool is_super_detail = false,
@@ -2025,7 +2108,15 @@ class Tdlib extends LibTdJson {
           } catch (e) {}
           if (is_chat_not_same) {
             try {
-              var chatResult = await getChat(update["chat_id"], is_detail: is_detail, is_super_detail: is_super_detail, is_more_detail: is_more_detail, clientId: clientId);
+              var chatResult = await getChat(
+                update["chat_id"],
+                is_detail: is_detail,
+                is_super_detail: is_super_detail,
+                is_more_detail: is_more_detail,
+                clientId: clientId,
+                isUseCache: isUseCache,
+                durationCacheExpire: durationCacheExpire,
+              );
               if (chatResult["ok"]) {
                 chat_json = chatResult["result"];
               }
@@ -2063,6 +2154,8 @@ class Tdlib extends LibTdJson {
                     var fromResult = await getUser(
                       update["sender_id"]["user_id"],
                       clientId: clientId,
+                      isUseCache: isUseCache,
+                      durationCacheExpire: durationCacheExpire,
                     );
                     if (fromResult["ok"]) {
                       from_json = fromResult["result"];
@@ -2099,6 +2192,8 @@ class Tdlib extends LibTdJson {
                     var fromResult = await getChat(
                       update["sender_id"]["chat_id"],
                       clientId: clientId,
+                      isUseCache: isUseCache,
+                      durationCacheExpire: durationCacheExpire,
                     );
                     if (fromResult["ok"]) {
                       from_json = fromResult["result"];
@@ -2143,7 +2238,12 @@ class Tdlib extends LibTdJson {
             if (forward_info["origin"]["@type"] == "messageForwardOriginChannel") {
               Map forward_json = {"id": forward_info["origin"]["chat_id"], "first_name": "", "title": "", "type": "", "detail": {}, "last_message": {}};
               try {
-                var getchat_forward = await getChat(forward_json["id"], clientId: clientId);
+                var getchat_forward = await getChat(
+                  forward_json["id"],
+                  clientId: clientId,
+                  isUseCache: isUseCache,
+                  durationCacheExpire: durationCacheExpire,
+                );
                 if (getchat_forward["ok"]) {
                   forward_json = getchat_forward["result"];
                 }
@@ -2159,6 +2259,8 @@ class Tdlib extends LibTdJson {
                 var getuser_forward = await getUser(
                   forward_json["id"],
                   clientId: clientId,
+                  isUseCache: isUseCache,
+                  durationCacheExpire: durationCacheExpire,
                 );
                 if (getuser_forward["ok"]) {
                   forward_json = getuser_forward["result"];
@@ -2196,6 +2298,8 @@ class Tdlib extends LibTdJson {
               methodName: "getRepliedMessage",
               is_detail: true,
               is_super_detail: true,
+              isUseCache: isUseCache,
+              durationCacheExpire: durationCacheExpire,
               clientId: clientId,
             );
             if (get_message["ok"]) {
@@ -2461,6 +2565,8 @@ class Tdlib extends LibTdJson {
                   Map result_user = await getUser(
                     loop_data,
                     clientId: clientId,
+                    isUseCache: isUseCache,
+                    durationCacheExpire: durationCacheExpire,
                   );
                   try {
                     result_user.remove("detail");
@@ -2484,6 +2590,8 @@ class Tdlib extends LibTdJson {
                 Map result_user = await getUser(
                   update["content"]["user_id"],
                   clientId: clientId,
+                  isUseCache: isUseCache,
+                  durationCacheExpire: durationCacheExpire,
                 );
                 try {
                   result_user.remove("detail");
@@ -2525,7 +2633,12 @@ class Tdlib extends LibTdJson {
                   var entitiesUserId = data_entities["type"]["user_id"];
                   var fromJson = {"id": entitiesUserId};
                   try {
-                    var fromResult = await getChat(update["sender_id"]["user_id"], clientId: clientId);
+                    var fromResult = await getChat(
+                      update["sender_id"]["user_id"],
+                      clientId: clientId,
+                      isUseCache: isUseCache,
+                      durationCacheExpire: durationCacheExpire,
+                    );
                     if (fromResult["ok"]) {
                       fromJson = fromResult["result"];
                     }
@@ -2673,7 +2786,12 @@ class Tdlib extends LibTdJson {
 
         if (is_super_detail) {
           try {
-            var fromResult = await getChat(chat["id"], clientId: clientId);
+            var fromResult = await getChat(
+              chat["id"],
+              clientId: clientId,
+              isUseCache: isUseCache,
+              durationCacheExpire: durationCacheExpire,
+            );
             if (fromResult["ok"]) {
               chat = fromResult["result"];
             }
@@ -2682,6 +2800,8 @@ class Tdlib extends LibTdJson {
             var fromResult = await getUser(
               from["id"],
               clientId: clientId,
+              isUseCache: isUseCache,
+              durationCacheExpire: durationCacheExpire,
             );
             if (fromResult["ok"]) {
               from = fromResult["result"];
@@ -2694,6 +2814,8 @@ class Tdlib extends LibTdJson {
             chat["id"],
             update["message_id"],
             methodName: "getMessage",
+            isUseCache: isUseCache,
+            durationCacheExpire: durationCacheExpire,
             is_detail: true,
             is_super_detail: true,
             clientId: clientId,
@@ -2727,13 +2849,23 @@ class Tdlib extends LibTdJson {
         Map from = {"id": update["actor_user_id"]};
         if (is_super_detail) {
           try {
-            var fromResult = await getChat(chat["id"], clientId: clientId);
+            var fromResult = await getChat(
+              chat["id"],
+              clientId: clientId,
+              isUseCache: isUseCache,
+              durationCacheExpire: durationCacheExpire,
+            );
             if (fromResult["ok"]) {
               chat = fromResult["result"];
             }
           } catch (e) {}
           try {
-            var fromResult = await getUser(from["id"], clientId: clientId);
+            var fromResult = await getUser(
+              from["id"],
+              clientId: clientId,
+              isUseCache: isUseCache,
+              durationCacheExpire: durationCacheExpire,
+            );
             if (fromResult["ok"]) {
               from = fromResult["result"];
             }
@@ -2751,6 +2883,8 @@ class Tdlib extends LibTdJson {
                 var fromResult = await getUser(
                   json_data_user["id"],
                   clientId: clientId,
+                  isUseCache: isUseCache,
+                  durationCacheExpire: durationCacheExpire,
                 );
                 if (fromResult["ok"]) {
                   json_data_user = fromResult["result"];
@@ -2773,6 +2907,8 @@ class Tdlib extends LibTdJson {
                 var fromResult = await getUser(
                   json_data_user["id"],
                   clientId: clientId,
+                  isUseCache: isUseCache,
+                  durationCacheExpire: durationCacheExpire,
                 );
                 if (fromResult["ok"]) {
                   json_data_user = fromResult["result"];
@@ -2797,7 +2933,12 @@ class Tdlib extends LibTdJson {
         Map from = {"id": update["sender_user_id"]};
         json["id"] = update["id"];
         try {
-          var fromResult = await getUser(from["id"], clientId: clientId);
+          var fromResult = await getUser(
+            from["id"],
+            clientId: clientId,
+            isUseCache: isUseCache,
+            durationCacheExpire: durationCacheExpire,
+          );
           if (fromResult["ok"]) {
             from = fromResult["result"];
           }
@@ -2836,6 +2977,8 @@ class Tdlib extends LibTdJson {
   Future<Map> getUser(
     dynamic user_id, {
     required int? clientId,
+    bool? isUseCache,
+    Duration? durationCacheExpire,
     String? extra,
   }) async {
     clientId ??= client_id;
@@ -2844,6 +2987,8 @@ class Tdlib extends LibTdJson {
       parameters: {
         "user_id": user_id,
       },
+      isUseCache: isUseCache,
+      durationCacheExpire: durationCacheExpire,
       clientId: clientId,
       extra: extra,
     );

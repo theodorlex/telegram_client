@@ -16,16 +16,15 @@ extension ViewMessagesDataOn on TelegramClient {
     required TelegramClientCallApiInvoke callApiInvoke,
   }) async {
     dynamic target_chat_id = TgUtils.parse_all_chat_id(parameters: parameters);
-    if (target_chat_id is String &&
-        RegExp(r"^((@)[a-z0-9_]+)$", caseSensitive: false)
-            .hashData(target_chat_id)) {
+    if (target_chat_id is String && RegExp(r"^((@)[a-z0-9_]+)$", caseSensitive: false).hashData(target_chat_id)) {
       var search_public_chat = await callApiInvoke(
         parameters: {
           "@type": "searchPublicChat",
-          "username": (target_chat_id)
-              .replaceAll(RegExp(r"@", caseSensitive: false), ""),
+          "username": (target_chat_id).replaceAll(RegExp(r"@", caseSensitive: false), ""),
         },
         is_invoke_no_relevance: true,
+        is_use_cache: false,
+        duration_cache_expire: null,
       );
       if (search_public_chat["@type"] == "chat") {
         parameters["chat_id"] = search_public_chat["id"];
@@ -36,9 +35,7 @@ extension ViewMessagesDataOn on TelegramClient {
     Map request_parameters = {
       "@type": "viewMessages",
       "chat_id": parameters["chat_id"],
-      "message_ids": (parameters["message_ids"] as List)
-          .map((e) => TgUtils().messageApiToTdlib(e))
-          .toList(),
+      "message_ids": (parameters["message_ids"] as List).map((e) => TgUtils().messageApiToTdlib(e)).toList(),
     };
     if (parameters["force_read"] is bool) {
       request_parameters["force_read"] = parameters["force_read"];

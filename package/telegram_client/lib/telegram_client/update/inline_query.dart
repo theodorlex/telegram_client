@@ -16,6 +16,8 @@ extension InlineQueryDataDataOn on TelegramClient {
     required TelegramClientData telegramClientData,
     bool is_skip_reply_message = false,
     required bool is_lite,
+    bool? isUseCache,
+    Duration? durationCacheExpire,
   }) async {
     // Map message_inline_message_id = {};
     Map message_sender_chat_json = {};
@@ -33,6 +35,8 @@ extension InlineQueryDataDataOn on TelegramClient {
           },
           is_return_as_api: false,
           telegramClientData: telegramClientData,
+          isUseCache: isUseCache,
+          durationCacheExpire: durationCacheExpire,
         );
 
         message_sender_chat_json["from"] = res;
@@ -44,10 +48,7 @@ extension InlineQueryDataDataOn on TelegramClient {
     };
 
     if (inlineQuery["chat_type"] is Map) {
-      new_scheme_data["chat_type"] =
-          (inlineQuery["chat_type"]["@type"] as String)
-              .replaceAll(RegExp(r"(chatType)", caseSensitive: false), "")
-              .toLowerCase();
+      new_scheme_data["chat_type"] = (inlineQuery["chat_type"]["@type"] as String).replaceAll(RegExp(r"(chatType)", caseSensitive: false), "").toLowerCase();
     }
     new_scheme_data["query"] = inlineQuery["query"];
     new_scheme_data["offset"] = inlineQuery["offset"];
@@ -62,6 +63,8 @@ extension InlineQueryDataDataOn on TelegramClient {
     required Map update,
     required TelegramClientData telegramClientData,
     required bool is_lite,
+    bool? isUseCache,
+    Duration? durationCacheExpire,
   }) async {
     // http://0.0.0.0:8704/classtd_1_1td__api_1_1message.html
     if (update["@type"] == "updateNewInlineQuery") {
@@ -69,6 +72,8 @@ extension InlineQueryDataDataOn on TelegramClient {
         inlineQuery: update,
         telegramClientData: telegramClientData,
         is_lite: is_lite,
+        isUseCache: isUseCache,
+        durationCacheExpire: durationCacheExpire,
       );
       return {
         "@type": "updateInlineQuery",

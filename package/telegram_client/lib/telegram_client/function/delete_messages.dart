@@ -14,6 +14,9 @@ extension DeleteMessagesDataOn on TelegramClient {
   FutureOr<Map> deleteMessages({
     required Map parameters,
     required TelegramClientCallApiInvoke callApiInvoke,
+
+    bool? isUseCache = false,
+    Duration? durationCacheExpire,
   }) async {
     dynamic target_chat_id = TgUtils.parse_all_chat_id(parameters: parameters);
     if (target_chat_id is String &&
