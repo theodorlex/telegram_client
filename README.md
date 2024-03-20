@@ -1,3 +1,33 @@
+# Telegram Client library
+<p align="center">
+  <img src="https://raw.githubusercontent.com/azkadev/telegram_client/main/assets/telegram.png" width="350px">
+</p>
+<h2 align="center">Cepat, Menyenangkan & Multi Platform Telegram Client</h2>
+
+[![Pub Version](https://img.shields.io/pub/v/telegram_client?label=pub.dev&labelColor=333940&logo=dart)](https://pub.dev/packages/telegram_client)
+
+
+Telegram client dart library untuk membuat telegram based flutter bot userbot bisa di server side dan client side, library ini 100% mudah di gunakan untuk membuat multi client sekaligus karena di library Telegram Client ini kamu hanya perlu memanggil fungsi saja dan update automatis akan di terima di event emitter
+
+## Fitur
+
+- 🚀 Bisa Di Berbagai Platform: mobile, desktop, browser, server
+- ⚡ Performance Bagus Dan Effisien
+- ❤️ Simple, Mudah Powerfull, Bisa di extend ke scala bisnis
+
+## Review Cepat
+
+  Video singkat cara menggunakan library ini untuk membuat project yang ingin anda bikin dengan template yang sudah saya buat.
+
+<!-- ![](https://raw.githubusercontent.com/azkadev/telegram_client/main/.github/telegram_client_cli_demo.gif) -->
+
+ <!-- ![](https://raw.githubusercontent.com/azkadev/telegram_client/main/.github/telegram_app.gif) -->
+
+### Informasi
+
+Library hanya update jika ada feature yang saya ingin update jika kamu butuh library dengan dokumentasi lengkap sehingga bisa develop app / bot / userbot / apapun itu kamu bisa membeli layanan Azkadev (50k / bulan) akses semua feature library umum
+
+<!-- START GLOBAL CORPORATION -->
 <h3 align="center">Global Corporation</h3>
 
 <h3 align="center">
@@ -71,6 +101,7 @@ Dengan tim ahli yang berkomitmen, teknologi canggih, dan pendekatan holistik ter
 1. [Group Developer Global Public](https://t.me/DEVELOPER_GLOBAL_PUBLIC)
 
 
+<!-- END GLOBAL CORPORATION -->
 <!-- END GLOBAL CORPORATION -->
 
 ## Contoh Project Yang Menggunakan Library ini
@@ -649,4 +680,3 @@ void main() async {
   Telegram Bot Api dart
   Telegram Bot Api Flutter
 ---
-<!-- END GLOBAL CORPORATION -->

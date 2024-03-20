@@ -18,14 +18,15 @@ void main(List<String> args) async {
 
 // <!-- END GLOBAL CORPORATION -->
 //
-  List<String> datas = [
-    "<!-- START GLOBAL CORPORATION -->",
-    ...(await file_readme.readAsString()).split("\n"),
-    "<!-- END GLOBAL CORPORATION -->",
-  ];
+  List<String> datas = (await file_readme.readAsString()).split("\n");
   int start_index_global_corporation = datas.indexWhere((element) => element == "<!-- START GLOBAL CORPORATION -->");
   int end_index_global_corporation = datas.indexWhere((element) => element == "<!-- END GLOBAL CORPORATION -->");
-  List<String> lgoba = (await content_readme).split("\n");
+  List<String> lgoba = [
+    "<!-- START GLOBAL CORPORATION -->",
+    ...(await content_readme).split("\n"),
+    "<!-- END GLOBAL CORPORATION -->",
+  ];
+  print(end_index_global_corporation);
   datas.replaceRange(start_index_global_corporation, end_index_global_corporation, lgoba);
 
   await file_readme.writeAsString(datas.join("\n"));
