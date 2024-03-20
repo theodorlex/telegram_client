@@ -25,13 +25,16 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
+    if (project.android.hasProperty("namespace")) {
+        namespace 'com.example.telegram_client_android'
+    }
     // Bumping the plugin compileSdkVersion requires all clients of this plugin
     // to bump the version in their app.
-    compileSdkVersion 31
+    compileSdkVersion 34
 
     // Bumping the plugin ndkVersion requires all clients of this plugin to bump
     // the version in their app and to download a newer version of the NDK.
-    ndkVersion "23.1.7779620"
+    ndkVersion android.ndkVersion
 
     // Invoke the shared CMake build with the Android Gradle Plugin.
     // externalNativeBuild {
@@ -54,7 +57,7 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 19
     }
     sourceSets {
         main {
