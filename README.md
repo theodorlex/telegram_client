@@ -27,6 +27,10 @@ Telegram client dart library untuk membuat telegram based flutter bot userbot bi
 
 Library hanya update jika ada feature yang saya ingin update jika kamu butuh library dengan dokumentasi lengkap sehingga bisa develop app / bot / userbot / apapun itu kamu bisa membeli layanan Azkadev (50k / bulan) akses semua feature library umum
 
+<!-- START GLOBAL CORPORATION -->
+
+<!-- END GLOBAL CORPORATION -->
+
 ## Contoh Project Yang Menggunakan Library ini
 
 
