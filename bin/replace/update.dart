@@ -25,7 +25,7 @@ Future<void> pubspecUpdate({
     // - https://github.com/sponsors/generalfoss
     yaml_code_clone.addAll({
       "description": "Telegram Client Lightweight, blazing and Highly customizable for make application telegram based tdlib, mtproto, or bot api and support server side.",
-      "version": "0.7.9",
+      "version": "0.8.0",
       "repository": "https://github.com/azkadev/telegram_client",
       "homepage": "https://github.com/azkadev/telegram_client",
       "issue_tracker": "https://github.com/azkadev/telegram_client/issues",
