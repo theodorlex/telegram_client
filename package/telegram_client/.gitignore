@@ -10,3 +10,5 @@ node-js/telegram-client/node_modules/
 node-js/telegram-client/node_modules/*
  
 tg/
+.dart_tool
+*.binlog

@@ -30,7 +30,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
- 
+
 // ignore_for_file: non_constant_identifier_names
 
 import "dart:io";
@@ -80,7 +80,7 @@ Future<void> pubspecUpdate({
         "tdlib",
         "mtproto",
         "userbot",
-        "bot", 
+        "bot",
       ],
     });
     yaml_code_clone.removeByKeys([
