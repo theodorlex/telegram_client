@@ -77,33 +77,499 @@ flutter pub add telegram_client telegram_client_linux telegram_client_android te
 import 'package:telegram_client/telegram_client.dart';
 ``` 
 
+
 ### Docs
+
+### Library Fitur
+- ```telegram client dart```
+    - ✅️ Bisa Di Server & Client
+    - ✅️ Bisa multi Client ( bot / userbot ) 
+    - ✅️ Bisa bot and userbot
+    - ✅️ Bisa telegram-bot-api (local / [Bot-Api](https://core.telegram.org/bots/api#recent-changes)
+    - ✅️ Bisa Menggunakan **Telegram Database Library** ( [TDLIB](https://github.com/tdlib/td) )
+    - ✅️ Api yang mudah di gunakan dan bagus jadi bisa move dari bot api dengan mudah tanpa ada perubahan banyak kode
+    - ✅️ Sangat Mudah dalam mengoperasikan banyak client sekaligus
+
+## Install Untuk Flutter Manaual
+
+### Menambahkan Library TDLIB
+  Jika anda ingin menggunakan library ini pastikan anda sudah bisa mengcompile tdlib ya
+
+- Automatis
+  Jika anda tidak tahu cara mengcompile gunakan ini
+```bash
+flutter pub add telegram_client_flutter
+```
  
-1. [Github Docs](https://github.com/azkadev/telegram_client/tree/main/docs)
-2. [Support Group](https://t.me/DEVELOPER_GLOBAL_PUBLIC)
-3. [Youtube](https://youtube.com/@azkadev)
+- Manual
 
+Untuk menambahkan library kamu  wajib mengcompile ke platform yang ingin kamu buat Build [Tdlib](https://github.com/td/tdlib)
 
-### Quick Start
+### Android
+Kopi `.so` Files dari archive ke `example/android/app/main/jniLibs`:
+```txt
+└── example 
+    └── android 
+        └── app 
+            └── main 
+                └── jniLibs 
+                    └── arm64-v8a
+                    │   └── libtdjson.so
+                    └── armeabi-v7a
+                    │   └── libtdjson.so
+                    └── x86
+                    │   └── libtdjson.so
+                    └── x86_64
+                        └── libtdjson.so
+```
+Buka file `example/android/app/build.gradle`
+
+Ganti
+```groovy
+sourceSets {
+  main.java.srcDirs += 'src/main/kotlin'
+}
+```
+ke
+```groovy
+sourceSets {
+  main {
+    java.srcDirs += 'src/main/kotlin'
+    jniLibs.srcDirs = ['src/main/jniLibs']
+  }
+}
+```
+
+### iOS and macOS
+1. Kopi `libtdjson.dylib` dari archive ke `example/ios`
+2. Kopi `libtdjson.dylib` dari archive ke `example/macos`
+```txt
+└── example 
+    └── ios 
+    │   └── libtdjson.dylib
+    └── macos
+        └── libtdjson.dylib
+```
+3. Buka `Runner.xcworkspace` Di Dalam Xcode.
+4. Tambahkan `.dylib` file to project.
+5. Cari `Frameworks, Libraries, Dan EmbeddedContent`.
+6. Ganti `libtdjson.dylib` Pilih `Embed & Sign`.
+7. Cari`Signing & Capabilities`.
+8. Di Dalam `App Sandbox (Debug and Profile)` Atur true `Outgoing Connections (Client)`.
+
+### Windows
+1. Kopi files Dari Archive Ke `example/windows/tdlib`
+```txt
+└── example 
+    └── windows 
+        └── tdlib 
+            └── libcrypto-1_1.dll
+            └── libssl-1_1.dll
+            └── tdjson.dll
+            └── zlib1.dll
+```
+2. Buka `example/windows/CMakeLists.txt`.
+3. Taambahkan Text ini Di bawah `set(INSTALL_BUNDLE_LIB_DIR "${CMAKE_INSTALL_PREFIX}")`:
+```c
+# begin td
+set(dll_path "${CMAKE_CURRENT_SOURCE_DIR}/tdlib")
+install(FILES "${dll_path}/libcrypto-1_1.dll" DESTINATION "${INSTALL_BUNDLE_LIB_DIR}" COMPONENT Runtime)
+install(FILES "${dll_path}/libssl-1_1.dll" DESTINATION "${INSTALL_BUNDLE_LIB_DIR}" COMPONENT Runtime)
+install(FILES "${dll_path}/tdjson.dll" DESTINATION "${INSTALL_BUNDLE_LIB_DIR}" COMPONENT Runtime)
+install(FILES "${dll_path}/zlib1.dll" DESTINATION "${INSTALL_BUNDLE_LIB_DIR}" COMPONENT Runtime)
+# end td
+```
+
+### Linux
+1. Kopi file Dari archive ke `example/linux/tdlib`
+```
+└── example 
+    └── linux 
+        └── tdlib 
+            └── libtdjson.so
+```
+2. Buka `example/linux/CMakeLists.txt`.
+3. Tambahkan di akhir text file:
+```c
+# begin td
+install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/tdlib/libtdjson.so" DESTINATION "${INSTALL_BUNDLE_LIB_DIR}"
+    COMPONENT Runtime)
+# end td
+```
+
+- [Doc + Contoh](https://github.com/azkadev/telegram_client/tree/main/dart/telegram_client/doc)
+- [Youtube-Tutorial](https://www.youtube.com/@azkadev)
+  
+## Dokumentasi
+
+- [Tdlib](#tdlib)
+- [Telegram Bot Api](#telegrambotapi)
+- [Mtproto](#mtproto)
+- [Tdlib-Official](https://core.telegram.org/tdlib/docs/classtd_1_1_tl_object.html)
+
+---
+
+## Tdlib
+gunakan ini untuk membuat userbot / bot / application based tdlib,
+Contoh Cepat:
+
+- Satu Client
+```dart
+import 'dart:io';
+import 'package:telegram_client/telegram_client.dart';
+void main(List<String> args) async {
+  var path = Directory.current.path;
+  Tdlib tg = Tdlib(pathTdl:"./tdjson.so", clientOption: {
+    'api_id': 12345,
+    'api_hash': 'abcdefgjjaijiajdisd',
+    'database_directory': "$path/user/",
+    'files_directory': "$path/user/",
+  });
+  tg.on("update", (UpdateTd update) {
+    print(update.raw);
+  });
+  tg.ensureInitializedIsolate();
+}
+```
+- Multi Client (Bisa lebih dari 4 tergantug spek device)
+
+Di library ini kamu bisa membuat banyak client tanpa perlu repot menambahkan banyak kode sangat simpel dan ringkas menjadi satu
 
 ```dart
-import 'package:telegram_client/telegram_client/telegram_client.dart';
-
-void main(List<String> args) {
-  TelegramClient tg = TelegramClient();
-  tg.ensureInitialized();
-  tg.on(
-    event_name: tg.event_update,
-    onUpdate: (updateTelegramClient) {
-      // kode
-    },
-    onError: (error, stackTrace) {},
-  );
-  tg.tdlib.initIsolate();
+import 'dart:io';
+import 'package:telegram_client/telegram_client.dart';
+void main(List<String> args) async {
+  var path = Directory.current.path;
+  Tdlib tg = Tdlib(pathTdl:"./tdjson.so", clientOption:{
+    'api_id': 12345678, /// telegram_api_id
+    'api_hash': 'asaskaoskaoskoa', /// telegram_api_hash
+    'database_directory': "$path/user_0/",
+    'files_directory': "$path/user_0/",
+  });
+  tg.on("update", (UpdateTd update) {
+    if (tg.client_id == update.client_id) {
+      print("user_0");
+    } else {
+      print("user_1");
+    }
+    print(update.raw);
+  });
+  tg.ensureInitializedIsolate();
+  tg.ensureInitializedIsolateNewClient(clientId: tg.client_create(), clientOption: {
+    'database_directory': "${path}/user_1/",
+    'files_directory': "${path}/user_1/",
+  });
 }
-``` 
+```
 
+#### constructor
 
+| No |      key       |                             value                              | Deskripsi                                         | `required` |
+|----|:--------------:|:--------------------------------------------------------------:|:--------------------------------------------------|:----------:|
+| 1  |   `pathTdl`    |                       String path tdlib                        |                                                   |   `yes`    |
+| 2  | `clientOption` | [object](https://core.telegram.org/bots/api#available-methods) | parameters di butuhkan jika method membutuhkannya |    `no`    |
+- examples
+```js
+Tdlib tg = Tdlib(pathTdl:"./tdjson.so", clientOption: {
+  'api_id': 123435,
+  'api_hash': 'asmamskmaks',
+  'database_directory': "",
+  'files_directory': "",
+  "use_file_database": true,
+  "use_chat_info_database": true,
+  "use_message_database": true,
+  "use_secret_chats": true,
+  'enable_storage_optimizer': true,
+  'system_language_code': 'en',
+  'new_verbosity_level': 0,
+  'application_version': 'v1',
+  'device_model': 'Telegram Client Hexaminate',
+});
+```
+
+#### on
+| No |      key      |       value       | Deskripsi                                         | `required` |
+|----|:-------------:|:-----------------:|:--------------------------------------------------|:----------:|
+| 1  | `type_update` | String path tdlib |                                                   |   `yes`    |
+| 2  |  `function`   | [object](#object) | parameters di butuhkan jika method membutuhkannya |   `yes`    |
+- examples
+```js
+tg.on("update", (UpdateTd update) {
+  print(update.raw);    
+});
+```
+
+#### initIsolate
+| No |      key       |                             value                              | Deskripsi                                         | `required` |
+|----|:--------------:|:--------------------------------------------------------------:|:--------------------------------------------------|:----------:|
+| 1  |   `clientId`   |                    int addres client_create                    |                                                   |    `no`    |
+| 2  | `clientOption` | [object](https://core.telegram.org/bots/api#available-methods) | parameters di butuhkan jika method membutuhkannya |    `no`    |
+- examples
+```js
+tg.initIsolate();
+```
+
+#### request
+| No |      key      |        value         | Deskripsi                                         | `required` |
+|----|:-------------:|:--------------------:|:--------------------------------------------------|:----------:|
+| 1  | `name_method` |        String        | more method check [tdlib-docs]()                  |   `yes`    |
+| 2  | `parameters`  | [object](#methods-1) | parameters di butuhkan jika method membutuhkannya | `options`  |
+- examples
+```js
+tg.request("sendMessage", parameters: {
+  "chat_id": 123456,
+  "text": "Hello world"
+});
+```
+#### invoke
+| No |     key      |        value         | Deskripsi                                         | `required` |
+|----|:------------:|:--------------------:|:--------------------------------------------------|:----------:|
+| 1  | `parameters` | [object](#methods-1) | parameters di butuhkan jika method membutuhkannya |   `yes`    |
+- examples
+```js
+tg.invoke({
+  "@type": "getMe",
+});
+```
+#### invokeSync
+| No |     key      |        value         | Deskripsi                                         | `required` |
+|----|:------------:|:--------------------:|:--------------------------------------------------|:----------:|
+| 1  | `parameters` | [object](#methods-1) | parameters di butuhkan jika method membutuhkannya |   `yes`    |
+- examples
+```js
+tg.invokeSync({
+  "@type": "getMe",
+});
+```
+---
+### Object
+---
+### UpdateTd
+
+#### raw 
+
+---
+### methods
+more method check [tdlib-docs]()
+#### sendMessage
+| No |    key    |     value     | Deskripsi | `required` |
+|----|:---------:|:-------------:|:----------|:----------:|
+| 1  | `chat_id` | String or int |           |   `yes`    |
+| 2  |  `text`   |    String     |           |   `yes`    |
+
+#### sendPhoto
+| No |    key    |     value     | Deskripsi | `required` |
+|----|:---------:|:-------------:|:----------|:----------:|
+| 1  | `chat_id` | String or int |           |   `yes`    |
+| 2  |  `photo`  |    String     |           |   `yes`    |
+
+---
+
+## TelegramBotApi
+Gunakan ini untuk berinteraksi dengan api telegram, semua method disini sudah auto update
+
+quickstart:
+- with domain public
+```dart 
+// ignore_for_file: non_constant_identifier_names, camel_case_extensions, camel_case_extensions unused_local_variable
+
+import 'dart:convert';
+import 'package:telegram_client/alfred/alfred.dart';
+import 'package:telegram_client/telegram_client.dart';
+
+void main(List<String> args) async {
+  Alfred alfred = Alfred(
+    logLevel: LogType.error,
+  );
+  await alfred.listen();
+  print("Server on: http://${alfred.server!.address.host}:${alfred.server!.port}");
+  String telegram_token_bot = "";
+  Uri telegram_url_webhook = Uri.parse("https://{your_host_com}/telegram/webhook");
+  TelegramBotApi tg = TelegramBotApi(
+    tokenBot: telegram_token_bot,
+    alfred: alfred,
+    telegramUrlWebhook: telegram_url_webhook,
+  );
+  tg.on(tg.event_update, (updateBot) async {
+    try {
+      Map update = updateBot.body;
+      if (update["message"] is Map) {
+        Map msg = update["message"];
+        int form_id = msg["from"]["id"];
+        int chat_id = msg["chat"]["id"];
+        String caption_msg = () {
+          if (msg["text"] is String) {
+            return msg["text"];
+          }
+          if (msg["caption"] is String) {
+            return msg["caption"];
+          }
+
+          return "";
+        }();
+        if (caption_msg.isNotEmpty) {
+          if (RegExp(r"^/(start)", caseSensitive: false).hasMatch(caption_msg)) {
+            return await tg.request(
+              "sendMessage",
+              parameters: {
+                "chat_id": chat_id,
+                "text": "Hai saya adalah robot",
+              },
+              isAutoExtendMessage: true,
+            );
+          }
+        }
+        await tg.request(
+          "sendMessage",
+          parameters: {
+            "chat_id": chat_id,
+            "text": json.encode(msg),
+          },
+          isAutoExtendMessage: true,
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  });
+  Map client = tg.ensureInitializedIsolate();
+  print(client);
+}
+```
+- local without domain public but need [telegram-bot-api](https://github.com/tdlib/telegram-bot-api)
+```dart
+// ignore_for_file: non_constant_identifier_names, camel_case_extensions, camel_case_extensions unused_local_variable
+
+import 'dart:convert';
+import 'package:telegram_client/alfred/alfred.dart';
+import 'package:telegram_client/telegram_client.dart';
+
+void main(List<String> args) async {
+  Alfred alfred = Alfred(
+    logLevel: LogType.error,
+  );
+  await alfred.listen();
+  TelegramBotApiServer telegramBotApiServer = TelegramBotApiServer();
+  await telegramBotApiServer.run(
+    executable: "telegram-bot-api",
+    arguments: telegramBotApiServer.optionsParameters(
+      api_id: "telegram_api_id",
+      api_hash: "telegram_api_hash",
+    ),
+    host: "0.0.0.0",
+    tg_bot_api_port: 9000,
+  );
+  print("Server on: http://${alfred.server!.address.host}:${alfred.server!.port}");
+  String telegram_token_bot = "";
+  Uri telegram_url_webhook = Uri.parse("https://0.0.0.0:3000/telegram/webhook");
+  TelegramBotApi tg = TelegramBotApi(
+    tokenBot: telegram_token_bot,
+    alfred: alfred,
+    clientOption: {
+      "api": "http://0.0.0.0:9000"
+    },
+    telegramUrlWebhook: telegram_url_webhook,
+  );
+  tg.on(tg.event_update, (updateBot) async {
+    try {
+      Map update = updateBot.body;
+      if (update["message"] is Map) {
+        Map msg = update["message"];
+        int form_id = msg["from"]["id"];
+        int chat_id = msg["chat"]["id"];
+        String caption_msg = () {
+          if (msg["text"] is String) {
+            return msg["text"];
+          }
+          if (msg["caption"] is String) {
+            return msg["caption"];
+          }
+
+          return "";
+        }();
+        if (caption_msg.isNotEmpty) {
+          if (RegExp(r"^/(start)", caseSensitive: false).hasMatch(caption_msg)) {
+            return await tg.request(
+              "sendMessage",
+              parameters: {
+                "chat_id": chat_id,
+                "text": "Hai saya adalah robot",
+              },
+              isAutoExtendMessage: true,
+            );
+          }
+        }
+        await tg.request(
+          "sendMessage",
+          parameters: {
+            "chat_id": chat_id,
+            "text": json.encode(msg),
+          },
+          isAutoExtendMessage: true,
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  });
+  Map client = tg.ensureInitializedIsolate();
+  print(client);
+}
+```
+
+##### request 
+| No |      key      |       value       | Deskripsi                                                                                     | `required` |
+|----|:-------------:|:-----------------:|:----------------------------------------------------------------------------------------------|:----------:|
+| 1  | `name_method` |      String       | more method check [Telegram Bot Method](https://core.telegram.org/bots/api#available-methods) |   `yes`    |
+| 2  | `parameters`  | object json / Map | parameters di butuhkan jika method membutuhkannya                                             | `options`  |
+- examples
+```dart
+tg.request("sendMessage", parameters:{
+  "chat_id": 123456,
+  "text": "Hello world"
+});
+```
+
+---
+
+## MtProto
+Untuk mtproto telegram ini belum jadi ya karena saya belum mengerti cara connect mtproto
+Quickstart:
+```dart
+import 'package:telegram_client/telegram_client.dart';
+void main() async {
+  Mtproto tg = Mtproto();
+  tg.connect();
+  tg.on("update", (data) {
+    print(data);
+  });
+}
+```
+----
+- Tags:
+  #telegram #telegram_client #tdlib #mtproto #telegram_bot_api #telegram_dart #telegram_flutter #telegram_clone #telegram_userbot #telegram_bot
+
+- Seo
+  Telegram Dart
+  Telegram Client
+  Telegram Flutter
+  Telegram userbot
+  Telegram Bot
+  Telegram Tdlib
+  Tdlib
+  Mtproto
+  Telegram Bot Api
+  Telegram Library
+  Telegram clone
+  Telegram clone flutter
+  Tdlib Dart
+  Tdlib Flutter
+  Mtproto dart
+  Mtproto flutter
+  Telegram Bot Api
+  Telegram Bot Api dart
+  Telegram Bot Api Flutter
+---
 <!-- START GLOBAL CORPORATION -->
 <h3 align="center">
   Global Corporation
