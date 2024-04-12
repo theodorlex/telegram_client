@@ -85,10 +85,10 @@ packages:
     dependency: "direct main"
     description:
       name: general_lib
-      sha256: "0d5a0df33d4f5ec17e5a9028881c136f60bf712c4dc0adaded535ae2ab873f66"
+      sha256: "97e67e9379cfdeb362dc727ecc2790f33baa125ec0468e9a2d69d317ef0cb998"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.31"
+    version: "0.0.32"
   http:
     dependency: "direct main"
     description:

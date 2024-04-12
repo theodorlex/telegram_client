@@ -1,3 +1,3 @@
-## 0.7.9
+## 0.8.3
 
-- Succes Add FEatuwe New Cache for more decrease ram usage.
+- Full Support With Language English Only.

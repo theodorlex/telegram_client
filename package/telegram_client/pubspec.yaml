@@ -1,6 +1,6 @@
 name: 'telegram_client'
 description: 'Telegram Client Lightweight, blazing and Highly customizable for make application telegram based tdlib, mtproto, or bot api and support server side.'
-version: '0.8.2'
+version: '0.8.3'
 homepage: 'https://github.com/azkadev/telegram_client'
 repository: 'https://github.com/azkadev/telegram_client'
 issue_tracker: 'https://github.com/azkadev/telegram_client/issues'
@@ -34,7 +34,7 @@ dependencies:
   web_ffi: '^0.7.2'
   mason_logger: '^0.2.11'
   mime: '^1.0.5'
-  general_lib: '^0.0.31'
+  general_lib: '^0.0.32'
   collection: '^1.18.0'
 executables: 
   telegram_client: 'telegram_client'

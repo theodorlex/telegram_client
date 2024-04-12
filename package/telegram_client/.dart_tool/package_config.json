@@ -63,7 +63,7 @@
     },
     {
       "name": "general_lib",
-      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/general_lib-0.0.31",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/general_lib-0.0.32",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -200,7 +200,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2024-04-06T04:32:54.557647Z",
+  "generated": "2024-04-12T04:59:04.596395Z",
   "generator": "pub",
   "generatorVersion": "3.3.0"
 }
