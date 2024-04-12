@@ -8,107 +8,75 @@
 
 **Telegram Client** Dart **library** for make telegram base flutter **bot**, **userbot**, **App** Support Run Server Side And Client Side, This library 100% easy for make multiples **client or accounts** because this library you just call function not execute shell command so update account will show at function event emitter
 
-## Fitur
+## Features
 
-- 🚀 Bisa Di Berbagai Platform: mobile, desktop, browser, server
-- ⚡ Performance Bagus Dan Effisien
-- ❤️ Simple, Mudah Powerfull, Bisa di extend ke scala bisnis
+- 🚀 **Work On Cross Platform**: Mobile, Desktop, Browser, Server Side
+- ⚡ **Good Performance and efficient**
+- ❤️ **Simple, Easey Powerfull, Can Extend To Scala Bussiness**
 
-## Review Cepat
+### Information
 
-  Video singkat cara menggunakan library ini untuk membuat project yang ingin anda bikin dengan template yang sudah saya buat.
+This Library only update if there ae feature that i want, if you want library with full documentation so it usually **makes things easier DEVELOP PROGRAM** you just need to buy / donate at azkadev
 
-<!-- ![](https://raw.githubusercontent.com/azkadev/telegram_client/main/.github/telegram_client_cli_demo.gif) -->
-
- <!-- ![](https://raw.githubusercontent.com/azkadev/telegram_client/main/.github/telegram_app.gif) -->
-
-### Informasi
-
-Library hanya update jika ada feature yang saya ingin update jika kamu butuh library dengan dokumentasi lengkap sehingga bisa develop app / bot / userbot / apapun itu kamu bisa membeli layanan Azkadev (50k / bulan) akses semua feature library umum
-
-## Contoh Project Yang Menggunakan Library ini
+## Example Project Use This Library
 
 
 1. [AZKA GRAM](https://github.com/azkadev/azkagram)
     
- Telegram Application dengan menambahkan design baru serta fitur userbot dan fitur lain yang tidak di sediakan secara resmi oleh telegram project ini sudah di close source code karena banyak yang berusaha membuat app ini untuk melakukan tindakan kriminal (spam, scam), Jika anda ingin membuat silahkan pelajari library ini 
-
+ **Telegram Application** with **redesign** with new some features userbot and other **features which is not officially provided on Telegram** First this project open source but we closed it to **close source** because our program is easy to read and allows other people to edit the source code and then use it for criminal acts
+ 
 |                                                 CHAT PAGE                                                  |                                                SIGN UP PAGE                                                |                                                                                                  HOME PAGE |                                          GUIDE PAGE                                           |
 |:----------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------:|-----------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------:|
 | ![](https://user-images.githubusercontent.com/82513502/205481759-b6815e2f-bd5d-4d72-9570-becd3829dd36.png) | ![](https://user-images.githubusercontent.com/82513502/173319331-9e96fbe7-3e66-44b2-8577-f6685d86a368.png) | ![](https://user-images.githubusercontent.com/82513502/173319541-19a60407-f410-4e95-8ac0-d0da2eaf2457.png) | ![](https://raw.githubusercontent.com/GLXCORP/glx_bot_app/main/screenshots/home_telegram.png) |
 
 2. [AzkaDev Bot App](https://github.com/azkadev/products_azkadev_bot_app)
-
-  Sebuah Applikasi untuk menjalankana berbagai bot di cloud dan local device saat ini tersedia di handphone dan membutuhkan specs yang mumpuni agar applikasi ini bisa berjalan optimal
+  
+  **Cross Platform** app for Run Multiple bot / userbot in cloud or local device, for run optimal we need modern devices with high end specs.
 
 |                                     SIGN IN PAGE                                     |                                         SIGN UP PAGE                                          |                                                                            HOME PAGE |                                          GUIDE PAGE                                           |
 |:------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------:|-------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------:|
 | ![](https://raw.githubusercontent.com/GLXCORP/glx_bot_app/main/screenshots/home.png) | ![](https://raw.githubusercontent.com/GLXCORP/glx_bot_app/main/screenshots/home_telegram.png) | ![](https://raw.githubusercontent.com/GLXCORP/glx_bot_app/main/screenshots/home.png) | ![](https://raw.githubusercontent.com/GLXCORP/glx_bot_app/main/screenshots/home_telegram.png) |
   
 
-## Contoh Bot / Userbot Yang Menggunakan Telegram Client
-
 1. [AZKADEV BOT](https://t.me/azkadevbot?start=ref_library_telegram_client)
-  Telegram bot Berbayar complex yang bisa menghandle banyak group, ch, private, dengan banyak fitur payment gateway, Automation Store, clone userbot bot, dibikin dengan library ini tanpa campur bahasa code lain, Bot ini berjalan hanya menggunakan < 100mb di server sangat ringan karena menggunakan dart
+  
+  Complex Paid Telegram bot that can handle many groups, ch, private, with many payment gateway features, Automation Store, clone userbot bot, made with this library without mixing other code languages, This bot runs only using < 100mb on a very light server because it uses dart
 
 
 |                                         Setting Menu                                         |                                         Manage Chat                                          |                                                                                   Extra Menu |                                         Feature MEnu                                         |
 |:--------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------:|---------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------:|
 | ![](https://github.com/azkadev/telegram_client/raw/main/assets/example/bot/azkadevbot_1.jpg) | ![](https://github.com/azkadev/telegram_client/raw/main/assets/example/bot/azkadevbot_2.png) | ![](https://github.com/azkadev/telegram_client/raw/main/assets/example/bot/azkadevbot_3.png) | ![](https://github.com/azkadev/telegram_client/raw/main/assets/example/bot/azkadevbot_4.png) |
   
-
- 
 ---
 
-## Panduan Cara pakai library ini
+## Guide on how to use this library
 
-Sebelum memakai library ini pastikan kamu tahu basic coding
-Dan laptop kamu sudah terinstal bahasa program [dart](https://dart.dev)
+Before using this library, make sure you know basic coding
+And your laptop has the programming language installed [dart](https://dart.dev)
 
 ### Install Library
 
 1. Install Library
    
-  Untuk menginstall libary kamu perlu typing command di bawah ini di terminal
+   To install the library you need to type the command below in the terminal
 
 ```bash
 dart pub add telegram_client
 ```
    
-  Jika anda ingin membuat applikasi kamu pakai command ini
+  If you want to create your application use this command
 
 1. For Flutter
 ```bash
 flutter pub add telegram_client telegram_client_linux telegram_client_android telegram_client_ios telegram_client_macos telegram_client_windows
 ```
 
-1. Cli
-   
-  Jika anda ingin meninstall versi cli silahkan gunakan perintah di bawah ini
-
-```bash
-dart pub global activate telegram_client
-```
-
-1. Setup
-
-Setup automatis agar kamu tidak ribet compile tdlib, telegram-bot-api
-
-```bash
-telegram_client setup -f
-```
-
-### Menambah Library
+### Add Library
 
 ```dart
 import 'package:telegram_client/telegram_client.dart';
-```
+``` 
 
-### Menggunakan Template Yang sudah ada Agar Cepat Selesai
-
-```bash
-telegram_client create name_project --template telegram_bot_tdlib_template
-```
 
 ### Docs
 
