@@ -2,13 +2,11 @@
 <p align="center">
   <img src="https://raw.githubusercontent.com/azkadev/telegram_client/main/assets/telegram.png" width="350px">
 </p>
-<h2 align="center">Cepat, Menyenangkan & Multi Platform Telegram Client</h2>
+<h2 align="center">Ultra Fast, Enjoyable & Cross Platform Telegram Client</h2>
 
 [![Pub Version](https://img.shields.io/pub/v/telegram_client?label=pub.dev&labelColor=333940&logo=dart)](https://pub.dev/packages/telegram_client)
 
-
-Telegram client dart library untuk membuat telegram based flutter bot userbot bisa di server side dan client side, library ini 100% mudah di gunakan untuk membuat multi client sekaligus karena di library Telegram Client ini kamu hanya perlu memanggil fungsi saja dan update automatis akan di terima di event emitter
-
+**Telegram Client** Dart **library** for make telegram base flutter **bot**, **userbot**, **App** Support Run Server Side And Client Side, This library 100% easy for make multiples **client or accounts** because this library you just call function not execute shell command so update account will show at function event emitter
 
 ## Fitur
 
