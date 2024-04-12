@@ -1,6 +1,6 @@
 # Telegram Client library
 <p align="center">
-  <img src="https://raw.githubusercontent.com/azkadev/telegram_client/main/assets/telegram.png" width="350px">
+  <img src="https://raw.githubusercontent.com/azkadev/telegram_client/main/package/telegram_client/assets/telegram.png" width="350px">
 </p>
 <h2 align="center">Ultra Fast, Enjoyable & Cross Platform Telegram Client</h2>
 
