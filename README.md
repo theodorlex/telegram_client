@@ -21,7 +21,7 @@ This Library only update if there ae feature that i want, if you want library wi
 ## Example Project Use This Library
 
 
-1. [AZKA GRAM](https://github.com/azkadev/azkagram)
+1. [AZKA GRAM](https://github.com/azkadev/azkagram) / [Global GRAM](https://github.com/globalcorporation/global_gram_app)
     
  **Telegram Application** with **redesign** with new some features userbot and other **features which is not officially provided on Telegram** First this project open source but we closed it to **close source** because our program is easy to read and allows other people to edit the source code and then use it for criminal acts
  
@@ -29,7 +29,7 @@ This Library only update if there ae feature that i want, if you want library wi
 |:----------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------:|-----------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------:|
 | ![](https://user-images.githubusercontent.com/82513502/205481759-b6815e2f-bd5d-4d72-9570-becd3829dd36.png) | ![](https://user-images.githubusercontent.com/82513502/173319331-9e96fbe7-3e66-44b2-8577-f6685d86a368.png) | ![](https://user-images.githubusercontent.com/82513502/173319541-19a60407-f410-4e95-8ac0-d0da2eaf2457.png) | ![](https://raw.githubusercontent.com/GLXCORP/glx_bot_app/main/screenshots/home_telegram.png) |
 
-2. [AzkaDev Bot App](https://github.com/azkadev/products_azkadev_bot_app)
+1. [AzkaDev Bot App](https://github.com/azkadev/products_azkadev_bot_app) / [Global Bot App](https://github.com/globalcorporation/global_bot_app)
   
   **Cross Platform** app for Run Multiple bot / userbot in cloud or local device, for run optimal we need modern devices with high end specs.
 

@@ -30,11 +30,3 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
-import 'package:telegram_client/telegram_client.dart';
-import 'package:test/test.dart';
-
-void main() {
-  test('calculate', () {
-    expect(calculate(), 42);
-  });
-}
