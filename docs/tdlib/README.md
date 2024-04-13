@@ -60,3 +60,39 @@ void main(List<String> args) async {
   print("Client running...");
 }
 ```
+
+### Call Method
+
+currently we don't plan to build everything into dart so we can call the api using json data
+
+  Full Method List: https://core.telegram.org/tdlib/docs/classtd_1_1td__api_1_1_function.html
+
+
+- Example Send Message: https://core.telegram.org/tdlib/docs/classtd_1_1td__api_1_1send_message.html
+```dart
+  Map send_message = await tdlib.invoke(
+    "sendMessage",
+    parameters: {
+      "chat_id": 0,
+      "options": {
+        "@type": "messageSendOptions",
+        "disable_notification": true,
+      },
+      "input_message_content": {
+        "@type": "inputMessageText",
+        "text": tdlib.invokeSync(
+          "parseTextEntities",
+          parameters: {
+            "parse_mode": {
+              "@type": "textParseModeHTML",
+            },
+            "text": "Hai ${TgUtils.parseHtmlBold("Slebew")}"
+          },
+        ),
+        "disable_web_page_preview": false,
+      }
+    },
+    clientId: tdlib.client_id,
+  );
+  send_message.printPretty();
+```
