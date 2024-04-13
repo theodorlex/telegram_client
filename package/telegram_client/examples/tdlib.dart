@@ -2,7 +2,6 @@
 
 import 'package:general_lib/general_lib.dart';
 import 'package:telegram_client/tdlib/tdlib.dart';
-import 'package:telegram_client/util/util.dart';
 
 void main(List<String> args) async {
   print("Start Program");

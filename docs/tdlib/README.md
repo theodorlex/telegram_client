@@ -69,6 +69,7 @@ currently we don't plan to build everything into dart so we can call the api usi
 
 
 - Example Send Message: https://core.telegram.org/tdlib/docs/classtd_1_1td__api_1_1send_message.html
+  
 ```dart
   Map send_message = await tdlib.invoke(
     "sendMessage",
@@ -95,4 +96,24 @@ currently we don't plan to build everything into dart so we can call the api usi
     clientId: tdlib.client_id,
   );
   send_message.printPretty();
+```
+
+### Add New client
+
+Our library is designed to make it very easy to add clients without adding a lot of scripts so it can fit up to hundreds of accounts depending on device specs
+
+
+```dart
+  tdlib.on(tdlib.event_update, (UpdateTd updateTd) async {
+    // If you want to call the function method, make sure we replace id with id like the print script below
+    print("CLIENT Number: ${updateTd.client_id}");
+  });
+  // If you want to add more, please just call the method below as many times as you want
+  await tdlib.initIsolateNewClient(
+    clientId: tdlib.td_create_client_id(),
+    clientOption: {
+      // Make sure the database directory path is different from the others
+      "database_directory": "path_to_folder_session_account_new/",
+    },
+  );
 ```
