@@ -1,10 +1,3 @@
-# Tdlib Documentation
-
-Before trying to use this library, make sure your computer has it installed [TDLIB](https://github.com/tdlib/td/)
-
-## Quickstart
-
-```dart
 // ignore_for_file: non_constant_identifier_names, unused_local_variable
 
 import 'package:general_lib/general_lib.dart';
@@ -23,6 +16,7 @@ void main(List<String> args) async {
 
   tdlib.on(tdlib.event_update, (UpdateTd updateTd) async {
     Map update = updateTd.update;
+
     if (update["@type"] == "updateAuthorizationState") {
       if (update["authorization_state"] is Map) {
         Map authorization_state = update["authorization_state"];
@@ -36,6 +30,7 @@ void main(List<String> args) async {
           );
           print(res);
         }
+
         if (authorization_state["@type"] == "authorizationStateWaitCode") {
           Map res = await tdlib.invoke(
             "checkAuthenticationCode",
@@ -46,6 +41,7 @@ void main(List<String> args) async {
           );
           print(res);
         }
+
         if (authorization_state["@type"] == "authorizationStateReady") {
           Map get_me = await tdlib.invoke(
             "getMe",
@@ -56,7 +52,7 @@ void main(List<String> args) async {
       }
     }
   });
+
   await tdlib.initIsolate();
   print("Client running...");
 }
-```
