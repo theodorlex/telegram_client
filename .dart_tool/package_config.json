@@ -105,7 +105,13 @@
     },
     {
       "name": "general_lib",
-      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/general_lib-0.0.27",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/general_lib-0.0.34",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "github",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/github-9.24.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -146,6 +152,12 @@
       "languageVersion": "3.1"
     },
     {
+      "name": "json_annotation",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/json_annotation-4.8.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
       "name": "lints",
       "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/lints-2.1.1",
       "packageUri": "lib/",
@@ -159,7 +171,7 @@
     },
     {
       "name": "mason_logger",
-      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/mason_logger-0.2.11",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/mason_logger-0.2.12",
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
@@ -201,7 +213,7 @@
     },
     {
       "name": "packagex",
-      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/packagex-0.0.38",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/packagex-0.0.50",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -392,7 +404,7 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2024-03-20T02:56:59.480269Z",
+  "generated": "2024-04-18T14:03:56.186696Z",
   "generator": "pub",
   "generatorVersion": "3.3.0"
 }
