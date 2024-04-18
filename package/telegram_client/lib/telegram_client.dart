@@ -39,4 +39,4 @@ export "package:telegram_client/util/util.dart";
 export "package:telegram_client/scheme/scheme.dart";
 export "package:telegram_client/mtproto/mtproto.dart";
 export "package:telegram_client/telegram_login_widget/telegram_login_widget.dart";
-export "package:telegram_client/telegram_client/telegram_client.dart"; 
+export "package:telegram_client/telegram_client/telegram_client.dart";

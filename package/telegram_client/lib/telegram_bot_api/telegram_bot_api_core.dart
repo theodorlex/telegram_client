@@ -139,7 +139,8 @@ class TelegramBotApi {
         if (is_init_server == false) {
           is_init_server = true;
 
-          alfred!.post(telegram_url_webhook.path, (HttpRequest req, HttpResponse res) async {
+          alfred!.post(telegram_url_webhook.path,
+              (HttpRequest req, HttpResponse res) async {
             try {
               Map query = (req.uri.queryParameters).clone();
               Map<String, dynamic> body = await req.bodyAsJsonMap;
@@ -173,10 +174,12 @@ class TelegramBotApi {
     if (query["tg"] is String == false) {
       query["tg"] = "";
     }
-    Map decyprt = convert.json.decode(telegram_crypto.decrypt(data_base64: query["tg"]));
+    Map decyprt =
+        convert.json.decode(telegram_crypto.decrypt(data_base64: query["tg"]));
 
     if (decyprt["client_user_id"] == null || decyprt["client_user_id"] == 0) {
-      decyprt["client_user_id"] = TgUtils.parserBotUserIdFromToken(decyprt["client_token"]);
+      decyprt["client_user_id"] =
+          TgUtils.parserBotUserIdFromToken(decyprt["client_token"]);
     }
     return TgClientClientData(decyprt);
   }
@@ -207,7 +210,8 @@ class TelegramBotApi {
       "expire_date": expire_date,
       "version": version,
     };
-    String query_telegram_webhook = telegram_crypto.encryptMapToBase64(data: client_data);
+    String query_telegram_webhook =
+        telegram_crypto.encryptMapToBase64(data: client_data);
     Map result_webhook = await request(
       "setWebhook",
       parameters: {
@@ -259,7 +263,8 @@ class TelegramBotApi {
   /// });
   /// ```
   /// add this for handle update api
-  Listener on(String type_update, FutureOr<dynamic> Function(UpdateBot updateBot) callback) {
+  Listener on(String type_update,
+      FutureOr<dynamic> Function(UpdateBot updateBot) callback) {
     return event_emitter.on(type_update, null, (Event ev, context) async {
       try {
         if (ev.eventData is UpdateBot) {
@@ -355,7 +360,10 @@ class TelegramBotApi {
         "media",
       ];
 
-      if (methodForm.map((e) => e.toLowerCase()).toList().contains(method.toLowerCase())) {
+      if (methodForm
+          .map((e) => e.toLowerCase())
+          .toList()
+          .contains(method.toLowerCase())) {
         parameters.forEach((key, value) {
           if (parameters == null) {
             return;
@@ -409,13 +417,16 @@ class TelegramBotApi {
               var files = await MultipartFile.fromPath(key, value["file_path"]);
               form.files.add(files);
             } else if (value["is_post_buffer"] == true) {
-              var files = MultipartFile.fromBytes(key, (value["buffer"] as List).cast<int>(), filename: value["name"], contentType: value["content_type"]);
+              var files = MultipartFile.fromBytes(
+                  key, (value["buffer"] as List).cast<int>(),
+                  filename: value["name"], contentType: value["content_type"]);
               form.files.add(files);
             } else {
               form.fields[key] = convert.json.encode(value);
             }
           } else if (value is TelegramBotApiFileData) {
-            var files = MultipartFile.fromBytes(key, value.buffer_data, filename: value.name, contentType: null);
+            var files = MultipartFile.fromBytes(key, value.buffer_data,
+                filename: value.name, contentType: null);
             form.files.add(files);
           } else if (value is String) {
             form.fields[key] = value;
@@ -523,7 +534,8 @@ class TelegramBotApi {
           if (method.toString().toLowerCase() == "getfile") {
             var getFile = convert.json.decode(response.body);
             var url = "${urlApi}file/${clientType}${tokenBot.toString()}";
-            getFile["result"]["file_url"] = "${url}/${getFile["result"]["file_path"]}";
+            getFile["result"]["file_url"] =
+                "${url}/${getFile["result"]["file_path"]}";
             return getFile;
           } else {
             return convert.json.decode(response.body);
@@ -540,7 +552,8 @@ class TelegramBotApi {
     } catch (e) {
       if (RegExp(r"^(send)", caseSensitive: false).hasMatch(method)) {
         if (e is Map) {
-          if (RegExp("Unsupported start tag", caseSensitive: false).hasMatch(e["description"])) {
+          if (RegExp("Unsupported start tag", caseSensitive: false)
+              .hasMatch(e["description"])) {
             parameters.remove("parse_mode");
             return await invoke(
               method,
@@ -632,7 +645,8 @@ class TelegramBotApi {
             try {
               await Future.delayed(Duration(milliseconds: 500));
               parameters["text"] = loopData;
-              if (RegExp("(editMessageText)", caseSensitive: false).hashData(method)) {
+              if (RegExp("(editMessageText)", caseSensitive: false)
+                  .hashData(method)) {
                 if (i != 0) {
                   method = "sendMessage";
                 }
@@ -667,7 +681,8 @@ class TelegramBotApi {
             try {
               await Future.delayed(Duration(milliseconds: 500));
               parameters["caption"] = loopData;
-              if (RegExp("(editMessageCaption)", caseSensitive: false).hashData(method)) {
+              if (RegExp("(editMessageCaption)", caseSensitive: false)
+                  .hashData(method)) {
                 if (i != 0) {
                   parameters["text"] = loopData;
                   method = "sendMessage";
@@ -751,7 +766,8 @@ class TelegramBotApi {
   }) async {
     final httpClient = HttpClient();
     final request = await httpClient.getUrl(Uri.parse(url));
-    request.headers.add(HttpHeaders.contentTypeHeader, "application/octet-stream");
+    request.headers
+        .add(HttpHeaders.contentTypeHeader, "application/octet-stream");
     var httpResponse = await request.close();
     int byteCount = 0;
     int totalBytes = httpResponse.contentLength;
