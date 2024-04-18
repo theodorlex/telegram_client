@@ -35,6 +35,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 import 'dart:io';
 
 import 'package:general_lib/general_lib.dart';
+import 'package:path/path.dart';
 
 void main(List<String> args) async {
   List<Map> scripts_origin = [
@@ -66,7 +67,14 @@ void main(List<String> args) async {
   for (var i = 0; i < scripts_origin.length; i++) {
     scripts_origin[i]["@extra"] = "";
   }
-  await jsonToScripts(scripts_origin,
-      directory: Directory(
-          "/home/galaxeus/Documents/galaxeus/app/telegram_client/package/telegram_client/lib/telegram_login_widget/scheme"));
+  await jsonToScripts(
+    scripts_origin,
+    directory: Directory(
+      join(Directory.current.path, "lib", "telegram_login_widget", "scheme"),
+      // "/home/galaxeus/Documents/galaxeus/app/telegram_client/package/telegram_client/lib/telegram_bot_api/scheme",
+    ),
+    // directory: Directory(
+    // "/home/galaxeus/Documents/galaxeus/app/telegram_client/package/telegram_client/lib/telegram_login_widget/scheme",
+    // ),
+  );
 }

@@ -30,6 +30,4 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
-export "json_dart.dart";
-
 export "user_telegram_login_widget.dart";

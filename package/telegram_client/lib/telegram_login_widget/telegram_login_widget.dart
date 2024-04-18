@@ -75,15 +75,18 @@ class TelegramLogin {
       "User-Agent":
           "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36",
     };
-    Uri uri = Uri.parse("https://oauth.telegram.org").replace(pathSegments: [
-      "auth",
-      "request",
-    ], queryParameters: {
-      "bot_id": botId,
-      "origin": botDomain,
-      "embed": "1",
-      "request_access": "write",
-    });
+    Uri uri = Uri.parse("https://oauth.telegram.org").replace(
+      pathSegments: [
+        "auth",
+        "request",
+      ],
+      queryParameters: {
+        "bot_id": botId,
+        "origin": botDomain,
+        "embed": "1",
+        "request_access": "write",
+      },
+    );
     String ans = await session.post(
       url: uri.toString(),
       headers: headers,

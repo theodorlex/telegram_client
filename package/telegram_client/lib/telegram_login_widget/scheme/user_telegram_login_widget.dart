@@ -30,8 +30,8 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
-// ignore_for_file: non_constant_identifier_names, camel_case_extensions, camel_case_extensions unused_import
-import "json_dart.dart";
+// ignore_for_file: non_constant_identifier_names, unused_import
+import "package:general_lib/general_lib.dart";
 // import "dart:convert";
 
 class UserTelegramLoginWidget extends JsonScheme {
@@ -40,10 +40,11 @@ class UserTelegramLoginWidget extends JsonScheme {
   static Map get defaultData {
     return {
       "@type": "userTelegramLoginWidget",
-      "id": "",
+      "id": "6609944680",
       "first_name": "Gi",
-      "username": "",
-      "hash": "",
+      "username": "Hhhhhhhhhyhh",
+      "hash":
+          "b8e56bd623ce43fdb58f386eaec2c5ab320fe3fd3a561c51576f6e41208084fe",
       "@extra": ""
     };
   }
@@ -59,6 +60,10 @@ class UserTelegramLoginWidget extends JsonScheme {
     }
   }
 
+  set special_type(String? value) {
+    rawData["@type"] = value;
+  }
+
   String? get id {
     try {
       if (rawData["id"] is String == false) {
@@ -68,6 +73,10 @@ class UserTelegramLoginWidget extends JsonScheme {
     } catch (e) {
       return null;
     }
+  }
+
+  set id(String? value) {
+    rawData["id"] = value;
   }
 
   String? get first_name {
@@ -81,6 +90,10 @@ class UserTelegramLoginWidget extends JsonScheme {
     }
   }
 
+  set first_name(String? value) {
+    rawData["first_name"] = value;
+  }
+
   String? get username {
     try {
       if (rawData["username"] is String == false) {
@@ -90,6 +103,10 @@ class UserTelegramLoginWidget extends JsonScheme {
     } catch (e) {
       return null;
     }
+  }
+
+  set username(String? value) {
+    rawData["username"] = value;
   }
 
   String? get hash {
@@ -103,6 +120,10 @@ class UserTelegramLoginWidget extends JsonScheme {
     }
   }
 
+  set hash(String? value) {
+    rawData["hash"] = value;
+  }
+
   String? get special_extra {
     try {
       if (rawData["@extra"] is String == false) {
@@ -112,6 +133,10 @@ class UserTelegramLoginWidget extends JsonScheme {
     } catch (e) {
       return null;
     }
+  }
+
+  set special_extra(String? value) {
+    rawData["@extra"] = value;
   }
 
   static UserTelegramLoginWidget create({

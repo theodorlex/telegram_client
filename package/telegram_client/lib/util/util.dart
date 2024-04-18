@@ -114,10 +114,7 @@ class TgUtils {
 
   List<int> messagesTdlibToApi(dynamic message_ids) {
     if (message_ids is List<int>) {
-      return message_ids
-          .map((message_id) => messageTdlibToApi(message_id).toInt())
-          .toList()
-          .cast<int>();
+      return message_ids.map((message_id) => messageTdlibToApi(message_id).toInt()).toList().cast<int>();
     }
 
     if (message_ids is num) {
@@ -128,10 +125,7 @@ class TgUtils {
 
   List<int> messagesApiToTdlib(message_ids) {
     if (message_ids is List<int>) {
-      return message_ids
-          .map((message_id) => messageApiToTdlib(message_id).toInt())
-          .toList()
-          .cast<int>();
+      return message_ids.map((message_id) => messageApiToTdlib(message_id).toInt()).toList().cast<int>();
     }
     return [];
   }
@@ -146,14 +140,12 @@ class TgUtils {
   }
 
   /// ccreate offset for tl
-  static List<String> splitByLength(String text, int length,
-      {bool ignoreEmpty = false}) {
+  static List<String> splitByLength(String text, int length, {bool ignoreEmpty = false}) {
     List<String> pieces = [];
 
     for (int i = 0; i < text.length; i += length) {
       int offset = i + length;
-      String piece =
-          text.substring(i, offset >= text.length ? text.length : offset);
+      String piece = text.substring(i, offset >= text.length ? text.length : offset);
 
       if (ignoreEmpty) {
         piece = piece.replaceAll(RegExp(r'\s+'), '');
@@ -234,9 +226,7 @@ class TgUtils {
     };
     queryParameters.removeWhere((key, value) => value.isEmpty);
 
-    return Uri.parse("https://t.me/share/url")
-        .replace(queryParameters: queryParameters)
-        .toString();
+    return Uri.parse("https://t.me/share/url").replace(queryParameters: queryParameters).toString();
   }
 
   static String parseMarkdownLink(String text, String links) {
@@ -286,11 +276,8 @@ ${text}
       if (parameters["chat_id"] is int) {
         return (parameters["chat_id"]);
       }
-      if (parameters["chat_id"] is String &&
-          RegExp(r"^((@)[a-z0-9_]+)$", caseSensitive: false)
-              .hashData(parameters["chat_id"])) {
-        if (RegExp(r"^((-)?[0-9]+)$", caseSensitive: false)
-            .hashData(parameters["chat_id"])) {
+      if (parameters["chat_id"] is String && RegExp(r"^((@)[a-z0-9_]+)$", caseSensitive: false).hashData(parameters["chat_id"])) {
+        if (RegExp(r"^((-)?[0-9]+)$", caseSensitive: false).hashData(parameters["chat_id"])) {
           return int.tryParse(parameters["chat_id"]) ?? 0;
         }
         return (parameters["chat_id"]);
@@ -298,11 +285,8 @@ ${text}
       if (parameters["user_id"] is int) {
         return (parameters["user_id"]);
       }
-      if (parameters["user_id"] is String &&
-          RegExp(r"^((@)[a-z0-9_]+)$", caseSensitive: false)
-              .hashData(parameters["user_id"])) {
-        if (RegExp(r"^((-)?[0-9]+)$", caseSensitive: false)
-            .hashData(parameters["user_id"])) {
+      if (parameters["user_id"] is String && RegExp(r"^((@)[a-z0-9_]+)$", caseSensitive: false).hashData(parameters["user_id"])) {
+        if (RegExp(r"^((-)?[0-9]+)$", caseSensitive: false).hashData(parameters["user_id"])) {
           return int.tryParse(parameters["user_id"]) ?? 0;
         }
         return (parameters["user_id"]);
@@ -319,11 +303,8 @@ ${text}
       if (parameters["chat_id"] is int) {
         return (parameters["chat_id"]);
       }
-      if (parameters["chat_id"] is String &&
-          RegExp(r"^((@)[a-z0-9_]+)$", caseSensitive: false)
-              .hashData(parameters["chat_id"])) {
-        if (RegExp(r"^((-)?[0-9]+)$", caseSensitive: false)
-            .hashData(parameters["chat_id"])) {
+      if (parameters["chat_id"] is String && RegExp(r"^((@)[a-z0-9_]+)$", caseSensitive: false).hashData(parameters["chat_id"])) {
+        if (RegExp(r"^((-)?[0-9]+)$", caseSensitive: false).hashData(parameters["chat_id"])) {
           return int.tryParse(parameters["chat_id"]) ?? 0;
         }
         return (parameters["chat_id"]);
@@ -493,8 +474,7 @@ ${text}
       if (content["is_post_buffer"] == true) {
         if (directory_temp != null) {
           String name_file = () {
-            if (content["name"] is String &&
-                (content["name"] as String).isNotEmpty) {
+            if (content["name"] is String && (content["name"] as String).isNotEmpty) {
               return content["name"];
             }
             return "${DateTime.now().millisecondsSinceEpoch}";
@@ -519,8 +499,7 @@ ${text}
         "@type": 'inputFileRemote',
         "id": content,
       };
-    } else if (RegExp(r"^(\/|\.\.?\/|~\/)", caseSensitive: false)
-        .hashData(content)) {
+    } else if (RegExp(r"^(\/|\.\.?\/|~\/)", caseSensitive: false).hashData(content)) {
       return {
         "@type": 'inputFileLocal',
         "path": content,
@@ -578,8 +557,7 @@ ${text}
                   Map data_row_type = data_row["type"];
                   if (data_row_type["@type"] == "keyboardButtonTypeText") {}
 
-                  if (data_row_type["@type"] ==
-                      "keyboardButtonTypeRequestChat") {
+                  if (data_row_type["@type"] == "keyboardButtonTypeRequestChat") {
                     jsonData["request_chat"] = {};
                     data_row_type.forEach((key, value) {
                       if (key == "id") {
@@ -592,8 +570,7 @@ ${text}
                       }
                     });
                   }
-                  if (data_row_type["@type"] ==
-                      "keyboardButtonTypeRequestUser") {
+                  if (data_row_type["@type"] == "keyboardButtonTypeRequestUser") {
                     jsonData["request_user"] = {};
                     data_row_type.forEach((key, value) {
                       if (key == "id") {
@@ -607,12 +584,10 @@ ${text}
                     });
                   }
 
-                  if (data_row_type["@type"] ==
-                      "keyboardButtonTypeRequestPhoneNumber") {
+                  if (data_row_type["@type"] == "keyboardButtonTypeRequestPhoneNumber") {
                     jsonData["request_contact"] = true;
                   }
-                  if (data_row_type["@type"] ==
-                      "keyboardButtonTypeRequestLocation") {
+                  if (data_row_type["@type"] == "keyboardButtonTypeRequestLocation") {
                     jsonData["request_location"] = true;
                   }
                 }
@@ -647,23 +622,17 @@ ${text}
                 };
                 if (data_row["type"] is Map) {
                   Map data_row_type = data_row["type"];
-                  if (data_row_type["@type"] ==
-                      "inlineKeyboardButtonTypeCallback") {
-                    jsonData["callback_data"] =
-                        utf8.decode(base64.decode(data_row_type["data"]));
+                  if (data_row_type["@type"] == "inlineKeyboardButtonTypeCallback") {
+                    jsonData["callback_data"] = utf8.decode(base64.decode(data_row_type["data"]));
                   }
-                  if (data_row_type["@type"] ==
-                      "inlineKeyboardButtonTypeWebApp") {
+                  if (data_row_type["@type"] == "inlineKeyboardButtonTypeWebApp") {
                     jsonData["web_app"] = {"url": data_row_type["url"]};
                   }
 
-                  if (data_row_type["@type"] ==
-                      "inlineKeyboardButtonTypeSwitchInline") {
+                  if (data_row_type["@type"] == "inlineKeyboardButtonTypeSwitchInline") {
                     if (data_row_type["target_chat"] is Map) {
-                      if (data_row_type["target_chat"]["@type"] ==
-                          "targetChatCurrent") {
-                        jsonData["switch_inline_query_current_chat"] =
-                            data_row_type["query"];
+                      if (data_row_type["target_chat"]["@type"] == "targetChatCurrent") {
+                        jsonData["switch_inline_query_current_chat"] = data_row_type["query"];
                       }
                     }
                   }
@@ -803,8 +772,7 @@ ${text}
     if (["2", "3", "1"].contains(dc) == false) {
       dc = "2";
     }
-    return "99966${dc}YYYY"
-        .replaceAllMapped(RegExp("(y)", caseSensitive: false), (match) {
+    return "99966${dc}YYYY".replaceAllMapped(RegExp("(y)", caseSensitive: false), (match) {
       return "${Random().nextInt(9)}";
     });
   }

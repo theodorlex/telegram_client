@@ -64,8 +64,8 @@ import 'update_mtproto.dart';
 class Mtproto {
   ReceivePort receivePort = ReceivePort();
   Map client_option = {
-    'api_id': 94575,
-    'api_hash': 'a3406de8d171bb422bb6ddf3bbd800e2',
+    'api_id': 0,
+    'api_hash': '',
     'database_directory': "tg_db",
     'files_directory': "tg_file",
     "use_file_database": true,

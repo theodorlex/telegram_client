@@ -67,6 +67,11 @@ extension MessageDataDataOn on TelegramClient {
         if (message["sender_id"]["user_id"] is int) {
           message_from_json["from"]["id"] = message["sender_id"]["user_id"];
           if (is_lite) {
+            (message_from_json["from"] as Map).addAll({
+              "first_name": "",
+              "last_name": "",
+              "is_lite": true,
+            });
           } else {
             var res = await request(
               parameters: {
@@ -110,26 +115,30 @@ extension MessageDataDataOn on TelegramClient {
 
     if (message["chat_id"] is int) {
       message_chat_json["id"] = message["chat_id"];
-      if (is_lite) {
-      } else {
-        var res = await request(
-          parameters: {
-            "@type": "getChat",
-            "chat_id": message_chat_json["id"],
-          },
-          isUseCache: isUseCache,
-          durationCacheExpire: durationCacheExpire,
-          telegramClientData: telegramClientData,
-          is_return_as_api: false,
-        );
-        message_chat_json.addAll(res);
-      }
+      //
+      // if (is_lite) {
+
+      // } else {
+      var res = await request(
+        parameters: {
+          "@type": "getChat",
+          "chat_id": message_chat_json["id"],
+        },
+        isUseCache: isUseCache,
+        durationCacheExpire: durationCacheExpire,
+        telegramClientData: telegramClientData,
+        is_return_as_api: false,
+      );
+      message_chat_json.addAll(res);
+      // }
     }
     if (message["is_channel_post"] != true) {
       if (message_sender_chat_json["sender_chat"] is Map) {
         if (message["chat_id"] ==
             message_sender_chat_json["sender_chat"]["id"]) {
-          message_from_json["from"] = <dynamic, dynamic>{"id": 1087968824};
+          message_from_json["from"] = <dynamic, dynamic>{
+            "id": 1087968824,
+          };
           if (is_lite) {
           } else {
             try {
