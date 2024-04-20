@@ -37,10 +37,10 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 import 'dart:async' show Completer, Future, FutureOr, Stream, StreamTransformer;
 // import 'dart:convert';
 
-// import 'package:alfred/alfred.dart';
+// import 'package:serverUniverseNative/serverUniverseNative.dart';
 import 'package:general_lib/general_lib.dart';
 import 'package:http/http.dart';
-import 'package:telegram_client/alfred/alfred.dart';
+// import 'package:telegram_client/serverUniverseNative/serverUniverseNative.dart';
 import 'package:telegram_client/telegram_bot_api/scheme/tg_client_client_data.dart';
 // import 'package:telegram_client/telegram_bot_api/telegram_bot_api.dart';
 import 'package:telegram_client/telegram_bot_api/update_bot.dart';
@@ -49,6 +49,7 @@ import 'package:telegram_client/util/telegram_bot_api_file_data.dart';
 import 'package:telegram_client/util/util.dart';
 import 'package:universal_io/io.dart';
 import 'dart:convert' as convert;
+import "package:server_universe_dart/native/native.dart";
 
 /// Telegram Bot Api library:
 /// example:
@@ -62,7 +63,7 @@ import 'dart:convert' as convert;
 ///
 class TelegramBotApi {
   late String token_bot;
-  Alfred? alfred;
+  ServerUniverseNative? serverUniverseNative;
   bool is_init_server = false;
   Uri telegram_url_webhook = Uri.parse("http://0.0.0.0:8080/telegram/webhook");
   Crypto telegram_crypto = Crypto(key: "");
@@ -108,7 +109,7 @@ class TelegramBotApi {
   TelegramBotApi({
     required String tokenBot,
     Map? clientOption,
-    this.alfred,
+    this.serverUniverseNative,
     String telegramCryptoKey = "aeatmlvodkm9ii37l2p0WGkaAAF3BWCh",
     EventEmitter? eventEmitter,
     this.event_invoke = "invoke",
@@ -134,12 +135,12 @@ class TelegramBotApi {
   }
 
   void initServer() {
-    if (alfred != null) {
+    if (serverUniverseNative != null) {
       if (Dart.isWeb == false) {
         if (is_init_server == false) {
           is_init_server = true;
 
-          alfred!.post(telegram_url_webhook.path,
+          serverUniverseNative!.post(telegram_url_webhook.path,
               (HttpRequest req, HttpResponse res) async {
             try {
               Map query = (req.uri.queryParameters).clone();

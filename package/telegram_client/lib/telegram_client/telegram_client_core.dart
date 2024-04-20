@@ -132,7 +132,8 @@ class TelegramClient {
         event_update: event_update,
         clientOption: telegramClientTelegramBotApiOption.clientOption,
         eventEmitter: event_emitter,
-        alfred: telegramClientTelegramBotApiOption.alfred,
+        serverUniverseNative:
+            telegramClientTelegramBotApiOption.serverUniverseNative,
         telegramCryptoKey: telegramClientTelegramBotApiOption.telegramCryptoKey,
         telegramUrlWebhook:
             telegramClientTelegramBotApiOption.telegramUrlWebhook,

@@ -33,14 +33,14 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 // ignore_for_file: non_constant_identifier_names, camel_case_extensions, camel_case_extensions unused_local_variable, unused_local_variable
 
 import 'dart:convert';
-import 'package:telegram_client/alfred/alfred.dart';
+import 'package:server_universe_dart/native/native.dart';
 import 'package:telegram_client/telegram_client.dart';
 
 void main(List<String> args) async {
-  Alfred alfred = Alfred(
+  ServerUniverseNative serverUniverseNative = ServerUniverseNative(
     logLevel: LogType.error,
   );
-  await alfred.listen();
+  await serverUniverseNative.listen();
   TelegramBotApiServer telegramBotApiServer = TelegramBotApiServer();
   await telegramBotApiServer.run(
     executable: "telegram-bot-api",
@@ -52,12 +52,12 @@ void main(List<String> args) async {
     tg_bot_api_port: 9000,
   );
   print(
-      "Server on: http://${alfred.server!.address.host}:${alfred.server!.port}");
+      "Server on: http://${serverUniverseNative.server!.address.host}:${serverUniverseNative.server!.port}");
   String telegram_token_bot = "";
   Uri telegram_url_webhook = Uri.parse("https://0.0.0.0:3000/telegram/webhook");
   TelegramBotApi tg = TelegramBotApi(
     tokenBot: telegram_token_bot,
-    alfred: alfred,
+    serverUniverseNative: serverUniverseNative,
     clientOption: {"api": "http://0.0.0.0:9000"},
     telegramUrlWebhook: telegram_url_webhook,
   );
