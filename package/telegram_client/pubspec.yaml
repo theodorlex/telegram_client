@@ -9,7 +9,7 @@ funding:
   - 'https://github.com/sponsors/azkadev'
   - 'https://github.com/sponsors/generalfoss'
 
-publish_to: none  
+publish_to: none
 platforms: 
   android: null
   ios: null
@@ -17,12 +17,14 @@ platforms:
   macos: null
   web: null
   windows: null
+
 topics: 
   - 'telegram'
   - 'tdlib'
   - 'mtproto'
   - 'userbot'
   - 'bot'
+  
 environment: 
   sdk: '>=3.0.0 <4.0.0'
 dev_dependencies: 
@@ -35,10 +37,16 @@ dependencies:
   web_ffi: '^0.7.2'
   mason_logger: '^0.2.11'
   mime: '^1.0.5'
-  general_lib: '^0.0.34'
+  general_lib: '^0.0.35'
   collection: '^1.18.0'
-  server_universe_dart: 
-    path: '../../../server_universe/package/server_universe_dart' 
+  server_universe_dart: ^0.0.1
+
+  yaml: '^3.1.2'
+  yaml_writer: '^2.0.0'
+
+# dependency_overrides:
+#   general_lib: 
+#     path: '../../../general_project/library/general_lib'  
 
 executables: 
   telegram_client: 'telegram_client'

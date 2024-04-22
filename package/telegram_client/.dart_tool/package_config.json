@@ -141,7 +141,7 @@
     },
     {
       "name": "general_lib",
-      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/general_lib-0.0.34",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/general_lib-0.0.35",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -207,7 +207,7 @@
     },
     {
       "name": "meta",
-      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/meta-1.12.0",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/meta-1.14.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -261,13 +261,13 @@
     },
     {
       "name": "server_universe_dart",
-      "rootUri": "../../../../server_universe/package/server_universe_dart",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/server_universe_dart-0.0.1",
       "packageUri": "lib/",
       "languageVersion": "3.1"
     },
     {
       "name": "server_universe_scheme",
-      "rootUri": "../../../../server_universe/package/server_universe_scheme",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/server_universe_scheme-0.0.1",
       "packageUri": "lib/",
       "languageVersion": "3.3"
     },
@@ -386,7 +386,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2024-04-20T12:52:25.790517Z",
+  "generated": "2024-04-22T03:59:11.371803Z",
   "generator": "pub",
   "generatorVersion": "3.3.0"
 }

@@ -12,7 +12,7 @@
 
 - 🚀 **Work On Cross Platform**: Mobile, Desktop, Browser, Server Side
 - ⚡ **Good Performance and efficient**
-- ❤️ **Simple, Easey Powerfull, Can Extend To Scala Bussiness**
+- ❤️ **Simple, Easey Powerfull, Can Extend To Scale Bussiness**
 
 ### Information
 
