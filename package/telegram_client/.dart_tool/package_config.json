@@ -8,12 +8,6 @@
       "languageVersion": "2.17"
     },
     {
-      "name": "alfred",
-      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/alfred-1.1.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.17"
-    },
-    {
       "name": "analyzer",
       "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/analyzer-5.13.0",
       "packageUri": "lib/",
@@ -141,7 +135,7 @@
     },
     {
       "name": "general_lib",
-      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/general_lib-0.0.35",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/general_lib-0.0.36",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -195,9 +189,9 @@
     },
     {
       "name": "mason_logger",
-      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/mason_logger-0.2.12",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/mason_logger-0.2.15",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.3"
     },
     {
       "name": "matcher",
@@ -261,13 +255,13 @@
     },
     {
       "name": "server_universe_dart",
-      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/server_universe_dart-0.0.1",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/server_universe_dart-0.0.8",
       "packageUri": "lib/",
-      "languageVersion": "3.1"
+      "languageVersion": "3.2"
     },
     {
       "name": "server_universe_scheme",
-      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/server_universe_scheme-0.0.1",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/server_universe_scheme-0.0.6",
       "packageUri": "lib/",
       "languageVersion": "3.3"
     },
@@ -363,7 +357,7 @@
     },
     {
       "name": "win32",
-      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/win32-5.3.0",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/win32-5.4.0",
       "packageUri": "lib/",
       "languageVersion": "3.3"
     },
@@ -386,7 +380,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2024-04-22T04:46:54.219200Z",
+  "generated": "2024-04-22T19:11:40.395509Z",
   "generator": "pub",
-  "generatorVersion": "3.3.0"
+  "generatorVersion": "3.3.3"
 }

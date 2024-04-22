@@ -9,14 +9,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "61.0.0"
-  alfred:
-    dependency: transitive
-    description:
-      name: alfred
-      sha256: "61c74bfccd41447ddb7eb76e0e1204e1b1da0c099d441d00fa8d2b86de5415e3"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.1"
   analyzer:
     dependency: transitive
     description:
@@ -189,10 +181,10 @@ packages:
     dependency: "direct main"
     description:
       name: general_lib
-      sha256: "417b758435d0027578891dd6a8acc0a33cf1582e96964d89615d4af935c9da7f"
+      sha256: e87cc176641947c2c94cfcb93178658146ce7b0a2940b5eb4e53f0768311f929
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.35"
+    version: "0.0.36"
   glob:
     dependency: transitive
     description:
@@ -261,10 +253,10 @@ packages:
     dependency: "direct main"
     description:
       name: mason_logger
-      sha256: "0e90e637dcfcb7fb6c30b38e71cd41fa0e4e3df6f1da177f8251ac3f15147e9f"
+      sha256: "56c44e588e908ef0d1dbb593e1b4473b8ee5fb48fcc8d645c925ab6c8041ebdf"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.12"
+    version: "0.2.15"
   matcher:
     dependency: transitive
     description:
@@ -349,18 +341,18 @@ packages:
     dependency: "direct main"
     description:
       name: server_universe_dart
-      sha256: "670c3bc2dce44356706474ef4aaa52c75ad54766cc54fce2bc973456f5b3eda5"
+      sha256: "452fa8e1e39be3044b1be39c61c234d040c678258c0cfea8f9db458339027264"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.1"
+    version: "0.0.8"
   server_universe_scheme:
     dependency: transitive
     description:
       name: server_universe_scheme
-      sha256: "2c6313ce45bcbbd86322de16d10114128deb5213213c36cd92bb8571c82ebd92"
+      sha256: "51d7b828f6586f05f59e3ade0a81d7a38dcf6749bfa22445c2846984782840ca"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.1"
+    version: "0.0.6"
   source_gen:
     dependency: transitive
     description:
@@ -485,10 +477,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: "8cb58b45c47dcb42ab3651533626161d6b67a2921917d8d429791f76972b3480"
+      sha256: "0a989dc7ca2bb51eac91e8fd00851297cfffd641aa7538b165c62637ca0eaa4a"
       url: "https://pub.dev"
     source: hosted
-    version: "5.3.0"
+    version: "5.4.0"
   yaml:
     dependency: "direct main"
     description:
