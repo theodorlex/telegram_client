@@ -1,13 +1,14 @@
-name: 'telegram_client'
-description: 'Telegram Client Lightweight, blazing and Highly customizable for make application telegram based tdlib, mtproto, or bot api and support server side.'
-version: '0.8.5'
-homepage: 'https://github.com/azkadev/telegram_client'
-repository: 'https://github.com/azkadev/telegram_client.git'
-issue_tracker: 'https://github.com/azkadev/telegram_client/issues'
-documentation: 'https://github.com/azkadev/telegram_client/tree/main/docs'
+name: telegram_client
+description: Telegram Client Lightweight, blazing and Highly customizable for make application telegram based tdlib, mtproto, or bot api and support server side.
+version: 0.8.6
+homepage: https://github.com/azkadev/telegram_client
+repository: https://github.com/azkadev/telegram_client
+issue_tracker: https://github.com/azkadev/telegram_client/issues
+documentation: https://github.com/azkadev/telegram_client/tree/main/docs
 funding: 
-  - 'https://github.com/sponsors/azkadev'
-  - 'https://github.com/sponsors/generalfoss'
+  - https://github.com/sponsors/azkadev
+  - https://github.com/sponsors/generalfoss
+ 
 platforms: 
   android: null
   ios: null
@@ -17,12 +18,11 @@ platforms:
   windows: null
 
 topics: 
-  - 'telegram'
-  - 'tdlib'
-  - 'mtproto'
-  - 'userbot'
-  - 'bot'
-  
+  - telegram
+  - tdlib
+  - mtproto
+  - userbot
+
 environment: 
   sdk: '>=3.0.0 <4.0.0'
 dev_dependencies: 
