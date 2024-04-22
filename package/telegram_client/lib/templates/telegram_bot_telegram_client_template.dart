@@ -768,7 +768,8 @@ export "package:telegram_bot/update/update.dart";
     fileSystemEntity: File("analysis_options.yaml"),
     state_data: {},
     fileSystemEntityType: FileSystemEntityType.file,
-    value: r"""# This file configures the static analysis results for your project (errors,
+    value:
+        r"""# This file configures the static analysis results for your project (errors,
 # warnings, and lints).
 #
 # This enables the 'recommended' set of lints from `package:lints`.
