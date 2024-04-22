@@ -45,9 +45,10 @@ Future<void> pubspecUpdate({
   required File filePubspec,
 }) async {
   if (filePubspec.existsSync()) {
+    try {
     Map yaml_code = (yaml.loadYaml(filePubspec.readAsStringSync(), recover: true) as Map);
     Map yaml_code_clone = yaml_code.clone();
-    yaml_code_clone.printPretty();
+    // yaml_code_clone.printPretty();
 // homepage: https://youtube.com/@azkadev
 //
 // repository: https://github.com/azkadev/telegram_client
@@ -58,8 +59,8 @@ Future<void> pubspecUpdate({
     // - https://github.com/sponsors/generalfoss
     yaml_code_clone.addAll({
       "description": "Telegram Client Lightweight, blazing and Highly customizable for make application telegram based tdlib, mtproto, or bot api and support server side.",
-      "version": "0.8.0",
-      "repository": "https://github.com/azkadev/telegram_client",
+      "version": "0.8.5",
+      "repository": "https://github.com/azkadev/telegram_client.git",
       "homepage": "https://github.com/azkadev/telegram_client",
       "issue_tracker": "https://github.com/azkadev/telegram_client/issues",
       "documentation": "https://github.com/azkadev/telegram_client/tree/main/docs",
@@ -86,8 +87,12 @@ Future<void> pubspecUpdate({
     yaml_code_clone.removeByKeys([
       "publish_to",
     ]);
-    var yamlDoc = YamlWriter().write(yaml_code_clone);
-    await filePubspec.writeAsString(yamlDoc);
+      var yamlDoc = YamlWriter().write(yaml_code_clone);
+
+      await filePubspec.writeAsString(yamlDoc);
+    } catch (e) {
+      print(path.dirname(filePubspec.path));
+    }
   }
 }
 

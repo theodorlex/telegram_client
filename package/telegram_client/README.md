@@ -1,6 +1,6 @@
 # Telegram Client library
 <p align="center">
-  <img src="https://raw.githubusercontent.com/azkadev/telegram_client/main/assets/telegram.png" width="350px">
+  <img src="https://raw.githubusercontent.com/azkadev/telegram_client/main/package/telegram_client/assets/telegram.png" width="350px">
 </p>
 <h2 align="center">Ultra Fast, Enjoyable & Cross Platform Telegram Client</h2>
 
@@ -12,16 +12,16 @@
 
 - 🚀 **Work On Cross Platform**: Mobile, Desktop, Browser, Server Side
 - ⚡ **Good Performance and efficient**
-- ❤️ **Simple, Easey Powerfull, Can Extend To Scale Bussiness**
+- ❤️ **Simple, Easey Powerfull, Can Extend To Scala Bussiness**
 
 ### Information
 
-This Library only update if there ae feature that i want, if you want library with full documentation so it usually **makes things easier DEVELOP PROGRAM** you just need to buy / donate at azkadev
+This Library only update if there ae feature that i want, if you want library with full documentation so it usually **makes things easier DEVELOP PROGRAM** you just need to buy / donate at [Azkadev](https://github.com/sponsors/azkadev)
 
 ## Example Project Use This Library
 
 
-1. [AZKA GRAM](https://github.com/azkadev/azkagram)
+1. [AZKA GRAM](https://github.com/azkadev/azkagram) / [Global GRAM](https://github.com/globalcorporation/global_gram_app)
     
  **Telegram Application** with **redesign** with new some features userbot and other **features which is not officially provided on Telegram** First this project open source but we closed it to **close source** because our program is easy to read and allows other people to edit the source code and then use it for criminal acts
  
@@ -29,7 +29,7 @@ This Library only update if there ae feature that i want, if you want library wi
 |:----------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------:|-----------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------:|
 | ![](https://user-images.githubusercontent.com/82513502/205481759-b6815e2f-bd5d-4d72-9570-becd3829dd36.png) | ![](https://user-images.githubusercontent.com/82513502/173319331-9e96fbe7-3e66-44b2-8577-f6685d86a368.png) | ![](https://user-images.githubusercontent.com/82513502/173319541-19a60407-f410-4e95-8ac0-d0da2eaf2457.png) | ![](https://raw.githubusercontent.com/GLXCORP/glx_bot_app/main/screenshots/home_telegram.png) |
 
-2. [AzkaDev Bot App](https://github.com/azkadev/products_azkadev_bot_app)
+2. [AzkaDev Bot App](https://github.com/azkadev/products_azkadev_bot_app) / [Global Bot App](https://github.com/globalcorporation/global_bot_app)
   
   **Cross Platform** app for Run Multiple bot / userbot in cloud or local device, for run optimal we need modern devices with high end specs.
 
@@ -38,7 +38,7 @@ This Library only update if there ae feature that i want, if you want library wi
 | ![](https://raw.githubusercontent.com/GLXCORP/glx_bot_app/main/screenshots/home.png) | ![](https://raw.githubusercontent.com/GLXCORP/glx_bot_app/main/screenshots/home_telegram.png) | ![](https://raw.githubusercontent.com/GLXCORP/glx_bot_app/main/screenshots/home.png) | ![](https://raw.githubusercontent.com/GLXCORP/glx_bot_app/main/screenshots/home_telegram.png) |
   
 
-1. [AZKADEV BOT](https://t.me/azkadevbot?start=ref_library_telegram_client)
+3. [AZKADEV BOT](https://t.me/azkadevbot?start=ref_library_telegram_client)
   
   Complex Paid Telegram bot that can handle many groups, ch, private, with many payment gateway features, Automation Store, clone userbot bot, made with this library without mixing other code languages, This bot runs only using < 100mb on a very light server because it uses dart
 
@@ -47,6 +47,17 @@ This Library only update if there ae feature that i want, if you want library wi
 |:--------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------:|---------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------:|
 | ![](https://github.com/azkadev/telegram_client/raw/main/assets/example/bot/azkadevbot_1.jpg) | ![](https://github.com/azkadev/telegram_client/raw/main/assets/example/bot/azkadevbot_2.png) | ![](https://github.com/azkadev/telegram_client/raw/main/assets/example/bot/azkadevbot_3.png) | ![](https://github.com/azkadev/telegram_client/raw/main/assets/example/bot/azkadevbot_4.png) |
   
+
+1. [AZKADEV Userbot]()
+  
+  Complex Paid Telegram Userbot that can handle many groups, ch, private, with many payment gateway features, Automation Store, clone userbot bot, made with this library without mixing other code languages, This Userbot runs only using < 1gb on a very light server because it uses dart
+
+
+|                                         Setting Menu                                         |                                         Manage Chat                                          |                                                                                   Extra Menu |                                         Feature MEnu                                         |
+|:--------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------:|---------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------:|
+| ![](https://github.com/azkadev/telegram_client/raw/main/assets/example/bot/azkadevbot_1.jpg) | ![](https://github.com/azkadev/telegram_client/raw/main/assets/example/bot/azkadevbot_2.png) | ![](https://github.com/azkadev/telegram_client/raw/main/assets/example/bot/azkadevbot_3.png) | ![](https://github.com/azkadev/telegram_client/raw/main/assets/example/bot/azkadevbot_4.png) |
+  
+
 ---
 
 ## Guide on how to use this library

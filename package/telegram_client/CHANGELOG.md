@@ -1,3 +1,3 @@
-## 0.8.4
+## 0.8.5
 
-- Add New Style Code Template.
+- Fix pub score.
