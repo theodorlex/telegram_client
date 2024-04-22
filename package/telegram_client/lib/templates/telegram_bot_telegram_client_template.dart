@@ -768,8 +768,7 @@ export "package:telegram_bot/update/update.dart";
     fileSystemEntity: File("analysis_options.yaml"),
     state_data: {},
     fileSystemEntityType: FileSystemEntityType.file,
-    value:
-        r"""# This file configures the static analysis results for your project (errors,
+    value: r"""# This file configures the static analysis results for your project (errors,
 # warnings, and lints).
 #
 # This enables the 'recommended' set of lints from `package:lints`.
@@ -1518,7 +1517,7 @@ issue_tracker: 'https://github.com/azkadev/telegram_client/issues'
 documentation: 'https://github.com/azkadev/telegram_client/tree/main/docs'
 funding: 
   - 'https://github.com/sponsors/azkadev'
-publish_to: 'none'
+
 environment: 
   sdk: '^3.3.0'
 dependencies: 

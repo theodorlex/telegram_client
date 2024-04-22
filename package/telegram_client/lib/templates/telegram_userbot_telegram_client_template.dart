@@ -1266,8 +1266,7 @@ homepage: 'https://github.com/azkadev/telegram_client'
 issue_tracker: 'https://github.com/azkadev/telegram_client/issues'
 documentation: 'https://github.com/azkadev/telegram_client/tree/main/docs'
 funding: 
-  - 'https://github.com/sponsors/azkadev'
-publish_to: none
+  - 'https://github.com/sponsors/azkadev' 
 environment: 
   sdk: '^3.3.0'
 dependencies: 
