@@ -255,15 +255,9 @@
     },
     {
       "name": "server_universe_dart",
-      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/server_universe_dart-0.0.8",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/server_universe_dart-0.0.10",
       "packageUri": "lib/",
       "languageVersion": "3.2"
-    },
-    {
-      "name": "server_universe_scheme",
-      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/server_universe_scheme-0.0.6",
-      "packageUri": "lib/",
-      "languageVersion": "3.3"
     },
     {
       "name": "source_gen",
@@ -380,7 +374,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2024-04-22T19:11:40.395509Z",
+  "generated": "2024-04-23T04:59:11.709024Z",
   "generator": "pub",
   "generatorVersion": "3.3.3"
 }

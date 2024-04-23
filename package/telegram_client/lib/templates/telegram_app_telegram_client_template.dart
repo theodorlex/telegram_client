@@ -13362,17 +13362,10 @@ dependencies:
 
  
   cupertino_icons: ^1.0.6
-  general_lib: ^0.0.34
-  general_lib_flutter: ^0.0.18
-  telegram_client: 
-    path: '../../'
-  server_universe_dart: 
-    path: '../../../../../server_universe/package/server_universe_dart'
-  server_universe_dart_http_client: 
-    path: '../../../../../server_universe/package/server_universe_dart_http_client'
-dependency_overrides: 
-  general_lib: 
-    path: '../../../../../general_project/library/general_lib'
+  general_lib: ^0.0.36
+  general_lib_flutter: ^0.0.19
+  telegram_client: ^0.8.8
+  server_universe_dart: ^0.0.10
 
 dev_dependencies:
   flutter_test:

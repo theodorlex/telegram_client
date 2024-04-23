@@ -82,8 +82,8 @@ final DynamicLibrary _dylib = () {
 }();
 
 /// The bindings to the native functions in [_dylib].
-final TelegramClientMacosBindings _bindings = TelegramClientMacosBindings(_dylib);
-
+final TelegramClientMacosBindings _bindings =
+    TelegramClientMacosBindings(_dylib);
 
 /// A request to compute `sum`.
 ///

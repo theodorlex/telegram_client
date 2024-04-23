@@ -750,13 +750,13 @@ publish_to: none
 environment: 
   sdk: '^3.3.0'
 dependencies: 
-  general_lib: ^0.0.32
+  general_lib: ^0.0.36
   http: ^1.1.2
   mason_logger: ^0.2.12
   packagex: ^0.0.50
   path: ^1.9.0
-  system_info_fetch: ^0.0.14
-  telegram_client: ^0.8.2
+  system_info_fetch: ^0.0.14 
+  telegram_client: ^0.8.8 
   translate_client: ^0.0.2
 dev_dependencies: 
   lints: '^3.0.0'

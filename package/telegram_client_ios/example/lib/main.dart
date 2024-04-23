@@ -33,7 +33,8 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:telegram_client_ios/telegram_client_ios.dart' as telegram_client_ios;
+import 'package:telegram_client_ios/telegram_client_ios.dart'
+    as telegram_client_ios;
 
 void main() {
   runApp(const MyApp());

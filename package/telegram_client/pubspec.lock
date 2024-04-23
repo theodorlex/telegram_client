@@ -341,18 +341,10 @@ packages:
     dependency: "direct main"
     description:
       name: server_universe_dart
-      sha256: "452fa8e1e39be3044b1be39c61c234d040c678258c0cfea8f9db458339027264"
+      sha256: a9aba5c69558a0de8aee60a8d850ccbacf4f5c14d90de6f098bc1a37a2af2589
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.8"
-  server_universe_scheme:
-    dependency: transitive
-    description:
-      name: server_universe_scheme
-      sha256: "51d7b828f6586f05f59e3ade0a81d7a38dcf6749bfa22445c2846984782840ca"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.6"
+    version: "0.0.10"
   source_gen:
     dependency: transitive
     description:

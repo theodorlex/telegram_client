@@ -30,7 +30,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
- 
+
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:universal_io/io.dart';
@@ -38,14 +38,16 @@ import "package:path/path.dart" as path;
 
 void main(List<String> args) async {
   Directory directory = Directory.current;
-  Directory directory_packages = Directory(path.join(directory.path, "package"));
+  Directory directory_packages =
+      Directory(path.join(directory.path, "package"));
 
   if (!directory_packages.existsSync()) {
     print("Directory Packages Not Found: ${directory_packages.path}");
     exit(1);
   }
 
-  List<FileSystemEntity> file_system_entity_packages = directory_packages.listSync();
+  List<FileSystemEntity> file_system_entity_packages =
+      directory_packages.listSync();
   String contents = """
 # /bin/sh
 
@@ -59,7 +61,8 @@ void main(List<String> args) async {
       contents += """
 cd ${fileSystemEntity.path}
 dart pub publish -f
-""".trim();
+"""
+          .trim();
       contents += "\n";
     }
   }

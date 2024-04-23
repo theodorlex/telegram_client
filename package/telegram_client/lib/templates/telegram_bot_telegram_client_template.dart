@@ -403,7 +403,7 @@ void main() async {
         state_data: {},
         file_system_entity_type: FileSystemEntityType.file,
         value: r"""import 'package:server_universe_dart/edge/edge.dart';
-import 'package:server_universe_dart_http_client/server_universe_dart_http_client.dart';
+import 'package:server_universe_dart/edge_http/server_universe_dart_http_client.dart'; 
 import 'package:telegram_bot/config/config.dart';
 import 'package:telegram_client/telegram_client.dart';
 
@@ -876,22 +876,15 @@ publish_to: 'none'
 environment: 
   sdk: '^3.3.0'
 dependencies: 
-  general_lib: '^0.0.34'
+  general_lib: '^0.0.36'
   http: '^1.1.2'
   mason_logger: '^0.2.12'
   packagex: '^0.0.50'
   path: '^1.9.0'
   system_info_fetch: '^0.0.14'
   translate_client: '^0.0.2'
-  telegram_client: 
-    path: '../../'
-  server_universe_dart: 
-    path: '../../../../../server_universe/package/server_universe_dart'
-  server_universe_dart_http_client: 
-    path: '../../../../../server_universe/package/server_universe_dart_http_client'
-dependency_overrides: 
-  general_lib: 
-    path: '../../../../../general_project/library/general_lib'
+  telegram_client: ^0.8.8
+  server_universe_dart: ^0.0.10
 dev_dependencies: 
 
   lints: '^3.0.0'

@@ -33,7 +33,6 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-
 void main() {
   runApp(const MyApp());
 }
@@ -86,7 +85,8 @@ class _MyAppState extends State<MyApp> {
                 FutureBuilder<int>(
                   future: sumAsyncResult,
                   builder: (BuildContext context, AsyncSnapshot<int> value) {
-                    final displayValue = (value.hasData) ? value.data : 'loading';
+                    final displayValue =
+                        (value.hasData) ? value.data : 'loading';
                     return Text(
                       'await sumAsync(3, 4) = $displayValue',
                       style: textStyle,
