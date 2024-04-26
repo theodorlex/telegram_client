@@ -906,7 +906,7 @@ dependencies:
   path: '^1.9.0'
   system_info_fetch: '^0.0.14'
   translate_client: '^0.0.2'
-  telegram_client: ^0.8.8
+  telegram_client: ^0.8.9
   server_universe_dart: ^0.0.10
 dev_dependencies: 
 

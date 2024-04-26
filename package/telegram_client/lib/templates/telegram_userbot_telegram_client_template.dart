@@ -773,7 +773,7 @@ dependencies:
   packagex: ^0.0.50
   path: ^1.9.0
   system_info_fetch: ^0.0.14 
-  telegram_client: ^0.8.8 
+  telegram_client: ^0.8.9
   translate_client: ^0.0.2
 dev_dependencies: 
   lints: '^3.0.0'
