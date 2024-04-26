@@ -337,11 +337,10 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.0"
-  server_universe_dart:
+  server_universe:
     dependency: "direct main"
     description:
-      name: server_universe_dart
-      sha256: a9aba5c69558a0de8aee60a8d850ccbacf4f5c14d90de6f098bc1a37a2af2589
+      name: server_universe
       url: "https://pub.dev"
     source: hosted
     version: "0.0.10"

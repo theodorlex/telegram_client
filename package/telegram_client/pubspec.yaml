@@ -35,7 +35,7 @@ dependencies:
   mime: '^1.0.5'
   general_lib: '^0.0.36'
   collection: '^1.18.0'
-  server_universe_dart: '^0.0.10'
+  server_universe: '^0.0.10'
   yaml: '^3.1.2'
   yaml_writer: '^2.0.0'
 executables: 

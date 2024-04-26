@@ -33,7 +33,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 // ignore_for_file: non_constant_identifier_names, camel_case_extensions, camel_case_extensions unused_local_variable, unused_local_variable
 
 import 'dart:convert';
-import 'package:server_universe_dart/native.dart';
+import 'package:server_universe/native.dart';
 import 'package:telegram_client/telegram_client.dart';
 
 void main(List<String> args) async {
@@ -51,8 +51,7 @@ void main(List<String> args) async {
     host: "0.0.0.0",
     tg_bot_api_port: 9000,
   );
-  print(
-      "Server on: http://${serverUniverseNative.server!.address.host}:${serverUniverseNative.server!.port}");
+  print("Server on: http://${serverUniverseNative.server!.address.host}:${serverUniverseNative.server!.port}");
   String telegram_token_bot = "";
   Uri telegram_url_webhook = Uri.parse("https://0.0.0.0:3000/telegram/webhook");
   TelegramBotApi tg = TelegramBotApi(
@@ -79,8 +78,7 @@ void main(List<String> args) async {
           return "";
         }();
         if (caption_msg.isNotEmpty) {
-          if (RegExp(r"^/(start)", caseSensitive: false)
-              .hasMatch(caption_msg)) {
+          if (RegExp(r"^/(start)", caseSensitive: false).hasMatch(caption_msg)) {
             return await tg.request(
               "sendMessage",
               parameters: {
