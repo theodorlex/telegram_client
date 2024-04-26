@@ -86,7 +86,8 @@ Future<void> packageFullTemplateDartCli(List<String> args_raw) async {
   }
 
   if (command == "create") {
-    List<TelegramClientProjectTemplate> telegramClientProjectTemplates = TelegramClientProjectTemplate.templates;
+    List<TelegramClientProjectTemplate> telegramClientProjectTemplates =
+        TelegramClientProjectTemplate.templates;
     telegramClientProjectTemplates.sort((a, b) => a.name.compareTo(b.name));
     if (["--help", "-h"].contains(args.after(command) ?? "")) {
       String help_create = """
@@ -108,7 +109,8 @@ Example: ${executable} create name_project --template ${telegramClientProjectTem
     }
     Directory directory_current = Directory.current;
     String new_project_name = await Future(() async {
-      String new_project_name_from_command = (args.after(command) ?? "").toLowerCase();
+      String new_project_name_from_command =
+          (args.after(command) ?? "").toLowerCase();
       if (new_project_name_from_command.isNotEmpty) {
         return new_project_name_from_command;
       }
@@ -126,16 +128,21 @@ Example: ${executable} create name_project --template ${telegramClientProjectTem
       }
       return "";
     });
-    TelegramClientProjectTemplate telegramClientProjectTemplate = await Future(() async {
-      String type_procces = (args.after("--template") ?? "").toLowerCase().trim();
-      TelegramClientProjectTemplate? telegramClientProjectTemplate = telegramClientProjectTemplates.firstWhereOrNull((element) => element.name.toLowerCase() == type_procces);
+    TelegramClientProjectTemplate telegramClientProjectTemplate =
+        await Future(() async {
+      String type_procces =
+          (args.after("--template") ?? "").toLowerCase().trim();
+      TelegramClientProjectTemplate? telegramClientProjectTemplate =
+          telegramClientProjectTemplates.firstWhereOrNull(
+              (element) => element.name.toLowerCase() == type_procces);
       if (telegramClientProjectTemplate != null) {
         return telegramClientProjectTemplate;
       }
       if (is_interactive) {
         while (true) {
           await Future.delayed(Duration(microseconds: 1));
-          TelegramClientProjectTemplate telegramClientProjectTemplate = logger.chooseOne(
+          TelegramClientProjectTemplate telegramClientProjectTemplate =
+              logger.chooseOne(
             "Template: ",
             choices: telegramClientProjectTemplates,
             display: (choice) {
@@ -152,7 +159,12 @@ Example: ${executable} create name_project --template ${telegramClientProjectTem
       print("Failed");
       exit(1);
     }
-    var strm = packageFullTemplateDartApi.create(newName: new_project_name, directoryBase: directory_current, telegramClientProjectTemplate: telegramClientProjectTemplate).listen((event) {
+    var strm = packageFullTemplateDartApi
+        .create(
+            newName: new_project_name,
+            directoryBase: directory_current,
+            telegramClientProjectTemplate: telegramClientProjectTemplate)
+        .listen((event) {
       printed(event);
     });
 
@@ -226,13 +238,17 @@ Example: ${executable} install library ${library_types.first}
         print(help_create.trim());
         exit(0);
       }
-      TelegramClientLibraryType telegramClientLibraryType = await Future(() async {
-        TelegramClientLibraryType? telegramClientLibraryType = TelegramClientLibraryType.values.firstWhereOrNull((element) => element.name.toLowerCase() == command_after_library);
+      TelegramClientLibraryType telegramClientLibraryType =
+          await Future(() async {
+        TelegramClientLibraryType? telegramClientLibraryType =
+            TelegramClientLibraryType.values.firstWhereOrNull((element) =>
+                element.name.toLowerCase() == command_after_library);
 
         if (is_interactive) {
           while (true) {
             await Future.delayed(Duration(microseconds: 1));
-            TelegramClientLibraryType telegramClientLibraryType = logger.chooseOne(
+            TelegramClientLibraryType telegramClientLibraryType =
+                logger.chooseOne(
               "Library Type: ",
               choices: TelegramClientLibraryType.values,
               display: (choice) {
@@ -245,7 +261,9 @@ Example: ${executable} install library ${library_types.first}
         }
         return TelegramClientLibraryType.tdlib;
       });
-      var strm = packageFullTemplateDartApi.installLibrary(telegramClientLibraryType: telegramClientLibraryType).listen((event) {
+      var strm = packageFullTemplateDartApi
+          .installLibrary(telegramClientLibraryType: telegramClientLibraryType)
+          .listen((event) {
         printed(event);
       });
 
@@ -261,16 +279,19 @@ Example: ${executable} install library ${library_types.first}
 
 Progress progress = logger.progress("message");
 void printed(TelegramClientApiStatus event) {
-  if (event.telegramClientApiStatusType == TelegramClientApiStatusType.progress_start) {
+  if (event.telegramClientApiStatusType ==
+      TelegramClientApiStatusType.progress_start) {
     progress.cancel();
     progress = logger.progress(event.value);
     return;
   }
-  if (event.telegramClientApiStatusType == TelegramClientApiStatusType.progress) {
+  if (event.telegramClientApiStatusType ==
+      TelegramClientApiStatusType.progress) {
     progress.update(event.value);
     return;
   }
-  if (event.telegramClientApiStatusType == TelegramClientApiStatusType.progress_complete) {
+  if (event.telegramClientApiStatusType ==
+      TelegramClientApiStatusType.progress_complete) {
     progress.complete(event.value);
 
     // progress.cancel();

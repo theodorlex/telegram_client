@@ -244,7 +244,9 @@ class Tdlib extends LibTdJson {
     if (update.raw["authorization_state"] is Map) {
       var authStateType = update.raw["authorization_state"]["@type"];
       if (authStateType == "authorizationStateWaitTdlibParameters") {
-        var optios = {...client_option};
+        var optios = {
+          ...client_option,
+        };
         if (tdlibParameters != null) {
           optios.addAll(tdlibParameters);
         }

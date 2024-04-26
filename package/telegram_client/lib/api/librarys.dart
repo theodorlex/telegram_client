@@ -1,4 +1,4 @@
-/// library type 
+/// library type
 enum TelegramClientLibraryType {
   tdlib,
 }
