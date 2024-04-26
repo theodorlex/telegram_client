@@ -272,7 +272,7 @@ void printed(TelegramClientApiStatus event) {
   }
   if (event.telegramClientApiStatusType == TelegramClientApiStatusType.progress_complete) {
     progress.complete(event.value);
-    
+
     // progress.cancel();
     return;
   }
