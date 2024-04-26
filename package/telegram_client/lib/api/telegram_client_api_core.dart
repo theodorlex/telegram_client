@@ -116,7 +116,7 @@ class TelegramClientApi {
         yield (TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.failed, value: "Failed Create"));
         return;
       }
-    } else {}
+    } 
 
     List<ScriptGenerator> scripts = await telegramClientProjectTemplate.scripts();
 
