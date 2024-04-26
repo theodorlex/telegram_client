@@ -33,7 +33,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 // ignore_for_file: non_constant_identifier_names, camel_case_extensions, camel_case_extensions unused_local_variable, unused_local_variable
 
 import 'dart:convert';
-import 'package:server_universe_dart/native/native.dart';
+import 'package:server_universe_dart/native.dart';
 import 'package:telegram_client/telegram_client.dart';
 
 void main(List<String> args) async {

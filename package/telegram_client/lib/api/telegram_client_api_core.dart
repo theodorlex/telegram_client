@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names, unnecessary_string_interpolations, unnecessary_brace_in_string_interps, unused_local_variable
+// ignore_for_file: non_constant_identifier_names, unnecessary_string_interpolations, unnecessary_brace_in_string_interps, unused_local_variable, constant_identifier_names
 
 /* <!-- START LICENSE -->
 
@@ -37,12 +37,30 @@ import 'dart:async';
 import 'package:general_lib/general_lib.dart';
 import 'package:general_lib/script_generate/script_generate.dart';
 import "package:path/path.dart" as path;
-import 'package:telegram_client/api/extensions.dart';
-import 'package:telegram_client/api/template.dart';
+import 'package:telegram_client/api/telegram_client_api.dart';
 import 'package:universal_io/io.dart';
 
 import "package:yaml/yaml.dart" as yaml;
 import 'package:yaml_writer/yaml_writer.dart';
+
+enum TelegramClientApiStatusType {
+  succes,
+  failed,
+  info,
+  start,
+  progress_start,
+  progress,
+  progress_complete,
+}
+
+class TelegramClientApiStatus {
+  String value;
+  TelegramClientApiStatusType telegramClientApiStatusType;
+  TelegramClientApiStatus({
+    required this.telegramClientApiStatusType,
+    required this.value,
+  });
+}
 
 /// Telegram Client Api For Interact With Library
 class TelegramClientApi {
@@ -50,20 +68,20 @@ class TelegramClientApi {
   TelegramClientApi();
 
   /// Telegram Client Api For create project
-  FutureOr<dynamic> create({
+  Stream<TelegramClientApiStatus> create({
     required String newName,
     required Directory directoryBase,
     required TelegramClientProjectTemplate telegramClientProjectTemplate,
-  }) async {
+  }) async* {
     Directory directory_project = await Future(() async {
-      return Directory(
-          Directory(path.join(directoryBase.uri.toFilePath(), newName.trim()))
-              .uri
-              .toFilePath());
+      return Directory(Directory(path.join(directoryBase.uri.toFilePath(), newName.trim())).uri.toFilePath());
     });
     String project_name = path.basename(directory_project.path);
 
+    yield TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.info, value: "Starting Create Project: ${project_name}");
+
     File file_pubspec = File(path.join(directory_project.path, "pubspec.yaml"));
+    yield TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.info, value: "Check: ${path.basename(file_pubspec.path)}");
     if (!file_pubspec.existsSync()) {
       List<String> arguments = () {
         List<String> defaults_args = [
@@ -94,41 +112,37 @@ class TelegramClientApi {
         stdout.add(event);
       });
       int exit_code = await (process.exitCode);
-    }
+      if (exit_code != 0) {
+        yield (TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.failed, value: "Failed Create"));
+        return;
+      }
+    } else {}
 
-    List<ScriptGenerator> scripts =
-        await telegramClientProjectTemplate.scripts();
-    await scripts.generateToDirectory(
-      directoryBase: directory_project,
-    );
-    Map yaml_code =
-        (yaml.loadYaml(file_pubspec.readAsStringSync(), recover: true) as Map);
+    List<ScriptGenerator> scripts = await telegramClientProjectTemplate.scripts();
+
+    yield (TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.progress_start, value: "Starting Generate: ${directory_project.path}"));
+
+    await for (var event in scripts.generateToDirectory(directoryBase: directory_project)) {
+      await Future.delayed(Duration(microseconds: 50));
+      yield TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.progress, value: "Generate: ${path.relative(event.file_system_entity.path, from: directory_project.path)}");
+    }
+    yield (TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.progress_start, value: "Finished Generate: ${directory_project.path}"));
+
+    Map yaml_code = (yaml.loadYaml(file_pubspec.readAsStringSync(), recover: true) as Map);
+
     Map pubspecPackageFullTemplate = (yaml_code.clone());
 
-    File file_guide =
-        File(path.join(directory_project.path, "guide-telegram_client.md"));
+    File file_guide = File(path.join(directory_project.path, "guide-telegram_client.md"));
+    yield TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.info, value: "Check File Guide: ${path.basename(file_guide.path)}");
 
     await file_guide.writeAsString(guide_telegram_client_markdown());
-
-    // supabase file script
-    File file_script_example = File(path.join(
-        directory_project.path, "bin", "${project_name}_example.dart"));
-
-    if (!file_script_example.existsSync()) {
-      // await file_script_example.writeAsString(script_telegram_client_native());
-    }
-
-    // supabase directory deploy
-    Directory directory_script_supabase = Directory(path.join(
-        directory_project.path, "supabase", "functions", project_name));
 
     // default configuration pubspec
     Map pubspecPackageFullTemplate_default = {
       "repository": "https://github.com/azkadev/telegram_client",
       "homepage": "https://github.com/azkadev/telegram_client",
       "issue_tracker": "https://github.com/azkadev/telegram_client/issues",
-      "documentation":
-          "https://github.com/azkadev/telegram_client/tree/main/docs",
+      "documentation": "https://github.com/azkadev/telegram_client/tree/main/docs",
       "funding": [
         "https://github.com/sponsors/azkadev",
       ],
@@ -139,15 +153,18 @@ class TelegramClientApi {
     };
 
     // update pubspec default
-    pubspecPackageFullTemplate.telegram_client_updateMapIfNotSameOrEmptyOrNull(
+    pubspecPackageFullTemplate.general_lib_utils_updateMapIfNotSameOrEmptyOrNull(
       data: pubspecPackageFullTemplate_default,
       ignoreKeys: [
         "@type",
       ],
     );
+    pubspecPackageFullTemplate.general_lib_utils_removeRecursiveByKeys(keyDatas: ["@type"]);
+
     String yaml_documents_new = YamlWriter().write(pubspecPackageFullTemplate);
     await file_pubspec.writeAsString(yaml_documents_new);
     // finished update pubspec
+    yield (TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.succes, value: "Finished"));
   }
 
   /// Telegram Client Api For run
@@ -167,6 +184,159 @@ class TelegramClientApi {
     }
 
     return 1;
+  }
+
+  Stream<TelegramClientApiStatus> installLibrary({
+    required TelegramClientLibraryType telegramClientLibraryType,
+  }) async* {
+    if (Dart.isWeb) {
+      yield TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.failed, value: "Can't Install Library on Web Platform");
+      return;
+    }
+    Directory directory_working = Directory(path.join(Directory.current.path, "temp"));
+    yield TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.info, value: "Check Folder: ${directory_working.path}");
+
+    if (directory_working.existsSync() == false) {
+      yield TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.info, value: "Create Folder: ${directory_working.path}");
+      directory_working.createSync(recursive: true);
+    } else {
+      yield TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.info, value: "Folder Exist: ${directory_working.path}");
+    }
+
+    if (telegramClientLibraryType == TelegramClientLibraryType.tdlib) {
+      // install dependecies
+      //
+      if (Dart.isLinux) {
+        yield TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.info, value: "Install Dependencies: make git zlib1g-dev libssl-dev gperf php-cli cmake g++");
+
+        Process process = await Process.start(
+          "sudo",
+          [
+            "apt-get",
+            "install",
+            "-y",
+            ...("make git zlib1g-dev libssl-dev gperf php-cli cmake g++".split(" ")),
+          ],
+        );
+        process.stderr.listen((event) {
+          stderr.add(event);
+        });
+        process.stdout.listen((event) {
+          stdout.add(event);
+        });
+        int exit_code = await (process.exitCode);
+        if (exit_code != 0) {
+          yield TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.failed, value: "Succes Dependencies: make git zlib1g-dev libssl-dev gperf php-cli cmake g++");
+          return;
+        }
+        yield TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.succes, value: "Succes Dependencies: make git zlib1g-dev libssl-dev gperf php-cli cmake g++");
+      }
+
+      // clone tdlib
+      //
+      yield TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.info, value: "Clone Repo: https://github.com/tdlib/td.git");
+      Process process = await Process.start(
+        "git",
+        [
+          "clone",
+          "https://github.com/tdlib/td.git",
+        ],
+        workingDirectory: directory_working.path,
+      );
+      process.stderr.listen((event) {
+        stderr.add(event);
+      });
+      process.stdout.listen((event) {
+        stdout.add(event);
+      });
+      int exit_code = await (process.exitCode);
+      if (exit_code != 0) {
+        yield TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.failed, value: "Clone Repo: https://github.com/tdlib/td.git");
+        return;
+      }
+      yield TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.succes, value: "Clone Repo: https://github.com/tdlib/td.git");
+
+      Directory directory_build = Directory(path.join(directory_working.path, "td", "build"));
+
+      yield TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.info, value: "Check Folder: ${directory_build.path}");
+
+      if (directory_build.existsSync() == false) {
+        yield TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.info, value: "Create Folder: ${directory_build.path}");
+        directory_build.createSync(recursive: true);
+      } else {
+        yield TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.info, value: "Folder Exist: ${directory_build.path}");
+      }
+
+      if (Dart.isLinux) {
+        yield TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.info, value: "Started Cmake: Release");
+
+        Process process = await Process.start(
+          "cmake",
+          ["-DCMAKE_BUILD_TYPE=Release", ".."],
+          workingDirectory: directory_build.path,
+        );
+        process.stderr.listen((event) {
+          stderr.add(event);
+        });
+        process.stdout.listen((event) {
+          stdout.add(event);
+        });
+        int exit_code = await (process.exitCode);
+        if (exit_code != 0) {
+          yield TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.failed, value: "Failed Cmake: Release");
+          return;
+        }
+        yield TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.succes, value: "Succes Cmake: Release");
+      }
+      // build
+      if (Dart.isLinux) {
+        yield TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.info, value: "Started Cmake: Build");
+
+        Process process = await Process.start(
+          "cmake",
+          [
+            "--build",
+            ".",
+          ],
+          workingDirectory: directory_build.path,
+        );
+        process.stderr.listen((event) {
+          stderr.add(event);
+        });
+        process.stdout.listen((event) {
+          stdout.add(event);
+        });
+        int exit_code = await (process.exitCode);
+
+        if (exit_code != 0) {
+          yield TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.failed, value: "Failed Cmake: Build");
+          return;
+        }
+        yield TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.succes, value: "Succes Cmake: Build");
+      }
+      // install
+      if (Dart.isLinux) {
+        yield TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.info, value: "Started Cmake: Install");
+        Process process = await Process.start(
+          "sudo",
+          ["cmake", "--build", ".", "--target", "install"],
+          workingDirectory: directory_build.path,
+        );
+        process.stderr.listen((event) {
+          stderr.add(event);
+        });
+        process.stdout.listen((event) {
+          stdout.add(event);
+        });
+        int exit_code = await (process.exitCode);
+
+        if (exit_code != 0) {
+          yield TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.failed, value: "Failed Cmake: Install");
+          return;
+        }
+        yield TelegramClientApiStatus(telegramClientApiStatusType: TelegramClientApiStatusType.succes, value: "Succes Cmake: Install");
+      }
+    }
   }
 
   /// Telegram Client Api For

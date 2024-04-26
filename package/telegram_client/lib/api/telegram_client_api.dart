@@ -32,3 +32,5 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 <!-- END LICENSE --> */
 
 export "telegram_client_api_core.dart";
+export "template.dart";
+export "librarys.dart";
