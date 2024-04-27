@@ -6,42 +6,40 @@ import 'package:universal_io/io.dart';
 
 List<ScriptGenerator> telegram_userbot_telegram_client_script_generators = [
   ScriptGenerator(
-  is_generate: true,
-  directory_base: Directory("telegram_userbot"),
-  file_system_entity: Directory(".github"),
-  state_data: {},
-  file_system_entity_type: FileSystemEntityType.directory,
-  value: r"""""",
-  children: [
-    ScriptGenerator(
-  is_generate: true,
-  directory_base: Directory("telegram_userbot"),
-  file_system_entity: File(".github/FUNDING.yaml"),
-  state_data: {},
-  file_system_entity_type: FileSystemEntityType.file,
-  value: r"""github: [azkadev]
+    is_generate: true,
+    directory_base: Directory("telegram_userbot"),
+    file_system_entity: Directory(".github"),
+    state_data: {},
+    file_system_entity_type: FileSystemEntityType.directory,
+    value: r"""""",
+    children: [
+      ScriptGenerator(
+        is_generate: true,
+        directory_base: Directory("telegram_userbot"),
+        file_system_entity: File(".github/FUNDING.yaml"),
+        state_data: {},
+        file_system_entity_type: FileSystemEntityType.file,
+        value: r"""github: [azkadev]
 custom: []""",
-  children: [
-    
-  ],
-)
-  ],
-),
-ScriptGenerator(
-  is_generate: true,
-  directory_base: Directory("telegram_userbot"),
-  file_system_entity: Directory("bin"),
-  state_data: {},
-  file_system_entity_type: FileSystemEntityType.directory,
-  value: r"""""",
-  children: [
-    ScriptGenerator(
-  is_generate: true,
-  directory_base: Directory("telegram_userbot"),
-  file_system_entity: File("bin/telegram_userbot.dart"),
-  state_data: {},
-  file_system_entity_type: FileSystemEntityType.file,
-  value: r"""/* <!-- START LICENSE -->
+        children: [],
+      )
+    ],
+  ),
+  ScriptGenerator(
+    is_generate: true,
+    directory_base: Directory("telegram_userbot"),
+    file_system_entity: Directory("bin"),
+    state_data: {},
+    file_system_entity_type: FileSystemEntityType.directory,
+    value: r"""""",
+    children: [
+      ScriptGenerator(
+        is_generate: true,
+        directory_base: Directory("telegram_userbot"),
+        file_system_entity: File("bin/telegram_userbot.dart"),
+        state_data: {},
+        file_system_entity_type: FileSystemEntityType.file,
+        value: r"""/* <!-- START LICENSE -->
 
 
 Program Ini Di buat Oleh DEVELOPER Dari PERUSAHAAN GLOBAL CORPORATION 
@@ -348,35 +346,33 @@ void main(List<String> arguments) async {
   }
 }
 """,
-  children: [
-    
-  ],
-)
-  ],
-),
-ScriptGenerator(
-  is_generate: true,
-  directory_base: Directory("telegram_userbot"),
-  file_system_entity: Directory("lib"),
-  state_data: {},
-  file_system_entity_type: FileSystemEntityType.directory,
-  value: r"""""",
-  children: [
-    ScriptGenerator(
-  is_generate: true,
-  directory_base: Directory("telegram_userbot"),
-  file_system_entity: Directory("lib/logger"),
-  state_data: {},
-  file_system_entity_type: FileSystemEntityType.directory,
-  value: r"""""",
-  children: [
-    ScriptGenerator(
-  is_generate: true,
-  directory_base: Directory("telegram_userbot"),
-  file_system_entity: File("lib/logger/logger.dart"),
-  state_data: {},
-  file_system_entity_type: FileSystemEntityType.file,
-  value: r"""// ignore_for_file: unnecessary_brace_in_string_interps
+        children: [],
+      )
+    ],
+  ),
+  ScriptGenerator(
+    is_generate: true,
+    directory_base: Directory("telegram_userbot"),
+    file_system_entity: Directory("lib"),
+    state_data: {},
+    file_system_entity_type: FileSystemEntityType.directory,
+    value: r"""""",
+    children: [
+      ScriptGenerator(
+        is_generate: true,
+        directory_base: Directory("telegram_userbot"),
+        file_system_entity: Directory("lib/logger"),
+        state_data: {},
+        file_system_entity_type: FileSystemEntityType.directory,
+        value: r"""""",
+        children: [
+          ScriptGenerator(
+            is_generate: true,
+            directory_base: Directory("telegram_userbot"),
+            file_system_entity: File("lib/logger/logger.dart"),
+            state_data: {},
+            file_system_entity_type: FileSystemEntityType.file,
+            value: r"""// ignore_for_file: unnecessary_brace_in_string_interps
 
 /* <!-- START LICENSE -->
 
@@ -422,27 +418,25 @@ Logger logger = Logger(
   },
 ));
 """,
-  children: [
-    
-  ],
-)
-  ],
-),
-    ScriptGenerator(
-  is_generate: true,
-  directory_base: Directory("telegram_userbot"),
-  file_system_entity: Directory("lib/update"),
-  state_data: {},
-  file_system_entity_type: FileSystemEntityType.directory,
-  value: r"""""",
-  children: [
-    ScriptGenerator(
-  is_generate: true,
-  directory_base: Directory("telegram_userbot"),
-  file_system_entity: File("lib/update/update.dart"),
-  state_data: {},
-  file_system_entity_type: FileSystemEntityType.file,
-  value: r"""/* <!-- START LICENSE -->
+            children: [],
+          )
+        ],
+      ),
+      ScriptGenerator(
+        is_generate: true,
+        directory_base: Directory("telegram_userbot"),
+        file_system_entity: Directory("lib/update"),
+        state_data: {},
+        file_system_entity_type: FileSystemEntityType.directory,
+        value: r"""""",
+        children: [
+          ScriptGenerator(
+            is_generate: true,
+            directory_base: Directory("telegram_userbot"),
+            file_system_entity: File("lib/update/update.dart"),
+            state_data: {},
+            file_system_entity_type: FileSystemEntityType.file,
+            value: r"""/* <!-- START LICENSE -->
 
 
 Program Ini Di buat Oleh DEVELOPER Dari PERUSAHAAN GLOBAL CORPORATION 
@@ -476,17 +470,15 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 <!-- END LICENSE --> */
 export "package:telegram_userbot/update/update_message.dart";
 """,
-  children: [
-    
-  ],
-),
-    ScriptGenerator(
-  is_generate: true,
-  directory_base: Directory("telegram_userbot"),
-  file_system_entity: File("lib/update/update_message.dart"),
-  state_data: {},
-  file_system_entity_type: FileSystemEntityType.file,
-  value: r"""/* <!-- START LICENSE -->
+            children: [],
+          ),
+          ScriptGenerator(
+            is_generate: true,
+            directory_base: Directory("telegram_userbot"),
+            file_system_entity: File("lib/update/update_message.dart"),
+            state_data: {},
+            file_system_entity_type: FileSystemEntityType.file,
+            value: r"""/* <!-- START LICENSE -->
 
 
 Program Ini Di buat Oleh DEVELOPER Dari PERUSAHAAN GLOBAL CORPORATION 
@@ -627,19 +619,17 @@ FutureOr<dynamic> updateMessage(
   }
 }
 """,
-  children: [
-    
-  ],
-)
-  ],
-),
-    ScriptGenerator(
-  is_generate: true,
-  directory_base: Directory("telegram_userbot"),
-  file_system_entity: File("lib/telegram_userbot.dart"),
-  state_data: {},
-  file_system_entity_type: FileSystemEntityType.file,
-  value: r"""/* <!-- START LICENSE -->
+            children: [],
+          )
+        ],
+      ),
+      ScriptGenerator(
+        is_generate: true,
+        directory_base: Directory("telegram_userbot"),
+        file_system_entity: File("lib/telegram_userbot.dart"),
+        state_data: {},
+        file_system_entity_type: FileSystemEntityType.file,
+        value: r"""/* <!-- START LICENSE -->
 
 
 Program Ini Di buat Oleh DEVELOPER Dari PERUSAHAAN GLOBAL CORPORATION 
@@ -673,33 +663,30 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 <!-- END LICENSE --> */
 export "package:telegram_userbot/update/update.dart";
 """,
-  children: [
-    
-  ],
-)
-  ],
-),
-ScriptGenerator(
-  is_generate: true,
-  directory_base: Directory("telegram_userbot"),
-  file_system_entity: File(".gitignore"),
-  state_data: {},
-  file_system_entity_type: FileSystemEntityType.file,
-  value: r"""# https://dart.dev/guides/libraries/private-files
+        children: [],
+      )
+    ],
+  ),
+  ScriptGenerator(
+    is_generate: true,
+    directory_base: Directory("telegram_userbot"),
+    file_system_entity: File(".gitignore"),
+    state_data: {},
+    file_system_entity_type: FileSystemEntityType.file,
+    value: r"""# https://dart.dev/guides/libraries/private-files
 # Created by `dart pub`
 .dart_tool/
 """,
-  children: [
-    
-  ],
-),
-ScriptGenerator(
-  is_generate: true,
-  directory_base: Directory("telegram_userbot"),
-  file_system_entity: File("analysis_options.yaml"),
-  state_data: {},
-  file_system_entity_type: FileSystemEntityType.file,
-  value: r"""# This file configures the static analysis results for your project (errors,
+    children: [],
+  ),
+  ScriptGenerator(
+    is_generate: true,
+    directory_base: Directory("telegram_userbot"),
+    file_system_entity: File("analysis_options.yaml"),
+    state_data: {},
+    file_system_entity_type: FileSystemEntityType.file,
+    value:
+        r"""# This file configures the static analysis results for your project (errors,
 # warnings, and lints).
 #
 # This enables the 'recommended' set of lints from `package:lints`.
@@ -730,31 +717,27 @@ include: package:lints/recommended.yaml
 # For additional information about configuring this file, see
 # https://dart.dev/guides/language/analysis-options
 """,
-  children: [
-    
-  ],
-),
-ScriptGenerator(
-  is_generate: true,
-  directory_base: Directory("telegram_userbot"),
-  file_system_entity: File("CHANGELOG.md"),
-  state_data: {},
-  file_system_entity_type: FileSystemEntityType.file,
-  value: r"""## 1.0.0
+    children: [],
+  ),
+  ScriptGenerator(
+    is_generate: true,
+    directory_base: Directory("telegram_userbot"),
+    file_system_entity: File("CHANGELOG.md"),
+    state_data: {},
+    file_system_entity_type: FileSystemEntityType.file,
+    value: r"""## 1.0.0
 
 - Initial version.
 """,
-  children: [
-    
-  ],
-),
-ScriptGenerator(
-  is_generate: true,
-  directory_base: Directory("telegram_userbot"),
-  file_system_entity: File("pubspec.yaml"),
-  state_data: {},
-  file_system_entity_type: FileSystemEntityType.file,
-  value: r"""name: 'telegram_userbot'
+    children: [],
+  ),
+  ScriptGenerator(
+    is_generate: true,
+    directory_base: Directory("telegram_userbot"),
+    file_system_entity: File("pubspec.yaml"),
+    state_data: {},
+    file_system_entity_type: FileSystemEntityType.file,
+    value: r"""name: 'telegram_userbot'
 description: 'A Example Quick Start Telegram Userbot BY @AZKADEV'
 version: '0.0.0'
 repository: 'https://github.com/azkadev/telegram_client'
@@ -778,20 +761,15 @@ dependencies:
 dev_dependencies: 
   lints: '^3.0.0'
   test: '^1.24.0'""",
-  children: [
-    
-  ],
-),
-ScriptGenerator(
-  is_generate: true,
-  directory_base: Directory("telegram_userbot"),
-  file_system_entity: File("README.md"),
-  state_data: {},
-  file_system_entity_type: FileSystemEntityType.file,
-  value: r"""""",
-  children: [
-    
-  ],
-)
+    children: [],
+  ),
+  ScriptGenerator(
+    is_generate: true,
+    directory_base: Directory("telegram_userbot"),
+    file_system_entity: File("README.md"),
+    state_data: {},
+    file_system_entity_type: FileSystemEntityType.file,
+    value: r"""""",
+    children: [],
+  )
 ];
- 
