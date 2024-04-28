@@ -54,8 +54,7 @@ extension MessageDataDataOn on TelegramClient {
     if (message["message_thread_id"] is int &&
         message["message_thread_id"] > 0) {
       if (message["is_topic_message"] == true) {
-        message_thread_json["message_thread_id"] =
-            (message["message_thread_id"]);
+        message_thread_json["message_thread_id"] = message["message_thread_id"];
       }
     }
     Map message_from_json = <dynamic, dynamic>{};
@@ -157,7 +156,7 @@ extension MessageDataDataOn on TelegramClient {
           }
         } else {
           message_from_json["from"] =
-              (message_sender_chat_json["sender_chat"] as Map);
+              message_sender_chat_json["sender_chat"] as Map;
         }
       }
     }
@@ -299,25 +298,21 @@ extension MessageDataDataOn on TelegramClient {
       }
 
       if (text_entities.isNotEmpty) {
-        msg["entities"] = (
-          await entitiesToApi(
-            oldEntities: text_entities,
-            telegramClientData: telegramClientData,
-            is_lite: is_lite,
-            isUseCache: isUseCache,
-            durationCacheExpire: durationCacheExpire,
-          ),
+        msg["entities"] = await entitiesToApi(
+          oldEntities: text_entities,
+          telegramClientData: telegramClientData,
+          is_lite: is_lite,
+          isUseCache: isUseCache,
+          durationCacheExpire: durationCacheExpire,
         );
       }
       if (caption_entities.isNotEmpty) {
-        msg["caption_entities"] = (
-          await entitiesToApi(
-            oldEntities: caption_entities,
-            telegramClientData: telegramClientData,
-            is_lite: is_lite,
-            isUseCache: isUseCache,
-            durationCacheExpire: durationCacheExpire,
-          ),
+        msg["caption_entities"] = await entitiesToApi(
+          oldEntities: caption_entities,
+          telegramClientData: telegramClientData,
+          is_lite: is_lite,
+          isUseCache: isUseCache,
+          durationCacheExpire: durationCacheExpire,
         );
       }
 
@@ -636,19 +631,19 @@ extension MessageDataDataOn on TelegramClient {
     return msg;
   }
 
-  Future<List> entitiesToApi({
+  Future<List<Map<dynamic, dynamic>>> entitiesToApi({
     required List oldEntities,
     required TelegramClientData telegramClientData,
     required bool is_lite,
     bool? isUseCache,
     Duration? durationCacheExpire,
   }) async {
-    List entities_data = [];
+    List<Map<dynamic, dynamic>> entities_data = [];
 
     for (var i = 0; i < oldEntities.length; i++) {
       var dataEntities = oldEntities[i];
       try {
-        var jsonEntities = {};
+        Map<dynamic, dynamic> jsonEntities = <dynamic, dynamic>{};
         jsonEntities["offset"] = dataEntities["offset"];
         jsonEntities["length"] = dataEntities["length"];
         if (dataEntities["type"]["@type"] != null) {
@@ -668,7 +663,9 @@ extension MessageDataDataOn on TelegramClient {
           if (typeEntities == "text_mention" &&
               dataEntities["type"]["user_id"] != null) {
             var entitiesUserId = dataEntities["type"]["user_id"];
-            Map fromJson = {"id": entitiesUserId};
+            Map<dynamic, dynamic> fromJson = <dynamic, dynamic>{
+              "id": entitiesUserId
+            };
             if (is_lite) {
             } else {
               try {

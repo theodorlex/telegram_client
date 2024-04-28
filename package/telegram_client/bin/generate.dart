@@ -46,7 +46,7 @@ updateActiveNotifications, updateAnimatedEmojiMessageClicked, updateAnimationSea
   List<String> datas = data.split(",");
   List<String> methods = [];
   for (var i = 0; i < datas.length; i++) {
-    String dataLoop = (datas[i]).trim();
+    String dataLoop = datas[i].trim();
 
     String newData = "";
 

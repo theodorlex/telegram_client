@@ -358,6 +358,8 @@ class LibTdJson {
     return null;
   }
 
+  static bool is_debug = false;
+
   /// fetch update
   static Map<String, dynamic>? td_receive_static({
     required String path_tdlib,

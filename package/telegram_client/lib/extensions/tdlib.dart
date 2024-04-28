@@ -75,7 +75,7 @@ extension TdlibMethodExtensions on Tdlib {
 
     if (get_chat_user["result"] is Map) {
       if (get_chat_user["result"]["type"] is String) {
-        String get_chat_user_type = (get_chat_user["result"]["type"] as String);
+        String get_chat_user_type = get_chat_user["result"]["type"] as String;
         if (get_chat_user_type == "private") {
           gban_user_ids.add(get_chat_user["result"]["id"]);
         } else {
