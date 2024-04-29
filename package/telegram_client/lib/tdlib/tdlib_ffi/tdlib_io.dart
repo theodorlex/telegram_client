@@ -52,9 +52,20 @@ import 'package:telegram_client/tdlib/update_td.dart';
 import 'package:universal_io/io.dart';
 import 'package:ffi/ffi.dart' as pkgffi;
 
+typedef TdPointerNative = ffi.Pointer;
+typedef TdPointerFunctionNative = TdPointerNative Function();
+
 typedef TdStringNative = ffi.Pointer<pkgffi.Utf8>;
 typedef TdReceiveNative = TdStringNative Function(ffi.Double timout);
 typedef TdReceiveDart = TdStringNative Function(double timout);
+
+typedef TdSendNative = ffi.Void Function(TdPointerNative client, TdStringNative request);
+typedef TdSendDart = void Function(TdPointerNative client, TdStringNative request);
+
+typedef TdExecuteNative = TdStringNative Function(TdStringNative parameters);
+
+typedef TdDestroyNative = ffi.Void Function(ffi.Pointer client_id);
+typedef TdDestroyDart = void Function(ffi.Pointer client_id);
 
 /// Cheatset
 ///
@@ -117,9 +128,15 @@ class LibTdJson {
   FutureOr<void> Function(dynamic update, LibTdJson libTdJson)? on_receive_update;
   FutureOr<String> Function(int client_id, LibTdJson libTdJson)? on_generate_extra_invoke;
   FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)? on_get_invoke_data;
+
+  static bool is_debug = false;
+  int task_max_count;
+  int task_min_cooldown;
   LibTdJson({
     String? pathTdl,
     Map? clientOption,
+    this.task_max_count = 200,
+    this.task_min_cooldown = 10,
     this.is_cli = false,
     this.event_invoke = "invoke",
     this.event_update = "update",
@@ -230,16 +247,21 @@ class LibTdJson {
 
   /// create client id for multi client
   int td_create_client_id() {
-    // pkgffi;
-    int client_id_new = tdLib.lookupFunction<ffi.Pointer Function(), ffi.Pointer Function()>('${is_android ? "_" : ""}td_create_client_id').call().address;
-
+    Arena arena = Arena();
+    TdPointerFunctionNative td_pointer_native_function = tdLib.lookupFunction<TdPointerFunctionNative, TdPointerFunctionNative>('${is_android ? "_" : ""}td_create_client_id');
+    ffi.Pointer td_pointer_native_result = arena.using(td_pointer_native_function(), (p0) {});
+    int client_id_new = td_pointer_native_result.address;
+    arena.releaseAll();
     return client_id_new;
   }
 
   /// create client id for multi client
   int td_json_client_create() {
-    // pkgffi;
-    int client_id_new = tdLib.lookupFunction<ffi.Pointer Function(), ffi.Pointer Function()>('${is_android ? "_" : ""}td_json_client_create').call().address;
+    Arena arena = Arena();
+    TdPointerFunctionNative td_pointer_native_function = tdLib.lookupFunction<TdPointerFunctionNative, TdPointerFunctionNative>('${is_android ? "_" : ""}td_json_client_create');
+    TdPointerNative td_pointer_native_result = arena.using(td_pointer_native_function(), (p0) {});
+    int client_id_new = td_pointer_native_result.address;
+    arena.releaseAll();
 
     return client_id_new;
   }
@@ -252,7 +274,10 @@ class LibTdJson {
   void td_send(int clientId, [Map? parameters]) {
     ffi.Pointer client_id_addres_data = client_id_addres(clientId);
     TdStringNative request_data = convert.json.encode(parameters).toNativeUtf8();
-    tdLib.lookupFunction<ffi.Void Function(ffi.Pointer client, TdStringNative request), void Function(ffi.Pointer client, TdStringNative request)>('${is_android ? "_" : ""}td_send').call(client_id_addres_data, request_data);
+    Arena arena = Arena();
+    TdSendDart td_send_function = tdLib.lookupFunction<TdSendNative, TdSendDart>('${is_android ? "_" : ""}td_send');
+    void td_send_result = arena.using(td_send_function(client_id_addres_data, request_data), (p0) {});
+    arena.releaseAll();
     pkgffi.malloc.free(request_data);
     return;
   }
@@ -261,40 +286,38 @@ class LibTdJson {
   void td_json_client_send(int clientId, [Map? parameters]) {
     ffi.Pointer client_id_addres_data = client_id_addres(clientId);
     TdStringNative request_data = convert.json.encode(parameters).toNativeUtf8();
-    tdLib.lookupFunction<ffi.Void Function(ffi.Pointer client, TdStringNative request), void Function(ffi.Pointer client, TdStringNative request)>('${is_android ? "_" : ""}td_json_client_send').call(client_id_addres_data, request_data);
+
+    Arena arena = Arena();
+    TdSendDart td_send_function = tdLib.lookupFunction<TdSendNative, TdSendDart>('${is_android ? "_" : ""}td_json_client_send');
+    void td_send_result = arena.using(td_send_function(client_id_addres_data, request_data), (p0) {});
+    arena.releaseAll();
     pkgffi.malloc.free(request_data);
+
     return;
   }
 
   /// client_execute
   Map<String, dynamic> td_execute(Map parameters) {
     TdStringNative request_data = convert.json.encode(parameters).toNativeUtf8();
-    TdStringNative result = tdLib.lookupFunction<TdStringNative Function(TdStringNative), TdStringNative Function(TdStringNative)>('${is_android ? "_" : ""}td_execute').call(request_data);
-    Map<String, dynamic> result_data = convert.json.decode(result.toDartString());
-    pkgffi.malloc.free(request_data);
-    return result_data;
-  }
+    Arena arena = Arena();
+    TdExecuteNative td_execute_native_function = tdLib.lookupFunction<TdExecuteNative, TdExecuteNative>('${is_android ? "_" : ""}td_execute');
 
-  /// client_execute
-  Map<String, dynamic> td_json_client_execute(int clientId, [Map? parameters]) {
-    ffi.Pointer client_id_addres_data = client_id_addres(clientId);
-    TdStringNative request_data = convert.json.encode(parameters).toNativeUtf8();
-    TdStringNative result = tdLib.lookupFunction<TdStringNative Function(ffi.Pointer, TdStringNative), TdStringNative Function(ffi.Pointer, TdStringNative)>('${is_android ? "_" : ""}td_json_client_execute').call(client_id_addres_data, request_data);
-    Map<String, dynamic> result_data = convert.json.decode(result.toDartString());
+    TdStringNative td_execute_native_result = arena.using(td_execute_native_function(request_data), (p0) {});
+    Map<String, dynamic> result_data = convert.json.decode(td_execute_native_result.toDartString());
+    arena.releaseAll();
     pkgffi.malloc.free(request_data);
-
     return result_data;
   }
 
   /// client_destroy
   void td_json_client_destroy(int clientId) {
     ffi.Pointer client_id_addres_data = client_id_addres(clientId);
-    tdLib.lookupFunction<ffi.Void Function(ffi.Pointer), void Function(ffi.Pointer)>('${is_android ? "_" : ""}td_json_client_destroy').call(client_id_addres_data);
-
+    Arena arena = Arena();
+    TdDestroyDart td_destroy_dart_function = tdLib.lookupFunction<TdDestroyNative, TdDestroyDart>('${is_android ? "_" : ""}td_json_client_destroy');
+    arena.using(td_destroy_dart_function(client_id_addres_data), (p0) {});
+    arena.releaseAll();
     return;
   }
-
-  static bool is_debug = false;
 
   /// fetch update
   static Map<String, dynamic>? td_receive_static({
@@ -305,10 +328,10 @@ class LibTdJson {
       TdReceiveDart td_receive_function = tdLib.lookupFunction<TdReceiveNative, TdReceiveDart>(
         '${Platform.isAndroid ? "_" : ""}td_receive',
       );
-
-      TdStringNative update = td_receive_function(timeout);
+      TdStringNative update = arena.using(td_receive_function(timeout), (p0) {});
       if (update.address != 0) {
-        String update_string = update.toDartString(); 
+        String update_string = update.toDartString();
+        arena.releaseAll();
         if (update_string.isEmpty) {
           return null;
         }
@@ -319,7 +342,23 @@ class LibTdJson {
         if (updateOrigin != null) {
           return updateOrigin;
         }
-      } else {}
+
+        // TdStringNative update = td_receive_function(timeout);
+        // if (update.address != 0) {
+        //   String update_string = update.toDartString();
+        //   if (update_string.isEmpty) {
+        //     return null;
+        //   }
+        //   Map<String, dynamic>? updateOrigin;
+        //   try {
+        //     updateOrigin = convert.json.decode(update.toDartString());
+        //   } catch (e) {}
+        //   if (updateOrigin != null) {
+        //     return updateOrigin;
+        //   }
+      } else {
+        arena.releaseAll();
+      }
     } catch (e) {}
     return null;
   }
@@ -343,6 +382,7 @@ class LibTdJson {
     );
     if ((is_init_isolate == false)) {
       TdlibIsolateData tdlibIsolateData = TdlibIsolateData(
+        isCli: is_cli,
         sendPort: receivePort.sendPort,
         tdlibClient: tdlibClient,
         pathTdlib: path_tdlib,
@@ -526,6 +566,14 @@ class LibTdJson {
     FutureOr<String> Function(int client_id, LibTdJson libTdJson)? onGenerateExtraInvoke,
     FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)? onGetInvokeData,
   }) async {
+    if (task_count >= task_max_count) {
+      while (true) {
+        await Future.delayed(Duration(microseconds: 1));
+        if (task_count < task_min_cooldown) { 
+          break;
+        }
+      }
+    }
     isUseCache ??= false;
     durationCacheExpire ??= Duration(
       minutes: 1,
@@ -593,26 +641,26 @@ class LibTdJson {
 
     TdlibClient? tdlib_client_procces = clients[clientId];
     bool is_has_get_cache_found = false;
-    var (String key_cache, bool is_can_get_cache) = TdlibClientCache.createKeyAndCanGetCache(methodName: method, parameter: parameters);
-    if (is_can_get_cache) {
-      if (isUseCache) {
-        if (tdlib_client_procces != null) {
-          TdlibClientCacheData? tdlibClientCacheData = tdlib_client_procces.tdlibClientCache.getCacheByMethod(
-            methodName: method,
-            parameter: parameters,
-          );
-          is_has_get_cache_found = true;
-          if (tdlibClientCacheData != null && tdlibClientCacheData.result.isNotEmpty) {
-            Map result_data = {...tdlibClientCacheData.result};
-            result_data.addAll({
-              "@extra": extra,
-              "@client_id": clientId,
-            });
-            return result_data;
-          }
-        }
-      }
-    }
+    // var (String key_cache, bool is_can_get_cache) = TdlibClientCache.createKeyAndCanGetCache(methodName: method, parameter: parameters);
+    // if (is_can_get_cache) {
+    //   if (isUseCache) {
+    //     if (tdlib_client_procces != null) {
+    //       TdlibClientCacheData? tdlibClientCacheData = tdlib_client_procces.tdlibClientCache.getCacheByMethod(
+    //         methodName: method,
+    //         parameter: parameters,
+    //       );
+    //       is_has_get_cache_found = true;
+    //       if (tdlibClientCacheData != null && tdlibClientCacheData.result.isNotEmpty) {
+    //         Map result_data = {...tdlibClientCacheData.result};
+    //         result_data.addAll({
+    //           "@extra": extra,
+    //           "@client_id": clientId,
+    //         });
+    //         return result_data;
+    //       }
+    //     }
+    //   }
+    // }
 
     Map requestMethod = {
       "@type": method,
@@ -630,7 +678,6 @@ class LibTdJson {
         "@extra": extra,
       };
     }
-    Map result = {};
     Duration timeOut = invokeTimeOut;
     DateTime time_expire = DateTime.now().add(timeOut);
     if (onGetInvokeData != null) {
@@ -641,22 +688,23 @@ class LibTdJson {
       return await onGetInvokeData(extra_id, clientId, this);
     }
 
-    if (isUseCache) {
-      if (tdlib_client_procces != null) {
-        TdlibClientCacheData? tdlibClientCacheData = tdlib_client_procces.tdlibClientCache.getCacheByMethod(
-          methodName: method,
-          parameter: parameters,
-        );
-        if (tdlibClientCacheData != null && tdlibClientCacheData.result.isNotEmpty && is_has_get_cache_found == false) {
-          Map result_data = {...tdlibClientCacheData.result};
-          result_data.addAll({
-            "@extra": extra,
-            "@client_id": clientId,
-          });
-          return result_data;
-        }
-      }
-    }
+    // if (isUseCache) {
+    //   if (tdlib_client_procces != null) {
+    //     TdlibClientCacheData? tdlibClientCacheData = tdlib_client_procces.tdlibClientCache.getCacheByMethod(
+    //       methodName: method,
+    //       parameter: parameters,
+    //     );
+    //     if (tdlibClientCacheData != null && tdlibClientCacheData.result.isNotEmpty && is_has_get_cache_found == false) {
+    //       Map result_data = {...tdlibClientCacheData.result};
+    //       result_data.addAll({
+    //         "@extra": extra,
+    //         "@client_id": clientId,
+    //       });
+    //       return result_data;
+    //     }
+    //   }
+    // }
+    Completer completer = Completer();
 
     Listener listener = on(event_invoke, (UpdateTd update) async {
       try {
@@ -665,11 +713,13 @@ class LibTdJson {
           if (updateOrigin["@extra"] == extra_id) {
             updateOrigin.remove("@extra");
             updateOrigin.remove("@client_id");
-            result = updateOrigin;
+            completer.complete(updateOrigin);
+            // result = updateOrigin;
           }
         }
       } catch (e) {
-        result["@type"] = "error";
+        completer.complete({"@type": "error,"});
+        // result["@type"] = "error";
       }
     });
     td_send(
@@ -679,27 +729,32 @@ class LibTdJson {
     task_increase();
     while (true) {
       await Future.delayed(delayDuration ?? delay_invoke);
-      if (result["@type"] is String) {
+      if (completer.isCompleted) {
+        Map result = await completer.future;
         task_decrease();
         event_emitter.off(listener);
-        if (result["@type"] == "error") {
-          if (!isInvokeThrowOnError) {
-            return result;
+        if (result["@type"] is String) {
+          if (result["@type"] == "error") {
+            if (!isInvokeThrowOnError) {
+              return result;
+            }
+
+            result["invoke_request"] = requestMethod;
+            throw result;
           }
 
-          result["invoke_request"] = requestMethod;
-          throw result;
-        }
+          // if (isUseCache) {
+          //   if (tdlib_client_procces != null) {
+          //     tdlib_client_procces.tdlibClientCache.addCacheByMethod(
+          //       methodName: method,
+          //       parameter: parameters,
+          //       result: result,
+          //       durationExpired: durationCacheExpire,
+          //     );
+          //   }
+          // }
 
-        if (isUseCache) {
-          if (tdlib_client_procces != null) {
-            tdlib_client_procces.tdlibClientCache.addCacheByMethod(
-              methodName: method,
-              parameter: parameters,
-              result: result,
-              durationExpired: durationCacheExpire,
-            );
-          }
+          return result;
         }
 
         return result;
@@ -708,7 +763,7 @@ class LibTdJson {
         task_decrease();
         event_emitter.off(listener);
 
-        result = {
+        Map result = {
           "@type": "error",
           "message": "time_out_limit",
           "invoke_request": requestMethod,
@@ -794,7 +849,7 @@ class LibTdJson {
       ...parameters,
     };
 
-    Map result = td_json_client_execute(clientId, requestMethod);
+    Map result = td_execute(requestMethod);
     if (result["@type"] == "error") {
       if (!isThrowOnError) {
         return result;

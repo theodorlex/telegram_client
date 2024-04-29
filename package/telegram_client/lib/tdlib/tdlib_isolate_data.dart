@@ -38,9 +38,11 @@ class TdlibIsolateData {
   TdlibClient tdlibClient;
   String pathTdlib;
   bool isAndroid;
+  bool isCli;
   Duration? delayUpdate;
   double timeOutUpdate;
   TdlibIsolateData({
+    required this.isCli,
     required this.sendPort,
     required this.tdlibClient,
     required this.pathTdlib,

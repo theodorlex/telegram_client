@@ -92,6 +92,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "coverage",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/coverage-1.7.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "crypto",
       "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/crypto-3.0.3",
       "packageUri": "lib/",
@@ -134,6 +140,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "frontend_server_client",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/frontend_server_client-4.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "general_lib",
       "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/general_lib-0.0.37",
       "packageUri": "lib/",
@@ -150,6 +162,12 @@
       "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/http-1.2.1",
       "packageUri": "lib/",
       "languageVersion": "3.3"
+    },
+    {
+      "name": "http_multi_server",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/http_multi_server-3.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "http_parser",
@@ -218,6 +236,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "node_preamble",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/node_preamble-2.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "package_config",
       "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/package_config-2.1.0",
       "packageUri": "lib/",
@@ -234,6 +258,12 @@
       "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/pointycastle-3.7.4",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "pool",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/pool-1.5.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "pub_semver",
@@ -260,10 +290,46 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "shelf",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/shelf-1.4.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "shelf_packages_handler",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/shelf_packages_handler-3.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "shelf_static",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/shelf_static-1.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "shelf_web_socket",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/shelf_web_socket-1.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "source_gen",
       "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/source_gen-1.5.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "source_map_stack_trace",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/source_map_stack_trace-2.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "source_maps",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/source_maps-0.10.12",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
     },
     {
       "name": "source_span",
@@ -296,8 +362,20 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "test",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/test-1.25.4",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "test_api",
-      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/test_api-0.7.0",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/test_api-0.7.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "test_core",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/test_core-0.6.2",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -332,6 +410,12 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "vm_service",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/vm_service-14.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
       "name": "watcher",
       "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/watcher-1.1.0",
       "packageUri": "lib/",
@@ -348,6 +432,18 @@
       "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/web_ffi-0.7.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "web_socket_channel",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/web_socket_channel-2.4.5",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "webkit_inspection_protocol",
+      "rootUri": "file:///home/galaxeus/.pub-cache/hosted/pub.dev/webkit_inspection_protocol-1.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     },
     {
       "name": "win32",
@@ -371,10 +467,10 @@
       "name": "telegram_client",
       "rootUri": "../",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-04-28T05:21:19.905132Z",
+  "generated": "2024-04-29T05:39:07.026023Z",
   "generator": "pub",
   "generatorVersion": "3.3.3"
 }

@@ -49,14 +49,11 @@ extension SendMessageRawDataOn on TelegramClient {
     required TelegramClientData telegramClientData,
   }) async {
     dynamic target_chat_id = TgUtils.parse_all_chat_id(parameters: parameters);
-    if (target_chat_id is String &&
-        RegExp(r"^((@)[a-z0-9_]+)$", caseSensitive: false)
-            .hashData(target_chat_id)) {
+    if (target_chat_id is String && RegExp(r"^((@)[a-z0-9_]+)$", caseSensitive: false).hashData(target_chat_id)) {
       var search_public_chat = await callApiInvoke(
         parameters: {
           "@type": "searchPublicChat",
-          "username": (target_chat_id)
-              .replaceAll(RegExp(r"@", caseSensitive: false), ""),
+          "username": (target_chat_id).replaceAll(RegExp(r"@", caseSensitive: false), ""),
         },
         is_invoke_no_relevance: true,
       );
@@ -83,8 +80,7 @@ extension SendMessageRawDataOn on TelegramClient {
     ];
     for (var option_parameter in options_parameters) {
       if (parameters[option_parameter] is bool) {
-        request_parameters["options"][option_parameter] =
-            parameters[option_parameter];
+        request_parameters["options"][option_parameter] = parameters[option_parameter];
       }
     }
     List<String> input_message_content_parameters = [
@@ -93,19 +89,16 @@ extension SendMessageRawDataOn on TelegramClient {
     ];
     for (var option_parameter in input_message_content_parameters) {
       if (parameters[option_parameter] is bool) {
-        request_parameters["input_message_content"][option_parameter] =
-            parameters[option_parameter];
+        request_parameters["input_message_content"][option_parameter] = parameters[option_parameter];
       }
     }
 
     if (parameters.containsKey("message_thread_id")) {
-      request_parameters["message_thread_id"] =
-          (parameters["message_thread_id"]);
+      request_parameters["message_thread_id"] = (parameters["message_thread_id"]);
     }
 
     if (parameters.containsKey("message_id")) {
-      request_parameters["message_id"] =
-          TgUtils().messageApiToTdlib(parameters["message_id"]);
+      request_parameters["message_id"] = TgUtils().messageApiToTdlib(parameters["message_id"]);
     }
     if (parameters.containsKey("inline_message_id")) {
       request_parameters["inline_message_id"] = parameters["inline_message_id"];
@@ -114,8 +107,7 @@ extension SendMessageRawDataOn on TelegramClient {
       request_parameters["reply_to"] = {
         "@type": "inputMessageReplyToMessage",
         "chat_id": request_parameters["chat_id"],
-        "message_id":
-            TgUtils().messageApiToTdlib(parameters["reply_to_message_id"]),
+        "message_id": TgUtils().messageApiToTdlib(parameters["reply_to_message_id"]),
       };
     } else if (parameters["reply_to_story_id"] is int) {
       request_parameters["reply_to"] = {
@@ -128,8 +120,7 @@ extension SendMessageRawDataOn on TelegramClient {
       "@type": "formattedText",
     };
 
-    if (RegExp(r"^(sendMessage|editMessageText)$", caseSensitive: false)
-        .hashData(parameters["@type"])) {
+    if (RegExp(r"^(sendMessage|editMessageText)$", caseSensitive: false).hashData(parameters["@type"])) {
       formatted_text["text"] = parameters["text"];
     } else {
       if (parameters["caption"] is String) {
@@ -190,122 +181,91 @@ extension SendMessageRawDataOn on TelegramClient {
 //  editMessageSchedulingState
 //  editMessageText
     String add_inline = () {
-      if (parameters["inline_message_id"] is String &&
-          (parameters["inline_message_id"] as String).isNotEmpty) {
+      if (parameters["inline_message_id"] is String && (parameters["inline_message_id"] as String).isNotEmpty) {
         return "Inline";
       }
       return "";
     }();
 
-    if (RegExp(r"^(editMessageCaption)$", caseSensitive: false)
-        .hashData(parameters["@type"])) {
+    if (RegExp(r"^(editMessageCaption)$", caseSensitive: false).hashData(parameters["@type"])) {
       request_parameters["@type"] = "edit${add_inline}MessageCaption";
     }
-    if (RegExp(r"^(editMessageMedia)$", caseSensitive: false)
-        .hashData(parameters["@type"])) {
+    if (RegExp(r"^(editMessageMedia)$", caseSensitive: false).hashData(parameters["@type"])) {
       request_parameters["@type"] = "edit${add_inline}MessageMedia";
     }
-    if (RegExp(r"^(editMessageReplyMarkup)$", caseSensitive: false)
-        .hashData(parameters["@type"])) {
+    if (RegExp(r"^(editMessageReplyMarkup)$", caseSensitive: false).hashData(parameters["@type"])) {
       request_parameters["@type"] = "edit${add_inline}MessageReplyMarkup";
     }
-    if (RegExp(r"^(editMessageText)$", caseSensitive: false)
-        .hashData(parameters["@type"])) {
+    if (RegExp(r"^(editMessageText)$", caseSensitive: false).hashData(parameters["@type"])) {
       request_parameters["@type"] = "edit${add_inline}MessageText";
     }
 
-    if (RegExp(r"^(sendMessage|editMessageText)$", caseSensitive: false)
-        .hashData(parameters["@type"])) {
+    if (RegExp(r"^(sendMessage|editMessageText)$", caseSensitive: false).hashData(parameters["@type"])) {
       request_parameters["input_message_content"]["@type"] = "inputMessageText";
 
       if (parameters["clear_draft"] is bool) {
-        request_parameters["input_message_content"]["clear_draft"] =
-            parameters["clear_draft"];
+        request_parameters["input_message_content"]["clear_draft"] = parameters["clear_draft"];
       }
       if (formatted_text != null) {
         request_parameters["input_message_content"]["text"] = formatted_text;
       }
     } else {
-      if (RegExp(r"^(forwardMessage|copyMessage)$", caseSensitive: false)
-          .hashData(parameters["@type"])) {
-        request_parameters["input_message_content"]["@type"] =
-            "inputMessageForwarded";
-        request_parameters["input_message_content"]["from_chat_id"] =
-            parameters["from_chat_id"];
-        request_parameters["input_message_content"]["message_id"] =
-            TgUtils().messageApiToTdlib(parameters["message_id"]);
+      if (RegExp(r"^(forwardMessage|copyMessage)$", caseSensitive: false).hashData(parameters["@type"])) {
+        request_parameters["input_message_content"]["@type"] = "inputMessageForwarded";
+        request_parameters["input_message_content"]["from_chat_id"] = parameters["from_chat_id"];
+        request_parameters["input_message_content"]["message_id"] = TgUtils().messageApiToTdlib(parameters["message_id"]);
         if (parameters["in_game_share"] is bool) {
-          request_parameters["input_message_content"]["in_game_share"] =
-              parameters["in_game_share"];
+          request_parameters["input_message_content"]["in_game_share"] = parameters["in_game_share"];
         }
-        if (RegExp(r"^(copyMessage)$", caseSensitive: false)
-            .hashData(parameters["@type"])) {
+        if (RegExp(r"^(copyMessage)$", caseSensitive: false).hashData(parameters["@type"])) {
           request_parameters["input_message_content"]["copy_options"] = {
             "@type": "messageCopyOptions",
             "send_copy": true,
           };
           if (formatted_text != null) {
-            request_parameters["input_message_content"]["copy_options"]
-                ["replace_caption"] = true;
-            request_parameters["input_message_content"]["copy_options"]
-                ["new_caption"] = formatted_text;
+            request_parameters["input_message_content"]["copy_options"]["replace_caption"] = true;
+            request_parameters["input_message_content"]["copy_options"]["new_caption"] = formatted_text;
           }
         }
       } else {
         if (formatted_text != null) {
-          if (RegExp(r"^(editMessageCaption)$", caseSensitive: false)
-              .hashData(parameters["@type"])) {
+          if (RegExp(r"^(editMessageCaption)$", caseSensitive: false).hashData(parameters["@type"])) {
             request_parameters["caption"] = formatted_text;
           } else {
-            request_parameters["input_message_content"]["caption"] =
-                formatted_text;
+            request_parameters["input_message_content"]["caption"] = formatted_text;
           }
         }
       }
-      if (RegExp(r"^(sendAudio)$", caseSensitive: false)
-          .hashData(parameters["@type"])) {
-        request_parameters["input_message_content"]["@type"] =
-            "inputMessageAudio";
-        request_parameters["input_message_content"]["audio"] =
-            (await TgUtils.typeFile(
+      if (RegExp(r"^(sendAudio)$", caseSensitive: false).hashData(parameters["@type"])) {
+        request_parameters["input_message_content"]["@type"] = "inputMessageAudio";
+        request_parameters["input_message_content"]["audio"] = (await TgUtils.typeFile(
           content: parameters["audio"],
           directory_temp: directory_temp,
         ));
       }
-      if (RegExp(r"^(sendPhoto)$", caseSensitive: false)
-          .hashData(parameters["@type"])) {
-        request_parameters["input_message_content"]["@type"] =
-            "inputMessagePhoto";
-        request_parameters["input_message_content"]["photo"] =
-            (await TgUtils.typeFile(
+      if (RegExp(r"^(sendPhoto)$", caseSensitive: false).hashData(parameters["@type"])) {
+        request_parameters["input_message_content"]["@type"] = "inputMessagePhoto";
+        request_parameters["input_message_content"]["photo"] = (await TgUtils.typeFile(
           content: parameters["photo"],
           directory_temp: directory_temp,
         ));
       }
-      if (RegExp(r"^(sendAnimation)$", caseSensitive: false)
-          .hashData(parameters["@type"])) {
-        request_parameters["input_message_content"]["@type"] =
-            "inputMessageAnimation";
-        request_parameters["input_message_content"]["animation"] =
-            (await TgUtils.typeFile(
+      if (RegExp(r"^(sendAnimation)$", caseSensitive: false).hashData(parameters["@type"])) {
+        request_parameters["input_message_content"]["@type"] = "inputMessageAnimation";
+        request_parameters["input_message_content"]["animation"] = (await TgUtils.typeFile(
           content: parameters["animation"],
           directory_temp: directory_temp,
         ));
       }
-      if (RegExp(r"^(sendDocument)$", caseSensitive: false)
-          .hashData(parameters["@type"])) {
-        request_parameters["input_message_content"]["@type"] =
-            "inputMessageDocument";
-        request_parameters["input_message_content"]["document"] =
-            (await TgUtils.typeFile(
+      if (RegExp(r"^(sendDocument)$", caseSensitive: false).hashData(parameters["@type"])) {
+        request_parameters["input_message_content"]["@type"] = "inputMessageDocument";
+        request_parameters["input_message_content"]["document"] = (await TgUtils.typeFile(
           content: parameters["document"],
           directory_temp: directory_temp,
         ));
       }
-      if (RegExp(r"^(sendContact)$", caseSensitive: false)
-          .hashData(parameters["@type"])) {
-        request_parameters["input_message_content"]["@type"] =
-            "inputMessageContact";
+      if (RegExp(r"^(sendContact)$", caseSensitive: false).hashData(parameters["@type"])) {
+        request_parameters["input_message_content"]["@type"] = "inputMessageContact";
         request_parameters["input_message_content"]["contact"] = {
           "@type": "contact",
           "latitude": parameters["latitude"],
@@ -320,110 +280,83 @@ extension SendMessageRawDataOn on TelegramClient {
         ];
         for (var contact_parameter in contact_parameters) {
           if (parameters.containsKey(contact_parameter)) {
-            request_parameters["input_message_content"]["contact"]
-                [contact_parameter] = parameters[contact_parameter];
+            request_parameters["input_message_content"]["contact"][contact_parameter] = parameters[contact_parameter];
           }
         }
       }
-      if (RegExp(r"^(sendVenue)$", caseSensitive: false)
-          .hashData(parameters["@type"])) {
-        request_parameters["input_message_content"]["@type"] =
-            "inputMessageVenue";
+      if (RegExp(r"^(sendVenue)$", caseSensitive: false).hashData(parameters["@type"])) {
+        request_parameters["input_message_content"]["@type"] = "inputMessageVenue";
         request_parameters["input_message_content"]["venue"] = {
           "@type": "location",
           "latitude": parameters["latitude"],
           "longitude": parameters["longitude"],
         };
         if (parameters.containsKey("horizontal_accuracy")) {
-          request_parameters["input_message_content"]["location"]
-              ["horizontal_accuracy"] = parameters["horizontal_accuracy"];
+          request_parameters["input_message_content"]["location"]["horizontal_accuracy"] = parameters["horizontal_accuracy"];
         }
         if (parameters.containsKey("live_period")) {
-          request_parameters["input_message_content"]["live_period"] =
-              parameters["live_period"];
+          request_parameters["input_message_content"]["live_period"] = parameters["live_period"];
         }
         if (parameters.containsKey("heading")) {
-          request_parameters["input_message_content"]["heading"] =
-              parameters["heading"];
+          request_parameters["input_message_content"]["heading"] = parameters["heading"];
         }
         if (parameters.containsKey("proximity_alert_radius")) {
-          request_parameters["input_message_content"]
-              ["proximity_alert_radius"] = parameters["proximity_alert_radius"];
+          request_parameters["input_message_content"]["proximity_alert_radius"] = parameters["proximity_alert_radius"];
         }
       }
-      if (RegExp(r"^(sendLocation)$", caseSensitive: false)
-          .hashData(parameters["@type"])) {
-        request_parameters["input_message_content"]["@type"] =
-            "inputMessageLocation";
+      if (RegExp(r"^(sendLocation)$", caseSensitive: false).hashData(parameters["@type"])) {
+        request_parameters["input_message_content"]["@type"] = "inputMessageLocation";
         request_parameters["input_message_content"]["location"] = {
           "@type": "location",
           "latitude": parameters["latitude"],
           "longitude": parameters["longitude"],
         };
         if (parameters.containsKey("horizontal_accuracy")) {
-          request_parameters["input_message_content"]["location"]
-              ["horizontal_accuracy"] = parameters["horizontal_accuracy"];
+          request_parameters["input_message_content"]["location"]["horizontal_accuracy"] = parameters["horizontal_accuracy"];
         }
         if (parameters.containsKey("live_period")) {
-          request_parameters["input_message_content"]["live_period"] =
-              parameters["live_period"];
+          request_parameters["input_message_content"]["live_period"] = parameters["live_period"];
         }
         if (parameters.containsKey("heading")) {
-          request_parameters["input_message_content"]["heading"] =
-              parameters["heading"];
+          request_parameters["input_message_content"]["heading"] = parameters["heading"];
         }
         if (parameters.containsKey("proximity_alert_radius")) {
-          request_parameters["input_message_content"]
-              ["proximity_alert_radius"] = parameters["proximity_alert_radius"];
+          request_parameters["input_message_content"]["proximity_alert_radius"] = parameters["proximity_alert_radius"];
         }
       }
-      if (RegExp(r"^(sendDice)$", caseSensitive: false)
-          .hashData(parameters["@type"])) {
-        request_parameters["input_message_content"]["@type"] =
-            "inputMessageDice";
-        request_parameters["input_message_content"]["emoji"] =
-            parameters["emoji"];
+      if (RegExp(r"^(sendDice)$", caseSensitive: false).hashData(parameters["@type"])) {
+        request_parameters["input_message_content"]["@type"] = "inputMessageDice";
+        request_parameters["input_message_content"]["emoji"] = parameters["emoji"];
 
         if (parameters["clear_draft"] is bool) {
-          request_parameters["input_message_content"]["clear_draft"] =
-              parameters["clear_draft"];
+          request_parameters["input_message_content"]["clear_draft"] = parameters["clear_draft"];
         }
       }
-      if (RegExp(r"^(sendSticker)$", caseSensitive: false)
-          .hashData(parameters["@type"])) {
-        request_parameters["input_message_content"]["@type"] =
-            "inputMessageSticker";
-        request_parameters["input_message_content"]["sticker"] =
-            (await TgUtils.typeFile(
+      if (RegExp(r"^(sendSticker)$", caseSensitive: false).hashData(parameters["@type"])) {
+        request_parameters["input_message_content"]["@type"] = "inputMessageSticker";
+        request_parameters["input_message_content"]["sticker"] = (await TgUtils.typeFile(
           content: parameters["sticker"],
           directory_temp: directory_temp,
         ));
       }
-      if (RegExp(r"^(sendVideo)$", caseSensitive: false)
-          .hashData(parameters["@type"])) {
-        request_parameters["input_message_content"]["@type"] =
-            "inputMessageVideo";
-        request_parameters["input_message_content"]["video"] =
-            (await TgUtils.typeFile(
+      if (RegExp(r"^(sendVideo)$", caseSensitive: false).hashData(parameters["@type"])) {
+        request_parameters["input_message_content"]["@type"] = "inputMessageVideo";
+        request_parameters["input_message_content"]["video"] = (await TgUtils.typeFile(
           content: parameters["video"],
           directory_temp: directory_temp,
         ));
       }
 
-      if (RegExp(r"^(sendVoice)$", caseSensitive: false)
-          .hashData(parameters["@type"])) {
-        request_parameters["input_message_content"]["@type"] =
-            "inputMessageVoiceNote";
-        request_parameters["input_message_content"]["voice_note"] =
-            (await TgUtils.typeFile(
+      if (RegExp(r"^(sendVoice)$", caseSensitive: false).hashData(parameters["@type"])) {
+        request_parameters["input_message_content"]["@type"] = "inputMessageVoiceNote";
+        request_parameters["input_message_content"]["voice_note"] = (await TgUtils.typeFile(
           content: parameters["voice"],
           directory_temp: directory_temp,
         ));
       }
     }
     if (parameters["reply_markup"] is Map) {
-      Map? reply_markup = TgUtils.replyMarkupTgApiToTdlib(
-          replyMarkup: parameters["reply_markup"]);
+      Map? reply_markup = TgUtils.replyMarkupTgApiToTdlib(replyMarkup: parameters["reply_markup"]);
       if (reply_markup != null) {
         request_parameters["reply_markup"] = reply_markup;
       }
@@ -464,30 +397,27 @@ extension SendMessageRawDataOn on TelegramClient {
         return (json_message);
       }
     }
-    Map result = {};
+    Completer completer = Completer();
 
     var listen = on(
       event_name: event_update,
       onUpdate: (UpdateTelegramClient updateTelegramClient) async {
-        if (updateTelegramClient.telegramClientData.telegramClientType ==
-            TelegramClientType.tdlib) {
-          if (updateTelegramClient.telegramClientData.tdlib_client_id !=
-              telegramClientData.tdlib_client_id) {
+        if (updateTelegramClient.telegramClientData.telegramClientType == TelegramClientType.tdlib) {
+          if (updateTelegramClient.telegramClientData.tdlib_client_id != telegramClientData.tdlib_client_id) {
             return;
           }
           Map updateOrigin = updateTelegramClient.rawData;
-          if (!["updateMessageSendSucceeded", "updateMessageSendFailed"]
-              .contains(updateOrigin["@type"])) {
+          if (!["updateMessageSendSucceeded", "updateMessageSendFailed"].contains(updateOrigin["@type"])) {
             return;
           }
 
-          if (updateOrigin["message"] is Map &&
-              updateOrigin["message"]["chat_id"] == message_send["chat_id"] &&
-              updateOrigin["old_message_id"] == message_send["id"]) {
+          if (updateOrigin["message"] is Map && updateOrigin["message"]["chat_id"] == message_send["chat_id"] && updateOrigin["old_message_id"] == message_send["id"]) {
             if (updateOrigin["error"] is Map) {
-              result = updateOrigin["error"];
+              completer.complete(updateOrigin["error"]);
+              // result = updateOrigin["error"];
             } else {
-              result = updateOrigin;
+              completer.complete(updateOrigin);
+              // result = updateOrigin;
             }
           }
         }
@@ -495,18 +425,18 @@ extension SendMessageRawDataOn on TelegramClient {
       onError: (Object error, StackTrace stackTrace) {},
     );
 
-    tdlib.task_increase();
+    // tdlib.task_increase();
     Duration timeOut = tdlib.invoke_time_out;
     DateTime time_expire = DateTime.now().add(timeOut);
 
     while (true) {
       await Future.delayed(Duration(microseconds: 1));
       if (time_expire.isExpired()) {
-        tdlib.task_decrease();
+        // tdlib.task_decrease();
 
         event_emitter.off(listen);
 
-        result = {
+        Map result = {
           "@type": "error",
           "message": "time_out_limit",
           "invoke_request": request_parameters,
@@ -514,24 +444,27 @@ extension SendMessageRawDataOn on TelegramClient {
 
         throw result;
       }
-      if (result["@type"] is String) {
-        tdlib.task_decrease();
-        event_emitter.off(listen);
+      if (completer.isCompleted) {
+        Map result = await completer.future;
+        if (result["@type"] is String) {
+          // tdlib.task_decrease();
+          event_emitter.off(listen);
 
-        if (result["@type"] == "error") {
-          throw result;
-        }
-        result.remove("@type");
-        if (result["message"] is Map) {
-          Map json_message = await message_Message(
-            message: result["message"],
-            is_lite: false,
-            telegramClientData: telegramClientData,
-            isUseCache: false,
-            durationCacheExpire: null,
-          );
+          if (result["@type"] == "error") {
+            throw result;
+          }
+          result.remove("@type");
+          if (result["message"] is Map) {
+            Map json_message = await message_Message(
+              message: result["message"],
+              is_lite: false,
+              telegramClientData: telegramClientData,
+              isUseCache: false,
+              durationCacheExpire: null,
+            );
 
-          return (json_message);
+            return (json_message);
+          }
         }
       }
     }
@@ -543,14 +476,11 @@ extension SendMessageRawDataOn on TelegramClient {
     required TelegramClientData telegramClientData,
   }) async {
     dynamic target_chat_id = TgUtils.parse_all_chat_id(parameters: parameters);
-    if (target_chat_id is String &&
-        RegExp(r"^((@)[a-z0-9_]+)$", caseSensitive: false)
-            .hashData(target_chat_id)) {
+    if (target_chat_id is String && RegExp(r"^((@)[a-z0-9_]+)$", caseSensitive: false).hashData(target_chat_id)) {
       var search_public_chat = await callApiInvoke(
         parameters: {
           "@type": "searchPublicChat",
-          "username": (target_chat_id)
-              .replaceAll(RegExp(r"@", caseSensitive: false), ""),
+          "username": (target_chat_id).replaceAll(RegExp(r"@", caseSensitive: false), ""),
         },
         is_invoke_no_relevance: true,
       );
@@ -575,8 +505,7 @@ extension SendMessageRawDataOn on TelegramClient {
     ];
     for (var option_parameter in options_parameters) {
       if (parameters[option_parameter] is bool) {
-        request_parameters["options"][option_parameter] =
-            parameters[option_parameter];
+        request_parameters["options"][option_parameter] = parameters[option_parameter];
       }
     }
 
@@ -589,19 +518,16 @@ extension SendMessageRawDataOn on TelegramClient {
     ];
     for (var option_parameter in input_message_content_parameters) {
       if (parameters[option_parameter] is bool) {
-        request_parameters["input_message_content"][option_parameter] =
-            parameters[option_parameter];
+        request_parameters["input_message_content"][option_parameter] = parameters[option_parameter];
       }
     }
 
     if (parameters.containsKey("message_thread_id")) {
-      request_parameters["message_thread_id"] =
-          (parameters["message_thread_id"]);
+      request_parameters["message_thread_id"] = (parameters["message_thread_id"]);
     }
 
     if (parameters.containsKey("message_id")) {
-      request_parameters["message_id"] =
-          TgUtils().messageApiToTdlib(parameters["message_id"]);
+      request_parameters["message_id"] = TgUtils().messageApiToTdlib(parameters["message_id"]);
     }
     if (parameters.containsKey("inline_message_id")) {
       request_parameters["inline_message_id"] = parameters["inline_message_id"];
@@ -610,16 +536,14 @@ extension SendMessageRawDataOn on TelegramClient {
       request_parameters["reply_to"] = {
         "@type": "inputMessageReplyToMessage",
         "chat_id": request_parameters["chat_id"],
-        "message_id":
-            TgUtils().messageApiToTdlib(request_parameters["message_id"]),
+        "message_id": TgUtils().messageApiToTdlib(request_parameters["message_id"]),
       };
     } else if (parameters["reply_to_story_id"] is int) {}
     Map? formatted_text = {
       "@type": "formattedText",
     };
 
-    if (RegExp(r"^(sendMessage|editMessageText)$", caseSensitive: false)
-        .hashData(parameters["@type"])) {
+    if (RegExp(r"^(sendMessage|editMessageText)$", caseSensitive: false).hashData(parameters["@type"])) {
       formatted_text["text"] = parameters["text"];
     } else {
       if (parameters["caption"] is String) {
@@ -662,8 +586,7 @@ extension SendMessageRawDataOn on TelegramClient {
       }
     }
 
-    if (RegExp(r"^(sendMessage|editMessageText)$", caseSensitive: false)
-        .hashData(parameters["@type"])) {
+    if (RegExp(r"^(sendMessage|editMessageText)$", caseSensitive: false).hashData(parameters["@type"])) {
       request_parameters["input_message_content"]["@type"] = "inputMessageText";
 
       if (formatted_text != null) {
@@ -673,81 +596,59 @@ extension SendMessageRawDataOn on TelegramClient {
       if (formatted_text != null) {
         request_parameters["input_message_content"]["caption"] = formatted_text;
       }
-      if (RegExp(r"^(sendAudio)$", caseSensitive: false)
-          .hashData(parameters["@type"])) {
-        request_parameters["input_message_content"]["@type"] =
-            "inputMessageAudio";
-        request_parameters["input_message_content"]["audio"] =
-            (await TgUtils.typeFile(
+      if (RegExp(r"^(sendAudio)$", caseSensitive: false).hashData(parameters["@type"])) {
+        request_parameters["input_message_content"]["@type"] = "inputMessageAudio";
+        request_parameters["input_message_content"]["audio"] = (await TgUtils.typeFile(
           content: parameters["audio"],
           directory_temp: directory_temp,
         ));
       }
-      if (RegExp(r"^(sendPhoto)$", caseSensitive: false)
-          .hashData(parameters["@type"])) {
-        request_parameters["input_message_content"]["@type"] =
-            "inputMessagePhoto";
-        request_parameters["input_message_content"]["photo"] =
-            (await TgUtils.typeFile(
+      if (RegExp(r"^(sendPhoto)$", caseSensitive: false).hashData(parameters["@type"])) {
+        request_parameters["input_message_content"]["@type"] = "inputMessagePhoto";
+        request_parameters["input_message_content"]["photo"] = (await TgUtils.typeFile(
           content: parameters["photo"],
           directory_temp: directory_temp,
         ));
       }
-      if (RegExp(r"^(sendAnimation)$", caseSensitive: false)
-          .hashData(parameters["@type"])) {
-        request_parameters["input_message_content"]["@type"] =
-            "inputMessageAnimation";
-        request_parameters["input_message_content"]["animation"] =
-            (await TgUtils.typeFile(
+      if (RegExp(r"^(sendAnimation)$", caseSensitive: false).hashData(parameters["@type"])) {
+        request_parameters["input_message_content"]["@type"] = "inputMessageAnimation";
+        request_parameters["input_message_content"]["animation"] = (await TgUtils.typeFile(
           content: parameters["animation"],
           directory_temp: directory_temp,
         ));
       }
-      if (RegExp(r"^(sendDocument)$", caseSensitive: false)
-          .hashData(parameters["@type"])) {
-        request_parameters["input_message_content"]["@type"] =
-            "inputMessageDocument";
-        request_parameters["input_message_content"]["document"] =
-            (await TgUtils.typeFile(
+      if (RegExp(r"^(sendDocument)$", caseSensitive: false).hashData(parameters["@type"])) {
+        request_parameters["input_message_content"]["@type"] = "inputMessageDocument";
+        request_parameters["input_message_content"]["document"] = (await TgUtils.typeFile(
           content: parameters["document"],
           directory_temp: directory_temp,
         ));
       }
-      if (RegExp(r"^(sendSticker)$", caseSensitive: false)
-          .hashData(parameters["@type"])) {
-        request_parameters["input_message_content"]["@type"] =
-            "inputMessageSticker";
-        request_parameters["input_message_content"]["sticker"] =
-            (await TgUtils.typeFile(
+      if (RegExp(r"^(sendSticker)$", caseSensitive: false).hashData(parameters["@type"])) {
+        request_parameters["input_message_content"]["@type"] = "inputMessageSticker";
+        request_parameters["input_message_content"]["sticker"] = (await TgUtils.typeFile(
           content: parameters["sticker"],
           directory_temp: directory_temp,
         ));
       }
-      if (RegExp(r"^(sendVideo)$", caseSensitive: false)
-          .hashData(parameters["@type"])) {
-        request_parameters["input_message_content"]["@type"] =
-            "inputMessageVideo";
-        request_parameters["input_message_content"]["video"] =
-            (await TgUtils.typeFile(
+      if (RegExp(r"^(sendVideo)$", caseSensitive: false).hashData(parameters["@type"])) {
+        request_parameters["input_message_content"]["@type"] = "inputMessageVideo";
+        request_parameters["input_message_content"]["video"] = (await TgUtils.typeFile(
           content: parameters["video"],
           directory_temp: directory_temp,
         ));
       }
 
-      if (RegExp(r"^(sendVoice)$", caseSensitive: false)
-          .hashData(parameters["@type"])) {
-        request_parameters["input_message_content"]["@type"] =
-            "inputMessageVoiceNote";
-        request_parameters["input_message_content"]["voice_note"] =
-            (await TgUtils.typeFile(
+      if (RegExp(r"^(sendVoice)$", caseSensitive: false).hashData(parameters["@type"])) {
+        request_parameters["input_message_content"]["@type"] = "inputMessageVoiceNote";
+        request_parameters["input_message_content"]["voice_note"] = (await TgUtils.typeFile(
           content: parameters["voice"],
           directory_temp: directory_temp,
         ));
       }
     }
     if (parameters["reply_markup"] is Map) {
-      Map? reply_markup = TgUtils.replyMarkupTgApiToTdlib(
-          replyMarkup: parameters["reply_markup"]);
+      Map? reply_markup = TgUtils.replyMarkupTgApiToTdlib(replyMarkup: parameters["reply_markup"]);
       if (reply_markup != null) {
         request_parameters["reply_markup"] = reply_markup;
       }
@@ -777,34 +678,29 @@ extension SendMessageRawDataOn on TelegramClient {
     var listen = on(
       event_name: event_update,
       onUpdate: (UpdateTelegramClient updateTelegramClient) async {
-        if (updateTelegramClient.telegramClientData.telegramClientType ==
-            TelegramClientType.tdlib) {
-          if (updateTelegramClient.telegramClientData.tdlib_client_id !=
-              telegramClientData.tdlib_client_id) {
+        if (updateTelegramClient.telegramClientData.telegramClientType == TelegramClientType.tdlib) {
+          if (updateTelegramClient.telegramClientData.tdlib_client_id != telegramClientData.tdlib_client_id) {
             return;
           }
           Map updateOrigin = updateTelegramClient.rawData;
-          if (!["updateMessageSendSucceeded", "updateMessageSendFailed"]
-              .contains(updateOrigin["@type"])) {
+          if (!["updateMessageSendSucceeded", "updateMessageSendFailed"].contains(updateOrigin["@type"])) {
             return;
           }
 
-          if (updateOrigin["message"] is Map &&
-              updateOrigin["message"]["chat_id"] == message_send["chat_id"] &&
-              updateOrigin["old_message_id"] == message_send["id"]) {
+          if (updateOrigin["message"] is Map && updateOrigin["message"]["chat_id"] == message_send["chat_id"] && updateOrigin["old_message_id"] == message_send["id"]) {
             result = updateOrigin;
           }
         }
       },
       onError: (Object error, StackTrace stackTrace) {},
     );
-    tdlib.task_increase();
+    // tdlib.task_increase();
     Duration timeOut = tdlib.invoke_time_out;
     DateTime time_expire = DateTime.now().add(timeOut);
     while (true) {
       await Future.delayed(Duration(microseconds: 1));
       if (time_expire.isExpired()) {
-        tdlib.task_decrease();
+        // tdlib.task_decrease();
         event_emitter.off(listen);
         if (result["@type"] == "error") {
           result["invoke_request"] = request_parameters;
@@ -813,7 +709,7 @@ extension SendMessageRawDataOn on TelegramClient {
         return result;
       }
       if (result["@type"] is String) {
-        tdlib.task_decrease();
+        // tdlib.task_decrease();
         event_emitter.off(listen);
 
         if (result["@type"] == "error") {

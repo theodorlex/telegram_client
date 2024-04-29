@@ -34,8 +34,6 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 import 'dart:convert';
 
-import 'package:collection/collection.dart';
-import 'package:general_lib/general_lib.dart';
 
 /// add state data
 class TdlibClient {
@@ -45,7 +43,7 @@ class TdlibClient {
   Map client_option;
   Map client_dynamic = {};
   DateTime join_date = DateTime.now();
-  TdlibClientCache tdlibClientCache = TdlibClientCache();
+  // TdlibClientCache tdlibClientCache = TdlibClientCache();
 
   /// add state data
   TdlibClient({
@@ -71,161 +69,147 @@ class TdlibClient {
   }
 }
 
-/// add state data
-class TdlibClientCache {
-  /// add state data
-  List<TdlibClientCacheData> tdlibClientCacheDatas = [];
+// /// add state data
+// class TdlibClientCache {
+//   /// add state data
+//   List<TdlibClientCacheData> tdlibClientCacheDatas = [];
 
-  /// add state data
-  TdlibClientCache();
+//   /// add state data
+//   TdlibClientCache();
 
-  /// add state data
-  void clear() {
-    tdlibClientCacheDatas = [];
-  }
+//   /// add state data
+//   void clear() {
+//     tdlibClientCacheDatas = [];
+//   }
 
-  static (String key_data, bool is_can_get_cache) createKeyAndCanGetCache({
-    required String methodName,
-    required Map? parameter,
-  }) {
-    parameter ??= {};
-    if (RegExp(r"^(get|search)", caseSensitive: false).hasMatch(methodName)) {
-      if (RegExp(r"^(getMe)$", caseSensitive: false).hasMatch(methodName)) {
-        return ("", true);
-      }
-      if (RegExp(r"^(getChat)$", caseSensitive: false).hasMatch(methodName)) {
-        return ("${parameter["chat_id"]}", true);
-      }
-      if (RegExp(r"^(getSupergroup)$", caseSensitive: false)
-          .hasMatch(methodName)) {
-        return ("${parameter["supergroup_id"]}", true);
-      }
-      if (RegExp(r"^(searchPublicChat)$", caseSensitive: false)
-          .hasMatch(methodName)) {
-        return ("${parameter["username"]}", true);
-      }
-      if (RegExp(r"^(getBasicGroup)$", caseSensitive: false)
-          .hasMatch(methodName)) {
-        return ("${parameter["basic_group_id"]}", true);
-      }
-      if (RegExp(r"^(getSupergroupFullInfo)$", caseSensitive: false)
-          .hasMatch(methodName)) {
-        return ("${parameter["supergroup_id"]}", true);
-      }
-      if (RegExp(r"^(getUser)$", caseSensitive: false).hasMatch(methodName)) {
-        return ("${parameter["getUserFullInfo"]}", true);
-      }
-      if (RegExp(r"^(getUser)$", caseSensitive: false).hasMatch(methodName)) {
-        return ("${parameter["user_id"]}", true);
-      }
-      return ("", false);
-    }
+//   static (String key_data, bool is_can_get_cache) createKeyAndCanGetCache({
+//     required String methodName,
+//     required Map? parameter,
+//   }) {
+//     parameter ??= {};
+//     if (RegExp(r"^(get|search)", caseSensitive: false).hasMatch(methodName)) {
+//       if (RegExp(r"^(getMe)$", caseSensitive: false).hasMatch(methodName)) {
+//         return ("", true);
+//       }
+//       if (RegExp(r"^(getChat)$", caseSensitive: false).hasMatch(methodName)) {
+//         return ("${parameter["chat_id"]}", true);
+//       }
+//       if (RegExp(r"^(getSupergroup)$", caseSensitive: false).hasMatch(methodName)) {
+//         return ("${parameter["supergroup_id"]}", true);
+//       }
+//       if (RegExp(r"^(searchPublicChat)$", caseSensitive: false).hasMatch(methodName)) {
+//         return ("${parameter["username"]}", true);
+//       }
+//       if (RegExp(r"^(getBasicGroup)$", caseSensitive: false).hasMatch(methodName)) {
+//         return ("${parameter["basic_group_id"]}", true);
+//       }
+//       if (RegExp(r"^(getSupergroupFullInfo)$", caseSensitive: false).hasMatch(methodName)) {
+//         return ("${parameter["supergroup_id"]}", true);
+//       }
+//       if (RegExp(r"^(getUser)$", caseSensitive: false).hasMatch(methodName)) {
+//         return ("${parameter["getUserFullInfo"]}", true);
+//       }
+//       if (RegExp(r"^(getUser)$", caseSensitive: false).hasMatch(methodName)) {
+//         return ("${parameter["user_id"]}", true);
+//       }
+//       return ("", false);
+//     }
 
-    return ("", false);
-  }
+//     return ("", false);
+//   }
 
-  /// add state data
-  bool addCacheByMethod({
-    required String methodName,
-    required Map? parameter,
-    required Map result,
-    required Duration durationExpired,
-  }) {
-    var (String key_cache, bool is_can_get_cache) =
-        TdlibClientCache.createKeyAndCanGetCache(
-            methodName: methodName, parameter: parameter);
+//   /// add state data
+//   bool addCacheByMethod({
+//     required String methodName,
+//     required Map? parameter,
+//     required Map result,
+//     required Duration durationExpired,
+//   }) {
+//     var (String key_cache, bool is_can_get_cache) = TdlibClientCache.createKeyAndCanGetCache(methodName: methodName, parameter: parameter);
 
-    if (is_can_get_cache == false) {
-      return false;
-    }
+//     if (is_can_get_cache == false) {
+//       return false;
+//     }
 
-    TdlibClientCacheData? tdlibClientCacheData =
-        getCacheByMethod(methodName: methodName, parameter: parameter);
-    TdlibClientCacheData tdlibClientCacheData_new = TdlibClientCacheData.init(
-      methodName: methodName,
-      key: key_cache,
-      result: result,
-      durationExpired: durationExpired,
-    );
-    if (tdlibClientCacheData == null) {
-      tdlibClientCacheDatas.removeWhere((element) =>
-          element.isSame(method_name: methodName, key_name: key_cache));
-    }
-    tdlibClientCacheDatas.add(tdlibClientCacheData_new);
-    return true;
-  }
+//     TdlibClientCacheData? tdlibClientCacheData = getCacheByMethod(methodName: methodName, parameter: parameter);
+//     TdlibClientCacheData tdlibClientCacheData_new = TdlibClientCacheData.init(
+//       methodName: methodName,
+//       key: key_cache,
+//       result: result,
+//       durationExpired: durationExpired,
+//     );
+//     if (tdlibClientCacheData == null) {
+//       tdlibClientCacheDatas.removeWhere((element) => element.isSame(method_name: methodName, key_name: key_cache));
+//     }
+//     tdlibClientCacheDatas.add(tdlibClientCacheData_new);
+//     return true;
+//   }
 
-  /// add state data
-  TdlibClientCacheData? getCacheByMethod({
-    required String methodName,
-    required Map? parameter,
-  }) {
-    var (String key_cache, bool is_can_get_cache) =
-        TdlibClientCache.createKeyAndCanGetCache(
-            methodName: methodName, parameter: parameter);
+//   /// add state data
+//   TdlibClientCacheData? getCacheByMethod({
+//     required String methodName,
+//     required Map? parameter,
+//   }) {
+//     var (String key_cache, bool is_can_get_cache) = TdlibClientCache.createKeyAndCanGetCache(methodName: methodName, parameter: parameter);
 
-    TdlibClientCacheData? tdlibClientCacheData =
-        tdlibClientCacheDatas.firstWhereOrNull((element) =>
-            element.isSame(method_name: methodName, key_name: key_cache));
-    if (tdlibClientCacheData != null) {
-      if (tdlibClientCacheData.dateTimeExpireDate.isExpired()) {
-        tdlibClientCacheDatas.removeWhere((element) =>
-            element.isSame(method_name: methodName, key_name: key_cache));
-        return null;
-      }
-    }
-    return tdlibClientCacheData;
-  }
-}
+//     TdlibClientCacheData? tdlibClientCacheData = tdlibClientCacheDatas.firstWhereOrNull((element) => element.isSame(method_name: methodName, key_name: key_cache));
+//     if (tdlibClientCacheData != null) {
+//       if (tdlibClientCacheData.dateTimeExpireDate.isExpired()) {
+//         tdlibClientCacheDatas.removeWhere((element) => element.isSame(method_name: methodName, key_name: key_cache));
+//         return null;
+//       }
+//     }
+//     return tdlibClientCacheData;
+//   }
+// }
 
-/// add state data
-class TdlibClientCacheData {
-  String methodName;
-  String key;
-  Map result;
-  DateTime dateTimeExpireDate;
+// /// add state data
+// class TdlibClientCacheData {
+//   String methodName;
+//   String key;
+//   Map result;
+//   DateTime dateTimeExpireDate;
 
-  /// add state data
-  TdlibClientCacheData({
-    required this.methodName,
-    required this.key,
-    required this.result,
-    required this.dateTimeExpireDate,
-  });
+//   /// add state data
+//   TdlibClientCacheData({
+//     required this.methodName,
+//     required this.key,
+//     required this.result,
+//     required this.dateTimeExpireDate,
+//   });
 
-  bool isSame({
-    required String method_name,
-    required String key_name,
-  }) {
-    if (RegExp("^${methodName}\$", caseSensitive: true).hashData(method_name) &&
-        key == key_name) {
-      return true;
-    }
-    return false;
-  }
+//   bool isSame({
+//     required String method_name,
+//     required String key_name,
+//   }) {
+//     if (RegExp("^${methodName}\$", caseSensitive: true).hashData(method_name) && key == key_name) {
+//       return true;
+//     }
+//     return false;
+//   }
 
-  /// add state data
-  static TdlibClientCacheData init({
-    required String methodName,
-    required String key,
-    required Map result,
-    required Duration durationExpired,
-  }) {
-    return TdlibClientCacheData(
-      methodName: methodName,
-      key: key,
-      result: result,
-      dateTimeExpireDate: DateTime.now().add(durationExpired),
-    );
-  }
-}
+//   /// add state data
+//   static TdlibClientCacheData init({
+//     required String methodName,
+//     required String key,
+//     required Map result,
+//     required Duration durationExpired,
+//   }) {
+//     return TdlibClientCacheData(
+//       methodName: methodName,
+//       key: key,
+//       result: result,
+//       dateTimeExpireDate: DateTime.now().add(durationExpired),
+//     );
+//   }
+// }
 
-/// add state data
-class TdlibClientExit {
-  int client_id;
+// /// add state data
+// class TdlibClientExit {
+//   int client_id;
 
-  /// add state data
-  TdlibClientExit({
-    required this.client_id,
-  });
-}
+//   /// add state data
+//   TdlibClientExit({
+//     required this.client_id,
+//   });
+// }
