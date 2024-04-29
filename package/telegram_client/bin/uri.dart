@@ -50,11 +50,6 @@ void main(List<String> args) async {
     },
   );
   while (true) {
-    await Future.delayed(Duration(milliseconds: 1));
-    Map? update = tg.td_json_client_receive(create_client_id);
-    if (update == null) {
-      continue;
-    }
-    print(update.toStringifyPretty());
+    await Future.delayed(Duration(milliseconds: 1)); 
   }
 }
