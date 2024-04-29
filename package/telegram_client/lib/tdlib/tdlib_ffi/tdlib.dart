@@ -30,7 +30,9 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
-// export "tdlib_none.dart" if (dart.library.io) 'tdlib_io.dart' if (dart.library.html) 'tdlib_none.dart';
-export 'tdlib_io.dart';
-// 
+export "tdlib_none.dart"
+    if (dart.library.io) 'tdlib_io.dart'
+    if (dart.library.html) 'tdlib_none.dart';
+// export 'tdlib_io.dart';
+// //
 // export "tdlib_none.dart";

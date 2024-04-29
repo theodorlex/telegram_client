@@ -8,13 +8,20 @@ void main(List<String> args) {
   // open library
   DynamicLibrary myLib = DynamicLibrary.open("liblibrary.so");
   // use arena
-  Arena arena = Arena();
-  MyLibReceiveDart myLibReceiveFunction = myLib.lookupFunction<MyLibReceiveNative, MyLibReceiveDart>("my_function");
-  MyLibStringNative update = arena.using(myLibReceiveFunction(10), (p0) {});
-  if (update.address != 0) {
-    String updateString = update.toDartString();
-    print(updateString);
-  }
-  // get free up memory
-  arena.releaseAll();
+  //
+  String? result = using((Arena arena) {
+    MyLibReceiveDart myLibReceiveFunction = myLib
+        .lookupFunction<MyLibReceiveNative, MyLibReceiveDart>("my_function");
+    MyLibStringNative update = arena.using(myLibReceiveFunction(10), (p0) {});
+    if (update.address != 0) {
+      String updateString = update.toDartString();
+      print(updateString);
+      return updateString;
+    }
+    // get free up memory
+    arena.releaseAll();
+    return null;
+  });
+
+  print(result);
 }

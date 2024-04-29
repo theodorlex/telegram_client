@@ -1,3 +1,3 @@
-## 0.8.14
+## 0.8.15
 
-- Revert.
+- Fix Memory Heap / Resident / Memory Leaks TDLIB (Now you can run with ultra efficient).

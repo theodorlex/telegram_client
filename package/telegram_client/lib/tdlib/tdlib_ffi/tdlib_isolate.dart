@@ -46,11 +46,13 @@ Future<void> tdlibIsolate(TdlibIsolateData tdlibIsolateData) async {
     pathTdlib: tdlibIsolateData.pathTdlib,
   );
   try {
-    Duration duration = tdlibIsolateData.delayUpdate ?? Duration(microseconds: 1);
+    Duration duration =
+        tdlibIsolateData.delayUpdate ?? Duration(microseconds: 1);
     while (true) {
       await Future.delayed(duration);
       Map? new_update = LibTdJson.td_receive_static(
         timeout: tdlibIsolateData.timeOutUpdate,
+        isAndroid: tdlibIsolateData.isAndroid,
       );
       if (new_update != null) {
         tdlibIsolateData.sendPort.send(

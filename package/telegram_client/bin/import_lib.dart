@@ -35,7 +35,8 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 import 'package:universal_io/io.dart';
 
 void main(List<String> args) async {
-  Directory directory_function = Directory("/home/galaxeus/Documents/galaxeus/app/telegram_client/package/telegram_client/lib/telegram_client/function");
+  Directory directory_function = Directory(
+      "/home/galaxeus/Documents/galaxeus/app/telegram_client/package/telegram_client/lib/telegram_client/function");
   List<FileSystemEntity> files = directory_function.listSync();
   print("Starrt");
   for (var i = 0; i < files.length; i++) {

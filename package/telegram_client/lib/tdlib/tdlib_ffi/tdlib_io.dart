@@ -38,7 +38,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 import 'dart:async';
 import 'dart:ffi';
 import 'package:ffi/ffi.dart';
-import 'dart:ffi' as ffi;
+// import 'dart:ffi' as ffi;
 // import 'dart:ffi';
 import 'dart:convert' as convert;
 
@@ -50,22 +50,23 @@ import 'package:telegram_client/tdlib/tdlib_isolate_data.dart';
 import 'package:telegram_client/tdlib/tdlib_isolate_receive_data.dart';
 import 'package:telegram_client/tdlib/update_td.dart';
 import 'package:universal_io/io.dart';
-import 'package:ffi/ffi.dart' as pkgffi;
 
-typedef TdPointerNative = ffi.Pointer;
+typedef TdPointerNative = Pointer;
 typedef TdPointerFunctionNative = TdPointerNative Function();
 
-typedef TdStringNative = ffi.Pointer<pkgffi.Utf8>;
-typedef TdReceiveNative = TdStringNative Function(ffi.Double timout);
+typedef TdStringNative = Pointer<Utf8>;
+typedef TdReceiveNative = TdStringNative Function(Double timout);
 typedef TdReceiveDart = TdStringNative Function(double timout);
 
-typedef TdSendNative = ffi.Void Function(TdPointerNative client, TdStringNative request);
-typedef TdSendDart = void Function(TdPointerNative client, TdStringNative request);
+typedef TdSendNative = Void Function(
+    TdPointerNative client, TdStringNative request);
+typedef TdSendDart = void Function(
+    TdPointerNative client, TdStringNative request);
 
 typedef TdExecuteNative = TdStringNative Function(TdStringNative parameters);
 
-typedef TdDestroyNative = ffi.Void Function(ffi.Pointer client_id);
-typedef TdDestroyDart = void Function(ffi.Pointer client_id);
+typedef TdDestroyNative = Void Function(Pointer client_id);
+typedef TdDestroyDart = void Function(Pointer client_id);
 
 /// Cheatset
 ///
@@ -125,9 +126,12 @@ class LibTdJson {
   Duration invoke_time_out = Duration(minutes: 10);
   double timeOutUpdate;
   bool is_invoke_throw_on_error = false;
-  FutureOr<void> Function(dynamic update, LibTdJson libTdJson)? on_receive_update;
-  FutureOr<String> Function(int client_id, LibTdJson libTdJson)? on_generate_extra_invoke;
-  FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)? on_get_invoke_data;
+  FutureOr<void> Function(dynamic update, LibTdJson libTdJson)?
+      on_receive_update;
+  FutureOr<String> Function(int client_id, LibTdJson libTdJson)?
+      on_generate_extra_invoke;
+  FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)?
+      on_get_invoke_data;
 
   static bool is_debug = false;
   int task_max_count;
@@ -228,7 +232,7 @@ class LibTdJson {
     return;
   }
 
-  static late ffi.DynamicLibrary tdLib;
+  static late DynamicLibrary tdLib;
 
   static void opentdLib({
     required bool isCli,
@@ -236,129 +240,155 @@ class LibTdJson {
   }) {
     if (Platform.isIOS || Platform.isMacOS) {
       if (isCli) {
-        tdLib = ffi.DynamicLibrary.open(pathTdlib);
+        tdLib = DynamicLibrary.open(pathTdlib);
       } else {
-        tdLib = ffi.DynamicLibrary.process();
+        tdLib = DynamicLibrary.process();
       }
     } else {
-      tdLib = ffi.DynamicLibrary.open(pathTdlib);
+      tdLib = DynamicLibrary.open(pathTdlib);
     }
   }
 
   /// create client id for multi client
   int td_create_client_id() {
-    Arena arena = Arena();
-    TdPointerFunctionNative td_pointer_native_function = tdLib.lookupFunction<TdPointerFunctionNative, TdPointerFunctionNative>('${is_android ? "_" : ""}td_create_client_id');
-    ffi.Pointer td_pointer_native_result = arena.using(td_pointer_native_function(), (p0) {});
-    int client_id_new = td_pointer_native_result.address;
-    arena.releaseAll();
+    int client_id_new = using((Arena arena) {
+      TdPointerFunctionNative td_pointer_native_function = tdLib
+          .lookupFunction<TdPointerFunctionNative, TdPointerFunctionNative>(
+              '${is_android ? "_" : ""}td_create_client_id');
+      Pointer td_pointer_native_result =
+          arena.using(td_pointer_native_function(), (p0) {});
+      int client_id_new = td_pointer_native_result.address;
+      arena.releaseAll();
+      return client_id_new;
+    });
     return client_id_new;
   }
 
   /// create client id for multi client
   int td_json_client_create() {
-    Arena arena = Arena();
-    TdPointerFunctionNative td_pointer_native_function = tdLib.lookupFunction<TdPointerFunctionNative, TdPointerFunctionNative>('${is_android ? "_" : ""}td_json_client_create');
-    TdPointerNative td_pointer_native_result = arena.using(td_pointer_native_function(), (p0) {});
-    int client_id_new = td_pointer_native_result.address;
-    arena.releaseAll();
+    int client_id_new = using((Arena arena) {
+      TdPointerFunctionNative td_pointer_native_function = tdLib
+          .lookupFunction<TdPointerFunctionNative, TdPointerFunctionNative>(
+              '${is_android ? "_" : ""}td_json_client_create');
+      TdPointerNative td_pointer_native_result =
+          arena.using(td_pointer_native_function(), (p0) {});
+      int client_id_new = td_pointer_native_result.address;
+      arena.releaseAll();
+      return client_id_new;
+    });
 
     return client_id_new;
   }
 
-  ffi.Pointer client_id_addres(int clientId) {
-    return ffi.Pointer.fromAddress(clientId);
+  Pointer client_id_addres(int clientId) {
+    return Pointer.fromAddress(clientId);
   }
 
   /// td_send
   void td_send(int clientId, [Map? parameters]) {
-    ffi.Pointer client_id_addres_data = client_id_addres(clientId);
-    TdStringNative request_data = convert.json.encode(parameters).toNativeUtf8();
-    Arena arena = Arena();
-    TdSendDart td_send_function = tdLib.lookupFunction<TdSendNative, TdSendDart>('${is_android ? "_" : ""}td_send');
-    void td_send_result = arena.using(td_send_function(client_id_addres_data, request_data), (p0) {});
-    arena.releaseAll();
-    pkgffi.malloc.free(request_data);
+    using((Arena arena) {
+      Pointer client_id_addres_data = client_id_addres(clientId);
+      TdStringNative request_data =
+          convert.json.encode(parameters).toNativeUtf8();
+      Arena arena = Arena();
+      TdSendDart td_send_function =
+          tdLib.lookupFunction<TdSendNative, TdSendDart>(
+              '${is_android ? "_" : ""}td_send');
+      void td_send_result = arena.using(
+          td_send_function(client_id_addres_data, request_data), (p0) {});
+      arena.releaseAll();
+      malloc.free(request_data);
+    });
     return;
   }
 
   /// td_send
   void td_json_client_send(int clientId, [Map? parameters]) {
-    ffi.Pointer client_id_addres_data = client_id_addres(clientId);
-    TdStringNative request_data = convert.json.encode(parameters).toNativeUtf8();
+    using((Arena arena) {
+      Pointer client_id_addres_data = client_id_addres(clientId);
+      TdStringNative request_data =
+          convert.json.encode(parameters).toNativeUtf8();
 
-    Arena arena = Arena();
-    TdSendDart td_send_function = tdLib.lookupFunction<TdSendNative, TdSendDart>('${is_android ? "_" : ""}td_json_client_send');
-    void td_send_result = arena.using(td_send_function(client_id_addres_data, request_data), (p0) {});
-    arena.releaseAll();
-    pkgffi.malloc.free(request_data);
+      Arena arena = Arena();
+      TdSendDart td_send_function =
+          tdLib.lookupFunction<TdSendNative, TdSendDart>(
+              '${is_android ? "_" : ""}td_json_client_send');
+      void td_send_result = arena.using(
+          td_send_function(client_id_addres_data, request_data), (p0) {});
+      arena.releaseAll();
+      malloc.free(request_data);
+    });
 
     return;
   }
 
   /// client_execute
   Map<String, dynamic> td_execute(Map parameters) {
-    TdStringNative request_data = convert.json.encode(parameters).toNativeUtf8();
-    Arena arena = Arena();
-    TdExecuteNative td_execute_native_function = tdLib.lookupFunction<TdExecuteNative, TdExecuteNative>('${is_android ? "_" : ""}td_execute');
+    Map<String, dynamic> result_data = using((Arena arena) {
+      TdStringNative request_data =
+          convert.json.encode(parameters).toNativeUtf8();
 
-    TdStringNative td_execute_native_result = arena.using(td_execute_native_function(request_data), (p0) {});
-    Map<String, dynamic> result_data = convert.json.decode(td_execute_native_result.toDartString());
-    arena.releaseAll();
-    pkgffi.malloc.free(request_data);
+      TdExecuteNative td_execute_native_function =
+          tdLib.lookupFunction<TdExecuteNative, TdExecuteNative>(
+              '${is_android ? "_" : ""}td_execute');
+
+      TdStringNative td_execute_native_result =
+          arena.using(td_execute_native_function(request_data), (p0) {});
+      Map<String, dynamic> result_data =
+          convert.json.decode(td_execute_native_result.toDartString());
+      arena.releaseAll();
+      malloc.free(request_data);
+
+      return result_data;
+    });
     return result_data;
   }
 
   /// client_destroy
   void td_json_client_destroy(int clientId) {
-    ffi.Pointer client_id_addres_data = client_id_addres(clientId);
-    Arena arena = Arena();
-    TdDestroyDart td_destroy_dart_function = tdLib.lookupFunction<TdDestroyNative, TdDestroyDart>('${is_android ? "_" : ""}td_json_client_destroy');
-    arena.using(td_destroy_dart_function(client_id_addres_data), (p0) {});
-    arena.releaseAll();
+    using((Arena arena) {
+      Pointer client_id_addres_data = client_id_addres(clientId);
+      TdDestroyDart td_destroy_dart_function =
+          tdLib.lookupFunction<TdDestroyNative, TdDestroyDart>(
+              '${is_android ? "_" : ""}td_json_client_destroy');
+      arena.using(td_destroy_dart_function(client_id_addres_data), (p0) {});
+      arena.releaseAll();
+    });
     return;
   }
 
   /// fetch update
   static Map<String, dynamic>? td_receive_static({
     double timeout = 1.0,
+    bool isAndroid = false,
   }) {
     try {
-      Arena arena = Arena();
-      TdReceiveDart td_receive_function = tdLib.lookupFunction<TdReceiveNative, TdReceiveDart>(
-        '${Platform.isAndroid ? "_" : ""}td_receive',
-      );
-      TdStringNative update = arena.using(td_receive_function(timeout), (p0) {});
-      if (update.address != 0) {
-        String update_string = update.toDartString();
-        arena.releaseAll();
-        if (update_string.isEmpty) {
-          return null;
+      Map<String, dynamic>? result = using((Arena arena) {
+        TdReceiveDart td_receive_function =
+            tdLib.lookupFunction<TdReceiveNative, TdReceiveDart>(
+          '${isAndroid ? "_" : ""}td_receive',
+        );
+        TdStringNative update =
+            arena.using(td_receive_function(timeout), (p0) {});
+        if (update.address != 0) {
+          String update_string = update.toDartString();
+          arena.releaseAll();
+          if (update_string.isEmpty) {
+            return null;
+          }
+          Map<String, dynamic>? updateOrigin;
+          try {
+            updateOrigin = convert.json.decode(update.toDartString());
+          } catch (e) {}
+          if (updateOrigin != null) {
+            return updateOrigin;
+          }
+        } else {
+          arena.releaseAll();
         }
-        Map<String, dynamic>? updateOrigin;
-        try {
-          updateOrigin = convert.json.decode(update.toDartString());
-        } catch (e) {}
-        if (updateOrigin != null) {
-          return updateOrigin;
-        }
-
-        // TdStringNative update = td_receive_function(timeout);
-        // if (update.address != 0) {
-        //   String update_string = update.toDartString();
-        //   if (update_string.isEmpty) {
-        //     return null;
-        //   }
-        //   Map<String, dynamic>? updateOrigin;
-        //   try {
-        //     updateOrigin = convert.json.decode(update.toDartString());
-        //   } catch (e) {}
-        //   if (updateOrigin != null) {
-        //     return updateOrigin;
-        //   }
-      } else {
-        arena.releaseAll();
-      }
+        return null;
+      });
+      return result;
     } catch (e) {}
     return null;
   }
@@ -512,17 +542,21 @@ class LibTdJson {
   }
 
   /// receive all update data
-  Listener on(String type_update, FutureOr<dynamic> Function(UpdateTd update) callback, {void Function(Object data)? onError}) {
+  Listener on(
+      String type_update, FutureOr<dynamic> Function(UpdateTd update) callback,
+      {void Function(Object data)? onError}) {
     return event_emitter.on(type_update, null, (Event ev, context) async {
       try {
         if (ev.eventData is TdlibIsolateReceiveData) {
-          TdlibIsolateReceiveData tdlibIsolateReceiveData = (ev.eventData as TdlibIsolateReceiveData);
+          TdlibIsolateReceiveData tdlibIsolateReceiveData =
+              (ev.eventData as TdlibIsolateReceiveData);
           await callback(UpdateTd(
             update: tdlibIsolateReceiveData.updateData,
             client_id: tdlibIsolateReceiveData.clientId,
             client_option: () {
               try {
-                TdlibClient? tdlibClient = clients[tdlibIsolateReceiveData.clientId];
+                TdlibClient? tdlibClient =
+                    clients[tdlibIsolateReceiveData.clientId];
                 if (tdlibClient != null) {
                   return tdlibClient.client_option;
                 }
@@ -563,13 +597,15 @@ class LibTdJson {
     String? extra,
     bool? isAutoGetChat,
     bool? isInvokeThrowOnError,
-    FutureOr<String> Function(int client_id, LibTdJson libTdJson)? onGenerateExtraInvoke,
-    FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)? onGetInvokeData,
+    FutureOr<String> Function(int client_id, LibTdJson libTdJson)?
+        onGenerateExtraInvoke,
+    FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)?
+        onGetInvokeData,
   }) async {
     if (task_count >= task_max_count) {
       while (true) {
         await Future.delayed(Duration(microseconds: 1));
-        if (task_count < task_min_cooldown) { 
+        if (task_count < task_min_cooldown) {
           break;
         }
       }
@@ -618,7 +654,9 @@ class LibTdJson {
       parameters["@extra"] = extra_id;
     }
 
-    if (isAutoGetChat && RegExp(r"^(sendMessage|getChatMember)$", caseSensitive: false).hashData(method)) {
+    if (isAutoGetChat &&
+        RegExp(r"^(sendMessage|getChatMember)$", caseSensitive: false)
+            .hashData(method)) {
       if (parameters["chat_id"] is int) {
         td_send(
           clientId,
@@ -789,8 +827,10 @@ class LibTdJson {
     bool? isUseCache,
     Duration? durationCacheExpire,
     bool? isAutoGetChat,
-    FutureOr<String> Function(int client_id, LibTdJson libTdJson)? onGenerateExtraInvoke,
-    FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)? onGetInvokeData,
+    FutureOr<String> Function(int client_id, LibTdJson libTdJson)?
+        onGenerateExtraInvoke,
+    FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)?
+        onGetInvokeData,
     bool? isInvokeThrowOnError,
   }) async {
     return await invoke(
