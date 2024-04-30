@@ -53,7 +53,7 @@ This Library only update if there ae feature that i want, if you want library wi
 | ![](https://github.com/azkadev/telegram_client/raw/main/assets/example/bot/azkadevbot_1.jpg) | ![](https://github.com/azkadev/telegram_client/raw/main/assets/example/bot/azkadevbot_2.png) | ![](https://github.com/azkadev/telegram_client/raw/main/assets/example/bot/azkadevbot_3.png) | ![](https://github.com/azkadev/telegram_client/raw/main/assets/example/bot/azkadevbot_4.png) |
   
 
-1. [AZKADEV Userbot]()
+4. [AZKADEV Userbot]()
   
   Complex Paid Telegram Userbot that can handle many groups, ch, private, with many payment gateway features, Automation Store, clone userbot bot, made with this library without mixing other code languages, This Userbot runs only using < 1gb on a very light server because it uses dart
 
@@ -62,6 +62,16 @@ This Library only update if there ae feature that i want, if you want library wi
 |:--------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------:|---------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------:|
 | ![](https://github.com/azkadev/telegram_client/raw/main/assets/example/bot/azkadevbot_1.jpg) | ![](https://github.com/azkadev/telegram_client/raw/main/assets/example/bot/azkadevbot_2.png) | ![](https://github.com/azkadev/telegram_client/raw/main/assets/example/bot/azkadevbot_3.png) | ![](https://github.com/azkadev/telegram_client/raw/main/assets/example/bot/azkadevbot_4.png) |
   
+5. [AZKADEV Userbot]()
+  
+  Complex Paid Telegram Userbot that can handle many groups, ch, private, with many payment gateway features, Automation Store, clone userbot bot, made with this library without mixing other code languages, This Userbot runs only using < 1gb on a very light server because it uses dart
+
+
+|                                         Setting Menu                                         |                                         Manage Chat                                          |                                                                                   Extra Menu |                                         Feature MEnu                                         |
+|:--------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------:|---------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------:|
+| ![](https://github.com/azkadev/telegram_client/raw/main/assets/example/bot/azkadevbot_1.jpg) | ![](https://github.com/azkadev/telegram_client/raw/main/assets/example/bot/azkadevbot_2.png) | ![](https://github.com/azkadev/telegram_client/raw/main/assets/example/bot/azkadevbot_3.png) | ![](https://github.com/azkadev/telegram_client/raw/main/assets/example/bot/azkadevbot_4.png) |
+  
+
 
 ---
 
