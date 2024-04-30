@@ -1,3 +1,3 @@
-## 0.8.15
+## 0.8.16
 
-- Fix Memory Heap / Resident / Memory Leaks TDLIB (Now you can run with ultra efficient).
+- Update Dependecise.
