@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names, unnecessary_string_interpolations, unnecessary_brace_in_string_interps, unused_local_variable, constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, unnecessary_string_interpolations, unnecessary_brace_in_string_interps, unused_local_variable, constant_identifier_names, empty_catches
 
 /* <!-- START LICENSE -->
 
@@ -35,14 +35,18 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 import 'dart:async';
 
 import 'package:general_lib/general_lib.dart';
+import 'package:general_lib/regexp_replace/regexp_replace.dart';
 import 'package:general_lib/script_generate/script_generate.dart';
+import 'package:http/http.dart';
 import "package:path/path.dart" as path;
 import 'package:telegram_client/api/telegram_client_api.dart';
+import 'package:telegram_client/telegram_client.dart';
 import 'package:universal_io/io.dart';
 
 import "package:yaml/yaml.dart" as yaml;
 import 'package:yaml_writer/yaml_writer.dart';
 
+///
 enum TelegramClientApiStatusType {
   succes,
   failed,
@@ -53,9 +57,12 @@ enum TelegramClientApiStatusType {
   progress_complete,
 }
 
+///
 class TelegramClientApiStatus {
   String value;
   TelegramClientApiStatusType telegramClientApiStatusType;
+
+  ///
   TelegramClientApiStatus({
     required this.telegramClientApiStatusType,
     required this.value,
@@ -213,6 +220,7 @@ class TelegramClientApi {
     return 1;
   }
 
+  ///
   Stream<TelegramClientApiStatus> installLibrary({
     required TelegramClientLibraryType telegramClientLibraryType,
   }) async* {
@@ -414,6 +422,113 @@ class TelegramClientApi {
             value: "Succes Cmake: Install");
       }
     }
+  }
+
+  ///
+  Stream<TelegramClientApiStatus> telegramBotApi({
+    required List<Map> parametersRequest,
+    Duration? durationDelay,
+  }) async* {
+    durationDelay ??= Duration(milliseconds: 500);
+    if (Dart.isWeb) {
+      yield TelegramClientApiStatus(
+          telegramClientApiStatusType: TelegramClientApiStatusType.failed,
+          value: "Can't Install Library on Web Platform");
+      return;
+    }
+    TelegramClient tg = TelegramClient();
+    tg.ensureInitialized(
+      is_init_tdlib: false,
+    );
+
+    yield TelegramClientApiStatus(
+        telegramClientApiStatusType: TelegramClientApiStatusType.info,
+        value: "Started Send Request: ${parametersRequest.length}");
+    for (var i = 0; i < parametersRequest.length; i++) {
+      Map parameter = parametersRequest[i];
+
+      if (parameter["token_bot"] is String == false) {
+        if (Platform.environment["token_bot"] is String) {
+          parameter["token_bot"] =
+              (Platform.environment["token_bot"] as String).trim();
+        } else {
+          parameter["token_bot"] = "";
+        }
+      }
+      TelegramClientData telegramClientData = TelegramClientData.telegramBotApi(
+        token_bot: parameter["token_bot"],
+      );
+
+      String message_pams = "";
+      parameter.forEach((key, value) {
+        if (key == "@type") {
+          message_pams += " Method: ${value}";
+        }
+        if (key == "chat_id") {
+          message_pams += " Chat Id: ${value}";
+        }
+      });
+      message_pams +=
+          " Bot User Id: ${TgUtils.parserBotUserIdFromToken(telegramClientData.telegram_bot_api_token_bot)}";
+      message_pams = message_pams.trim();
+      String message = """
+Send Request: ${i} ${parametersRequest.length} ${message_pams.trim()}
+"""
+          .trim();
+      yield TelegramClientApiStatus(
+          telegramClientApiStatusType:
+              TelegramClientApiStatusType.progress_start,
+          value: "Started ${message}");
+
+      await Future.delayed(durationDelay);
+
+      try {
+        await tg.invoke(
+          parameters: parameter,
+          telegramClientData: telegramClientData,
+        );
+        yield TelegramClientApiStatus(
+            telegramClientApiStatusType:
+                TelegramClientApiStatusType.progress_complete,
+            value: "Succes ${message}");
+      } catch (e) {
+        String error_message = "${e.toString()}";
+
+        if (e is ClientException) {
+          error_message = "Connection Internet Error";
+        }
+
+        yield TelegramClientApiStatus(
+            telegramClientApiStatusType:
+                TelegramClientApiStatusType.progress_complete,
+            value:
+                "Error ${message} Error: ${replaceData(text: error_message.trim())}");
+      }
+    }
+    yield TelegramClientApiStatus(
+        telegramClientApiStatusType: TelegramClientApiStatusType.succes,
+        value: "Finished");
+  }
+
+  ///
+  static String replaceData({
+    required String text,
+  }) {
+    String text_result = text;
+    List<RegExpReplace> regxs = [
+      RegExpReplace(
+        from: RegExp(r"([0-9]{8,10}:[a-zA-Z0-9_-]{35})", caseSensitive: false),
+        replace: (match) {
+          return "Secret Token Bot";
+        },
+      )
+    ];
+
+    for (RegExpReplace regExpReplace in regxs) {
+      text_result = text_result.replaceAllMapped(
+          regExpReplace.from, regExpReplace.replace);
+    }
+    return text_result;
   }
 
   /// Telegram Client Api For

@@ -33,6 +33,9 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 <!-- END LICENSE --> */
 
+import 'dart:convert';
+import 'dart:isolate';
+
 import 'package:collection/collection.dart';
 import 'package:general_lib/general_lib.dart';
 import 'package:mason_logger/mason_logger.dart';
@@ -68,6 +71,8 @@ Future<void> packageFullTemplateDartCli(List<String> args_raw) async {
     "deploy",
     "install",
     "run",
+    "reload",
+    "telegram_bot_api",
   ];
   commands.sort();
   if (commands.contains(command) == false) {
@@ -274,28 +279,140 @@ Example: ${executable} install library ${library_types.first}
       //
     }
   }
+  if (command == "telegram_bot_api") {
+    List<Map<dynamic, dynamic>> parametersRequest = [];
+    String input_file =
+        (args.after("-i") ?? args.after("--input") ?? "").trim();
+
+    File file_input = File(input_file);
+    if (file_input.existsSync()) {
+      try {
+        parametersRequest = json.decode(file_input.readAsStringSync());
+      } catch (e) {}
+    }
+
+    Map<dynamic, dynamic> json_data = <dynamic, dynamic>{};
+    if (args.contains("--@type") || args.contains("-@type")) {
+      String parameters_key = "";
+      for (var element in args.arguments) {
+        if (RegExp(r"(-(-)?(@)?[a-z]+)", caseSensitive: false)
+            .hasMatch(element)) {
+          parameters_key = element.replaceAll(RegExp("-(-)?"), "");
+          json_data[parameters_key] = "";
+          continue;
+        }
+        if (parameters_key.isEmpty) {
+          continue;
+        }
+        if ([
+          "chat_id",
+          "message_id",
+          "from_chat_id",
+          "reply_to_message_id",
+        ].contains(parameters_key)) {
+          if (RegExp("^(@)", caseSensitive: false).hasMatch(element)) {
+            json_data[parameters_key] = element;
+          } else if (RegExp("([a-z_]+)", caseSensitive: false)
+              .hasMatch(element)) {
+            json_data[parameters_key] = "@${element.trim()}";
+          } else {
+            json_data[parameters_key] = (num.tryParse(element) ?? 0).toInt();
+          }
+        } else {
+          try {
+            json_data[parameters_key] = json.decode(element);
+          } catch (e) {
+            json_data[parameters_key] = element;
+          }
+        }
+      }
+      if (json_data.isNotEmpty) {
+        parametersRequest.insert(0, json_data);
+      }
+    }
+
+    await packageFullTemplateDartApi
+        .telegramBotApi(parametersRequest: parametersRequest)
+        .listen((event) {
+      printed(event);
+    }).asFuture();
+
+    exit(0);
+  }
+  if (command == "reload") {
+    File? file = getPackageDirectory();
+    if (file == null) {
+      exit(1);
+    }
+    Directory directory = file.parent.parent;
+    Directory directory_pub =
+        Directory(path.join(directory.path, ".dart_tool", "pub"));
+    if (directory_pub.existsSync()) {
+      await directory_pub.delete(recursive: true);
+    }
+    logger.info("Succes Reload");
+    exit(0);
+  }
   exit(1);
 }
 
-Progress progress = logger.progress("message");
-void printed(TelegramClientApiStatus event) {
-  if (event.telegramClientApiStatusType ==
-      TelegramClientApiStatusType.progress_start) {
-    progress.cancel();
-    progress = logger.progress(event.value);
-    return;
+File? getPackageDirectory({
+  String package_name = "package:telegram_client/telegram_client.dart",
+}) {
+  Uri? res = Isolate.resolvePackageUriSync(Uri.parse(package_name));
+  if (res == null) {
+    return null;
   }
-  if (event.telegramClientApiStatusType ==
-      TelegramClientApiStatusType.progress) {
-    progress.update(event.value);
-    return;
-  }
-  if (event.telegramClientApiStatusType ==
-      TelegramClientApiStatusType.progress_complete) {
-    progress.complete(event.value);
+  return File(res.toFilePath());
+  // print(re);
+  // List<String> paths = [...res.pathSegments];
+  // for (var i = 0; i < package_name.split("/").length; i++) {
+  //   paths.removeLast();
+  // }
+  // Directory directory = Directory(path.joinAll(paths));
 
-    // progress.cancel();
-    return;
+  // if (!directory.existsSync()) {
+  //   directory = Directory(path.joinAll(["/", ...paths]));
+  // }
+  // return directory;
+}
+
+List<Progress> progresss = [];
+// Progress progress = logger.progress("message");
+void printed(TelegramClientApiStatus event) {
+  if ([
+    TelegramClientApiStatusType.progress_start,
+    TelegramClientApiStatusType.progress_complete,
+    TelegramClientApiStatusType.progress
+  ].contains(event.telegramClientApiStatusType)) {
+    if (event.telegramClientApiStatusType ==
+        TelegramClientApiStatusType.progress_start) {
+      progresss.add(logger.progress(event.value));
+      // progress.cancel();
+      // progress = logger.progress(event.value);
+      return;
+    }
+    Progress progress = () {
+      if (progresss.isEmpty) {
+        Progress progress = logger.progress(event.value);
+        progresss.add(progress);
+        return progress;
+      } else {
+        return progresss.last;
+      }
+    }();
+    if (event.telegramClientApiStatusType ==
+        TelegramClientApiStatusType.progress) {
+      progress.update(event.value);
+      return;
+    }
+    if (event.telegramClientApiStatusType ==
+        TelegramClientApiStatusType.progress_complete) {
+      progress.complete(event.value);
+
+      // progress.cancel();
+      return;
+    }
   }
   if (event.telegramClientApiStatusType == TelegramClientApiStatusType.succes) {
     logger.success(event.value);
