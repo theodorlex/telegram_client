@@ -69,7 +69,7 @@ extension DeleteMessageDataOn on TelegramClient {
       "@type": "deleteMessages",
       "chat_id": parameters["chat_id"],
       "message_ids": [
-        TgUtils().messageApiToTdlib(parameters["message_id"]),
+        TgUtils.messageApiToTdlib(parameters["message_id"]),
       ],
       "revoke": (parameters["revoke"] is bool) ? parameters["revoke"] : true,
     };

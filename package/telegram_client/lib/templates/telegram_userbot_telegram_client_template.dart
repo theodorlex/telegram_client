@@ -670,6 +670,25 @@ export "package:telegram_userbot/update/update.dart";
   ScriptGenerator(
     is_generate: true,
     directory_base: Directory("telegram_userbot"),
+    file_system_entity: Directory("test"),
+    state_data: {},
+    file_system_entity_type: FileSystemEntityType.directory,
+    value: r"""""",
+    children: [
+      ScriptGenerator(
+        is_generate: true,
+        directory_base: Directory("telegram_userbot"),
+        file_system_entity: File("test/telegram_userbot_test.dart"),
+        state_data: {},
+        file_system_entity_type: FileSystemEntityType.file,
+        value: r"""""",
+        children: [],
+      )
+    ],
+  ),
+  ScriptGenerator(
+    is_generate: true,
+    directory_base: Directory("telegram_userbot"),
     file_system_entity: File(".gitignore"),
     state_data: {},
     file_system_entity_type: FileSystemEntityType.file,
@@ -685,8 +704,7 @@ export "package:telegram_userbot/update/update.dart";
     file_system_entity: File("analysis_options.yaml"),
     state_data: {},
     file_system_entity_type: FileSystemEntityType.file,
-    value:
-        r"""# This file configures the static analysis results for your project (errors,
+    value: r"""# This file configures the static analysis results for your project (errors,
 # warnings, and lints).
 #
 # This enables the 'recommended' set of lints from `package:lints`.
@@ -734,6 +752,22 @@ include: package:lints/recommended.yaml
   ScriptGenerator(
     is_generate: true,
     directory_base: Directory("telegram_userbot"),
+    file_system_entity: File("guide-telegram_client.md"),
+    state_data: {},
+    file_system_entity_type: FileSystemEntityType.file,
+    value: r"""# Guide Telegram Client
+
+Telegram Client Library is from DEVELOPER FROM COMPANY GLOBAL CORPORATION
+Created By: [AZKADEV](https://github.com/azkadev)
+
+If you use tdlib you must install tdlib
+
+dart run telegram_client install library tdlib""",
+    children: [],
+  ),
+  ScriptGenerator(
+    is_generate: true,
+    directory_base: Directory("telegram_userbot"),
     file_system_entity: File("pubspec.yaml"),
     state_data: {},
     file_system_entity_type: FileSystemEntityType.file,
@@ -746,21 +780,24 @@ issue_tracker: 'https://github.com/azkadev/telegram_client/issues'
 documentation: 'https://github.com/azkadev/telegram_client/tree/main/docs'
 funding: 
   - 'https://github.com/sponsors/azkadev'
-publish_to: none
+publish_to: 'none'
 environment: 
   sdk: '^3.3.0'
-dependencies: 
-  general_lib: ^0.0.36
-  http: ^1.1.2
-  mason_logger: ^0.2.12
-  packagex: ^0.0.50
-  path: ^1.9.0
-  system_info_fetch: ^0.0.14 
-  telegram_client: ^0.8.9
-  translate_client: ^0.0.2
+dependencies:  
+  http: '^1.1.2'
+  mason_logger: '^0.2.12'
+  packagex: '^0.0.50'
+  path: '^1.9.0'
+  system_info_fetch: '^0.0.16'
+  translate_client: '^0.0.2'
+  
+  general_lib: '^0.0.38'
+  telegram_client: '^0.8.16'
+  server_universe: '^0.0.13'
 dev_dependencies: 
   lints: '^3.0.0'
-  test: '^1.24.0'""",
+  test: '^1.24.0'
+""",
     children: [],
   ),
   ScriptGenerator(

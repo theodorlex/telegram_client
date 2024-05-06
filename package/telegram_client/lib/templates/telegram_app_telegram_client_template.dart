@@ -198,12 +198,10 @@ List<ScriptGenerator> telegram_app_telegram_client_script_generators = [
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity:
-                        File("android/app/src/debug/AndroidManifest.xml"),
+                    file_system_entity: File("android/app/src/debug/AndroidManifest.xml"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+                    value: r"""<manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- The INTERNET permission is required for development. Specifically,
          the Flutter tool needs it to communicate with the running application
          to allow setting breakpoints, to provide hot reload, etc.
@@ -234,8 +232,7 @@ List<ScriptGenerator> telegram_app_telegram_client_script_generators = [
                       ScriptGenerator(
                         is_generate: true,
                         directory_base: Directory("telegram_app"),
-                        file_system_entity:
-                            Directory("android/app/src/main/java/io"),
+                        file_system_entity: Directory("android/app/src/main/java/io"),
                         state_data: {},
                         file_system_entity_type: FileSystemEntityType.directory,
                         value: r"""""",
@@ -243,31 +240,25 @@ List<ScriptGenerator> telegram_app_telegram_client_script_generators = [
                           ScriptGenerator(
                             is_generate: true,
                             directory_base: Directory("telegram_app"),
-                            file_system_entity: Directory(
-                                "android/app/src/main/java/io/flutter"),
+                            file_system_entity: Directory("android/app/src/main/java/io/flutter"),
                             state_data: {},
-                            file_system_entity_type:
-                                FileSystemEntityType.directory,
+                            file_system_entity_type: FileSystemEntityType.directory,
                             value: r"""""",
                             children: [
                               ScriptGenerator(
                                 is_generate: true,
                                 directory_base: Directory("telegram_app"),
-                                file_system_entity: Directory(
-                                    "android/app/src/main/java/io/flutter/plugins"),
+                                file_system_entity: Directory("android/app/src/main/java/io/flutter/plugins"),
                                 state_data: {},
-                                file_system_entity_type:
-                                    FileSystemEntityType.directory,
+                                file_system_entity_type: FileSystemEntityType.directory,
                                 value: r"""""",
                                 children: [
                                   ScriptGenerator(
                                     is_generate: true,
                                     directory_base: Directory("telegram_app"),
-                                    file_system_entity: File(
-                                        "android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java"),
+                                    file_system_entity: File("android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java"),
                                     state_data: {},
-                                    file_system_entity_type:
-                                        FileSystemEntityType.file,
+                                    file_system_entity_type: FileSystemEntityType.file,
                                     value: r"""package io.flutter.plugins;
 
 import androidx.annotation.Keep;
@@ -301,8 +292,7 @@ public final class GeneratedPluginRegistrant {
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity:
-                        Directory("android/app/src/main/kotlin"),
+                    file_system_entity: Directory("android/app/src/main/kotlin"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.directory,
                     value: r"""""",
@@ -310,8 +300,7 @@ public final class GeneratedPluginRegistrant {
                       ScriptGenerator(
                         is_generate: true,
                         directory_base: Directory("telegram_app"),
-                        file_system_entity:
-                            Directory("android/app/src/main/kotlin/com"),
+                        file_system_entity: Directory("android/app/src/main/kotlin/com"),
                         state_data: {},
                         file_system_entity_type: FileSystemEntityType.directory,
                         value: r"""""",
@@ -319,31 +308,25 @@ public final class GeneratedPluginRegistrant {
                           ScriptGenerator(
                             is_generate: true,
                             directory_base: Directory("telegram_app"),
-                            file_system_entity: Directory(
-                                "android/app/src/main/kotlin/com/example"),
+                            file_system_entity: Directory("android/app/src/main/kotlin/com/example"),
                             state_data: {},
-                            file_system_entity_type:
-                                FileSystemEntityType.directory,
+                            file_system_entity_type: FileSystemEntityType.directory,
                             value: r"""""",
                             children: [
                               ScriptGenerator(
                                 is_generate: true,
                                 directory_base: Directory("telegram_app"),
-                                file_system_entity: Directory(
-                                    "android/app/src/main/kotlin/com/example/telegram_app"),
+                                file_system_entity: Directory("android/app/src/main/kotlin/com/example/telegram_app"),
                                 state_data: {},
-                                file_system_entity_type:
-                                    FileSystemEntityType.directory,
+                                file_system_entity_type: FileSystemEntityType.directory,
                                 value: r"""""",
                                 children: [
                                   ScriptGenerator(
                                     is_generate: true,
                                     directory_base: Directory("telegram_app"),
-                                    file_system_entity: File(
-                                        "android/app/src/main/kotlin/com/example/telegram_app/MainActivity.kt"),
+                                    file_system_entity: File("android/app/src/main/kotlin/com/example/telegram_app/MainActivity.kt"),
                                     state_data: {},
-                                    file_system_entity_type:
-                                        FileSystemEntityType.file,
+                                    file_system_entity_type: FileSystemEntityType.file,
                                     value: r"""package com.example.telegram_app
 
 import io.flutter.embedding.android.FlutterActivity
@@ -371,8 +354,7 @@ class MainActivity: FlutterActivity()
                       ScriptGenerator(
                         is_generate: true,
                         directory_base: Directory("telegram_app"),
-                        file_system_entity:
-                            Directory("android/app/src/main/res/drawable"),
+                        file_system_entity: Directory("android/app/src/main/res/drawable"),
                         state_data: {},
                         file_system_entity_type: FileSystemEntityType.directory,
                         value: r"""""",
@@ -380,8 +362,7 @@ class MainActivity: FlutterActivity()
                           ScriptGenerator(
                             is_generate: true,
                             directory_base: Directory("telegram_app"),
-                            file_system_entity: File(
-                                "android/app/src/main/res/drawable/launch_background.xml"),
+                            file_system_entity: File("android/app/src/main/res/drawable/launch_background.xml"),
                             state_data: {},
                             file_system_entity_type: FileSystemEntityType.file,
                             value: r"""<?xml version="1.0" encoding="utf-8"?>
@@ -404,8 +385,7 @@ class MainActivity: FlutterActivity()
                       ScriptGenerator(
                         is_generate: true,
                         directory_base: Directory("telegram_app"),
-                        file_system_entity:
-                            Directory("android/app/src/main/res/drawable-v21"),
+                        file_system_entity: Directory("android/app/src/main/res/drawable-v21"),
                         state_data: {},
                         file_system_entity_type: FileSystemEntityType.directory,
                         value: r"""""",
@@ -413,8 +393,7 @@ class MainActivity: FlutterActivity()
                           ScriptGenerator(
                             is_generate: true,
                             directory_base: Directory("telegram_app"),
-                            file_system_entity: File(
-                                "android/app/src/main/res/drawable-v21/launch_background.xml"),
+                            file_system_entity: File("android/app/src/main/res/drawable-v21/launch_background.xml"),
                             state_data: {},
                             file_system_entity_type: FileSystemEntityType.file,
                             value: r"""<?xml version="1.0" encoding="utf-8"?>
@@ -437,8 +416,7 @@ class MainActivity: FlutterActivity()
                       ScriptGenerator(
                         is_generate: true,
                         directory_base: Directory("telegram_app"),
-                        file_system_entity:
-                            Directory("android/app/src/main/res/mipmap-hdpi"),
+                        file_system_entity: Directory("android/app/src/main/res/mipmap-hdpi"),
                         state_data: {},
                         file_system_entity_type: FileSystemEntityType.directory,
                         value: r"""""",
@@ -447,8 +425,7 @@ class MainActivity: FlutterActivity()
                       ScriptGenerator(
                         is_generate: true,
                         directory_base: Directory("telegram_app"),
-                        file_system_entity:
-                            Directory("android/app/src/main/res/mipmap-mdpi"),
+                        file_system_entity: Directory("android/app/src/main/res/mipmap-mdpi"),
                         state_data: {},
                         file_system_entity_type: FileSystemEntityType.directory,
                         value: r"""""",
@@ -457,8 +434,7 @@ class MainActivity: FlutterActivity()
                       ScriptGenerator(
                         is_generate: true,
                         directory_base: Directory("telegram_app"),
-                        file_system_entity:
-                            Directory("android/app/src/main/res/mipmap-xhdpi"),
+                        file_system_entity: Directory("android/app/src/main/res/mipmap-xhdpi"),
                         state_data: {},
                         file_system_entity_type: FileSystemEntityType.directory,
                         value: r"""""",
@@ -467,8 +443,7 @@ class MainActivity: FlutterActivity()
                       ScriptGenerator(
                         is_generate: true,
                         directory_base: Directory("telegram_app"),
-                        file_system_entity:
-                            Directory("android/app/src/main/res/mipmap-xxhdpi"),
+                        file_system_entity: Directory("android/app/src/main/res/mipmap-xxhdpi"),
                         state_data: {},
                         file_system_entity_type: FileSystemEntityType.directory,
                         value: r"""""",
@@ -477,8 +452,7 @@ class MainActivity: FlutterActivity()
                       ScriptGenerator(
                         is_generate: true,
                         directory_base: Directory("telegram_app"),
-                        file_system_entity: Directory(
-                            "android/app/src/main/res/mipmap-xxxhdpi"),
+                        file_system_entity: Directory("android/app/src/main/res/mipmap-xxxhdpi"),
                         state_data: {},
                         file_system_entity_type: FileSystemEntityType.directory,
                         value: r"""""",
@@ -487,8 +461,7 @@ class MainActivity: FlutterActivity()
                       ScriptGenerator(
                         is_generate: true,
                         directory_base: Directory("telegram_app"),
-                        file_system_entity:
-                            Directory("android/app/src/main/res/values"),
+                        file_system_entity: Directory("android/app/src/main/res/values"),
                         state_data: {},
                         file_system_entity_type: FileSystemEntityType.directory,
                         value: r"""""",
@@ -496,8 +469,7 @@ class MainActivity: FlutterActivity()
                           ScriptGenerator(
                             is_generate: true,
                             directory_base: Directory("telegram_app"),
-                            file_system_entity: File(
-                                "android/app/src/main/res/values/styles.xml"),
+                            file_system_entity: File("android/app/src/main/res/values/styles.xml"),
                             state_data: {},
                             file_system_entity_type: FileSystemEntityType.file,
                             value: r"""<?xml version="1.0" encoding="utf-8"?>
@@ -526,8 +498,7 @@ class MainActivity: FlutterActivity()
                       ScriptGenerator(
                         is_generate: true,
                         directory_base: Directory("telegram_app"),
-                        file_system_entity:
-                            Directory("android/app/src/main/res/values-night"),
+                        file_system_entity: Directory("android/app/src/main/res/values-night"),
                         state_data: {},
                         file_system_entity_type: FileSystemEntityType.directory,
                         value: r"""""",
@@ -535,8 +506,7 @@ class MainActivity: FlutterActivity()
                           ScriptGenerator(
                             is_generate: true,
                             directory_base: Directory("telegram_app"),
-                            file_system_entity: File(
-                                "android/app/src/main/res/values-night/styles.xml"),
+                            file_system_entity: File("android/app/src/main/res/values-night/styles.xml"),
                             state_data: {},
                             file_system_entity_type: FileSystemEntityType.file,
                             value: r"""<?xml version="1.0" encoding="utf-8"?>
@@ -567,12 +537,10 @@ class MainActivity: FlutterActivity()
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity:
-                        File("android/app/src/main/AndroidManifest.xml"),
+                    file_system_entity: File("android/app/src/main/AndroidManifest.xml"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+                    value: r"""<manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
         android:label="telegram_app"
         android:name="${applicationName}"
@@ -632,12 +600,10 @@ class MainActivity: FlutterActivity()
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity:
-                        File("android/app/src/profile/AndroidManifest.xml"),
+                    file_system_entity: File("android/app/src/profile/AndroidManifest.xml"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+                    value: r"""<manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- The INTERNET permission is required for development. Specifically,
          the Flutter tool needs it to communicate with the running application
          to allow setting breakpoints, to provide hot reload, etc.
@@ -748,8 +714,7 @@ dependencies {}
               ScriptGenerator(
                 is_generate: true,
                 directory_base: Directory("telegram_app"),
-                file_system_entity:
-                    File("android/gradle/wrapper/gradle-wrapper.properties"),
+                file_system_entity: File("android/gradle/wrapper/gradle-wrapper.properties"),
                 state_data: {},
                 file_system_entity_type: FileSystemEntityType.file,
                 value: r"""distributionBase=GRADLE_USER_HOME
@@ -1099,7 +1064,7 @@ if "%OS%"=="Windows_NT" endlocal
         file_system_entity: File("android/local.properties"),
         state_data: {},
         file_system_entity_type: FileSystemEntityType.file,
-        value: r"""sdk.dir=/home/galaxeus/Android/Sdk/
+        value: r"""sdk.dir=/home/galaxeus/Android/Sdk
 flutter.sdk=/home/galaxeus/development/flutter""",
         children: [],
       ),
@@ -1197,8 +1162,7 @@ include ":app"
           ScriptGenerator(
             is_generate: true,
             directory_base: Directory("telegram_app"),
-            file_system_entity:
-                File("build/6f77b64534dccde98bf090f213b9fb1f/_composite.stamp"),
+            file_system_entity: File("build/6f77b64534dccde98bf090f213b9fb1f/_composite.stamp"),
             state_data: {},
             file_system_entity_type: FileSystemEntityType.file,
             value: r"""{"inputs":[],"outputs":[]}""",
@@ -1207,19 +1171,16 @@ include ":app"
           ScriptGenerator(
             is_generate: true,
             directory_base: Directory("telegram_app"),
-            file_system_entity: File(
-                "build/6f77b64534dccde98bf090f213b9fb1f/gen_dart_plugin_registrant.stamp"),
+            file_system_entity: File("build/6f77b64534dccde98bf090f213b9fb1f/gen_dart_plugin_registrant.stamp"),
             state_data: {},
             file_system_entity_type: FileSystemEntityType.file,
-            value:
-                r"""{"inputs":["/home/galaxeus/Documents/galaxeus/app/telegram_client/package/telegram_client/template/telegram_app/.dart_tool/package_config_subset"],"outputs":[]}""",
+            value: r"""{"inputs":["/home/galaxeus/Documents/galaxeus/app/telegram_client/package/telegram_client/template/telegram_app/.dart_tool/package_config_subset"],"outputs":[]}""",
             children: [],
           ),
           ScriptGenerator(
             is_generate: true,
             directory_base: Directory("telegram_app"),
-            file_system_entity: File(
-                "build/6f77b64534dccde98bf090f213b9fb1f/gen_localizations.stamp"),
+            file_system_entity: File("build/6f77b64534dccde98bf090f213b9fb1f/gen_localizations.stamp"),
             state_data: {},
             file_system_entity_type: FileSystemEntityType.file,
             value: r"""{"inputs":[],"outputs":[]}""",
@@ -1238,60 +1199,10 @@ include ":app"
           ScriptGenerator(
             is_generate: true,
             directory_base: Directory("telegram_app"),
-            file_system_entity: Directory("build/flutter_assets/fonts"),
-            state_data: {},
-            file_system_entity_type: FileSystemEntityType.directory,
-            value: r"""""",
-            children: [],
-          ),
-          ScriptGenerator(
-            is_generate: true,
-            directory_base: Directory("telegram_app"),
-            file_system_entity: Directory("build/flutter_assets/packages"),
-            state_data: {},
-            file_system_entity_type: FileSystemEntityType.directory,
-            value: r"""""",
-            children: [
-              ScriptGenerator(
-                is_generate: true,
-                directory_base: Directory("telegram_app"),
-                file_system_entity:
-                    Directory("build/flutter_assets/packages/cupertino_icons"),
-                state_data: {},
-                file_system_entity_type: FileSystemEntityType.directory,
-                value: r"""""",
-                children: [
-                  ScriptGenerator(
-                    is_generate: true,
-                    directory_base: Directory("telegram_app"),
-                    file_system_entity: Directory(
-                        "build/flutter_assets/packages/cupertino_icons/assets"),
-                    state_data: {},
-                    file_system_entity_type: FileSystemEntityType.directory,
-                    value: r"""""",
-                    children: [],
-                  )
-                ],
-              )
-            ],
-          ),
-          ScriptGenerator(
-            is_generate: true,
-            directory_base: Directory("telegram_app"),
-            file_system_entity: Directory("build/flutter_assets/shaders"),
-            state_data: {},
-            file_system_entity_type: FileSystemEntityType.directory,
-            value: r"""""",
-            children: [],
-          ),
-          ScriptGenerator(
-            is_generate: true,
-            directory_base: Directory("telegram_app"),
             file_system_entity: File("build/flutter_assets/AssetManifest.bin"),
             state_data: {},
             file_system_entity_type: FileSystemEntityType.file,
-            value: r"""
-2packages/cupertino_icons/assets/CupertinoIcons.ttf
+            value: r"""2packages/cupertino_icons/assets/CupertinoIcons.ttf
 asset2packages/cupertino_icons/assets/CupertinoIcons.ttf""",
             children: [],
           ),
@@ -1301,8 +1212,7 @@ include ":app"
             file_system_entity: File("build/flutter_assets/AssetManifest.json"),
             state_data: {},
             file_system_entity_type: FileSystemEntityType.file,
-            value:
-                r"""{"packages/cupertino_icons/assets/CupertinoIcons.ttf":["packages/cupertino_icons/assets/CupertinoIcons.ttf"]}""",
+            value: r"""{"packages/cupertino_icons/assets/CupertinoIcons.ttf":["packages/cupertino_icons/assets/CupertinoIcons.ttf"]}""",
             children: [],
           ),
           ScriptGenerator(
@@ -1311,8 +1221,7 @@ include ":app"
             file_system_entity: File("build/flutter_assets/FontManifest.json"),
             state_data: {},
             file_system_entity_type: FileSystemEntityType.file,
-            value:
-                r"""[{"family":"MaterialIcons","fonts":[{"asset":"fonts/MaterialIcons-Regular.otf"}]},{"family":"packages/cupertino_icons/CupertinoIcons","fonts":[{"asset":"packages/cupertino_icons/assets/CupertinoIcons.ttf"}]}]""",
+            value: r"""[{"family":"MaterialIcons","fonts":[{"asset":"fonts/MaterialIcons-Regular.otf"}]},{"family":"packages/cupertino_icons/CupertinoIcons","fonts":[{"asset":"packages/cupertino_icons/assets/CupertinoIcons.ttf"}]}]""",
             children: [],
           ),
           ScriptGenerator(
@@ -1321,8 +1230,7 @@ include ":app"
             file_system_entity: File("build/flutter_assets/version.json"),
             state_data: {},
             file_system_entity_type: FileSystemEntityType.file,
-            value:
-                r"""{"app_name":"telegram_app","version":"0.0.0","package_name":"telegram_app"}""",
+            value: r"""{"app_name":"telegram_app","version":"0.0.0","package_name":"telegram_app"}""",
             children: [],
           )
         ],
@@ -1354,8 +1262,7 @@ include ":app"
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity:
-                        Directory("build/linux/x64/debug/bundle"),
+                    file_system_entity: Directory("build/linux/x64/debug/bundle"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.directory,
                     value: r"""""",
@@ -1363,8 +1270,7 @@ include ":app"
                       ScriptGenerator(
                         is_generate: true,
                         directory_base: Directory("telegram_app"),
-                        file_system_entity:
-                            Directory("build/linux/x64/debug/bundle/data"),
+                        file_system_entity: Directory("build/linux/x64/debug/bundle/data"),
                         state_data: {},
                         file_system_entity_type: FileSystemEntityType.directory,
                         value: r"""""",
@@ -1372,141 +1278,58 @@ include ":app"
                           ScriptGenerator(
                             is_generate: true,
                             directory_base: Directory("telegram_app"),
-                            file_system_entity: Directory(
-                                "build/linux/x64/debug/bundle/data/flutter_assets"),
+                            file_system_entity: Directory("build/linux/x64/debug/bundle/data/flutter_assets"),
                             state_data: {},
-                            file_system_entity_type:
-                                FileSystemEntityType.directory,
+                            file_system_entity_type: FileSystemEntityType.directory,
                             value: r"""""",
                             children: [
                               ScriptGenerator(
                                 is_generate: true,
                                 directory_base: Directory("telegram_app"),
-                                file_system_entity: Directory(
-                                    "build/linux/x64/debug/bundle/data/flutter_assets/fonts"),
+                                file_system_entity: File("build/linux/x64/debug/bundle/data/flutter_assets/AssetManifest.bin"),
                                 state_data: {},
-                                file_system_entity_type:
-                                    FileSystemEntityType.directory,
-                                value: r"""""",
-                                children: [],
-                              ),
-                              ScriptGenerator(
-                                is_generate: true,
-                                directory_base: Directory("telegram_app"),
-                                file_system_entity: Directory(
-                                    "build/linux/x64/debug/bundle/data/flutter_assets/packages"),
-                                state_data: {},
-                                file_system_entity_type:
-                                    FileSystemEntityType.directory,
-                                value: r"""""",
-                                children: [
-                                  ScriptGenerator(
-                                    is_generate: true,
-                                    directory_base: Directory("telegram_app"),
-                                    file_system_entity: Directory(
-                                        "build/linux/x64/debug/bundle/data/flutter_assets/packages/cupertino_icons"),
-                                    state_data: {},
-                                    file_system_entity_type:
-                                        FileSystemEntityType.directory,
-                                    value: r"""""",
-                                    children: [
-                                      ScriptGenerator(
-                                        is_generate: true,
-                                        directory_base:
-                                            Directory("telegram_app"),
-                                        file_system_entity: Directory(
-                                            "build/linux/x64/debug/bundle/data/flutter_assets/packages/cupertino_icons/assets"),
-                                        state_data: {},
-                                        file_system_entity_type:
-                                            FileSystemEntityType.directory,
-                                        value: r"""""",
-                                        children: [],
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                              ScriptGenerator(
-                                is_generate: true,
-                                directory_base: Directory("telegram_app"),
-                                file_system_entity: Directory(
-                                    "build/linux/x64/debug/bundle/data/flutter_assets/shaders"),
-                                state_data: {},
-                                file_system_entity_type:
-                                    FileSystemEntityType.directory,
-                                value: r"""""",
-                                children: [],
-                              ),
-                              ScriptGenerator(
-                                is_generate: true,
-                                directory_base: Directory("telegram_app"),
-                                file_system_entity: File(
-                                    "build/linux/x64/debug/bundle/data/flutter_assets/AssetManifest.bin"),
-                                state_data: {},
-                                file_system_entity_type:
-                                    FileSystemEntityType.file,
-                                value: r"""
-2packages/cupertino_icons/assets/CupertinoIcons.ttf
+                                file_system_entity_type: FileSystemEntityType.file,
+                                value: r"""2packages/cupertino_icons/assets/CupertinoIcons.ttf
 asset2packages/cupertino_icons/assets/CupertinoIcons.ttf""",
                                 children: [],
                               ),
                               ScriptGenerator(
                                 is_generate: true,
                                 directory_base: Directory("telegram_app"),
-                                file_system_entity: File(
-                                    "build/linux/x64/debug/bundle/data/flutter_assets/AssetManifest.json"),
+                                file_system_entity: File("build/linux/x64/debug/bundle/data/flutter_assets/AssetManifest.json"),
                                 state_data: {},
-                                file_system_entity_type:
-                                    FileSystemEntityType.file,
-                                value:
-                                    r"""{"packages/cupertino_icons/assets/CupertinoIcons.ttf":["packages/cupertino_icons/assets/CupertinoIcons.ttf"]}""",
+                                file_system_entity_type: FileSystemEntityType.file,
+                                value: r"""{"packages/cupertino_icons/assets/CupertinoIcons.ttf":["packages/cupertino_icons/assets/CupertinoIcons.ttf"]}""",
                                 children: [],
                               ),
                               ScriptGenerator(
                                 is_generate: true,
                                 directory_base: Directory("telegram_app"),
-                                file_system_entity: File(
-                                    "build/linux/x64/debug/bundle/data/flutter_assets/FontManifest.json"),
+                                file_system_entity: File("build/linux/x64/debug/bundle/data/flutter_assets/FontManifest.json"),
                                 state_data: {},
-                                file_system_entity_type:
-                                    FileSystemEntityType.file,
-                                value:
-                                    r"""[{"family":"MaterialIcons","fonts":[{"asset":"fonts/MaterialIcons-Regular.otf"}]},{"family":"packages/cupertino_icons/CupertinoIcons","fonts":[{"asset":"packages/cupertino_icons/assets/CupertinoIcons.ttf"}]}]""",
+                                file_system_entity_type: FileSystemEntityType.file,
+                                value: r"""[{"family":"MaterialIcons","fonts":[{"asset":"fonts/MaterialIcons-Regular.otf"}]},{"family":"packages/cupertino_icons/CupertinoIcons","fonts":[{"asset":"packages/cupertino_icons/assets/CupertinoIcons.ttf"}]}]""",
                                 children: [],
                               ),
                               ScriptGenerator(
                                 is_generate: true,
                                 directory_base: Directory("telegram_app"),
-                                file_system_entity: File(
-                                    "build/linux/x64/debug/bundle/data/flutter_assets/version.json"),
+                                file_system_entity: File("build/linux/x64/debug/bundle/data/flutter_assets/version.json"),
                                 state_data: {},
-                                file_system_entity_type:
-                                    FileSystemEntityType.file,
-                                value:
-                                    r"""{"app_name":"telegram_app","version":"0.0.0","package_name":"telegram_app"}""",
+                                file_system_entity_type: FileSystemEntityType.file,
+                                value: r"""{"app_name":"telegram_app","version":"0.0.0","package_name":"telegram_app"}""",
                                 children: [],
                               )
                             ],
                           )
                         ],
-                      ),
-                      ScriptGenerator(
-                        is_generate: true,
-                        directory_base: Directory("telegram_app"),
-                        file_system_entity:
-                            Directory("build/linux/x64/debug/bundle/lib"),
-                        state_data: {},
-                        file_system_entity_type: FileSystemEntityType.directory,
-                        value: r"""""",
-                        children: [],
                       )
                     ],
                   ),
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity:
-                        Directory("build/linux/x64/debug/CMakeFiles"),
+                    file_system_entity: Directory("build/linux/x64/debug/CMakeFiles"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.directory,
                     value: r"""""",
@@ -1514,8 +1337,7 @@ include ":app"
                       ScriptGenerator(
                         is_generate: true,
                         directory_base: Directory("telegram_app"),
-                        file_system_entity: Directory(
-                            "build/linux/x64/debug/CMakeFiles/3.27.4"),
+                        file_system_entity: Directory("build/linux/x64/debug/CMakeFiles/3.27.4"),
                         state_data: {},
                         file_system_entity_type: FileSystemEntityType.directory,
                         value: r"""""",
@@ -1523,34 +1345,18 @@ include ":app"
                           ScriptGenerator(
                             is_generate: true,
                             directory_base: Directory("telegram_app"),
-                            file_system_entity: Directory(
-                                "build/linux/x64/debug/CMakeFiles/3.27.4/CompilerIdCXX"),
+                            file_system_entity: Directory("build/linux/x64/debug/CMakeFiles/3.27.4/CompilerIdCXX"),
                             state_data: {},
-                            file_system_entity_type:
-                                FileSystemEntityType.directory,
+                            file_system_entity_type: FileSystemEntityType.directory,
                             value: r"""""",
                             children: [
                               ScriptGenerator(
                                 is_generate: true,
                                 directory_base: Directory("telegram_app"),
-                                file_system_entity: Directory(
-                                    "build/linux/x64/debug/CMakeFiles/3.27.4/CompilerIdCXX/tmp"),
+                                file_system_entity: File("build/linux/x64/debug/CMakeFiles/3.27.4/CompilerIdCXX/CMakeCXXCompilerId.cpp"),
                                 state_data: {},
-                                file_system_entity_type:
-                                    FileSystemEntityType.directory,
-                                value: r"""""",
-                                children: [],
-                              ),
-                              ScriptGenerator(
-                                is_generate: true,
-                                directory_base: Directory("telegram_app"),
-                                file_system_entity: File(
-                                    "build/linux/x64/debug/CMakeFiles/3.27.4/CompilerIdCXX/CMakeCXXCompilerId.cpp"),
-                                state_data: {},
-                                file_system_entity_type:
-                                    FileSystemEntityType.file,
-                                value:
-                                    r"""/* This source file must have a .cpp extension so that all C++ compilers
+                                file_system_entity_type: FileSystemEntityType.file,
+                                value: r"""/* This source file must have a .cpp extension so that all C++ compilers
    recognize the extension without flags.  Borland does not know .cxx for
    example.  */
 #ifndef __cplusplus
@@ -2413,12 +2219,10 @@ int main(int argc, char* argv[])
                           ScriptGenerator(
                             is_generate: true,
                             directory_base: Directory("telegram_app"),
-                            file_system_entity: File(
-                                "build/linux/x64/debug/CMakeFiles/3.27.4/CMakeCXXCompiler.cmake"),
+                            file_system_entity: File("build/linux/x64/debug/CMakeFiles/3.27.4/CMakeCXXCompiler.cmake"),
                             state_data: {},
                             file_system_entity_type: FileSystemEntityType.file,
-                            value:
-                                r"""set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
+                            value: r"""set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
 set(CMAKE_CXX_COMPILER_ARG1 "")
 set(CMAKE_CXX_COMPILER_ID "Clang")
 set(CMAKE_CXX_COMPILER_VERSION "16.0.6")
@@ -2509,12 +2313,10 @@ set(CMAKE_CXX_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES "")
                           ScriptGenerator(
                             is_generate: true,
                             directory_base: Directory("telegram_app"),
-                            file_system_entity: File(
-                                "build/linux/x64/debug/CMakeFiles/3.27.4/CMakeSystem.cmake"),
+                            file_system_entity: File("build/linux/x64/debug/CMakeFiles/3.27.4/CMakeSystem.cmake"),
                             state_data: {},
                             file_system_entity_type: FileSystemEntityType.file,
-                            value:
-                                r"""set(CMAKE_HOST_SYSTEM "Linux-6.5.0-25-generic")
+                            value: r"""set(CMAKE_HOST_SYSTEM "Linux-6.5.0-25-generic")
 set(CMAKE_HOST_SYSTEM_NAME "Linux")
 set(CMAKE_HOST_SYSTEM_VERSION "6.5.0-25-generic")
 set(CMAKE_HOST_SYSTEM_PROCESSOR "x86_64")
@@ -2537,56 +2339,20 @@ set(CMAKE_SYSTEM_LOADED 1)
                       ScriptGenerator(
                         is_generate: true,
                         directory_base: Directory("telegram_app"),
-                        file_system_entity: Directory(
-                            "build/linux/x64/debug/CMakeFiles/pkgRedirects"),
-                        state_data: {},
-                        file_system_entity_type: FileSystemEntityType.directory,
-                        value: r"""""",
-                        children: [],
-                      ),
-                      ScriptGenerator(
-                        is_generate: true,
-                        directory_base: Directory("telegram_app"),
-                        file_system_entity: Directory(
-                            "build/linux/x64/debug/CMakeFiles/telegram_app.dir"),
-                        state_data: {},
-                        file_system_entity_type: FileSystemEntityType.directory,
-                        value: r"""""",
-                        children: [
-                          ScriptGenerator(
-                            is_generate: true,
-                            directory_base: Directory("telegram_app"),
-                            file_system_entity: Directory(
-                                "build/linux/x64/debug/CMakeFiles/telegram_app.dir/flutter"),
-                            state_data: {},
-                            file_system_entity_type:
-                                FileSystemEntityType.directory,
-                            value: r"""""",
-                            children: [],
-                          )
-                        ],
-                      ),
-                      ScriptGenerator(
-                        is_generate: true,
-                        directory_base: Directory("telegram_app"),
-                        file_system_entity: File(
-                            "build/linux/x64/debug/CMakeFiles/cmake.check_cache"),
+                        file_system_entity: File("build/linux/x64/debug/CMakeFiles/cmake.check_cache"),
                         state_data: {},
                         file_system_entity_type: FileSystemEntityType.file,
-                        value:
-                            r"""# This file is generated by cmake for dependency checking of the CMakeCache.txt file
+                        value: r"""# This file is generated by cmake for dependency checking of the CMakeCache.txt file
 """,
                         children: [],
                       ),
                       ScriptGenerator(
                         is_generate: true,
                         directory_base: Directory("telegram_app"),
-                        file_system_entity: File(
-                            "build/linux/x64/debug/CMakeFiles/CMakeConfigureLog.yaml"),
+                        file_system_entity: File("build/linux/x64/debug/CMakeFiles/CMakeConfigureLog.yaml"),
                         state_data: {},
                         file_system_entity_type: FileSystemEntityType.file,
-                        value: r"""
----
+                        value: r"""---
 events:
   -
     kind: "message-v1"
@@ -2815,8 +2581,7 @@ events:
                       ScriptGenerator(
                         is_generate: true,
                         directory_base: Directory("telegram_app"),
-                        file_system_entity: File(
-                            "build/linux/x64/debug/CMakeFiles/rules.ninja"),
+                        file_system_entity: File("build/linux/x64/debug/CMakeFiles/rules.ninja"),
                         state_data: {},
                         file_system_entity_type: FileSystemEntityType.file,
                         value: r"""# CMAKE generated file: DO NOT EDIT!
@@ -2889,12 +2654,10 @@ rule HELP
                       ScriptGenerator(
                         is_generate: true,
                         directory_base: Directory("telegram_app"),
-                        file_system_entity: File(
-                            "build/linux/x64/debug/CMakeFiles/TargetDirectories.txt"),
+                        file_system_entity: File("build/linux/x64/debug/CMakeFiles/TargetDirectories.txt"),
                         state_data: {},
                         file_system_entity_type: FileSystemEntityType.file,
-                        value:
-                            r"""/home/galaxeus/Documents/galaxeus/app/telegram_client/package/telegram_client/template/telegram_app/build/linux/x64/debug/CMakeFiles/telegram_app.dir
+                        value: r"""/home/galaxeus/Documents/galaxeus/app/telegram_client/package/telegram_client/template/telegram_app/build/linux/x64/debug/CMakeFiles/telegram_app.dir
 /home/galaxeus/Documents/galaxeus/app/telegram_client/package/telegram_client/template/telegram_app/build/linux/x64/debug/CMakeFiles/edit_cache.dir
 /home/galaxeus/Documents/galaxeus/app/telegram_client/package/telegram_client/template/telegram_app/build/linux/x64/debug/CMakeFiles/rebuild_cache.dir
 /home/galaxeus/Documents/galaxeus/app/telegram_client/package/telegram_client/template/telegram_app/build/linux/x64/debug/CMakeFiles/list_install_components.dir
@@ -2916,8 +2679,7 @@ rule HELP
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity:
-                        Directory("build/linux/x64/debug/flutter"),
+                    file_system_entity: Directory("build/linux/x64/debug/flutter"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.directory,
                     value: r"""""",
@@ -2925,22 +2687,10 @@ rule HELP
                       ScriptGenerator(
                         is_generate: true,
                         directory_base: Directory("telegram_app"),
-                        file_system_entity: Directory(
-                            "build/linux/x64/debug/flutter/CMakeFiles"),
-                        state_data: {},
-                        file_system_entity_type: FileSystemEntityType.directory,
-                        value: r"""""",
-                        children: [],
-                      ),
-                      ScriptGenerator(
-                        is_generate: true,
-                        directory_base: Directory("telegram_app"),
-                        file_system_entity: File(
-                            "build/linux/x64/debug/flutter/cmake_install.cmake"),
+                        file_system_entity: File("build/linux/x64/debug/flutter/cmake_install.cmake"),
                         state_data: {},
                         file_system_entity_type: FileSystemEntityType.file,
-                        value:
-                            r"""# Install script for directory: /home/galaxeus/Documents/galaxeus/app/telegram_client/package/telegram_client/template/telegram_app/linux/flutter
+                        value: r"""# Install script for directory: /home/galaxeus/Documents/galaxeus/app/telegram_client/package/telegram_client/template/telegram_app/linux/flutter
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -2992,18 +2742,7 @@ endif()
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: Directory(
-                        "build/linux/x64/debug/intermediates_do_not_run"),
-                    state_data: {},
-                    file_system_entity_type: FileSystemEntityType.directory,
-                    value: r"""""",
-                    children: [],
-                  ),
-                  ScriptGenerator(
-                    is_generate: true,
-                    directory_base: Directory("telegram_app"),
-                    file_system_entity:
-                        File("build/linux/x64/debug/.ninja_log"),
+                    file_system_entity: File("build/linux/x64/debug/.ninja_log"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
                     value: r"""# ninja log v5
@@ -3068,8 +2807,7 @@ endif()
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity:
-                        File("build/linux/x64/debug/build.ninja"),
+                    file_system_entity: File("build/linux/x64/debug/build.ninja"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
                     value: r"""# CMAKE generated file: DO NOT EDIT!
@@ -3383,12 +3121,10 @@ default all
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity:
-                        File("build/linux/x64/debug/cmake_install.cmake"),
+                    file_system_entity: File("build/linux/x64/debug/cmake_install.cmake"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""# Install script for directory: /home/galaxeus/Documents/galaxeus/app/telegram_client/package/telegram_client/template/telegram_app/linux
+                    value: r"""# Install script for directory: /home/galaxeus/Documents/galaxeus/app/telegram_client/package/telegram_client/template/telegram_app/linux
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -3542,8 +3278,7 @@ file(WRITE "/home/galaxeus/Documents/galaxeus/app/telegram_client/package/telegr
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity:
-                        File("build/linux/x64/debug/CMakeCache.txt"),
+                    file_system_entity: File("build/linux/x64/debug/CMakeCache.txt"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
                     value: r"""# This is the CMakeCache file.
@@ -4099,12 +3834,10 @@ prefix_result:INTERNAL=/usr/lib/x86_64-linux-gnu
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity:
-                        File("build/linux/x64/debug/install_manifest.txt"),
+                    file_system_entity: File("build/linux/x64/debug/install_manifest.txt"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""/home/galaxeus/Documents/galaxeus/app/telegram_client/package/telegram_client/template/telegram_app/build/linux/x64/debug/bundle/telegram_app
+                    value: r"""/home/galaxeus/Documents/galaxeus/app/telegram_client/package/telegram_client/template/telegram_app/build/linux/x64/debug/bundle/telegram_app
 /home/galaxeus/Documents/galaxeus/app/telegram_client/package/telegram_client/template/telegram_app/build/linux/x64/debug/bundle/data/icudtl.dat
 /home/galaxeus/Documents/galaxeus/app/telegram_client/package/telegram_client/template/telegram_app/build/linux/x64/debug/bundle/lib/libflutter_linux_gtk.so
 /home/galaxeus/Documents/galaxeus/app/telegram_client/package/telegram_client/template/telegram_app/build/linux/x64/debug/bundle/data/flutter_assets/kernel_blob.bin
@@ -4121,25 +3854,6 @@ prefix_result:INTERNAL=/usr/lib/x86_64-linux-gnu
                 ],
               )
             ],
-          )
-        ],
-      ),
-      ScriptGenerator(
-        is_generate: true,
-        directory_base: Directory("telegram_app"),
-        file_system_entity: Directory("build/native_assets"),
-        state_data: {},
-        file_system_entity_type: FileSystemEntityType.directory,
-        value: r"""""",
-        children: [
-          ScriptGenerator(
-            is_generate: true,
-            directory_base: Directory("telegram_app"),
-            file_system_entity: Directory("build/native_assets/linux"),
-            state_data: {},
-            file_system_entity_type: FileSystemEntityType.directory,
-            value: r"""""",
-            children: [],
           )
         ],
       ),
@@ -4218,8 +3932,7 @@ prefix_result:INTERNAL=/usr/lib/x86_64-linux-gnu
           ScriptGenerator(
             is_generate: true,
             directory_base: Directory("telegram_app"),
-            file_system_entity:
-                File("ios/Flutter/flutter_export_environment.sh"),
+            file_system_entity: File("ios/Flutter/flutter_export_environment.sh"),
             state_data: {},
             file_system_entity_type: FileSystemEntityType.file,
             value: r"""#!/bin/sh
@@ -4244,8 +3957,7 @@ export "PACKAGE_CONFIG=.dart_tool/package_config.json"
             file_system_entity: File("ios/Flutter/Generated.xcconfig"),
             state_data: {},
             file_system_entity_type: FileSystemEntityType.file,
-            value:
-                r"""// This is a generated file; do not edit or check into version control.
+            value: r"""// This is a generated file; do not edit or check into version control.
 FLUTTER_ROOT=/home/galaxeus/development/flutter
 FLUTTER_APPLICATION_PATH=/home/galaxeus/Documents/galaxeus/app/telegram_client/package/telegram_client/template/telegram_app
 COCOAPODS_PARALLEL_CODE_SIGN=true
@@ -4293,8 +4005,7 @@ PACKAGE_CONFIG=.dart_tool/package_config.json
               ScriptGenerator(
                 is_generate: true,
                 directory_base: Directory("telegram_app"),
-                file_system_entity:
-                    Directory("ios/Runner/Assets.xcassets/AppIcon.appiconset"),
+                file_system_entity: Directory("ios/Runner/Assets.xcassets/AppIcon.appiconset"),
                 state_data: {},
                 file_system_entity_type: FileSystemEntityType.directory,
                 value: r"""""",
@@ -4302,8 +4013,7 @@ PACKAGE_CONFIG=.dart_tool/package_config.json
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json"),
+                    file_system_entity: File("ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
                     value: r"""{
@@ -4436,8 +4146,7 @@ PACKAGE_CONFIG=.dart_tool/package_config.json
               ScriptGenerator(
                 is_generate: true,
                 directory_base: Directory("telegram_app"),
-                file_system_entity: Directory(
-                    "ios/Runner/Assets.xcassets/LaunchImage.imageset"),
+                file_system_entity: Directory("ios/Runner/Assets.xcassets/LaunchImage.imageset"),
                 state_data: {},
                 file_system_entity_type: FileSystemEntityType.directory,
                 value: r"""""",
@@ -4445,8 +4154,7 @@ PACKAGE_CONFIG=.dart_tool/package_config.json
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "ios/Runner/Assets.xcassets/LaunchImage.imageset/Contents.json"),
+                    file_system_entity: File("ios/Runner/Assets.xcassets/LaunchImage.imageset/Contents.json"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
                     value: r"""{
@@ -4478,8 +4186,7 @@ PACKAGE_CONFIG=.dart_tool/package_config.json
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md"),
+                    file_system_entity: File("ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
                     value: r"""# Launch Screen Assets
@@ -4504,12 +4211,10 @@ You can also do it by opening your Flutter project's Xcode project with `open io
               ScriptGenerator(
                 is_generate: true,
                 directory_base: Directory("telegram_app"),
-                file_system_entity:
-                    File("ios/Runner/Base.lproj/LaunchScreen.storyboard"),
+                file_system_entity: File("ios/Runner/Base.lproj/LaunchScreen.storyboard"),
                 state_data: {},
                 file_system_entity_type: FileSystemEntityType.file,
-                value:
-                    r"""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+                value: r"""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <dependencies>
         <deployment identifier="iOS"/>
@@ -4552,12 +4257,10 @@ You can also do it by opening your Flutter project's Xcode project with `open io
               ScriptGenerator(
                 is_generate: true,
                 directory_base: Directory("telegram_app"),
-                file_system_entity:
-                    File("ios/Runner/Base.lproj/Main.storyboard"),
+                file_system_entity: File("ios/Runner/Base.lproj/Main.storyboard"),
                 state_data: {},
                 file_system_entity_type: FileSystemEntityType.file,
-                value:
-                    r"""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+                value: r"""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
@@ -4742,8 +4445,7 @@ NS_ASSUME_NONNULL_END
           ScriptGenerator(
             is_generate: true,
             directory_base: Directory("telegram_app"),
-            file_system_entity:
-                Directory("ios/Runner.xcodeproj/project.xcworkspace"),
+            file_system_entity: Directory("ios/Runner.xcodeproj/project.xcworkspace"),
             state_data: {},
             file_system_entity_type: FileSystemEntityType.directory,
             value: r"""""",
@@ -4751,8 +4453,7 @@ NS_ASSUME_NONNULL_END
               ScriptGenerator(
                 is_generate: true,
                 directory_base: Directory("telegram_app"),
-                file_system_entity: Directory(
-                    "ios/Runner.xcodeproj/project.xcworkspace/xcshareddata"),
+                file_system_entity: Directory("ios/Runner.xcodeproj/project.xcworkspace/xcshareddata"),
                 state_data: {},
                 file_system_entity_type: FileSystemEntityType.directory,
                 value: r"""""",
@@ -4760,8 +4461,7 @@ NS_ASSUME_NONNULL_END
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist"),
+                    file_system_entity: File("ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
                     value: r"""<?xml version="1.0" encoding="UTF-8"?>
@@ -4778,8 +4478,7 @@ NS_ASSUME_NONNULL_END
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings"),
+                    file_system_entity: File("ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
                     value: r"""<?xml version="1.0" encoding="UTF-8"?>
@@ -4798,8 +4497,7 @@ NS_ASSUME_NONNULL_END
               ScriptGenerator(
                 is_generate: true,
                 directory_base: Directory("telegram_app"),
-                file_system_entity: File(
-                    "ios/Runner.xcodeproj/project.xcworkspace/contents.xcworkspacedata"),
+                file_system_entity: File("ios/Runner.xcodeproj/project.xcworkspace/contents.xcworkspacedata"),
                 state_data: {},
                 file_system_entity_type: FileSystemEntityType.file,
                 value: r"""<?xml version="1.0" encoding="UTF-8"?>
@@ -4825,8 +4523,7 @@ NS_ASSUME_NONNULL_END
               ScriptGenerator(
                 is_generate: true,
                 directory_base: Directory("telegram_app"),
-                file_system_entity:
-                    Directory("ios/Runner.xcodeproj/xcshareddata/xcschemes"),
+                file_system_entity: Directory("ios/Runner.xcodeproj/xcshareddata/xcschemes"),
                 state_data: {},
                 file_system_entity_type: FileSystemEntityType.directory,
                 value: r"""""",
@@ -4834,8 +4531,7 @@ NS_ASSUME_NONNULL_END
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme"),
+                    file_system_entity: File("ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
                     value: r"""<?xml version="1.0" encoding="UTF-8"?>
@@ -5581,8 +5277,7 @@ NS_ASSUME_NONNULL_END
           ScriptGenerator(
             is_generate: true,
             directory_base: Directory("telegram_app"),
-            file_system_entity:
-                Directory("ios/Runner.xcworkspace/xcshareddata"),
+            file_system_entity: Directory("ios/Runner.xcworkspace/xcshareddata"),
             state_data: {},
             file_system_entity_type: FileSystemEntityType.directory,
             value: r"""""",
@@ -5590,8 +5285,7 @@ NS_ASSUME_NONNULL_END
               ScriptGenerator(
                 is_generate: true,
                 directory_base: Directory("telegram_app"),
-                file_system_entity: File(
-                    "ios/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist"),
+                file_system_entity: File("ios/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist"),
                 state_data: {},
                 file_system_entity_type: FileSystemEntityType.file,
                 value: r"""<?xml version="1.0" encoding="UTF-8"?>
@@ -5608,8 +5302,7 @@ NS_ASSUME_NONNULL_END
               ScriptGenerator(
                 is_generate: true,
                 directory_base: Directory("telegram_app"),
-                file_system_entity: File(
-                    "ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings"),
+                file_system_entity: File("ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings"),
                 state_data: {},
                 file_system_entity_type: FileSystemEntityType.file,
                 value: r"""<?xml version="1.0" encoding="UTF-8"?>
@@ -5628,8 +5321,7 @@ NS_ASSUME_NONNULL_END
           ScriptGenerator(
             is_generate: true,
             directory_base: Directory("telegram_app"),
-            file_system_entity:
-                File("ios/Runner.xcworkspace/contents.xcworkspacedata"),
+            file_system_entity: File("ios/Runner.xcworkspace/contents.xcworkspacedata"),
             state_data: {},
             file_system_entity_type: FileSystemEntityType.file,
             value: r"""<?xml version="1.0" encoding="UTF-8"?>
@@ -5739,15 +5431,6 @@ Runner/GeneratedPluginRegistrant.*
           ScriptGenerator(
             is_generate: true,
             directory_base: Directory("telegram_app"),
-            file_system_entity: Directory("lib/page/home"),
-            state_data: {},
-            file_system_entity_type: FileSystemEntityType.directory,
-            value: r"""""",
-            children: [],
-          ),
-          ScriptGenerator(
-            is_generate: true,
-            directory_base: Directory("telegram_app"),
             file_system_entity: Directory("lib/page/sign"),
             state_data: {},
             file_system_entity_type: FileSystemEntityType.directory,
@@ -5785,20 +5468,10 @@ class _SignPageState extends State<SignPage> {
             file_system_entity: File("lib/page/page.dart"),
             state_data: {},
             file_system_entity_type: FileSystemEntityType.file,
-            value: r"""
-""",
+            value: r"""""",
             children: [],
           )
         ],
-      ),
-      ScriptGenerator(
-        is_generate: true,
-        directory_base: Directory("telegram_app"),
-        file_system_entity: Directory("lib/widget"),
-        state_data: {},
-        file_system_entity_type: FileSystemEntityType.directory,
-        value: r"""""",
-        children: [],
       ),
       ScriptGenerator(
         is_generate: true,
@@ -5879,8 +5552,7 @@ class TelegramAppInitScreenPage extends StatefulWidget {
   const TelegramAppInitScreenPage({super.key});
 
   @override
-  State<TelegramAppInitScreenPage> createState() =>
-      _TelegramAppInitScreenPageState();
+  State<TelegramAppInitScreenPage> createState() => _TelegramAppInitScreenPageState();
 }
 
 class _TelegramAppInitScreenPageState extends State<TelegramAppInitScreenPage> {
@@ -5946,8 +5618,7 @@ class _TelegramAppInitScreenPageState extends State<TelegramAppInitScreenPage> {
               ScriptGenerator(
                 is_generate: true,
                 directory_base: Directory("telegram_app"),
-                file_system_entity:
-                    Directory("linux/flutter/ephemeral/flutter_linux"),
+                file_system_entity: Directory("linux/flutter/ephemeral/flutter_linux"),
                 state_data: {},
                 file_system_entity_type: FileSystemEntityType.directory,
                 value: r"""""",
@@ -5955,12 +5626,10 @@ class _TelegramAppInitScreenPageState extends State<TelegramAppInitScreenPage> {
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "linux/flutter/ephemeral/flutter_linux/fl_basic_message_channel.h"),
+                    file_system_entity: File("linux/flutter/ephemeral/flutter_linux/fl_basic_message_channel.h"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""// Copyright 2013 The Flutter Authors. All rights reserved.
+                    value: r"""// Copyright 2013 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -6175,12 +5844,10 @@ G_END_DECLS
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "linux/flutter/ephemeral/flutter_linux/fl_binary_codec.h"),
+                    file_system_entity: File("linux/flutter/ephemeral/flutter_linux/fl_binary_codec.h"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""// Copyright 2013 The Flutter Authors. All rights reserved.
+                    value: r"""// Copyright 2013 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -6234,12 +5901,10 @@ G_END_DECLS
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "linux/flutter/ephemeral/flutter_linux/fl_binary_messenger.h"),
+                    file_system_entity: File("linux/flutter/ephemeral/flutter_linux/fl_binary_messenger.h"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""// Copyright 2013 The Flutter Authors. All rights reserved.
+                    value: r"""// Copyright 2013 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -6476,12 +6141,10 @@ G_END_DECLS
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "linux/flutter/ephemeral/flutter_linux/fl_dart_project.h"),
+                    file_system_entity: File("linux/flutter/ephemeral/flutter_linux/fl_dart_project.h"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""// Copyright 2013 The Flutter Authors. All rights reserved.
+                    value: r"""// Copyright 2013 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -6620,12 +6283,10 @@ G_END_DECLS
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "linux/flutter/ephemeral/flutter_linux/fl_engine.h"),
+                    file_system_entity: File("linux/flutter/ephemeral/flutter_linux/fl_engine.h"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""// Copyright 2013 The Flutter Authors. All rights reserved.
+                    value: r"""// Copyright 2013 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -6693,12 +6354,10 @@ G_END_DECLS
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "linux/flutter/ephemeral/flutter_linux/fl_event_channel.h"),
+                    file_system_entity: File("linux/flutter/ephemeral/flutter_linux/fl_event_channel.h"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""// Copyright 2013 The Flutter Authors. All rights reserved.
+                    value: r"""// Copyright 2013 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -6893,12 +6552,10 @@ G_END_DECLS
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "linux/flutter/ephemeral/flutter_linux/fl_json_message_codec.h"),
+                    file_system_entity: File("linux/flutter/ephemeral/flutter_linux/fl_json_message_codec.h"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""// Copyright 2013 The Flutter Authors. All rights reserved.
+                    value: r"""// Copyright 2013 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -7005,12 +6662,10 @@ G_END_DECLS
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "linux/flutter/ephemeral/flutter_linux/fl_json_method_codec.h"),
+                    file_system_entity: File("linux/flutter/ephemeral/flutter_linux/fl_json_method_codec.h"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""// Copyright 2013 The Flutter Authors. All rights reserved.
+                    value: r"""// Copyright 2013 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -7063,12 +6718,10 @@ G_END_DECLS
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "linux/flutter/ephemeral/flutter_linux/fl_message_codec.h"),
+                    file_system_entity: File("linux/flutter/ephemeral/flutter_linux/fl_message_codec.h"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""// Copyright 2013 The Flutter Authors. All rights reserved.
+                    value: r"""// Copyright 2013 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -7207,12 +6860,10 @@ G_END_DECLS
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "linux/flutter/ephemeral/flutter_linux/fl_method_call.h"),
+                    file_system_entity: File("linux/flutter/ephemeral/flutter_linux/fl_method_call.h"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""// Copyright 2013 The Flutter Authors. All rights reserved.
+                    value: r"""// Copyright 2013 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -7335,12 +6986,10 @@ G_END_DECLS
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "linux/flutter/ephemeral/flutter_linux/fl_method_channel.h"),
+                    file_system_entity: File("linux/flutter/ephemeral/flutter_linux/fl_method_channel.h"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""// Copyright 2013 The Flutter Authors. All rights reserved.
+                    value: r"""// Copyright 2013 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -7543,12 +7192,10 @@ G_END_DECLS
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "linux/flutter/ephemeral/flutter_linux/fl_method_codec.h"),
+                    file_system_entity: File("linux/flutter/ephemeral/flutter_linux/fl_method_codec.h"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""// Copyright 2013 The Flutter Authors. All rights reserved.
+                    value: r"""// Copyright 2013 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -7687,12 +7334,10 @@ G_END_DECLS
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "linux/flutter/ephemeral/flutter_linux/fl_method_response.h"),
+                    file_system_entity: File("linux/flutter/ephemeral/flutter_linux/fl_method_response.h"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""// Copyright 2013 The Flutter Authors. All rights reserved.
+                    value: r"""// Copyright 2013 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -7917,12 +7562,10 @@ G_END_DECLS
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "linux/flutter/ephemeral/flutter_linux/fl_pixel_buffer_texture.h"),
+                    file_system_entity: File("linux/flutter/ephemeral/flutter_linux/fl_pixel_buffer_texture.h"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""// Copyright 2013 The Flutter Authors. All rights reserved.
+                    value: r"""// Copyright 2013 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -8043,12 +7686,10 @@ G_END_DECLS
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "linux/flutter/ephemeral/flutter_linux/fl_plugin_registrar.h"),
+                    file_system_entity: File("linux/flutter/ephemeral/flutter_linux/fl_plugin_registrar.h"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""// Copyright 2013 The Flutter Authors. All rights reserved.
+                    value: r"""// Copyright 2013 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -8132,12 +7773,10 @@ G_END_DECLS
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "linux/flutter/ephemeral/flutter_linux/fl_plugin_registry.h"),
+                    file_system_entity: File("linux/flutter/ephemeral/flutter_linux/fl_plugin_registry.h"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""// Copyright 2013 The Flutter Authors. All rights reserved.
+                    value: r"""// Copyright 2013 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -8206,12 +7845,10 @@ G_END_DECLS
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "linux/flutter/ephemeral/flutter_linux/fl_standard_message_codec.h"),
+                    file_system_entity: File("linux/flutter/ephemeral/flutter_linux/fl_standard_message_codec.h"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""// Copyright 2013 The Flutter Authors. All rights reserved.
+                    value: r"""// Copyright 2013 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -8267,12 +7904,10 @@ G_END_DECLS
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "linux/flutter/ephemeral/flutter_linux/fl_standard_method_codec.h"),
+                    file_system_entity: File("linux/flutter/ephemeral/flutter_linux/fl_standard_method_codec.h"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""// Copyright 2013 The Flutter Authors. All rights reserved.
+                    value: r"""// Copyright 2013 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -8325,12 +7960,10 @@ G_END_DECLS
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "linux/flutter/ephemeral/flutter_linux/fl_string_codec.h"),
+                    file_system_entity: File("linux/flutter/ephemeral/flutter_linux/fl_string_codec.h"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""// Copyright 2013 The Flutter Authors. All rights reserved.
+                    value: r"""// Copyright 2013 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -8383,12 +8016,10 @@ G_END_DECLS
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "linux/flutter/ephemeral/flutter_linux/fl_texture.h"),
+                    file_system_entity: File("linux/flutter/ephemeral/flutter_linux/fl_texture.h"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""// Copyright 2013 The Flutter Authors. All rights reserved.
+                    value: r"""// Copyright 2013 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -8446,12 +8077,10 @@ G_END_DECLS
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "linux/flutter/ephemeral/flutter_linux/fl_texture_gl.h"),
+                    file_system_entity: File("linux/flutter/ephemeral/flutter_linux/fl_texture_gl.h"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""// Copyright 2013 The Flutter Authors. All rights reserved.
+                    value: r"""// Copyright 2013 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -8566,12 +8195,10 @@ G_END_DECLS
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "linux/flutter/ephemeral/flutter_linux/fl_texture_registrar.h"),
+                    file_system_entity: File("linux/flutter/ephemeral/flutter_linux/fl_texture_registrar.h"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""// Copyright 2013 The Flutter Authors. All rights reserved.
+                    value: r"""// Copyright 2013 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -8670,12 +8297,10 @@ G_END_DECLS
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "linux/flutter/ephemeral/flutter_linux/fl_value.h"),
+                    file_system_entity: File("linux/flutter/ephemeral/flutter_linux/fl_value.h"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""// Copyright 2013 The Flutter Authors. All rights reserved.
+                    value: r"""// Copyright 2013 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -9298,12 +8923,10 @@ G_END_DECLS
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity:
-                        File("linux/flutter/ephemeral/flutter_linux/fl_view.h"),
+                    file_system_entity: File("linux/flutter/ephemeral/flutter_linux/fl_view.h"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""// Copyright 2013 The Flutter Authors. All rights reserved.
+                    value: r"""// Copyright 2013 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -9372,12 +8995,10 @@ G_END_DECLS
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "linux/flutter/ephemeral/flutter_linux/flutter_linux.h"),
+                    file_system_entity: File("linux/flutter/ephemeral/flutter_linux/flutter_linux.h"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
-                    value:
-                        r"""// Copyright 2013 The Flutter Authors. All rights reserved.
+                    value: r"""// Copyright 2013 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -9422,8 +9043,7 @@ G_END_DECLS
               ScriptGenerator(
                 is_generate: true,
                 directory_base: Directory("telegram_app"),
-                file_system_entity:
-                    File("linux/flutter/ephemeral/generated_config.cmake"),
+                file_system_entity: File("linux/flutter/ephemeral/generated_config.cmake"),
                 state_data: {},
                 file_system_entity_type: FileSystemEntityType.file,
                 value: r"""# Generated code do not commit.
@@ -9458,8 +9078,7 @@ list(APPEND FLUTTER_TOOL_ENVIRONMENT
             file_system_entity: File("linux/flutter/CMakeLists.txt"),
             state_data: {},
             file_system_entity_type: FileSystemEntityType.file,
-            value:
-                r"""# This file controls Flutter-level build steps. It should not be edited.
+            value: r"""# This file controls Flutter-level build steps. It should not be edited.
 cmake_minimum_required(VERSION 3.10)
 
 set(EPHEMERAL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/ephemeral")
@@ -9553,8 +9172,7 @@ add_custom_target(flutter_assemble DEPENDS
           ScriptGenerator(
             is_generate: true,
             directory_base: Directory("telegram_app"),
-            file_system_entity:
-                File("linux/flutter/generated_plugin_registrant.cc"),
+            file_system_entity: File("linux/flutter/generated_plugin_registrant.cc"),
             state_data: {},
             file_system_entity_type: FileSystemEntityType.file,
             value: r"""//
@@ -9574,8 +9192,7 @@ void fl_register_plugins(FlPluginRegistry* registry) {
           ScriptGenerator(
             is_generate: true,
             directory_base: Directory("telegram_app"),
-            file_system_entity:
-                File("linux/flutter/generated_plugin_registrant.h"),
+            file_system_entity: File("linux/flutter/generated_plugin_registrant.h"),
             state_data: {},
             file_system_entity_type: FileSystemEntityType.file,
             value: r"""//
@@ -9998,12 +9615,10 @@ MyApplication* my_application_new();
               ScriptGenerator(
                 is_generate: true,
                 directory_base: Directory("telegram_app"),
-                file_system_entity:
-                    File("macos/Flutter/ephemeral/Flutter-Generated.xcconfig"),
+                file_system_entity: File("macos/Flutter/ephemeral/Flutter-Generated.xcconfig"),
                 state_data: {},
                 file_system_entity_type: FileSystemEntityType.file,
-                value:
-                    r"""// This is a generated file; do not edit or check into version control.
+                value: r"""// This is a generated file; do not edit or check into version control.
 FLUTTER_ROOT=/home/galaxeus/development/flutter
 FLUTTER_APPLICATION_PATH=/home/galaxeus/Documents/galaxeus/app/telegram_client/package/telegram_client/template/telegram_app
 COCOAPODS_PARALLEL_CODE_SIGN=true
@@ -10020,8 +9635,7 @@ PACKAGE_CONFIG=.dart_tool/package_config.json
               ScriptGenerator(
                 is_generate: true,
                 directory_base: Directory("telegram_app"),
-                file_system_entity: File(
-                    "macos/Flutter/ephemeral/flutter_export_environment.sh"),
+                file_system_entity: File("macos/Flutter/ephemeral/flutter_export_environment.sh"),
                 state_data: {},
                 file_system_entity_type: FileSystemEntityType.file,
                 value: r"""#!/bin/sh
@@ -10064,8 +9678,7 @@ export "PACKAGE_CONFIG=.dart_tool/package_config.json"
           ScriptGenerator(
             is_generate: true,
             directory_base: Directory("telegram_app"),
-            file_system_entity:
-                File("macos/Flutter/GeneratedPluginRegistrant.swift"),
+            file_system_entity: File("macos/Flutter/GeneratedPluginRegistrant.swift"),
             state_data: {},
             file_system_entity_type: FileSystemEntityType.file,
             value: r"""//
@@ -10102,8 +9715,7 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
               ScriptGenerator(
                 is_generate: true,
                 directory_base: Directory("telegram_app"),
-                file_system_entity: Directory(
-                    "macos/Runner/Assets.xcassets/AppIcon.appiconset"),
+                file_system_entity: Directory("macos/Runner/Assets.xcassets/AppIcon.appiconset"),
                 state_data: {},
                 file_system_entity_type: FileSystemEntityType.directory,
                 value: r"""""",
@@ -10111,8 +9723,7 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "macos/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json"),
+                    file_system_entity: File("macos/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
                     value: r"""{
@@ -10201,8 +9812,7 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
               ScriptGenerator(
                 is_generate: true,
                 directory_base: Directory("telegram_app"),
-                file_system_entity:
-                    File("macos/Runner/Base.lproj/MainMenu.xib"),
+                file_system_entity: File("macos/Runner/Base.lproj/MainMenu.xib"),
                 state_data: {},
                 file_system_entity_type: FileSystemEntityType.file,
                 value: r"""<?xml version="1.0" encoding="UTF-8"?>
@@ -10564,8 +10174,7 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
               ScriptGenerator(
                 is_generate: true,
                 directory_base: Directory("telegram_app"),
-                file_system_entity:
-                    File("macos/Runner/Configs/AppInfo.xcconfig"),
+                file_system_entity: File("macos/Runner/Configs/AppInfo.xcconfig"),
                 state_data: {},
                 file_system_entity_type: FileSystemEntityType.file,
                 value: r"""// Application-level settings for the Runner target.
@@ -10599,8 +10208,7 @@ PRODUCT_COPYRIGHT = Copyright © 2024 com.example. All rights reserved.
               ScriptGenerator(
                 is_generate: true,
                 directory_base: Directory("telegram_app"),
-                file_system_entity:
-                    File("macos/Runner/Configs/Release.xcconfig"),
+                file_system_entity: File("macos/Runner/Configs/Release.xcconfig"),
                 state_data: {},
                 file_system_entity_type: FileSystemEntityType.file,
                 value: r"""#include "../../Flutter/Flutter-Release.xcconfig"
@@ -10611,12 +10219,10 @@ PRODUCT_COPYRIGHT = Copyright © 2024 com.example. All rights reserved.
               ScriptGenerator(
                 is_generate: true,
                 directory_base: Directory("telegram_app"),
-                file_system_entity:
-                    File("macos/Runner/Configs/Warnings.xcconfig"),
+                file_system_entity: File("macos/Runner/Configs/Warnings.xcconfig"),
                 state_data: {},
                 file_system_entity_type: FileSystemEntityType.file,
-                value:
-                    r"""WARNING_CFLAGS = -Wall -Wconditional-uninitialized -Wnullable-to-nonnull-conversion -Wmissing-method-return-type -Woverlength-strings
+                value: r"""WARNING_CFLAGS = -Wall -Wconditional-uninitialized -Wnullable-to-nonnull-conversion -Wmissing-method-return-type -Woverlength-strings
 GCC_WARN_UNDECLARED_SELECTOR = YES
 CLANG_UNDEFINED_BEHAVIOR_SANITIZER_NULLABILITY = YES
 CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE
@@ -10768,8 +10374,7 @@ class MainFlutterWindow: NSWindow {
           ScriptGenerator(
             is_generate: true,
             directory_base: Directory("telegram_app"),
-            file_system_entity:
-                Directory("macos/Runner.xcodeproj/project.xcworkspace"),
+            file_system_entity: Directory("macos/Runner.xcodeproj/project.xcworkspace"),
             state_data: {},
             file_system_entity_type: FileSystemEntityType.directory,
             value: r"""""",
@@ -10777,8 +10382,7 @@ class MainFlutterWindow: NSWindow {
               ScriptGenerator(
                 is_generate: true,
                 directory_base: Directory("telegram_app"),
-                file_system_entity: Directory(
-                    "macos/Runner.xcodeproj/project.xcworkspace/xcshareddata"),
+                file_system_entity: Directory("macos/Runner.xcodeproj/project.xcworkspace/xcshareddata"),
                 state_data: {},
                 file_system_entity_type: FileSystemEntityType.directory,
                 value: r"""""",
@@ -10786,8 +10390,7 @@ class MainFlutterWindow: NSWindow {
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "macos/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist"),
+                    file_system_entity: File("macos/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
                     value: r"""<?xml version="1.0" encoding="UTF-8"?>
@@ -10808,8 +10411,7 @@ class MainFlutterWindow: NSWindow {
           ScriptGenerator(
             is_generate: true,
             directory_base: Directory("telegram_app"),
-            file_system_entity:
-                Directory("macos/Runner.xcodeproj/xcshareddata"),
+            file_system_entity: Directory("macos/Runner.xcodeproj/xcshareddata"),
             state_data: {},
             file_system_entity_type: FileSystemEntityType.directory,
             value: r"""""",
@@ -10817,8 +10419,7 @@ class MainFlutterWindow: NSWindow {
               ScriptGenerator(
                 is_generate: true,
                 directory_base: Directory("telegram_app"),
-                file_system_entity:
-                    Directory("macos/Runner.xcodeproj/xcshareddata/xcschemes"),
+                file_system_entity: Directory("macos/Runner.xcodeproj/xcshareddata/xcschemes"),
                 state_data: {},
                 file_system_entity_type: FileSystemEntityType.directory,
                 value: r"""""",
@@ -10826,8 +10427,7 @@ class MainFlutterWindow: NSWindow {
                   ScriptGenerator(
                     is_generate: true,
                     directory_base: Directory("telegram_app"),
-                    file_system_entity: File(
-                        "macos/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme"),
+                    file_system_entity: File("macos/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme"),
                     state_data: {},
                     file_system_entity_type: FileSystemEntityType.file,
                     value: r"""<?xml version="1.0" encoding="UTF-8"?>
@@ -11662,8 +11262,7 @@ class MainFlutterWindow: NSWindow {
           ScriptGenerator(
             is_generate: true,
             directory_base: Directory("telegram_app"),
-            file_system_entity:
-                Directory("macos/Runner.xcworkspace/xcshareddata"),
+            file_system_entity: Directory("macos/Runner.xcworkspace/xcshareddata"),
             state_data: {},
             file_system_entity_type: FileSystemEntityType.directory,
             value: r"""""",
@@ -11671,8 +11270,7 @@ class MainFlutterWindow: NSWindow {
               ScriptGenerator(
                 is_generate: true,
                 directory_base: Directory("telegram_app"),
-                file_system_entity: File(
-                    "macos/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist"),
+                file_system_entity: File("macos/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist"),
                 state_data: {},
                 file_system_entity_type: FileSystemEntityType.file,
                 value: r"""<?xml version="1.0" encoding="UTF-8"?>
@@ -11691,8 +11289,7 @@ class MainFlutterWindow: NSWindow {
           ScriptGenerator(
             is_generate: true,
             directory_base: Directory("telegram_app"),
-            file_system_entity:
-                File("macos/Runner.xcworkspace/contents.xcworkspacedata"),
+            file_system_entity: File("macos/Runner.xcworkspace/contents.xcworkspacedata"),
             state_data: {},
             file_system_entity_type: FileSystemEntityType.file,
             value: r"""<?xml version="1.0" encoding="UTF-8"?>
@@ -11752,6 +11349,25 @@ class RunnerTests: XCTestCase {
 **/dgph
 **/xcuserdata/
 """,
+        children: [],
+      )
+    ],
+  ),
+  ScriptGenerator(
+    is_generate: true,
+    directory_base: Directory("telegram_app"),
+    file_system_entity: Directory("test"),
+    state_data: {},
+    file_system_entity_type: FileSystemEntityType.directory,
+    value: r"""""",
+    children: [
+      ScriptGenerator(
+        is_generate: true,
+        directory_base: Directory("telegram_app"),
+        file_system_entity: File("test/widget_test.dart"),
+        state_data: {},
+        file_system_entity_type: FileSystemEntityType.file,
+        value: r"""""",
         children: [],
       )
     ],
@@ -11906,20 +11522,10 @@ class RunnerTests: XCTestCase {
           ScriptGenerator(
             is_generate: true,
             directory_base: Directory("telegram_app"),
-            file_system_entity: Directory("windows/flutter/ephemeral"),
-            state_data: {},
-            file_system_entity_type: FileSystemEntityType.directory,
-            value: r"""""",
-            children: [],
-          ),
-          ScriptGenerator(
-            is_generate: true,
-            directory_base: Directory("telegram_app"),
             file_system_entity: File("windows/flutter/CMakeLists.txt"),
             state_data: {},
             file_system_entity_type: FileSystemEntityType.file,
-            value:
-                r"""# This file controls Flutter-level build steps. It should not be edited.
+            value: r"""# This file controls Flutter-level build steps. It should not be edited.
 cmake_minimum_required(VERSION 3.14)
 
 set(EPHEMERAL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/ephemeral")
@@ -12034,8 +11640,7 @@ add_custom_target(flutter_assemble DEPENDS
           ScriptGenerator(
             is_generate: true,
             directory_base: Directory("telegram_app"),
-            file_system_entity:
-                File("windows/flutter/generated_plugin_registrant.cc"),
+            file_system_entity: File("windows/flutter/generated_plugin_registrant.cc"),
             state_data: {},
             file_system_entity_type: FileSystemEntityType.file,
             value: r"""//
@@ -12055,8 +11660,7 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
           ScriptGenerator(
             is_generate: true,
             directory_base: Directory("telegram_app"),
-            file_system_entity:
-                File("windows/flutter/generated_plugin_registrant.h"),
+            file_system_entity: File("windows/flutter/generated_plugin_registrant.h"),
             state_data: {},
             file_system_entity_type: FileSystemEntityType.file,
             value: r"""//
@@ -13304,8 +12908,7 @@ migration:
     file_system_entity: File("analysis_options.yaml"),
     state_data: {},
     file_system_entity_type: FileSystemEntityType.file,
-    value:
-        r"""# This file configures the analyzer, which statically analyzes Dart code to
+    value: r"""# This file configures the analyzer, which statically analyzes Dart code to
 # check for errors, warnings, and lints.
 #
 # The issues identified by the analyzer are surfaced in the UI of Dart-enabled
@@ -13339,10 +12942,26 @@ linter:
   ScriptGenerator(
     is_generate: true,
     directory_base: Directory("telegram_app"),
+    file_system_entity: File("guide-telegram_client.md"),
+    state_data: {},
+    file_system_entity_type: FileSystemEntityType.file,
+    value: r"""# Guide Telegram Client
+
+Telegram Client Library is from DEVELOPER FROM COMPANY GLOBAL CORPORATION
+Created By: [AZKADEV](https://github.com/azkadev)
+
+If you use tdlib you must install tdlib
+
+dart run telegram_client install library tdlib""",
+    children: [],
+  ),
+  ScriptGenerator(
+    is_generate: true,
+    directory_base: Directory("telegram_app"),
     file_system_entity: File("pubspec.yaml"),
     state_data: {},
     file_system_entity_type: FileSystemEntityType.file,
-    value: r"""name: telegram_app 
+    value: r"""name: 'telegram_app'
 description: 'A Example Quick Start Telegram Userbot BY @AZKADEV'
 version: '0.0.0'
 repository: 'https://github.com/azkadev/telegram_client'
@@ -13352,73 +12971,22 @@ documentation: 'https://github.com/azkadev/telegram_client/tree/main/docs'
 funding: 
   - 'https://github.com/sponsors/azkadev'
 publish_to: 'none'
-
-environment:
+environment: 
   sdk: '>=3.3.0 <4.0.0'
- 
-dependencies:
-  flutter:
-    sdk: flutter
-
- 
-  cupertino_icons: ^1.0.6
-  general_lib: ^0.0.36
-  general_lib_flutter: ^0.0.19
-  telegram_client: ^0.8.9
-  server_universe_dart: ^0.0.10
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
-  flutter_lints: ^3.0.0
-
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter packages.
-flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
+dependencies: 
+  flutter: 
+    sdk: 'flutter'
+  cupertino_icons: '^1.0.6'
+  general_lib_flutter: '^0.0.20'
+  general_lib: '^0.0.38'
+  telegram_client: '^0.8.16'
+  server_universe: '^0.0.13'
+dev_dependencies: 
+  flutter_test: 
+    sdk: 'flutter'
+  flutter_lints: '^3.0.0'
+flutter: 
   uses-material-design: true
-
-  # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
 """,
     children: [],
   ),

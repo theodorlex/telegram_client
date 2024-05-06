@@ -70,7 +70,7 @@ extension GetMessageDataOn on TelegramClient {
       parameters: {
         "@type": "getMessage",
         "chat_id": parameters["chat_id"],
-        "message_id": TgUtils().messageApiToTdlib(parameters["message_id"]),
+        "message_id": TgUtils.messageApiToTdlib(parameters["message_id"]),
       },
     );
     if (message_reply_to["@type"] != "message") {

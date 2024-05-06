@@ -105,7 +105,7 @@ extension SendMessageRawDataOn on TelegramClient {
 
     if (parameters.containsKey("message_id")) {
       request_parameters["message_id"] =
-          TgUtils().messageApiToTdlib(parameters["message_id"]);
+          TgUtils.messageApiToTdlib(parameters["message_id"]);
     }
     if (parameters.containsKey("inline_message_id")) {
       request_parameters["inline_message_id"] = parameters["inline_message_id"];
@@ -115,7 +115,7 @@ extension SendMessageRawDataOn on TelegramClient {
         "@type": "inputMessageReplyToMessage",
         "chat_id": request_parameters["chat_id"],
         "message_id":
-            TgUtils().messageApiToTdlib(parameters["reply_to_message_id"]),
+            TgUtils.messageApiToTdlib(parameters["reply_to_message_id"]),
       };
     } else if (parameters["reply_to_story_id"] is int) {
       request_parameters["reply_to"] = {
@@ -233,7 +233,7 @@ extension SendMessageRawDataOn on TelegramClient {
         request_parameters["input_message_content"]["from_chat_id"] =
             parameters["from_chat_id"];
         request_parameters["input_message_content"]["message_id"] =
-            TgUtils().messageApiToTdlib(parameters["message_id"]);
+            TgUtils.messageApiToTdlib(parameters["message_id"]);
         if (parameters["in_game_share"] is bool) {
           request_parameters["input_message_content"]["in_game_share"] =
               parameters["in_game_share"];
@@ -606,7 +606,7 @@ extension SendMessageRawDataOn on TelegramClient {
 
     if (parameters.containsKey("message_id")) {
       request_parameters["message_id"] =
-          TgUtils().messageApiToTdlib(parameters["message_id"]);
+          TgUtils.messageApiToTdlib(parameters["message_id"]);
     }
     if (parameters.containsKey("inline_message_id")) {
       request_parameters["inline_message_id"] = parameters["inline_message_id"];
@@ -616,7 +616,7 @@ extension SendMessageRawDataOn on TelegramClient {
         "@type": "inputMessageReplyToMessage",
         "chat_id": request_parameters["chat_id"],
         "message_id":
-            TgUtils().messageApiToTdlib(request_parameters["message_id"]),
+            TgUtils.messageApiToTdlib(request_parameters["message_id"]),
       };
     } else if (parameters["reply_to_story_id"] is int) {}
     Map? formatted_text = {

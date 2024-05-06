@@ -68,7 +68,7 @@ extension PinChatMessageDataOn on TelegramClient {
     Map request_parameters = {
       "@type": "pinChatMessage",
       "chat_id": parameters["chat_id"],
-      "message_id": TgUtils().messageApiToTdlib(parameters["message_id"]),
+      "message_id": TgUtils.messageApiToTdlib(parameters["message_id"]),
     };
     List<String> optional_parameters = [
       "disable_notification",

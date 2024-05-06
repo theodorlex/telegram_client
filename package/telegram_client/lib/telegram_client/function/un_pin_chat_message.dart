@@ -68,7 +68,7 @@ extension UnPinChatMessageDataOn on TelegramClient {
     Map request_parameters = {
       "@type": "unpinChatMessage",
       "chat_id": parameters["chat_id"],
-      "message_id": TgUtils().messageApiToTdlib(parameters["message_id"]),
+      "message_id": TgUtils.messageApiToTdlib(parameters["message_id"]),
     };
     Map request_result = await callApiInvoke(
       parameters: request_parameters,

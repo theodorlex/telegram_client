@@ -356,7 +356,7 @@ void main(List<String> arguments) async {
         file_system_entity_type: FileSystemEntityType.file,
         value: r"""import 'dart:io';
 
-import 'package:server_universe_dart/native/native.dart';
+import 'package:server_universe/native/native.dart';
 import 'package:telegram_client/telegram_client/telegram_client_core.dart';
 
 void main() async {
@@ -402,8 +402,8 @@ void main() async {
         file_system_entity: File("bin/telegram_bot_supabase.dart"),
         state_data: {},
         file_system_entity_type: FileSystemEntityType.file,
-        value: r"""import 'package:server_universe_dart/edge/edge.dart';
-import 'package:server_universe_dart/edge_http/server_universe_dart_http_client.dart';
+        value: r"""import 'package:server_universe/edge/edge.dart';
+import 'package:server_universe/edge_http/server_universe_http_client.dart';
 import 'package:telegram_bot/config/config.dart';
 import 'package:telegram_client/telegram_client.dart';
 
@@ -796,6 +796,25 @@ export "package:telegram_bot/update/update.dart";
   ScriptGenerator(
     is_generate: true,
     directory_base: Directory("telegram_bot"),
+    file_system_entity: Directory("test"),
+    state_data: {},
+    file_system_entity_type: FileSystemEntityType.directory,
+    value: r"""""",
+    children: [
+      ScriptGenerator(
+        is_generate: true,
+        directory_base: Directory("telegram_bot"),
+        file_system_entity: File("test/telegram_bot_test.dart"),
+        state_data: {},
+        file_system_entity_type: FileSystemEntityType.file,
+        value: r"""""",
+        children: [],
+      )
+    ],
+  ),
+  ScriptGenerator(
+    is_generate: true,
+    directory_base: Directory("telegram_bot"),
     file_system_entity: File(".gitignore"),
     state_data: {},
     file_system_entity_type: FileSystemEntityType.file,
@@ -811,8 +830,7 @@ export "package:telegram_bot/update/update.dart";
     file_system_entity: File("analysis_options.yaml"),
     state_data: {},
     file_system_entity_type: FileSystemEntityType.file,
-    value:
-        r"""# This file configures the static analysis results for your project (errors,
+    value: r"""# This file configures the static analysis results for your project (errors,
 # warnings, and lints).
 #
 # This enables the 'recommended' set of lints from `package:lints`.
@@ -860,6 +878,22 @@ include: package:lints/recommended.yaml
   ScriptGenerator(
     is_generate: true,
     directory_base: Directory("telegram_bot"),
+    file_system_entity: File("guide-telegram_client.md"),
+    state_data: {},
+    file_system_entity_type: FileSystemEntityType.file,
+    value: r"""# Guide Telegram Client
+
+Telegram Client Library is from DEVELOPER FROM COMPANY GLOBAL CORPORATION
+Created By: [AZKADEV](https://github.com/azkadev)
+
+If you use tdlib you must install tdlib
+
+dart run telegram_client install library tdlib""",
+    children: [],
+  ),
+  ScriptGenerator(
+    is_generate: true,
+    directory_base: Directory("telegram_bot"),
     file_system_entity: File("pubspec.yaml"),
     state_data: {},
     file_system_entity_type: FileSystemEntityType.file,
@@ -875,18 +909,18 @@ funding:
 publish_to: 'none'
 environment: 
   sdk: '^3.3.0'
-dependencies: 
-  general_lib: '^0.0.36'
+dependencies:  
   http: '^1.1.2'
   mason_logger: '^0.2.12'
-  packagex: '^0.0.50'
+  packagex: '^0.0.53'
   path: '^1.9.0'
-  system_info_fetch: '^0.0.14'
+  system_info_fetch: '^0.0.16'
   translate_client: '^0.0.2'
-  telegram_client: ^0.8.9
-  server_universe_dart: ^0.0.10
+  
+  general_lib: '^0.0.38'
+  telegram_client: '^0.8.16'
+  server_universe: '^0.0.13'
 dev_dependencies: 
-
   lints: '^3.0.0'
   test: '^1.24.0'
 server_universe: 

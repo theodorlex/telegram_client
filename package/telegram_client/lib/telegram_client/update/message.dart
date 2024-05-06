@@ -172,7 +172,7 @@ extension MessageDataDataOn on TelegramClient {
     Map msg = {
       "@type": "message",
       "id": message["id"],
-      "message_id": TgUtils().messageTdlibToApi(message["id"]),
+      "message_id": TgUtils.messageTdlibToApi(message["id"]),
       ...message_thread_json,
       ...message_from_json,
       ...message_sender_chat_json,

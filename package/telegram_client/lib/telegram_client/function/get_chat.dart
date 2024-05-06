@@ -191,7 +191,7 @@ extension GetChatDataOn on TelegramClient {
           } else {
             try {
               if (RegExp(r"(message_id)", caseSensitive: false).hasMatch(key)) {
-                newScheme["detail"][key] = TgUtils().messageTdlibToApi(value);
+                newScheme["detail"][key] = TgUtils.messageTdlibToApi(value);
               } else {
                 newScheme["detail"][key] = value;
               }
@@ -209,7 +209,7 @@ extension GetChatDataOn on TelegramClient {
           } else {
             try {
               if (RegExp(r"(message_id)", caseSensitive: false).hasMatch(key)) {
-                newScheme["detail"][key] = TgUtils().messageTdlibToApi(value);
+                newScheme["detail"][key] = TgUtils.messageTdlibToApi(value);
               } else {
                 newScheme["detail"][key] = value;
               }
@@ -278,7 +278,7 @@ extension GetChatDataOn on TelegramClient {
                     if (RegExp(r"(message_id)", caseSensitive: false)
                         .hasMatch(key)) {
                       newScheme["detail"][key] =
-                          TgUtils().messageTdlibToApi(value);
+                          TgUtils.messageTdlibToApi(value);
                     } else {
                       newScheme["detail"][key] = value;
                     }
@@ -304,7 +304,7 @@ extension GetChatDataOn on TelegramClient {
           } else {
             try {
               if (RegExp(r"(message_id)", caseSensitive: false).hasMatch(key)) {
-                newScheme["detail"][key] = TgUtils().messageTdlibToApi(value);
+                newScheme["detail"][key] = TgUtils.messageTdlibToApi(value);
               } else {
                 newScheme["detail"][key] = value;
               }
@@ -322,7 +322,7 @@ extension GetChatDataOn on TelegramClient {
           } else {
             try {
               if (RegExp(r"(message_id)", caseSensitive: false).hasMatch(key)) {
-                newScheme["detail"][key] = TgUtils().messageTdlibToApi(value);
+                newScheme["detail"][key] = TgUtils.messageTdlibToApi(value);
               } else {
                 newScheme["detail"][key] = value;
               }
@@ -418,7 +418,7 @@ extension GetChatDataOn on TelegramClient {
               try {
                 if (RegExp(r"(message_id)", caseSensitive: false)
                     .hasMatch(key)) {
-                  newScheme["detail"][key] = TgUtils().messageTdlibToApi(value);
+                  newScheme["detail"][key] = TgUtils.messageTdlibToApi(value);
                 } else {
                   newScheme["detail"][key] = value;
                 }
@@ -441,7 +441,7 @@ extension GetChatDataOn on TelegramClient {
                 if (RegExp(r"(message_id)", caseSensitive: false)
                     .hasMatch(key)) {
                   print("ay");
-                  newScheme["detail"][key] = TgUtils().messageTdlibToApi(value);
+                  newScheme["detail"][key] = TgUtils.messageTdlibToApi(value);
                 } else {
                   newScheme["detail"][key] = value;
                 }
