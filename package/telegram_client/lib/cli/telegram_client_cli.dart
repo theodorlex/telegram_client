@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable, non_constant_identifier_names, unnecessary_brace_in_string_interps
+// ignore_for_file: unused_local_variable, non_constant_identifier_names, unnecessary_brace_in_string_interps, empty_catches
 
 /* <!-- START LICENSE -->
 
