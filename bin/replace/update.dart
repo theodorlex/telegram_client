@@ -43,7 +43,7 @@ import "package:path/path.dart" as path;
 import "package:yaml/yaml.dart" as yaml;
 import "package:yaml_writer/yaml_writer.dart";
 
-String version_package = "0.8.17";
+String version_package = "0.8.18";
 Future<void> pubspecUpdate({
   required File filePubspec,
 }) async {
@@ -93,9 +93,9 @@ Future<void> pubspecUpdate({
       if (yaml_code_clone["dependencies"] is Map) {
         (yaml_code_clone["dependencies"] as Map).forEach((key, value) {
           if (key == "general_lib") {
-            yaml_code_clone["dependencies"][key] = "^0.0.38";
+            yaml_code_clone["dependencies"][key] = "^0.0.40";
           }if (key == "packagex") {
-            yaml_code_clone["dependencies"][key] = "^0.0.53";
+            yaml_code_clone["dependencies"][key] = "^0.0.55";
           }
           if (key == "server_universe") {
             yaml_code_clone["dependencies"][key] = "^0.0.13";
