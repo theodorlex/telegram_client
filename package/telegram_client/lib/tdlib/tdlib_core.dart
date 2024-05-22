@@ -1194,7 +1194,7 @@ class Tdlib extends LibTdJson {
               isUseCache: isUseCache,
               durationCacheExpire: durationCacheExpire,
             );
-            if (get_chat["ok"]) {
+            if (get_chat["ok"] == true) {
               array_chat.add(get_chat["result"]);
             }
           } catch (e) {}
@@ -1734,7 +1734,7 @@ class Tdlib extends LibTdJson {
                 isUseCache: isUseCache,
                 durationCacheExpire: durationCacheExpire,
               );
-              if (last_message["ok"]) {
+              if (last_message["ok"] == true) {
                 json["last_message"] = last_message["result"];
               }
             }
@@ -1839,7 +1839,7 @@ class Tdlib extends LibTdJson {
                 isUseCache: isUseCache,
                 durationCacheExpire: durationCacheExpire,
               );
-              if (last_message["ok"]) {
+              if (last_message["ok"] == true) {
                 json["last_message"] = last_message["result"];
               }
             }
@@ -1905,7 +1905,7 @@ class Tdlib extends LibTdJson {
                     isUseCache: isUseCache,
                     durationCacheExpire: durationCacheExpire,
                   );
-                  if (last_message["ok"]) {
+                  if (last_message["ok"] == true) {
                     json.addAll({"last_message": last_message["result"]});
                   }
                 } catch (e) {}
@@ -2112,7 +2112,7 @@ class Tdlib extends LibTdJson {
                 isUseCache: isUseCache,
                 durationCacheExpire: durationCacheExpire,
               );
-              if (chatResult["ok"]) {
+              if (chatResult["ok"] == true) {
                 chat_json = chatResult["result"];
               }
             } catch (e) {}
@@ -2152,7 +2152,7 @@ class Tdlib extends LibTdJson {
                       isUseCache: isUseCache,
                       durationCacheExpire: durationCacheExpire,
                     );
-                    if (fromResult["ok"]) {
+                    if (fromResult["ok"] == true) {
                       from_json = fromResult["result"];
                     }
                   } catch (e) {}
@@ -2190,7 +2190,7 @@ class Tdlib extends LibTdJson {
                       isUseCache: isUseCache,
                       durationCacheExpire: durationCacheExpire,
                     );
-                    if (fromResult["ok"]) {
+                    if (fromResult["ok"] == true) {
                       from_json = fromResult["result"];
                     }
                   } catch (e) {}
@@ -2239,7 +2239,7 @@ class Tdlib extends LibTdJson {
                   isUseCache: isUseCache,
                   durationCacheExpire: durationCacheExpire,
                 );
-                if (getchat_forward["ok"]) {
+                if (getchat_forward["ok"] == true) {
                   forward_json = getchat_forward["result"];
                 }
               } catch (e) {}
@@ -2257,7 +2257,7 @@ class Tdlib extends LibTdJson {
                   isUseCache: isUseCache,
                   durationCacheExpire: durationCacheExpire,
                 );
-                if (getuser_forward["ok"]) {
+                if (getuser_forward["ok"] == true) {
                   forward_json = getuser_forward["result"];
                 }
               } catch (e) {}
@@ -2297,7 +2297,7 @@ class Tdlib extends LibTdJson {
               durationCacheExpire: durationCacheExpire,
               clientId: clientId,
             );
-            if (get_message["ok"]) {
+            if (get_message["ok"] == true) {
               json["reply_to_message"] = get_message["result"];
               json["reply_to_message"]["message_id"] = json["reply_to_message"]["message_id"];
               json["reply_to_message"]["api_message_id"] = TgUtils.messageTdlibToApi(json["reply_to_message"]["message_id"]);
@@ -2634,7 +2634,7 @@ class Tdlib extends LibTdJson {
                       isUseCache: isUseCache,
                       durationCacheExpire: durationCacheExpire,
                     );
-                    if (fromResult["ok"]) {
+                    if (fromResult["ok"] == true) {
                       fromJson = fromResult["result"];
                     }
                   } catch (e) {}
@@ -2787,7 +2787,7 @@ class Tdlib extends LibTdJson {
               isUseCache: isUseCache,
               durationCacheExpire: durationCacheExpire,
             );
-            if (fromResult["ok"]) {
+            if (fromResult["ok"] == true) {
               chat = fromResult["result"];
             }
           } catch (e) {}
@@ -2798,7 +2798,7 @@ class Tdlib extends LibTdJson {
               isUseCache: isUseCache,
               durationCacheExpire: durationCacheExpire,
             );
-            if (fromResult["ok"]) {
+            if (fromResult["ok"] == true) {
               from = fromResult["result"];
             }
           } catch (e) {}
@@ -2815,7 +2815,7 @@ class Tdlib extends LibTdJson {
             is_super_detail: true,
             clientId: clientId,
           );
-          if (get_message["ok"]) {
+          if (get_message["ok"] == true) {
             if (get_message["result"]["update_message"] != null) {
               json["message"] = get_message["result"]["update_message"];
             }
@@ -2850,7 +2850,7 @@ class Tdlib extends LibTdJson {
               isUseCache: isUseCache,
               durationCacheExpire: durationCacheExpire,
             );
-            if (fromResult["ok"]) {
+            if (fromResult["ok"] == true) {
               chat = fromResult["result"];
             }
           } catch (e) {}
@@ -2861,7 +2861,7 @@ class Tdlib extends LibTdJson {
               isUseCache: isUseCache,
               durationCacheExpire: durationCacheExpire,
             );
-            if (fromResult["ok"]) {
+            if (fromResult["ok"] == true) {
               from = fromResult["result"];
             }
           } catch (e) {}
@@ -2881,7 +2881,7 @@ class Tdlib extends LibTdJson {
                   isUseCache: isUseCache,
                   durationCacheExpire: durationCacheExpire,
                 );
-                if (fromResult["ok"]) {
+                if (fromResult["ok"] == true) {
                   json_data_user = fromResult["result"];
                 }
               } catch (e) {}
@@ -2905,7 +2905,7 @@ class Tdlib extends LibTdJson {
                   isUseCache: isUseCache,
                   durationCacheExpire: durationCacheExpire,
                 );
-                if (fromResult["ok"]) {
+                if (fromResult["ok"] == true) {
                   json_data_user = fromResult["result"];
                 }
               } catch (e) {}
@@ -2934,7 +2934,7 @@ class Tdlib extends LibTdJson {
             isUseCache: isUseCache,
             durationCacheExpire: durationCacheExpire,
           );
-          if (fromResult["ok"]) {
+          if (fromResult["ok"] == true) {
             from = fromResult["result"];
           }
         } catch (e) {}

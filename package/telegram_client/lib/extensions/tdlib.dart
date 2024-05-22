@@ -30,7 +30,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
-// ignore_for_file: non_constant_identifier_names, camel_case_extensions, camel_case_extensions empty_catches, unused_local_variable, unnecessary_brace_in_string_interps, constant_identifier_names, empty_catches
+// ignore_for_file: non_constant_identifier_names, camel_case_extensions, camel_case_extensions empty_catches, , unnecessary_brace_in_string_interps, constant_identifier_names, empty_catches
 
 import 'dart:async';
 
@@ -115,12 +115,9 @@ extension TdlibMethodExtensions on Tdlib {
               isUseCache: isUseCache,
               durationCacheExpire: durationCacheExpire,
             );
-            List<Map> administrators =
-                (getChatAdministrators['administrators'] as List).cast<Map>();
+            List<Map> administrators = (getChatAdministrators['administrators'] as List).cast<Map>();
             late bool isNotOwned = true;
-            for (var admin_index = 0;
-                admin_index < administrators.length;
-                admin_index++) {
+            for (var admin_index = 0; admin_index < administrators.length; admin_index++) {
               try {
                 Map admin = administrators[admin_index];
 
@@ -147,8 +144,7 @@ extension TdlibMethodExtensions on Tdlib {
         var chat = target_ban_chats[chatIndex];
         if (chat["username"] is String) {
           var chatUsername = "@${chat["username"]}";
-          var msg_text =
-              "start gban: ${chatUsername} ${chatIndex} ${target_ban_chats.length}";
+          var msg_text = "start gban: ${chatUsername} ${chatIndex} ${target_ban_chats.length}";
           await Future.delayed(Duration(seconds: 2));
           await request(
             "sendMessage",
@@ -176,8 +172,7 @@ extension TdlibMethodExtensions on Tdlib {
           }
         } else {
           var chatUsername = "@${chat["id"]}";
-          var msg_text =
-              "start gban: ${chatUsername} ${chatIndex} ${target_ban_chats.length}";
+          var msg_text = "start gban: ${chatUsername} ${chatIndex} ${target_ban_chats.length}";
           await Future.delayed(Duration(seconds: 2));
           await request(
             "sendMessage",
@@ -209,7 +204,8 @@ extension TdlibMethodExtensions on Tdlib {
           int gban_user_id = gban_user_ids[index];
           await Future.delayed(Duration(milliseconds: 500));
           try {
-            var ban = await invoke(
+           
+            await invoke(
               "banChatMember",
               parameters: {
                 "chat_id": chat["id"],
@@ -225,8 +221,7 @@ extension TdlibMethodExtensions on Tdlib {
             );
           } catch (e) {
             if (e is Map) {
-              if (e["parameters"] is Map &&
-                  e["parameters"]["retry_after"] is int) {
+              if (e["parameters"] is Map && e["parameters"]["retry_after"] is int) {
                 failed.add(gban_user_id);
               } else {
                 if (e["message"] != "PARTICIPANT_ID_INVALID") {}
@@ -281,8 +276,7 @@ extension TdlibMethodExtensions on Tdlib {
         int user_id = member_user_ids[i];
         await Future.delayed(delayLoop);
         try {
-          Map toggle_message_sender_is_blocked =
-              await toggleMessageSenderIsBlocked(
+          Map toggle_message_sender_is_blocked = await toggleMessageSenderIsBlocked(
             user_id: user_id,
             is_blocked: is_blocked,
             clientId: clientId,
@@ -398,7 +392,7 @@ extension TdlibMethodExtensions on Tdlib {
     if (chat["detail"] is Map && chat["detail"]["member_count"] is int) {
       member_count = chat["detail"]["member_count"];
     }
-    var (List<int> list_offset, int limit_count) = TgUtils.createOffset(
+    var (List<int> list_offset, int _) = TgUtils.createOffset(
       totalCount: member_count.toInt(),
       limitCount: 200,
     );
@@ -409,8 +403,7 @@ extension TdlibMethodExtensions on Tdlib {
       var getSupergroupMembers = await request(
         "getSupergroupMembers",
         parameters: {
-          "supergroup_id": int.parse("${chat["id"]}"
-              .replaceAll(RegExp(r"^-100", caseSensitive: false), "")),
+          "supergroup_id": int.parse("${chat["id"]}".replaceAll(RegExp(r"^-100", caseSensitive: false), "")),
           "offset": loop_data,
           "limit": 200,
         },

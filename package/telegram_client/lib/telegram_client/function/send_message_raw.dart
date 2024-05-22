@@ -400,7 +400,7 @@ extension SendMessageRawDataOn on TelegramClient {
     }
     Completer<Map> completer = Completer<Map>();
 
-    Listener listen = on(
+    EventListener listen = on(
       event_name: event_update,
       onUpdate: (UpdateTelegramClient updateTelegramClient) async {
         if (updateTelegramClient.telegramClientData.telegramClientType == TelegramClientType.tdlib) {
@@ -664,7 +664,7 @@ extension SendMessageRawDataOn on TelegramClient {
     }
     Completer<Map> completer = Completer<Map>();
 
-    Listener listen = on(
+    EventListener listen = on(
       event_name: event_update,
       onUpdate: (UpdateTelegramClient updateTelegramClient) async {
         if (updateTelegramClient.telegramClientData.telegramClientType == TelegramClientType.tdlib) {

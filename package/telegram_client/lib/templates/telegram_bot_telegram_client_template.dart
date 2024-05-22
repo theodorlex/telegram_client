@@ -635,7 +635,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
-// ignore_for_file: non_constant_identifier_names, unused_local_variable
+// ignore_for_file: non_constant_identifier_names, 
 
 import 'dart:async';
 
@@ -830,8 +830,7 @@ export "package:telegram_bot/update/update.dart";
     file_system_entity: File("analysis_options.yaml"),
     state_data: {},
     file_system_entity_type: FileSystemEntityType.file,
-    value:
-        r"""# This file configures the static analysis results for your project (errors,
+    value: r"""# This file configures the static analysis results for your project (errors,
 # warnings, and lints).
 #
 # This enables the 'recommended' set of lints from `package:lints`.

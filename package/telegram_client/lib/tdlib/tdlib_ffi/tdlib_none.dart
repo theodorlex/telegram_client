@@ -378,7 +378,7 @@ class LibTdJson {
   }
 
   /// receive all update data
-  Listener on(String type_update, FutureOr<dynamic> Function(UpdateTd update) callback, {void Function(Object data)? onError}) {
+  EventListener on(String type_update, FutureOr<dynamic> Function(UpdateTd update) callback, {void Function(Object data)? onError}) {
     return event_emitter.on(type_update, null, (Event ev, context) async {
       try {
         if (ev.eventData is TdlibIsolateReceiveData) {

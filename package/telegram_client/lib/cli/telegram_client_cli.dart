@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable, non_constant_identifier_names, unnecessary_brace_in_string_interps, empty_catches
+// ignore_for_file: , non_constant_identifier_names, unnecessary_brace_in_string_interps, empty_catches
 
 /* <!-- START LICENSE -->
 
@@ -62,7 +62,7 @@ Future<void> packageFullTemplateDartCli(List<String> args_raw) async {
   if (Platform.environment["no_interactive"] == "true") {
     is_interactive = false;
   }
-  bool is_help = (args.contains("-h")) ? true : args.contains("--help");
+  // bool is_help = (args.contains("-h")) ? true : args.contains("--help");
 
   String command = (args.arguments.firstOrNull ?? "").toLowerCase();
   List<String> commands = [
@@ -232,7 +232,7 @@ Example: ${executable} install library ${library_types.first}
         exit(0);
       }
       TelegramClientLibraryType telegramClientLibraryType = await Future(() async {
-        TelegramClientLibraryType? telegramClientLibraryType = TelegramClientLibraryType.values.firstWhereOrNull((element) => element.name.toLowerCase() == command_after_library);
+        // TelegramClientLibraryType? telegramClientLibraryType = TelegramClientLibraryType.values.firstWhereOrNull((element) => element.name.toLowerCase() == command_after_library);
 
         if (is_interactive) {
           while (true) {

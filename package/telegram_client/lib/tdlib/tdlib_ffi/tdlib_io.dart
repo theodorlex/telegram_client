@@ -30,7 +30,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
-// ignore_for_file: non_constant_identifier_names, camel_case_extensions, camel_case_extensions empty_catches, unnecessary_type_check, void_checks, unnecessary_brace_in_string_interps, empty_catches, unused_local_variable, constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, camel_case_extensions, camel_case_extensions empty_catches, unnecessary_type_check, void_checks, unnecessary_brace_in_string_interps, empty_catches, constant_identifier_names
 
 // ignore: slash_for_doc_comments
 //
@@ -252,7 +252,7 @@ class LibTdJson {
   int td_create_client_id() {
     int client_id_new = using((Arena arena) {
       TdPointerFunctionNative td_pointer_native_function = tdLib.lookupFunction<TdPointerFunctionNative, TdPointerFunctionNative>('${is_android ? "_" : ""}td_create_client_id', isLeaf: false);
-      Pointer td_pointer_native_result = arena.using(td_pointer_native_function(), (p0) {});
+      Pointer<NativeType> td_pointer_native_result = arena.using(td_pointer_native_function(), (p0) {});
       int client_id_new = td_pointer_native_result.address;
       arena.releaseAll();
       return client_id_new;
@@ -284,7 +284,8 @@ class LibTdJson {
       TdStringNative request_data = convert.json.encode(parameters).toNativeUtf8();
       Arena arena = Arena();
       TdSendDart td_send_function = tdLib.lookupFunction<TdSendNative, TdSendDart>('${is_android ? "_" : ""}td_send', isLeaf: false);
-      void td_send_result = arena.using(td_send_function(client_id_addres_data, request_data), (p0) {});
+      // void td_send_result = 
+      arena.using(td_send_function(client_id_addres_data, request_data), (p0) {});
       arena.releaseAll();
       malloc.free(request_data);
     });
@@ -299,7 +300,8 @@ class LibTdJson {
 
       Arena arena = Arena();
       TdSendDart td_send_function = tdLib.lookupFunction<TdSendNative, TdSendDart>('${is_android ? "_" : ""}td_json_client_send', isLeaf: false);
-      void td_send_result = arena.using(td_send_function(client_id_addres_data, request_data), (p0) {});
+      // void td_send_result = 
+      arena.using(td_send_function(client_id_addres_data, request_data), (p0) {});
       arena.releaseAll();
       malloc.free(request_data);
     });
@@ -516,7 +518,7 @@ class LibTdJson {
   }
 
   /// receive all update data
-  Listener on(String type_update, FutureOr<dynamic> Function(UpdateTd update) callback, {void Function(Object data)? onError}) {
+  EventListener on(String type_update, FutureOr<dynamic> Function(UpdateTd update) callback, {void Function(Object data)? onError}) {
     return event_emitter.on(type_update, null, (Event ev, context) async {
       try {
         if (ev.eventData is TdlibIsolateReceiveData) {
@@ -643,8 +645,8 @@ class LibTdJson {
       }
     }
 
-    TdlibClient? tdlib_client_procces = clients[clientId];
-    bool is_has_get_cache_found = false;
+    // TdlibClient? tdlib_client_procces = clients[clientId];
+    // bool is_has_get_cache_found = false;
     // var (String key_cache, bool is_can_get_cache) = TdlibClientCache.createKeyAndCanGetCache(methodName: method, parameter: parameters);
     // if (is_can_get_cache) {
     //   if (isUseCache) {
@@ -708,7 +710,7 @@ class LibTdJson {
     // }
     Completer<Map> completer = Completer<Map>();
 
-    Listener listener = on(event_invoke, (UpdateTd update) async {
+    EventListener listener = on(event_invoke, (UpdateTd update) async {
       try {
         if (update.client_id == clientId) {
           Map updateOrigin = update.raw;

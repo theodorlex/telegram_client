@@ -32,7 +32,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
-// ignore_for_file: non_constant_identifier_names, unused_local_variable
+// ignore_for_file: non_constant_identifier_names,
 
 import 'package:general_lib/general_lib.dart';
 import 'package:telegram_client/telegram_client/telegram_client.dart';
@@ -59,8 +59,7 @@ void main(List<String> args) async {
       if (update["@type"] == "updateAuthorizationState") {
         if (update["authorization_state"] is Map) {
           Map authorization_state = update["authorization_state"];
-          if (authorization_state["@type"] ==
-              "authorizationStateWaitPhoneNumber") {
+          if (authorization_state["@type"] == "authorizationStateWaitPhoneNumber") {
             Map res = await tg.invoke(
               parameters: {
                 "@type": "setAuthenticationPhoneNumber",

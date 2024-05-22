@@ -30,7 +30,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
-// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unused_local_variable
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps,
 
 import 'dart:convert';
 
@@ -187,6 +187,7 @@ void main(List<String> args) async {
 
         if (update["message"] is Map) {
           Map msg = update["message"];
+          // ignore: unused_local_variable
           int from_id = msg["from"]["id"];
           int chat_id = msg["chat"]["id"];
           bool is_outgoing = (msg["is_outgoing"] == true);
@@ -200,6 +201,7 @@ void main(List<String> args) async {
             return "";
           }();
 
+          // ignore: unused_local_variable
           Map parameters_request = {"@type": (is_outgoing) ? "editMessageText" : "sendMessage"};
 
           RegExp regExpCommand = RegExp(r"^(/|\.|!)", caseSensitive: false);

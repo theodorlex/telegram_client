@@ -51,8 +51,7 @@ extension MessageDataDataOn on TelegramClient {
     // message.printPretty(2);
     Map message_thread_json = <dynamic, dynamic>{};
     // message.printPretty(2);
-    if (message["message_thread_id"] is int &&
-        message["message_thread_id"] > 0) {
+    if (message["message_thread_id"] is int && message["message_thread_id"] > 0) {
       if (message["is_topic_message"] == true) {
         message_thread_json["message_thread_id"] = message["message_thread_id"];
       }
@@ -90,8 +89,7 @@ extension MessageDataDataOn on TelegramClient {
       if (message["sender_id"]["@type"] == "messageSenderChat") {
         message_sender_chat_json["sender_chat"] = <dynamic, dynamic>{};
         if (message["sender_id"]["chat_id"] is int) {
-          message_sender_chat_json["sender_chat"]["id"] =
-              message["sender_id"]["chat_id"];
+          message_sender_chat_json["sender_chat"]["id"] = message["sender_id"]["chat_id"];
           if (is_lite) {
           } else {
             var res = await request(
@@ -133,8 +131,7 @@ extension MessageDataDataOn on TelegramClient {
     }
     if (message["is_channel_post"] != true) {
       if (message_sender_chat_json["sender_chat"] is Map) {
-        if (message["chat_id"] ==
-            message_sender_chat_json["sender_chat"]["id"]) {
+        if (message["chat_id"] == message_sender_chat_json["sender_chat"]["id"]) {
           message_from_json["from"] = <dynamic, dynamic>{
             "id": 1087968824,
           };
@@ -155,16 +152,14 @@ extension MessageDataDataOn on TelegramClient {
             } catch (e) {}
           }
         } else {
-          message_from_json["from"] =
-              message_sender_chat_json["sender_chat"] as Map;
+          message_from_json["from"] = message_sender_chat_json["sender_chat"] as Map;
         }
       }
     }
 
     if (telegramClientData.is_bot == false) {
       if ((message_from_json["from"] is Map)) {
-        (message_from_json["from"] as Map)
-            .removeWhere((key, value) => key == "phone_number");
+        (message_from_json["from"] as Map).removeWhere((key, value) => key == "phone_number");
       }
       message_chat_json.removeWhere((key, value) => key == "phone_number");
     }
@@ -235,15 +230,14 @@ extension MessageDataDataOn on TelegramClient {
       });
     }
 
-    if (message["author_signature"] is String &&
-        (message["author_signature"] as String).isNotEmpty) {
+    if (message["author_signature"] is String && (message["author_signature"] as String).isNotEmpty) {
       msg["author_signature"] = message["author_signature"];
     }
 
     if (message["content"] is Map) {
-      // ignore: unused_local_variable
+      // ignore:
       List text_entities = [];
-      // ignore: unused_local_variable
+      // ignore:
       List caption_entities = [];
       Map message_content = message["content"];
       if (message_content["@type"] == "messageChatShared") {
@@ -288,8 +282,7 @@ extension MessageDataDataOn on TelegramClient {
       }
 
       if (message_content["caption"] is Map) {
-        if (message_content["caption"]["text"] is String &&
-            (message_content["caption"]["text"] as String).isNotEmpty) {
+        if (message_content["caption"]["text"] is String && (message_content["caption"]["text"] as String).isNotEmpty) {
           msg["caption"] = message_content["caption"]["text"];
         }
         if (message["content"]["caption"]["entities"] is List) {
@@ -327,15 +320,12 @@ extension MessageDataDataOn on TelegramClient {
             animation["id"] = message_animation["id"];
             if (message_animation["local"] is Map) {
               animation["file_path"] = message_animation["local"]["path"];
-              animation["is_downloading_active"] =
-                  message_animation["local"]["is_downloading_active"];
-              animation["is_downloading_completed"] =
-                  message_animation["local"]["is_downloading_completed"];
+              animation["is_downloading_active"] = message_animation["local"]["is_downloading_active"];
+              animation["is_downloading_completed"] = message_animation["local"]["is_downloading_completed"];
             }
             if (message_animation["remote"] is Map) {
               animation["file_id"] = message_animation["remote"]["id"];
-              animation["file_unique_id"] =
-                  message_animation["remote"]["unique_id"];
+              animation["file_unique_id"] = message_animation["remote"]["unique_id"];
               animation["file_size"] = message_animation["remote"]["size"];
             }
           }
@@ -365,15 +355,12 @@ extension MessageDataDataOn on TelegramClient {
                 jsonDataPhoto["id"] = message_photo["id"];
                 if (message_photo["local"] is Map) {
                   jsonDataPhoto["file_path"] = message_photo["local"]["path"];
-                  jsonDataPhoto["is_downloading_active"] =
-                      message_photo["local"]["is_downloading_active"];
-                  jsonDataPhoto["is_downloading_completed"] =
-                      message_photo["local"]["is_downloading_completed"];
+                  jsonDataPhoto["is_downloading_active"] = message_photo["local"]["is_downloading_active"];
+                  jsonDataPhoto["is_downloading_completed"] = message_photo["local"]["is_downloading_completed"];
                 }
                 if (message_photo["remote"] is Map) {
                   jsonDataPhoto["file_id"] = message_photo["remote"]["id"];
-                  jsonDataPhoto["file_unique_id"] =
-                      message_photo["remote"]["unique_id"];
+                  jsonDataPhoto["file_unique_id"] = message_photo["remote"]["unique_id"];
                   jsonDataPhoto["file_size"] = message_photo["remote"]["size"];
                 }
                 photos.add(jsonDataPhoto);
@@ -395,17 +382,12 @@ extension MessageDataDataOn on TelegramClient {
             jsonVideo["file_name"] = contentVideo["file_name"];
             jsonVideo["mime_type"] = contentVideo["mime_type"];
             try {
-              if (message["content"]["video"]["thumbnail"] != null &&
-                  message["content"]["video"]["thumbnail"]["@type"]
-                          .toString()
-                          .toLowerCase() ==
-                      "thumbnail") {
+              if (message["content"]["video"]["thumbnail"] != null && message["content"]["video"]["thumbnail"]["@type"].toString().toLowerCase() == "thumbnail") {
                 var contentThumb = contentVideo["thumbnail"];
                 var jsonThumb = {};
                 jsonVideo["thumb"] = jsonThumb;
                 jsonThumb["file_id"] = contentThumb["file"]["remote"]["id"];
-                jsonThumb["file_unique_id"] =
-                    contentThumb["file"]["remote"]["unique_id"];
+                jsonThumb["file_unique_id"] = contentThumb["file"]["remote"]["unique_id"];
                 jsonThumb["file_size"] = contentThumb["file"]["size"];
                 jsonThumb["width"] = contentThumb["width"];
                 jsonThumb["height"] = contentThumb["height"];
@@ -428,16 +410,12 @@ extension MessageDataDataOn on TelegramClient {
             var contentUpdate = message["content"][contentType];
 
             jsonContent["id"] = contentUpdate[contentType]["id"];
-            jsonContent["file_path"] =
-                contentUpdate[contentType]["local"]["path"];
-            jsonContent["is_downloading_active"] =
-                contentUpdate[contentType]["local"]["is_downloading_active"];
-            jsonContent["is_downloading_completed"] =
-                contentUpdate[contentType]["local"]["is_downloading_completed"];
+            jsonContent["file_path"] = contentUpdate[contentType]["local"]["path"];
+            jsonContent["is_downloading_active"] = contentUpdate[contentType]["local"]["is_downloading_active"];
+            jsonContent["is_downloading_completed"] = contentUpdate[contentType]["local"]["is_downloading_completed"];
 
             jsonContent["file_id"] = contentUpdate[contentType]["remote"]["id"];
-            jsonContent["file_unique_id"] =
-                contentUpdate[contentType]["remote"]["unique_id"];
+            jsonContent["file_unique_id"] = contentUpdate[contentType]["remote"]["unique_id"];
             jsonContent["duration"] = contentUpdate["duration"];
             jsonContent["performer"] = contentUpdate["performer"];
             jsonContent["file_name"] = contentUpdate["file_name"];
@@ -477,10 +455,8 @@ extension MessageDataDataOn on TelegramClient {
             jsonContent["id"] = contentUpdate["id"];
             jsonContent["question"] = contentUpdate["question"];
             jsonContent["options"] = contentUpdate["options"];
-            jsonContent["total_voter_count"] =
-                contentUpdate["total_voter_count"];
-            jsonContent["recent_voter_user_ids"] =
-                contentUpdate["recent_voter_user_ids"];
+            jsonContent["total_voter_count"] = contentUpdate["total_voter_count"];
+            jsonContent["recent_voter_user_ids"] = contentUpdate["recent_voter_user_ids"];
             jsonContent["is_anonymous"] = contentUpdate["is_anonymous"];
             jsonContent["type"] = contentUpdate["type"];
             jsonContent["open_period"] = contentUpdate["open_period"];
@@ -502,8 +478,7 @@ extension MessageDataDataOn on TelegramClient {
             jsonContent["mime_type"] = contentUpdate["mime_type"];
 
             jsonContent["file_id"] = contentUpdate[contentType]["remote"]["id"];
-            jsonContent["unique_id"] =
-                contentUpdate[contentType]["remote"]["unique_id"];
+            jsonContent["unique_id"] = contentUpdate[contentType]["remote"]["unique_id"];
             jsonContent["file_size"] = contentUpdate[contentType]["size"];
             msg[contentType] = jsonContent;
           }
@@ -523,8 +498,7 @@ extension MessageDataDataOn on TelegramClient {
               var res = await invoke(
                 parameters: {
                   "@type": "getStickerSet",
-                  "set_id": int.tryParse(contentUpdate["set_id"]) ??
-                      contentUpdate["set_id"],
+                  "set_id": int.tryParse(contentUpdate["set_id"]) ?? contentUpdate["set_id"],
                 },
                 isUseCache: isUseCache,
                 durationCacheExpire: durationCacheExpire,
@@ -542,16 +516,11 @@ extension MessageDataDataOn on TelegramClient {
             jsonContent["is_mask"] = contentUpdate["is_mask"];
 
             try {
-              if (message["content"][contentType]["thumbnail"] != null &&
-                  message["content"][contentType]["thumbnail"]["@type"]
-                          .toString()
-                          .toLowerCase() ==
-                      "thumbnail") {
+              if (message["content"][contentType]["thumbnail"] != null && message["content"][contentType]["thumbnail"]["@type"].toString().toLowerCase() == "thumbnail") {
                 var contentThumb = contentUpdate["thumbnail"];
                 var jsonThumb = {};
                 jsonThumb["file_id"] = contentThumb["file"]["remote"]["id"];
-                jsonThumb["file_unique_id"] =
-                    contentThumb["file"]["remote"]["unique_id"];
+                jsonThumb["file_unique_id"] = contentThumb["file"]["remote"]["unique_id"];
                 jsonThumb["file_size"] = contentThumb["file"]["size"];
                 jsonThumb["width"] = contentThumb["width"];
                 jsonThumb["height"] = contentThumb["height"];
@@ -560,8 +529,7 @@ extension MessageDataDataOn on TelegramClient {
             } catch (e) {}
 
             jsonContent["file_id"] = contentUpdate[contentType]["remote"]["id"];
-            jsonContent["file_unique_id"] =
-                contentUpdate[contentType]["remote"]["unique_id"];
+            jsonContent["file_unique_id"] = contentUpdate[contentType]["remote"]["unique_id"];
             jsonContent["file_size"] = contentUpdate[contentType]["size"];
             msg[contentType] = jsonContent;
           }
@@ -581,8 +549,7 @@ extension MessageDataDataOn on TelegramClient {
             jsonContent["mime_type"] = contentUpdate["mime_type"];
 
             jsonContent["file_id"] = contentUpdate["voice"]["remote"]["id"];
-            jsonContent["unique_id"] =
-                contentUpdate["voice"]["remote"]["unique_id"];
+            jsonContent["unique_id"] = contentUpdate["voice"]["remote"]["unique_id"];
             jsonContent["file_size"] = contentUpdate["voice"]["size"];
             msg["voice"] = jsonContent;
           }
@@ -647,25 +614,14 @@ extension MessageDataDataOn on TelegramClient {
         jsonEntities["offset"] = dataEntities["offset"];
         jsonEntities["length"] = dataEntities["length"];
         if (dataEntities["type"]["@type"] != null) {
-          var typeEntities = dataEntities["type"]["@type"]
-              .toString()
-              .toLowerCase()
-              .replaceAll(RegExp("textEntityType", caseSensitive: false), "")
-              .replaceAll(RegExp("textUrl", caseSensitive: false), "text_link")
-              .replaceAll(
-                  RegExp("bot_command", caseSensitive: false), "bot_command")
-              .replaceAll(
-                  RegExp("mentionname", caseSensitive: false), "text_mention");
+          var typeEntities = dataEntities["type"]["@type"].toString().toLowerCase().replaceAll(RegExp("textEntityType", caseSensitive: false), "").replaceAll(RegExp("textUrl", caseSensitive: false), "text_link").replaceAll(RegExp("bot_command", caseSensitive: false), "bot_command").replaceAll(RegExp("mentionname", caseSensitive: false), "text_mention");
           jsonEntities["type"] = typeEntities;
           if (dataEntities["type"]["url"] != null) {
             jsonEntities["url"] = dataEntities["type"]["url"];
           }
-          if (typeEntities == "text_mention" &&
-              dataEntities["type"]["user_id"] != null) {
+          if (typeEntities == "text_mention" && dataEntities["type"]["user_id"] != null) {
             var entitiesUserId = dataEntities["type"]["user_id"];
-            Map<dynamic, dynamic> fromJson = <dynamic, dynamic>{
-              "id": entitiesUserId
-            };
+            Map<dynamic, dynamic> fromJson = <dynamic, dynamic>{"id": entitiesUserId};
             if (is_lite) {
             } else {
               try {
@@ -724,19 +680,12 @@ extension MessageDataDataOn on TelegramClient {
         if (message["is_channel_post"] == true) {
           chat_type = "channel";
         }
-        if (chat_type.isNotEmpty &&
-            updataOptionTelegramClient
-                .updataMessageTelegramClient.skip_old_chat_types
-                .contains(chat_type)) {
-          DateTime dateTime =
-              DateTime.now().copyWith(microsecond: 0, millisecond: 0);
-          DateTime dateTimeMessage =
-              DateTime.fromMillisecondsSinceEpoch((message["date"] * 1000));
+        if (chat_type.isNotEmpty && updataOptionTelegramClient.updataMessageTelegramClient.skip_old_chat_types.contains(chat_type)) {
+          DateTime dateTime = DateTime.now().copyWith(microsecond: 0, millisecond: 0);
+          DateTime dateTimeMessage = DateTime.fromMillisecondsSinceEpoch((message["date"] * 1000));
           Duration duration = dateTime.difference(dateTimeMessage);
 
-          if (duration >
-              updataOptionTelegramClient
-                  .updataMessageTelegramClient.duration_old_message_skip) {
+          if (duration > updataOptionTelegramClient.updataMessageTelegramClient.duration_old_message_skip) {
             return true;
           }
         }
@@ -745,16 +694,14 @@ extension MessageDataDataOn on TelegramClient {
 
       // check user
       if (telegramClientData.is_bot == false) {
-        if (updataOptionTelegramClient
-            .updataMessageTelegramClient.user_is_skip_old_message) {
+        if (updataOptionTelegramClient.updataMessageTelegramClient.user_is_skip_old_message) {
           bool is_skip_update = isSkipUpdate();
           if (is_skip_update) {
             return null;
           }
         }
       } else {
-        if (updataOptionTelegramClient
-            .updataMessageTelegramClient.bot_is_skip_old_message) {
+        if (updataOptionTelegramClient.updataMessageTelegramClient.bot_is_skip_old_message) {
           bool is_skip_update = isSkipUpdate();
           if (is_skip_update) {
             return null;
@@ -766,10 +713,8 @@ extension MessageDataDataOn on TelegramClient {
         message: message,
         telegramClientData: telegramClientData,
         is_lite: is_lite,
-        isUseCache:
-            updataOptionTelegramClient.updataMessageTelegramClient.is_use_cache,
-        durationCacheExpire: updataOptionTelegramClient
-            .updataMessageTelegramClient.duration_expire_cache,
+        isUseCache: updataOptionTelegramClient.updataMessageTelegramClient.is_use_cache,
+        durationCacheExpire: updataOptionTelegramClient.updataMessageTelegramClient.duration_expire_cache,
       );
 
       if (msg["chat"]["type"] == "channel") {
