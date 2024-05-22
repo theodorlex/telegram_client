@@ -33,17 +33,16 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 // ignore_for_file: non_constant_identifier_names, unused_local_variable
 
 import 'package:general_lib/general_lib.dart';
+import 'package:telegram_client/tdlib/scheme/scheme.dart';
 import 'package:telegram_client/tdlib/tdlib.dart';
 
 void main(List<String> args) async {
   print("Start Program");
   Tdlib tdlib = Tdlib(
     pathTdl: "path_to_tdlib/libtdjson.so",
-    clientOption: {
-      // get from telegram
-      "api_id": 0,
-      "api_hash": "",
-    },
+    clientOption: TdlibOptionParameter.create(
+      
+    )
   );
 
   tdlib.on(tdlib.event_update, (UpdateTd updateTd) async {

@@ -16,3 +16,7 @@ template/
 
 test/
 generate_script_templates
+
+*.binlog
+*.sqlite
+*.sqlite-*

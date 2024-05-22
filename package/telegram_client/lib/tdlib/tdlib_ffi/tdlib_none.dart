@@ -41,6 +41,7 @@ import 'dart:async';
 import 'package:general_lib/general_lib.dart';
 import 'package:telegram_client/isolate/isolate.dart';
 import 'package:telegram_client/scheme/scheme.dart';
+import 'package:telegram_client/tdlib/scheme/tdlib_option_parameter.dart';
 import 'package:telegram_client/tdlib/tdlib_isolate_receive_data.dart';
 import 'package:telegram_client/tdlib/update_td.dart';
 
@@ -62,24 +63,25 @@ import 'package:telegram_client/tdlib/update_td.dart';
 ///
 class LibTdJson {
   ReceivePort receivePort = ReceivePort();
-  Map client_option = {
-    'api_id': 0,
-    'api_hash': '',
-    'database_directory': "tg_db",
-    'files_directory': "tg_file",
-    "use_file_database": true,
-    "use_chat_info_database": true,
-    "use_message_database": true,
-    "use_secret_chats": true,
-    'enable_storage_optimizer': true,
-    'system_language_code': 'en',
-    'new_verbosity_level': 0,
-    'application_version': 'v1',
-    'device_model': 'Telegram Client HexaMinate @azkadev Galaxeus',
-    'system_version': "",
-    "database_key": "",
-    "start": true,
-  };
+  TdlibOptionParameter client_option = TdlibOptionParameter.create(
+    api_id: 0,
+    api_hash: '',
+    database_directory: "tg_db",
+    files_directory: "tg_file",
+    use_file_database: true,
+    use_chat_info_database: true,
+    use_message_database: true,
+    use_secret_chats: true,
+    enable_storage_optimizer: true,
+    system_language_code: 'en',
+    new_verbosity_level: 0,
+    application_version: 'v1',
+    device_model: '',
+    system_version: "",
+    database_key: "",
+    start: true,
+    database_encryption_key: "",
+  );
   // late SendPort sendPort;
   late Isolate isolate;
   bool is_init_isolate = false;
@@ -102,18 +104,15 @@ class LibTdJson {
   Duration invoke_time_out = Duration(minutes: 10);
   double timeOutUpdate;
   bool is_invoke_throw_on_error = false;
-  FutureOr<void> Function(dynamic update, LibTdJson libTdJson)?
-      on_receive_update;
-  FutureOr<String> Function(int client_id, LibTdJson libTdJson)?
-      on_generate_extra_invoke;
-  FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)?
-      on_get_invoke_data;
+  FutureOr<void> Function(dynamic update, LibTdJson libTdJson)? on_receive_update;
+  FutureOr<String> Function(int client_id, LibTdJson libTdJson)? on_generate_extra_invoke;
+  FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)? on_get_invoke_data;
   int task_max_count;
   int task_min_cooldown;
   LibTdJson({
     String? pathTdl,
-    Map? clientOption,
-    this.task_max_count = 200,
+    TdlibOptionParameter? clientOption,
+    this.task_max_count = 10000,
     this.task_min_cooldown = 10,
     this.is_cli = false,
     this.event_invoke = "invoke",
@@ -145,7 +144,7 @@ class LibTdJson {
     }
 
     if (clientOption != null) {
-      client_option.addAll(clientOption);
+      client_option.rawData.addAll(clientOption.rawData);
       if (clientOption["is_android"] == true) {
         is_android = true;
       }
@@ -253,7 +252,7 @@ class LibTdJson {
     bool isVoid = false,
   }) async {
     clientId ??= client_id;
-    Map client_new_option = client_option.clone();
+    Map client_new_option = client_option.rawData.clone();
     if (clientOption != null) {
       client_new_option.addAll(clientOption);
     }
@@ -284,15 +283,15 @@ class LibTdJson {
   /// add this for multithread new client on flutter apps
   Future<Map> initIsolateNewClient({
     required int clientId,
-    required Map clientOption,
+    required TdlibOptionParameter clientOption,
     int clientUserId = 0,
     bool isVoid = false,
   }) async {
     return await initIsolate(
       clientId: clientId,
       clientOption: {
-        ...client_option,
-        ...clientOption,
+        ...client_option.rawData,
+        ...clientOption.rawData,
       },
       clientUserId: clientUserId,
       isVoid: isVoid,
@@ -379,21 +378,17 @@ class LibTdJson {
   }
 
   /// receive all update data
-  Listener on(
-      String type_update, FutureOr<dynamic> Function(UpdateTd update) callback,
-      {void Function(Object data)? onError}) {
+  Listener on(String type_update, FutureOr<dynamic> Function(UpdateTd update) callback, {void Function(Object data)? onError}) {
     return event_emitter.on(type_update, null, (Event ev, context) async {
       try {
         if (ev.eventData is TdlibIsolateReceiveData) {
-          TdlibIsolateReceiveData tdlibIsolateReceiveData =
-              (ev.eventData as TdlibIsolateReceiveData);
+          TdlibIsolateReceiveData tdlibIsolateReceiveData = (ev.eventData as TdlibIsolateReceiveData);
           await callback(UpdateTd(
             update: tdlibIsolateReceiveData.updateData,
             client_id: tdlibIsolateReceiveData.clientId,
             client_option: () {
               try {
-                TdlibClient? tdlibClient =
-                    clients[tdlibIsolateReceiveData.clientId];
+                TdlibClient? tdlibClient = clients[tdlibIsolateReceiveData.clientId];
                 if (tdlibClient != null) {
                   return tdlibClient.client_option;
                 }
@@ -434,10 +429,8 @@ class LibTdJson {
     String? extra,
     bool? isAutoGetChat,
     bool? isInvokeThrowOnError,
-    FutureOr<String> Function(int client_id, LibTdJson libTdJson)?
-        onGenerateExtraInvoke,
-    FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)?
-        onGetInvokeData,
+    FutureOr<String> Function(int client_id, LibTdJson libTdJson)? onGenerateExtraInvoke,
+    FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)? onGetInvokeData,
   }) async {
     isUseCache ??= false;
     isInvokeThrowOnError ??= is_invoke_throw_on_error;
@@ -480,9 +473,7 @@ class LibTdJson {
       parameters["@extra"] = extra_id;
     }
 
-    if (isAutoGetChat &&
-        RegExp(r"^(sendMessage|getChatMember)$", caseSensitive: false)
-            .hashData(method)) {
+    if (isAutoGetChat && RegExp(r"^(sendMessage|getChatMember)$", caseSensitive: false).hashData(method)) {
       if (parameters["chat_id"] is int) {
         td_send(
           clientId,
@@ -520,8 +511,6 @@ class LibTdJson {
       };
     }
     Map result = {};
-    Duration timeOut = invokeTimeOut;
-    DateTime time_expire = DateTime.now().add(timeOut);
     if (onGetInvokeData != null) {
       td_send(
         clientId,
@@ -529,7 +518,7 @@ class LibTdJson {
       );
       return await onGetInvokeData(extra_id, clientId, this);
     }
-    Listener listener = on(event_invoke, (UpdateTd update) async {
+    on(event_invoke, (UpdateTd update) async {
       try {
         if (update.client_id == clientId) {
           Map updateOrigin = update.raw;
@@ -548,38 +537,7 @@ class LibTdJson {
       requestMethod,
     );
     task_increase();
-    while (true) {
-      await Future.delayed(delayDuration ?? delay_invoke);
-      if (result["@type"] is String) {
-        task_decrease();
-        event_emitter.off(listener);
-        if (result["@type"] == "error") {
-          if (!isInvokeThrowOnError) {
-            return result;
-          }
-
-          result["invoke_request"] = requestMethod;
-          throw result;
-        }
-        return result;
-      }
-      if (time_expire.isBefore(DateTime.now())) {
-        task_decrease();
-        event_emitter.off(listener);
-
-        result = {
-          "@type": "error",
-          "message": "time_out_limit",
-          "invoke_request": requestMethod,
-        };
-
-        if (!isInvokeThrowOnError) {
-          return result;
-        }
-
-        throw result;
-      }
-    }
+    throw result;
   }
 
   Future<Map> request(
@@ -593,10 +551,8 @@ class LibTdJson {
     Duration? durationCacheExpire,
     String? extra,
     bool? isAutoGetChat,
-    FutureOr<String> Function(int client_id, LibTdJson libTdJson)?
-        onGenerateExtraInvoke,
-    FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)?
-        onGetInvokeData,
+    FutureOr<String> Function(int client_id, LibTdJson libTdJson)? onGenerateExtraInvoke,
+    FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)? onGetInvokeData,
     bool? isInvokeThrowOnError,
   }) async {
     return await invoke(

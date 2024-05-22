@@ -35,10 +35,11 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 import 'dart:async';
 
 import 'package:general_lib/event_emitter/event_emitter.dart';
+import 'package:telegram_client/tdlib/scheme/scheme.dart';
 import 'package:telegram_client/tdlib/tdlib_ffi/tdlib.dart';
 
 class TelegramClientTdlibOption {
-  Map<dynamic, dynamic>? clientOption;
+  TdlibOptionParameter? clientOption;
   bool is_cli;
   int? clientId;
   Duration? invokeTimeOut;
@@ -48,14 +49,17 @@ class TelegramClientTdlibOption {
   EventEmitter? eventEmitter;
   bool isAutoGetChat;
 
-  FutureOr<Map<dynamic, dynamic>> Function(String, int, LibTdJson)?
-      on_get_invoke_data;
+  FutureOr<Map<dynamic, dynamic>> Function(String, int, LibTdJson)? on_get_invoke_data;
   FutureOr<void> Function(dynamic, LibTdJson)? on_receive_update;
   FutureOr<String> Function(int, LibTdJson)? on_generate_extra_invoke;
   bool isInvokeThrowOnError;
   Duration? delayInvoke;
+  int task_max_count;
+  int task_min_cooldown;
   TelegramClientTdlibOption({
     this.isAutoGetChat = false,
+     this.task_max_count = 10000,
+     this.task_min_cooldown = 10,
     this.clientOption,
     this.is_cli = false,
     this.clientId,

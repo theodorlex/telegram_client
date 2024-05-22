@@ -95,10 +95,8 @@ class Mtproto {
   Duration invoke_time_out = Duration(minutes: 10);
   late double timeOutUpdate;
   FutureOr<void> Function(dynamic update, Mtproto Mtproto)? on_receive_update;
-  FutureOr<String> Function(int client_id, Mtproto Mtproto)?
-      on_generate_extra_invoke;
-  FutureOr<Map> Function(String extra, int client_id, Mtproto Mtproto)?
-      on_get_invoke_data;
+  FutureOr<String> Function(int client_id, Mtproto Mtproto)? on_generate_extra_invoke;
+  FutureOr<Map> Function(String extra, int client_id, Mtproto Mtproto)? on_get_invoke_data;
   Mtproto({
     String? pathTdl,
     Map? clientOption,
@@ -148,8 +146,7 @@ class Mtproto {
       } else if (update is MtprotoIsolateReceiveDataError) {
         MtprotoIsolateReceiveDataError tdlibIsolateReceiveDataError = update;
         try {
-          MtprotoClient? tdlibClient =
-              clients.getClientById(tdlibIsolateReceiveDataError.clientId);
+          MtprotoClient? tdlibClient = clients.getClientById(tdlibIsolateReceiveDataError.clientId);
           if (tdlibClient != null) {
             tdlibClient.close();
           }
@@ -302,14 +299,11 @@ class Mtproto {
   }
 
   /// receive all update data
-  Listener on(
-      String type_update, FutureOr<dynamic> Function(UpdateMt update) callback,
-      {void Function(Object data)? onError}) {
+  Listener on(String type_update, FutureOr<dynamic> Function(UpdateMt update) callback, {void Function(Object data)? onError}) {
     return event_emitter.on(type_update, null, (Event ev, context) async {
       try {
         if (ev.eventData is MtprotoIsolateReceiveData) {
-          MtprotoIsolateReceiveData tdlibIsolateReceiveData =
-              (ev.eventData as MtprotoIsolateReceiveData);
+          MtprotoIsolateReceiveData tdlibIsolateReceiveData = (ev.eventData as MtprotoIsolateReceiveData);
           await callback(UpdateMt(
             update: tdlibIsolateReceiveData.updateData,
             client_id: tdlibIsolateReceiveData.clientId,
@@ -345,10 +339,8 @@ class Mtproto {
     Duration? invokeTimeOut,
     String? extra,
     bool? iSAutoGetChat,
-    FutureOr<String> Function(int client_id, Mtproto Mtproto)?
-        onGenerateExtraInvoke,
-    FutureOr<Map> Function(String extra, int client_id, Mtproto Mtproto)?
-        onGetInvokeData,
+    FutureOr<String> Function(int client_id, Mtproto Mtproto)? onGenerateExtraInvoke,
+    FutureOr<Map> Function(String extra, int client_id, Mtproto Mtproto)? onGetInvokeData,
     bool isThrowOnError = true,
   }) async {
     onGetInvokeData ??= on_get_invoke_data;
@@ -389,9 +381,7 @@ class Mtproto {
       parameters["@extra"] = generateUuid(15);
     }
 
-    if (iSAutoGetChat &&
-        RegExp(r"^(sendMessage|getChatMember)$", caseSensitive: false)
-            .hashData(method)) {
+    if (iSAutoGetChat && RegExp(r"^(sendMessage|getChatMember)$", caseSensitive: false).hashData(method)) {
       if (parameters["chat_id"] is int) {
         client_send(
           clientId,
@@ -430,7 +420,7 @@ class Mtproto {
     }
     Map result = {};
     Duration timeOut = invokeTimeOut;
-    DateTime time_expire = DateTime.now().add(timeOut);
+    DateTime.now().add(timeOut);
     if (onGetInvokeData != null) {
       client_send(
         clientId,
@@ -438,7 +428,7 @@ class Mtproto {
       );
       return await onGetInvokeData(extra_id, clientId, this);
     }
-    Listener listener = on(event_invoke, (UpdateMt update) async {
+    on(event_invoke, (UpdateMt update) async {
       try {
         if (update.client_id == clientId) {
           Map updateOrigin = update.raw;
@@ -455,36 +445,7 @@ class Mtproto {
       clientId,
       requestMethod,
     );
-    while (true) {
-      await Future.delayed(delayDuration ?? delay_invoke);
-      if (result["@type"] is String) {
-        event_emitter.off(listener);
-        if (result["@type"] == "error") {
-          if (!isThrowOnError) {
-            return result;
-          }
-
-          result["invoke_request"] = requestMethod;
-          throw result;
-        }
-        return result;
-      }
-      if (time_expire.isBefore(DateTime.now())) {
-        event_emitter.off(listener);
-
-        result = {
-          "@type": "error",
-          "message": "time_out_limit",
-          "invoke_request": requestMethod,
-        };
-
-        if (!isThrowOnError) {
-          return result;
-        }
-
-        throw result;
-      }
-    }
+    throw result;
   }
 
   /// call api latest [Tdlib-Methods](https://core.telegram.org/tdlib/docs/classtd_1_1td__api_1_1_function.html)

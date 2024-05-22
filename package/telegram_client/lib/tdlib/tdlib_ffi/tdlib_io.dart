@@ -45,6 +45,7 @@ import 'dart:convert' as convert;
 import 'package:general_lib/general_lib.dart';
 import 'package:telegram_client/isolate/isolate.dart';
 import 'package:telegram_client/scheme/scheme.dart';
+import 'package:telegram_client/tdlib/scheme/scheme.dart';
 import 'package:telegram_client/tdlib/tdlib_ffi/tdlib_isolate.dart';
 import 'package:telegram_client/tdlib/tdlib_isolate_data.dart';
 import 'package:telegram_client/tdlib/tdlib_isolate_receive_data.dart';
@@ -58,10 +59,8 @@ typedef TdStringNative = Pointer<Utf8>;
 typedef TdReceiveNative = TdStringNative Function(Double timout);
 typedef TdReceiveDart = TdStringNative Function(double timout);
 
-typedef TdSendNative = Void Function(
-    TdPointerNative client, TdStringNative request);
-typedef TdSendDart = void Function(
-    TdPointerNative client, TdStringNative request);
+typedef TdSendNative = Void Function(TdPointerNative client, TdStringNative request);
+typedef TdSendDart = void Function(TdPointerNative client, TdStringNative request);
 
 typedef TdExecuteNative = TdStringNative Function(TdStringNative parameters);
 
@@ -86,24 +85,25 @@ typedef TdDestroyDart = void Function(Pointer client_id);
 ///
 class LibTdJson {
   ReceivePort receivePort = ReceivePort();
-  Map client_option = {
-    'api_id': 94575,
-    'api_hash': 'a3406de8d171bb422bb6ddf3bbd800e2',
-    'database_directory': "tg_db",
-    'files_directory': "tg_file",
-    "use_file_database": true,
-    "use_chat_info_database": true,
-    "use_message_database": true,
-    "use_secret_chats": true,
-    'enable_storage_optimizer': true,
-    'system_language_code': 'en',
-    'new_verbosity_level': 0,
-    'application_version': 'v1',
-    'device_model': 'Telegram Client HexaMinate @azkadev Galaxeus',
-    'system_version': Platform.operatingSystemVersion,
-    "database_key": "",
-    "start": true,
-  };
+  TdlibOptionParameter client_option = TdlibOptionParameter.create(
+    api_id: 94575,
+    api_hash: 'a3406de8d171bb422bb6ddf3bbd800e2',
+    database_directory: "tg_db",
+    files_directory: "tg_file",
+    use_file_database: true,
+    use_chat_info_database: true,
+    use_message_database: true,
+    use_secret_chats: true,
+    enable_storage_optimizer: true,
+    system_language_code: 'en',
+    new_verbosity_level: 0,
+    application_version: 'v1',
+    device_model: 'Telegram Client HexaMinate @azkadev Galaxeus',
+    system_version: Platform.operatingSystemVersion,
+    database_key: "",
+    start: true,
+    database_encryption_key: "",
+  );
   // late SendPort sendPort;
   late Isolate isolate;
   bool is_init_isolate = false;
@@ -126,20 +126,17 @@ class LibTdJson {
   Duration invoke_time_out = Duration(minutes: 10);
   double timeOutUpdate;
   bool is_invoke_throw_on_error = false;
-  FutureOr<void> Function(dynamic update, LibTdJson libTdJson)?
-      on_receive_update;
-  FutureOr<String> Function(int client_id, LibTdJson libTdJson)?
-      on_generate_extra_invoke;
-  FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)?
-      on_get_invoke_data;
+  FutureOr<void> Function(dynamic update, LibTdJson libTdJson)? on_receive_update;
+  FutureOr<String> Function(int client_id, LibTdJson libTdJson)? on_generate_extra_invoke;
+  FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)? on_get_invoke_data;
 
   static bool is_debug = false;
   int task_max_count;
   int task_min_cooldown;
   LibTdJson({
     String? pathTdl,
-    Map? clientOption,
-    this.task_max_count = 200,
+    TdlibOptionParameter? clientOption,
+    this.task_max_count = 10000,
     this.task_min_cooldown = 10,
     this.is_cli = false,
     this.event_invoke = "invoke",
@@ -172,11 +169,12 @@ class LibTdJson {
     }
 
     if (clientOption != null) {
-      client_option.addAll(clientOption);
+      client_option.rawData.addAll(clientOption.rawData);
       if (clientOption["is_android"] == true) {
         is_android = true;
       }
     }
+    client_option.rawData.remove("@type");
 
     receivePort.listen((update) async {
       if (update is SendPort) {
@@ -199,6 +197,7 @@ class LibTdJson {
         }
       } else if (update is TdlibIsolateReceiveDataError) {
         is_init_isolate = false;
+        isolate.kill();
         await initIsolate();
       }
     });
@@ -252,11 +251,8 @@ class LibTdJson {
   /// create client id for multi client
   int td_create_client_id() {
     int client_id_new = using((Arena arena) {
-      TdPointerFunctionNative td_pointer_native_function = tdLib
-          .lookupFunction<TdPointerFunctionNative, TdPointerFunctionNative>(
-              '${is_android ? "_" : ""}td_create_client_id');
-      Pointer td_pointer_native_result =
-          arena.using(td_pointer_native_function(), (p0) {});
+      TdPointerFunctionNative td_pointer_native_function = tdLib.lookupFunction<TdPointerFunctionNative, TdPointerFunctionNative>('${is_android ? "_" : ""}td_create_client_id', isLeaf: false);
+      Pointer td_pointer_native_result = arena.using(td_pointer_native_function(), (p0) {});
       int client_id_new = td_pointer_native_result.address;
       arena.releaseAll();
       return client_id_new;
@@ -267,11 +263,8 @@ class LibTdJson {
   /// create client id for multi client
   int td_json_client_create() {
     int client_id_new = using((Arena arena) {
-      TdPointerFunctionNative td_pointer_native_function = tdLib
-          .lookupFunction<TdPointerFunctionNative, TdPointerFunctionNative>(
-              '${is_android ? "_" : ""}td_json_client_create');
-      TdPointerNative td_pointer_native_result =
-          arena.using(td_pointer_native_function(), (p0) {});
+      TdPointerFunctionNative td_pointer_native_function = tdLib.lookupFunction<TdPointerFunctionNative, TdPointerFunctionNative>('${is_android ? "_" : ""}td_json_client_create', isLeaf: false);
+      TdPointerNative td_pointer_native_result = arena.using(td_pointer_native_function(), (p0) {});
       int client_id_new = td_pointer_native_result.address;
       arena.releaseAll();
       return client_id_new;
@@ -288,14 +281,10 @@ class LibTdJson {
   void td_send(int clientId, [Map? parameters]) {
     using((Arena arena) {
       Pointer client_id_addres_data = client_id_addres(clientId);
-      TdStringNative request_data =
-          convert.json.encode(parameters).toNativeUtf8();
+      TdStringNative request_data = convert.json.encode(parameters).toNativeUtf8();
       Arena arena = Arena();
-      TdSendDart td_send_function =
-          tdLib.lookupFunction<TdSendNative, TdSendDart>(
-              '${is_android ? "_" : ""}td_send');
-      void td_send_result = arena.using(
-          td_send_function(client_id_addres_data, request_data), (p0) {});
+      TdSendDart td_send_function = tdLib.lookupFunction<TdSendNative, TdSendDart>('${is_android ? "_" : ""}td_send', isLeaf: false);
+      void td_send_result = arena.using(td_send_function(client_id_addres_data, request_data), (p0) {});
       arena.releaseAll();
       malloc.free(request_data);
     });
@@ -306,15 +295,11 @@ class LibTdJson {
   void td_json_client_send(int clientId, [Map? parameters]) {
     using((Arena arena) {
       Pointer client_id_addres_data = client_id_addres(clientId);
-      TdStringNative request_data =
-          convert.json.encode(parameters).toNativeUtf8();
+      TdStringNative request_data = convert.json.encode(parameters).toNativeUtf8();
 
       Arena arena = Arena();
-      TdSendDart td_send_function =
-          tdLib.lookupFunction<TdSendNative, TdSendDart>(
-              '${is_android ? "_" : ""}td_json_client_send');
-      void td_send_result = arena.using(
-          td_send_function(client_id_addres_data, request_data), (p0) {});
+      TdSendDart td_send_function = tdLib.lookupFunction<TdSendNative, TdSendDart>('${is_android ? "_" : ""}td_json_client_send', isLeaf: false);
+      void td_send_result = arena.using(td_send_function(client_id_addres_data, request_data), (p0) {});
       arena.releaseAll();
       malloc.free(request_data);
     });
@@ -325,17 +310,12 @@ class LibTdJson {
   /// client_execute
   Map<String, dynamic> td_execute(Map parameters) {
     Map<String, dynamic> result_data = using((Arena arena) {
-      TdStringNative request_data =
-          convert.json.encode(parameters).toNativeUtf8();
+      TdStringNative request_data = convert.json.encode(parameters).toNativeUtf8();
 
-      TdExecuteNative td_execute_native_function =
-          tdLib.lookupFunction<TdExecuteNative, TdExecuteNative>(
-              '${is_android ? "_" : ""}td_execute');
+      TdExecuteNative td_execute_native_function = tdLib.lookupFunction<TdExecuteNative, TdExecuteNative>('${is_android ? "_" : ""}td_execute', isLeaf: false);
 
-      TdStringNative td_execute_native_result =
-          arena.using(td_execute_native_function(request_data), (p0) {});
-      Map<String, dynamic> result_data =
-          convert.json.decode(td_execute_native_result.toDartString());
+      TdStringNative td_execute_native_result = arena.using(td_execute_native_function(request_data), (p0) {});
+      Map<String, dynamic> result_data = convert.json.decode(td_execute_native_result.toDartString());
       arena.releaseAll();
       malloc.free(request_data);
 
@@ -348,9 +328,7 @@ class LibTdJson {
   void td_json_client_destroy(int clientId) {
     using((Arena arena) {
       Pointer client_id_addres_data = client_id_addres(clientId);
-      TdDestroyDart td_destroy_dart_function =
-          tdLib.lookupFunction<TdDestroyNative, TdDestroyDart>(
-              '${is_android ? "_" : ""}td_json_client_destroy');
+      TdDestroyDart td_destroy_dart_function = tdLib.lookupFunction<TdDestroyNative, TdDestroyDart>('${is_android ? "_" : ""}td_json_client_destroy', isLeaf: false);
       arena.using(td_destroy_dart_function(client_id_addres_data), (p0) {});
       arena.releaseAll();
     });
@@ -364,12 +342,8 @@ class LibTdJson {
   }) {
     try {
       Map<String, dynamic>? result = using((Arena arena) {
-        TdReceiveDart td_receive_function =
-            tdLib.lookupFunction<TdReceiveNative, TdReceiveDart>(
-          '${isAndroid ? "_" : ""}td_receive',
-        );
-        TdStringNative update =
-            arena.using(td_receive_function(timeout), (p0) {});
+        TdReceiveDart td_receive_function = tdLib.lookupFunction<TdReceiveNative, TdReceiveDart>('${isAndroid ? "_" : ""}td_receive', isLeaf: false);
+        TdStringNative update = arena.using(td_receive_function(timeout), (p0) {});
         if (update.address != 0) {
           String update_string = update.toDartString();
           arena.releaseAll();
@@ -401,7 +375,7 @@ class LibTdJson {
     bool isVoid = false,
   }) async {
     clientId ??= client_id;
-    Map client_new_option = client_option.clone();
+    Map client_new_option = client_option.rawData.clone();
     if (clientOption != null) {
       client_new_option.addAll(clientOption);
     }
@@ -447,15 +421,15 @@ class LibTdJson {
   /// add this for multithread new client on flutter apps
   Future<Map> initIsolateNewClient({
     required int clientId,
-    required Map clientOption,
+    required TdlibOptionParameter clientOption,
     int clientUserId = 0,
     bool isVoid = false,
   }) async {
     return await initIsolate(
       clientId: clientId,
       clientOption: {
-        ...client_option,
-        ...clientOption,
+        ...client_option.rawData,
+        ...clientOption.rawData,
       },
       clientUserId: clientUserId,
       isVoid: isVoid,
@@ -542,21 +516,17 @@ class LibTdJson {
   }
 
   /// receive all update data
-  Listener on(
-      String type_update, FutureOr<dynamic> Function(UpdateTd update) callback,
-      {void Function(Object data)? onError}) {
+  Listener on(String type_update, FutureOr<dynamic> Function(UpdateTd update) callback, {void Function(Object data)? onError}) {
     return event_emitter.on(type_update, null, (Event ev, context) async {
       try {
         if (ev.eventData is TdlibIsolateReceiveData) {
-          TdlibIsolateReceiveData tdlibIsolateReceiveData =
-              (ev.eventData as TdlibIsolateReceiveData);
+          TdlibIsolateReceiveData tdlibIsolateReceiveData = (ev.eventData as TdlibIsolateReceiveData);
           await callback(UpdateTd(
             update: tdlibIsolateReceiveData.updateData,
             client_id: tdlibIsolateReceiveData.clientId,
             client_option: () {
               try {
-                TdlibClient? tdlibClient =
-                    clients[tdlibIsolateReceiveData.clientId];
+                TdlibClient? tdlibClient = clients[tdlibIsolateReceiveData.clientId];
                 if (tdlibClient != null) {
                   return tdlibClient.client_option;
                 }
@@ -597,10 +567,8 @@ class LibTdJson {
     String? extra,
     bool? isAutoGetChat,
     bool? isInvokeThrowOnError,
-    FutureOr<String> Function(int client_id, LibTdJson libTdJson)?
-        onGenerateExtraInvoke,
-    FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)?
-        onGetInvokeData,
+    FutureOr<String> Function(int client_id, LibTdJson libTdJson)? onGenerateExtraInvoke,
+    FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)? onGetInvokeData,
   }) async {
     if (task_count >= task_max_count) {
       while (true) {
@@ -654,9 +622,7 @@ class LibTdJson {
       parameters["@extra"] = extra_id;
     }
 
-    if (isAutoGetChat &&
-        RegExp(r"^(sendMessage|getChatMember)$", caseSensitive: false)
-            .hashData(method)) {
+    if (isAutoGetChat && RegExp(r"^(sendMessage|getChatMember)$", caseSensitive: false).hashData(method)) {
       if (parameters["chat_id"] is int) {
         td_send(
           clientId,
@@ -716,8 +682,6 @@ class LibTdJson {
         "@extra": extra,
       };
     }
-    Duration timeOut = invokeTimeOut;
-    DateTime time_expire = DateTime.now().add(timeOut);
     if (onGetInvokeData != null) {
       td_send(
         clientId,
@@ -742,7 +706,7 @@ class LibTdJson {
     //     }
     //   }
     // }
-    Completer completer = Completer();
+    Completer<Map> completer = Completer<Map>();
 
     Listener listener = on(event_invoke, (UpdateTd update) async {
       try {
@@ -765,55 +729,46 @@ class LibTdJson {
       requestMethod,
     );
     task_increase();
-    while (true) {
-      await Future.delayed(delayDuration ?? delay_invoke);
-      if (completer.isCompleted) {
-        Map result = await completer.future;
-        task_decrease();
-        event_emitter.off(listener);
-        if (result["@type"] is String) {
-          if (result["@type"] == "error") {
-            if (!isInvokeThrowOnError) {
-              return result;
-            }
-
-            result["invoke_request"] = requestMethod;
-            throw result;
-          }
-
-          // if (isUseCache) {
-          //   if (tdlib_client_procces != null) {
-          //     tdlib_client_procces.tdlibClientCache.addCacheByMethod(
-          //       methodName: method,
-          //       parameter: parameters,
-          //       result: result,
-          //       durationExpired: durationCacheExpire,
-          //     );
-          //   }
-          // }
-
-          return result;
-        }
-
-        return result;
-      }
-      if (time_expire.isBefore(DateTime.now())) {
-        task_decrease();
-        event_emitter.off(listener);
-
-        Map result = {
+    Map result = await completer.future.timeout(
+      invokeTimeOut,
+      onTimeout: () {
+        return {
           "@type": "error",
           "message": "time_out_limit",
           "invoke_request": requestMethod,
         };
+      },
+    );
+    task_decrease();
+    event_emitter.off(listener);
 
+    if (result["@type"] is String) {
+      if (result["@type"] == "error") {
         if (!isInvokeThrowOnError) {
           return result;
         }
 
+        result["invoke_request"] = requestMethod;
         throw result;
       }
+
+      // if (isUseCache) {
+      //   if (tdlib_client_procces != null) {
+      //     tdlib_client_procces.tdlibClientCache.addCacheByMethod(
+      //       methodName: method,
+      //       parameter: parameters,
+      //       result: result,
+      //       durationExpired: durationCacheExpire,
+      //     );
+      //   }
+      // }
+
+      return result;
     }
+
+    throw result;
+
+    // }
   }
 
   Future<Map> request(
@@ -827,10 +782,8 @@ class LibTdJson {
     bool? isUseCache,
     Duration? durationCacheExpire,
     bool? isAutoGetChat,
-    FutureOr<String> Function(int client_id, LibTdJson libTdJson)?
-        onGenerateExtraInvoke,
-    FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)?
-        onGetInvokeData,
+    FutureOr<String> Function(int client_id, LibTdJson libTdJson)? onGenerateExtraInvoke,
+    FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)? onGetInvokeData,
     bool? isInvokeThrowOnError,
   }) async {
     return await invoke(

@@ -35,6 +35,38 @@ import 'package:path/path.dart';
 import 'package:universal_io/io.dart';
 
 void main(List<String> args) async {
+  List<Map> tdlib_schemes = [
+    {
+      "@type": "tdlibOptionParameter",
+      'api_id': 0,
+      'api_hash': '',
+      'database_directory': "tg_db",
+      'files_directory': "tg_file",
+      "use_file_database": true,
+      "use_chat_info_database": true,
+      "use_message_database": true,
+      "use_secret_chats": true,
+      'enable_storage_optimizer': true,
+      'system_language_code': 'en',
+      'new_verbosity_level': 0,
+      'application_version': 'v1',
+      'device_model': 'Telegram Client',
+      'system_version': Platform.operatingSystemVersion,
+      "database_key": "",
+      "start": true,
+      "database_encryption_key": "",
+  "use_test_dc": false,
+    },
+  ];
+
+  await jsonToScripts(
+    tdlib_schemes,
+    directory: Directory(
+      join(Directory.current.path, "lib", "tdlib", "scheme"),
+      // "/home/galaxeus/Documents/galaxeus/app/telegram_client/package/telegram_client/lib/telegram_bot_api/scheme",
+    ),
+  );
+
   List<Map> datas = [
     {
       "@type": "tgClientClientData",

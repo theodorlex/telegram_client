@@ -37,6 +37,7 @@ import 'dart:convert';
 import 'package:general_lib/general_lib.dart';
 import 'package:mason_logger/mason_logger.dart';
 import 'package:path/path.dart';
+import 'package:telegram_client/tdlib/scheme/scheme.dart';
 import 'package:telegram_client/telegram_client.dart';
 import 'package:universal_io/io.dart';
 
@@ -53,8 +54,7 @@ void main(List<String> args) async {
         .listSync()
         .where((e) {
           print(basenameWithoutExtension(e.path));
-          if (RegExp(r"^(client_)", caseSensitive: false)
-              .hasMatch(basenameWithoutExtension(e.path))) {
+          if (RegExp(r"^(client_)", caseSensitive: false).hasMatch(basenameWithoutExtension(e.path))) {
             return true;
           }
           return false;
@@ -73,8 +73,7 @@ void main(List<String> args) async {
         },
       );
       if (basenameWithoutExtension(result.path) != "create_new") {
-        return basenameWithoutExtension(result.path)
-            .replaceAll(RegExp(r"^(client_)", caseSensitive: false), "");
+        return basenameWithoutExtension(result.path).replaceAll(RegExp(r"^(client_)", caseSensitive: false), "");
       }
     }
     String res = logger.prompt("Name :");
@@ -87,8 +86,7 @@ void main(List<String> args) async {
       .toLowerCase()
       .replaceAll(RegExp(r"([ \+]+)", caseSensitive: false), "");
 
-  Directory database_directory =
-      Directory(join(directory_tg.path, "client_${name}"));
+  Directory database_directory = Directory(join(directory_tg.path, "client_${name}"));
 
   TelegramClient tg = TelegramClient();
 
@@ -116,8 +114,7 @@ void main(List<String> args) async {
         if (update["@type"] == "updateAuthorizationState") {
           if (update["authorization_state"] is Map) {
             Map authorization_state = update["authorization_state"];
-            if (authorization_state["@type"] ==
-                "authorizationStateWaitPhoneNumber") {
+            if (authorization_state["@type"] == "authorizationStateWaitPhoneNumber") {
               String phone_number_or_token_bot = () {
                 String res = logger.prompt("Phone Number / Token Bot:");
                 while (true) {
@@ -128,8 +125,7 @@ void main(List<String> args) async {
               }()
                   .replaceAll(RegExp(r"([ \+]+)", caseSensitive: false), "");
 
-              if (RegExp(r"^([0-9]+:AA[a-z0-9_-]+)$", caseSensitive: false)
-                  .hashData(phone_number_or_token_bot)) {
+              if (RegExp(r"^([0-9]+:AA[a-z0-9_-]+)$", caseSensitive: false).hashData(phone_number_or_token_bot)) {
                 Map res = await tg.invoke(
                   parameters: {
                     "@type": "checkAuthenticationBotToken",
@@ -204,9 +200,7 @@ void main(List<String> args) async {
             return "";
           }();
 
-          Map parameters_request = {
-            "@type": (is_outgoing) ? "editMessageText" : "sendMessage"
-          };
+          Map parameters_request = {"@type": (is_outgoing) ? "editMessageText" : "sendMessage"};
 
           RegExp regExpCommand = RegExp(r"^(/|\.|!)", caseSensitive: false);
           if (regExpCommand.hashData(text_command)) {
@@ -214,11 +208,7 @@ void main(List<String> args) async {
 
             if (RegExp(r"^(ping)$", caseSensitive: false).hasMatch(command)) {
               return await tg.request(
-                parameters: {
-                  "@type": "sendMessage",
-                  "chat_id": chat_id,
-                  "text": "PONG"
-                },
+                parameters: {"@type": "sendMessage", "chat_id": chat_id, "text": "PONG"},
                 telegramClientData: updateTelegramClient.telegramClientData,
               );
             }
@@ -234,10 +224,10 @@ void main(List<String> args) async {
   tg.ensureInitialized(
     pathTdlib: TgUtils.pathTdlib(),
     telegramClientTdlibOption: TelegramClientTdlibOption(
-      clientOption: {
-        "database_directory": database_directory.path,
-        'files_directory': directory_tg.path,
-      },
+      clientOption: TdlibOptionParameter.create(
+        database_directory: database_directory.path,
+        files_directory: directory_tg.path,
+      ),
     ),
   );
   await tg.tdlib.initIsolate();

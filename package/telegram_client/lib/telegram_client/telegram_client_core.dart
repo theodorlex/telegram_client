@@ -119,6 +119,8 @@ class TelegramClient {
       timeOutUpdate: 1.0,
       delayInvoke: Duration(milliseconds: 1),
       delayUpdate: Duration(milliseconds: 1),
+      task_max_count: 10000,
+      task_min_cooldown: 10,
       isInvokeThrowOnError: true,
     );
     telegramClientTelegramBotApiOption ??= TelegramClientTelegramBotApiOption(
@@ -138,6 +140,7 @@ class TelegramClient {
         telegramUrlWebhook:
             telegramClientTelegramBotApiOption.telegramUrlWebhook,
         httpClient: telegramClientTelegramBotApiOption.httpClient,
+        
       );
       telegramBotApi.initServer();
     }
@@ -160,6 +163,8 @@ class TelegramClient {
         on_receive_update: telegramClientTdlibOption.on_receive_update,
         isInvokeThrowOnError: telegramClientTdlibOption.isInvokeThrowOnError,
         eventEmitter: event_emitter,
+        task_max_count: telegramClientTdlibOption.task_max_count,
+        task_min_cooldown: telegramClientTdlibOption.task_min_cooldown,
       );
     }
   }

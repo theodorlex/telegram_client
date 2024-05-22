@@ -36,7 +36,7 @@ dependencies:
   mime: '^1.0.5'
   general_lib: '^0.0.40'
   collection: '^1.18.0'
-  server_universe: '^0.0.13'
+  server_universe: '^0.0.14'
   yaml: '^3.1.2'
   yaml_writer: '^2.0.0'
 executables: 

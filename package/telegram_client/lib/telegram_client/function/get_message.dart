@@ -68,7 +68,7 @@ extension GetMessageDataOn on TelegramClient {
     }
     Map message_reply_to = await callApiInvoke(
       parameters: {
-        "@type": "getMessage",
+        "@type": "getMessageLocally",
         "chat_id": parameters["chat_id"],
         "message_id": TgUtils.messageApiToTdlib(parameters["message_id"]),
       },

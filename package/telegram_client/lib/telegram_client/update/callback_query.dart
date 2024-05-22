@@ -109,7 +109,7 @@ extension CallbackQueryDataDataOn on TelegramClient {
     if (callbackQuery["message_id"] is int) {
       Map message_reply_to = await invoke(
         parameters: {
-          "@type": "getMessage",
+          "@type": "getMessageLocally",
           "chat_id": callbackQuery["chat_id"],
           "message_id": callbackQuery["message_id"],
         },
