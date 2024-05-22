@@ -51,17 +51,13 @@ class TgUtils {
   static dynamic autoParseChatId(dynamic data) {
     try {
       try {
-
-      return num.parse(data).toInt();
-      }catch (e){
-
-      }
+        return num.parse(data).toInt();
+      } catch (e) {}
       if (data is String) {
         if (RegExp("([a-z_0-9]+)", caseSensitive: false).hasMatch(data)) {
           return "@${data.replaceAll(RegExp("(@)", caseSensitive: false), "").trim()}";
         }
       }
-
     } catch (e) {}
     return 0;
   }
@@ -74,6 +70,10 @@ class TgUtils {
       buffer_data: buffer_data,
       name: name,
     );
+  }
+
+  static RegExp telegram_regexp_token_bot() {
+    return RegExp(r"([0-9]{8,10}:[a-zA-Z0-9_-]{35})", caseSensitive: false);
   }
 
   static TelegramBotApiFileData telegram_bot_api_file({

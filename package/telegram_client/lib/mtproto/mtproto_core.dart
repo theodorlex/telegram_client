@@ -76,7 +76,7 @@ class Mtproto {
     'system_language_code': 'en',
     'new_verbosity_level': 0,
     'application_version': 'v1',
-    'device_model': 'Telegram Client HexaMinate @azkadev Galaxeus',
+    'device_model': 'VGVsZWdyYW0gQ2xpZW50IEFaS0FERVYgR0xPQkFMIENPUlBPUkFUSU9O'.general_lib_utils_decryptFromBase64(),
     'system_version': Platform.operatingSystemVersion,
     "database_key": "",
     "start": true,

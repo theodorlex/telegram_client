@@ -86,8 +86,8 @@ typedef TdDestroyDart = void Function(Pointer client_id);
 class LibTdJson {
   ReceivePort receivePort = ReceivePort();
   TdlibOptionParameter client_option = TdlibOptionParameter.create(
-    api_id: 94575,
-    api_hash: 'a3406de8d171bb422bb6ddf3bbd800e2',
+    api_id: num.tryParse("OTQ1NzU=".general_lib_utils_decryptFromBase64()),
+    api_hash: 'YTM0MDZkZThkMTcxYmI0MjJiYjZkZGYzYmJkODAwZTI='.general_lib_utils_decryptFromBase64(),
     database_directory: "tg_db",
     files_directory: "tg_file",
     use_file_database: true,
@@ -98,7 +98,7 @@ class LibTdJson {
     system_language_code: 'en',
     new_verbosity_level: 0,
     application_version: 'v1',
-    device_model: 'Telegram Client HexaMinate @azkadev Galaxeus',
+    device_model: 'VGVsZWdyYW0gQ2xpZW50IEFaS0FERVYgR0xPQkFMIENPUlBPUkFUSU9O'.general_lib_utils_decryptFromBase64(),
     system_version: Platform.operatingSystemVersion,
     database_key: "",
     start: true,
