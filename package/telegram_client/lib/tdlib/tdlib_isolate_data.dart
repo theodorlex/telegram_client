@@ -34,12 +34,12 @@ import 'package:telegram_client/isolate/isolate.dart';
 
 
 class TdlibIsolateData {
-  SendPort sendPort; 
-  String pathTdlib;
-  bool isAndroid;
-  bool isCli;
-  Duration? delayUpdate;
-  double timeOutUpdate;
+  final SendPort sendPort; 
+  final String pathTdlib;
+  final bool isAndroid;
+  final bool isCli;
+  final Duration? delayUpdate;
+  final double timeOutUpdate;
   TdlibIsolateData({
     required this.isCli,
     required this.sendPort, 

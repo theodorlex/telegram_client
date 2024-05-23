@@ -34,9 +34,9 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 /// Update td for make update support raw, raw api, raw api light
 class UpdateTd {
-  Map update;
-  int client_id;
-  Map client_option;
+  final Map update;
+  final int client_id;
+  final Map client_option;
   UpdateTd({
     required this.update,
     required this.client_id,

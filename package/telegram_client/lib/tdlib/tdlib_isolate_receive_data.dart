@@ -31,8 +31,8 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 <!-- END LICENSE --> */
 class TdlibIsolateReceiveData {
-  Map updateData;
-  int clientId;
+  final Map updateData;
+  final int clientId;
   // Map clientOption;
   TdlibIsolateReceiveData({
     required this.updateData,
