@@ -510,7 +510,7 @@ class TdlibNative {
   }
 
   /// receive all update data
-  EventListener on(String type_update, FutureOr<dynamic> Function(UpdateTd update) callback, {void Function(Object data)? onError}) {
+  EventEmitterListener on(String type_update, FutureOr<dynamic> Function(UpdateTd update) callback, {void Function(Object data)? onError}) {
     return event_emitter.on(type_update, null, (Event ev, context) async {
       try {
         if (ev.eventData is TdlibIsolateReceiveData) {
@@ -702,7 +702,7 @@ class TdlibNative {
     // }
     Completer<Map> completer = Completer<Map>();
 
-    EventListener listener = on(event_invoke, (UpdateTd update) async {
+    EventEmitterListener listener = on(event_invoke, (UpdateTd update) async {
       try {
         if (update.client_id == clientId) {
           Map updateOrigin = update.raw;

@@ -298,7 +298,7 @@ class Mtproto {
   }
 
   /// receive all update data
-  EventListener on(String type_update, FutureOr<dynamic> Function(UpdateMt update) callback, {void Function(Object data)? onError}) {
+  EventEmitterListener on(String type_update, FutureOr<dynamic> Function(UpdateMt update) callback, {void Function(Object data)? onError}) {
     return event_emitter.on(type_update, null, (Event ev, context) async {
       try {
         if (ev.eventData is MtprotoIsolateReceiveData) {

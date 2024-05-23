@@ -260,7 +260,7 @@ class TelegramBotApi {
   /// });
   /// ```
   /// add this for handle update api
-  EventListener on(String type_update, FutureOr<dynamic> Function(UpdateBot updateBot) callback) {
+  EventEmitterListener on(String type_update, FutureOr<dynamic> Function(UpdateBot updateBot) callback) {
     return event_emitter.on(type_update, null, (Event ev, context) async {
       try {
         if (ev.eventData is UpdateBot) {

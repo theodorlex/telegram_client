@@ -311,7 +311,7 @@ class TelegramClient {
   }
 
   /// return original data json
-  EventListener on({
+  EventEmitterListener on({
     required String event_name,
     required FutureOr<dynamic> Function(UpdateTelegramClient updateTelegramClient) onUpdate,
     required FutureOr<dynamic> Function(Object error, StackTrace stackTrace) onError,

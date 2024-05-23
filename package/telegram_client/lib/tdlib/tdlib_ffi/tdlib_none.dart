@@ -170,7 +170,7 @@ class TdlibNative {
           event_emitter.emit(event_update, null, tdlibIsolateReceiveData);
         }
       } else if (update is TdlibIsolateReceiveDataError) {
-        is_init_isolate = false; 
+        is_init_isolate = false;
       }
     });
   }
@@ -218,9 +218,8 @@ class TdlibNative {
     return;
   }
 
-Future<void> ensureInitialized()async{
+  Future<void> ensureInitialized() async {}
 
-}
   /// td_send
   void td_send(int clientId, [Map? parameters]) {
     return;
@@ -252,6 +251,7 @@ Future<void> ensureInitialized()async{
     } catch (e) {}
     return 0;
   }
+
   /// add this for multithread on flutter apps
   Future<Map> createclient({
     required int clientId,
@@ -288,7 +288,6 @@ Future<void> ensureInitialized()async{
       isInvokeThrowOnError: false,
     );
   }
- 
 
   // exit
   TdlibClient? getClientByUserId(int clientUserId) {
@@ -370,7 +369,7 @@ Future<void> ensureInitialized()async{
   }
 
   /// receive all update data
-  EventListener on(String type_update, FutureOr<dynamic> Function(UpdateTd update) callback, {void Function(Object data)? onError}) {
+  EventEmitterListener on(String type_update, FutureOr<dynamic> Function(UpdateTd update) callback, {void Function(Object data)? onError}) {
     return event_emitter.on(type_update, null, (Event ev, context) async {
       try {
         if (ev.eventData is TdlibIsolateReceiveData) {
@@ -432,7 +431,7 @@ Future<void> ensureInitialized()async{
 
     invokeTimeOut ??= invoke_time_out;
     parameters ??= {};
-    
+
     String extra_id = "";
 
     bool is_set_extra_from_function = false;
@@ -575,21 +574,18 @@ Future<void> ensureInitialized()async{
   ///   clientId: tg.client_id,
   /// );
   /// ```
-  Map invokeSync(
-    {
-    required Map parameters, 
+  Map invokeSync({
+    required Map parameters,
     bool isThrowOnError = true,
   }) {
-    
     String random = generateUuid(15);
     if (parameters is Map) {
       parameters["@extra"] = random;
     } else {
       parameters["@extra"] = random;
     }
- 
 
-    Map result = td_json_client_execute(1,parameters);
+    Map result = td_json_client_execute(1, parameters);
     if (result["@type"] == "error") {
       if (!isThrowOnError) {
         return result;
