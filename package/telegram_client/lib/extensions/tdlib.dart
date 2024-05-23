@@ -47,7 +47,7 @@ extension TdlibMethodExtensions on Tdlib {
     Duration? durationCacheExpire,
     bool is_ban_members = false,
     List<int>? whiteListUserIds,
-    int? clientId,
+    required int clientId,
     FutureOr<void> Function(List<int> gban_user_ids)? onData,
     dynamic Function(Map data, int client_id)? onProcces,
   }) async {
@@ -204,7 +204,6 @@ extension TdlibMethodExtensions on Tdlib {
           int gban_user_id = gban_user_ids[index];
           await Future.delayed(Duration(milliseconds: 500));
           try {
-           
             await invoke(
               "banChatMember",
               parameters: {
@@ -247,7 +246,7 @@ extension TdlibMethodExtensions on Tdlib {
     bool remove_from_chat_list = false,
     bool revoke = false,
     bool is_blocked = true,
-    int? clientId,
+    required int clientId,
     bool isVoid = false,
     Duration? delayDuration,
     Duration? delayLoop,
@@ -316,7 +315,7 @@ extension TdlibMethodExtensions on Tdlib {
     required chat_id,
     bool remove_from_chat_list = true,
     bool revoke = true,
-    int? clientId,
+    required int clientId,
     bool isVoid = false,
     Duration? delayDuration,
     bool? isUseCache,
@@ -343,7 +342,7 @@ extension TdlibMethodExtensions on Tdlib {
   Future<Map> toggleMessageSenderIsBlocked({
     required int user_id,
     bool is_blocked = false,
-    int? clientId,
+    required int clientId,
     bool isVoid = false,
     String? extra,
     bool? isUseCache,
@@ -370,7 +369,7 @@ extension TdlibMethodExtensions on Tdlib {
   Future<Map> getAllMembers({
     required chat_id,
     bool isDetail = false,
-    int? clientId,
+    required int clientId,
     Duration? delayLoop,
     dynamic Function(Map data, int client_id)? onProcces,
     bool? isUseCache,
@@ -431,7 +430,7 @@ extension TdlibMethodExtensions on Tdlib {
                       "@type": "user",
                       "id": memberUserId,
                     },
-                    client_id,
+                    0,
                   );
                 }
               }
@@ -458,7 +457,7 @@ extension TdlibMethodExtensions on Tdlib {
           if (onProcces != null) {
             onProcces.call(
               user_detail["result"] as Map,
-              client_id,
+              0,
             );
           }
         } catch (e) {

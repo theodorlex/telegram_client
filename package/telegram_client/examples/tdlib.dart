@@ -79,6 +79,8 @@ void main(List<String> args) async {
     }
   });
 
-  await tdlib.initIsolate();
+  await tdlib.createclient(
+    clientId: tdlib.td_create_client_id(),
+  );
   print("Client running...");
 }

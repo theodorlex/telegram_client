@@ -145,7 +145,6 @@ class TelegramClient {
         pathTdl: pathTdlib,
         is_cli: telegramClientTdlibOption.is_cli,
         clientOption: telegramClientTdlibOption.clientOption,
-        clientId: telegramClientTdlibOption.clientId,
         timeOutUpdate: telegramClientTdlibOption.timeOutUpdate,
         invokeTimeOut: telegramClientTdlibOption.invokeTimeOut,
         event_invoke: event_invoke,
@@ -421,8 +420,8 @@ class TelegramClient {
     bool? isAutoGetChat,
     bool isInvokeThrowOnError = true,
     bool isAutoExtendMessage = false,
-    FutureOr<String> Function(int client_id, LibTdJson libTdJson)? onGenerateExtraInvoke,
-    FutureOr<Map<dynamic, dynamic>> Function(String, int client_id, LibTdJson libTdJson)? onGetInvokeData,
+    FutureOr<String> Function(int client_id, TdlibNative libTdJson)? onGenerateExtraInvoke,
+    FutureOr<Map<dynamic, dynamic>> Function(String, int client_id, TdlibNative libTdJson)? onGetInvokeData,
   }) async {
     // telegramClientLib ??= telegram_client_lib;
     if (telegramClientData.telegramClientType == TelegramClientType.telegam_bot_api) {
@@ -511,8 +510,8 @@ class TelegramClient {
     bool? isAutoGetChat,
     bool isInvokeThrowOnError = true,
     bool isAutoExtendMessage = false,
-    FutureOr<String> Function(int client_id, LibTdJson libTdJson)? onGenerateExtraInvoke,
-    FutureOr<Map<dynamic, dynamic>> Function(String, int client_id, LibTdJson libTdJson)? onGetInvokeData,
+    FutureOr<String> Function(int client_id, TdlibNative libTdJson)? onGenerateExtraInvoke,
+    FutureOr<Map<dynamic, dynamic>> Function(String, int client_id, TdlibNative libTdJson)? onGetInvokeData,
   }) async {
     if (telegramClientData.telegramClientType != TelegramClientType.tdlib) {
       return await invoke(

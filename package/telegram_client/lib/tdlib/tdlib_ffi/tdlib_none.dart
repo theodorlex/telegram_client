@@ -61,7 +61,7 @@ import 'package:telegram_client/tdlib/update_td.dart';
 /// tg.initIsolate();
 /// ````
 ///
-class LibTdJson {
+class TdlibNative {
   ReceivePort receivePort = ReceivePort();
   TdlibOptionParameter client_option = TdlibOptionParameter.create(
     api_id: 0,
@@ -93,7 +93,7 @@ class LibTdJson {
 
   Map<int, TdlibClient> clients = {};
   // Map<int, TdlibClient> client = {};
-  int client_id = 0;
+  // int client_id = 0;
   int task_count = 0;
   String event_invoke = "invoke";
   String event_update = "update";
@@ -104,12 +104,12 @@ class LibTdJson {
   Duration invoke_time_out = Duration(minutes: 10);
   double timeOutUpdate;
   bool is_invoke_throw_on_error = false;
-  FutureOr<void> Function(dynamic update, LibTdJson libTdJson)? on_receive_update;
-  FutureOr<String> Function(int client_id, LibTdJson libTdJson)? on_generate_extra_invoke;
-  FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)? on_get_invoke_data;
+  FutureOr<void> Function(dynamic update, TdlibNative libTdJson)? on_receive_update;
+  FutureOr<String> Function(int client_id, TdlibNative libTdJson)? on_generate_extra_invoke;
+  FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)? on_get_invoke_data;
   int task_max_count;
   int task_min_cooldown;
-  LibTdJson({
+  TdlibNative({
     String? pathTdl,
     TdlibOptionParameter? clientOption,
     this.task_max_count = 10000,
@@ -170,8 +170,7 @@ class LibTdJson {
           event_emitter.emit(event_update, null, tdlibIsolateReceiveData);
         }
       } else if (update is TdlibIsolateReceiveDataError) {
-        is_init_isolate = false;
-        await initIsolate();
+        is_init_isolate = false; 
       }
     });
   }
@@ -219,6 +218,9 @@ class LibTdJson {
     return;
   }
 
+Future<void> ensureInitialized()async{
+
+}
   /// td_send
   void td_send(int clientId, [Map? parameters]) {
     return;
@@ -244,17 +246,24 @@ class LibTdJson {
     return;
   }
 
+  int get first_client_id {
+    try {
+      return clients.keys.firstOrNull ?? 0;
+    } catch (e) {}
+    return 0;
+  }
   /// add this for multithread on flutter apps
-  Future<Map> initIsolate({
-    int? clientId,
+  Future<Map> createclient({
+    required int clientId,
     int clientUserId = 0,
-    Map? clientOption,
+    TdlibOptionParameter? clientOption,
+    bool isBot = false,
     bool isVoid = false,
   }) async {
-    clientId ??= client_id;
+    //
     Map client_new_option = client_option.rawData.clone();
     if (clientOption != null) {
-      client_new_option.addAll(clientOption);
+      // client_new_option.addAll(clientOption);
     }
     TdlibClient tdlibClient = TdlibClient(
       client_id: clientId,
@@ -279,24 +288,7 @@ class LibTdJson {
       isInvokeThrowOnError: false,
     );
   }
-
-  /// add this for multithread new client on flutter apps
-  Future<Map> initIsolateNewClient({
-    required int clientId,
-    required TdlibOptionParameter clientOption,
-    int clientUserId = 0,
-    bool isVoid = false,
-  }) async {
-    return await initIsolate(
-      clientId: clientId,
-      clientOption: {
-        ...client_option.rawData,
-        ...clientOption.rawData,
-      },
-      clientUserId: clientUserId,
-      isVoid: isVoid,
-    );
-  }
+ 
 
   // exit
   TdlibClient? getClientByUserId(int clientUserId) {
@@ -420,7 +412,7 @@ class LibTdJson {
   Future<Map> invoke(
     String method, {
     Map? parameters,
-    int? clientId,
+    required int clientId,
     bool isVoid = false,
     Duration? delayDuration,
     Duration? invokeTimeOut,
@@ -429,21 +421,18 @@ class LibTdJson {
     String? extra,
     bool? isAutoGetChat,
     bool? isInvokeThrowOnError,
-    FutureOr<String> Function(int client_id, LibTdJson libTdJson)? onGenerateExtraInvoke,
-    FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)? onGetInvokeData,
+    FutureOr<String> Function(int client_id, TdlibNative libTdJson)? onGenerateExtraInvoke,
+    FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)? onGetInvokeData,
   }) async {
     isUseCache ??= false;
     isInvokeThrowOnError ??= is_invoke_throw_on_error;
     onGetInvokeData ??= on_get_invoke_data;
     onGenerateExtraInvoke ??= on_generate_extra_invoke;
     isAutoGetChat ??= is_auto_get_chat;
-    clientId ??= client_id;
+
     invokeTimeOut ??= invoke_time_out;
     parameters ??= {};
-    if (clientId == 0) {
-      clientId = client_id;
-    }
-
+    
     String extra_id = "";
 
     bool is_set_extra_from_function = false;
@@ -543,7 +532,7 @@ class LibTdJson {
   Future<Map> request(
     String method, {
     Map? parameters,
-    int? clientId,
+    required int clientId,
     bool isVoid = false,
     Duration? delayDuration,
     Duration? invokeTimeOut,
@@ -551,8 +540,8 @@ class LibTdJson {
     Duration? durationCacheExpire,
     String? extra,
     bool? isAutoGetChat,
-    FutureOr<String> Function(int client_id, LibTdJson libTdJson)? onGenerateExtraInvoke,
-    FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)? onGetInvokeData,
+    FutureOr<String> Function(int client_id, TdlibNative libTdJson)? onGenerateExtraInvoke,
+    FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)? onGetInvokeData,
     bool? isInvokeThrowOnError,
   }) async {
     return await invoke(
@@ -587,36 +576,25 @@ class LibTdJson {
   /// );
   /// ```
   Map invokeSync(
-    String method, {
-    Map? parameters,
-    int? clientId,
+    {
+    required Map parameters, 
     bool isThrowOnError = true,
   }) {
-    clientId ??= client_id;
-    parameters ??= {};
-    if (clientId == 0) {
-      clientId = client_id;
-    }
-
+    
     String random = generateUuid(15);
     if (parameters is Map) {
       parameters["@extra"] = random;
     } else {
       parameters["@extra"] = random;
     }
+ 
 
-    var requestMethod = {
-      "@type": method,
-      "client_id": clientId,
-      ...parameters,
-    };
-
-    Map result = td_json_client_execute(clientId, requestMethod);
+    Map result = td_json_client_execute(1,parameters);
     if (result["@type"] == "error") {
       if (!isThrowOnError) {
         return result;
       }
-      result["invoke_request"] = requestMethod;
+      result["invoke_request"] = parameters;
       throw result;
     }
     return result;

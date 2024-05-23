@@ -66,7 +66,7 @@ import 'update_td.dart';
 /// ````
 ///
 ///
-class Tdlib extends LibTdJson {
+class Tdlib extends TdlibNative {
   /// Cheatset
   ///
   /// Minimalist Setup
@@ -148,7 +148,7 @@ class Tdlib extends LibTdJson {
     super.is_cli,
     super.task_max_count,
     super.task_min_cooldown,
-    int? clientId,
+    // int? clientId,
     super.invokeTimeOut,
     super.event_invoke = "invoke",
     super.event_update = "update",
@@ -162,18 +162,18 @@ class Tdlib extends LibTdJson {
     super.on_generate_extra_invoke,
     super.isInvokeThrowOnError,
   }) {
-    if (clientId != null) {
-      client_option["start"] = false;
-      client_id = clientId;
-    }
     if (client_option['new_verbosity_level'] is int == false) {
       client_option['new_verbosity_level'] = 0;
     }
+
     if (client_option["start"] == true) {
-      invokeSync("setLogVerbosityLevel", parameters: {
-        "new_verbosity_level": client_option['new_verbosity_level'],
-      });
-      client_id = td_create_client_id();
+      invokeSync(
+        parameters: {
+          "@type": "setLogVerbosityLevel",
+          "new_verbosity_level": client_option['new_verbosity_level'],
+        },
+      );
+      ensureInitialized();
     }
   }
 
@@ -181,7 +181,7 @@ class Tdlib extends LibTdJson {
   Future<Map?> initClient(
     UpdateTd update, {
     Map? tdlibParameters,
-    int? clientId,
+    required int clientId,
     bool isVoid = false,
     String? extra,
     bool? isUseCache,
@@ -342,13 +342,13 @@ class Tdlib extends LibTdJson {
         );
         array.add({
           "@type": "invoke",
-          "@client_id": client_id,
+          "@client_id": clientId,
           "data": result,
         });
       } catch (e) {
         array.add({
           "@type": "error",
-          "@client_id": client_id,
+          "@client_id": clientId,
           "message": "${e}",
         });
       }
@@ -357,9 +357,8 @@ class Tdlib extends LibTdJson {
   }
 
   /// invokeSync  request all client
-  List<Map> invokeSyncAllClients(
-    String method, {
-    Map? parameters,
+  List<Map> invokeSyncAllClients({
+    required Map parameters,
     bool isVoid = false,
     Duration? delayDuration,
     Duration? invokeTimeOut,
@@ -371,19 +370,17 @@ class Tdlib extends LibTdJson {
       int clientId = get_all_client_ids[i];
       try {
         var result = invokeSync(
-          method,
           parameters: parameters,
-          clientId: clientId,
         );
         array.add({
           "@type": "invoke",
-          "@client_id": client_id,
+          "@client_id": clientId,
           "data": result,
         });
       } catch (e) {
         array.add({
           "@type": "error",
-          "@client_id": client_id,
+          "@client_id": clientId,
           "message": "${e}",
         });
       }
@@ -417,13 +414,13 @@ class Tdlib extends LibTdJson {
         );
         array.add({
           "@type": "invoke",
-          "@client_id": client_id,
+          "@client_id": clientId,
           "data": result,
         });
       } catch (e) {
         array.add({
           "@type": "error",
-          "@client_id": client_id,
+          "@client_id": clientId,
           "message": "${e}",
         });
       }
@@ -668,12 +665,12 @@ class Tdlib extends LibTdJson {
   /// }
   /// ```
   Future<Map> getMe({
-    required int? clientId,
+    required int clientId,
     bool? isUseCache,
     Duration? durationCacheExpire,
     String? extra,
   }) async {
-    clientId ??= client_id;
+    //
     var get_me = await invoke(
       "getMe",
       clientId: clientId,
@@ -868,20 +865,20 @@ class Tdlib extends LibTdJson {
   Future<Map> requestInvoke(
     String method, {
     Map? parameters,
-    int? clientId,
+    required int clientId,
     bool isVoid = false,
     Duration? delayDuration,
     Duration? invokeTimeOut,
     String? extra,
     bool? isAutoGetChat,
-    FutureOr<String> Function(int client_id, LibTdJson libTdJson)? onGenerateExtraInvoke,
-    FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)? onGetInvokeData,
+    FutureOr<String> Function(int client_id, TdlibNative libTdJson)? onGenerateExtraInvoke,
+    FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)? onGetInvokeData,
     bool? isInvokeThrowOnError,
     bool isAutoExtendMessage = false,
     bool? isUseCache,
     Duration? durationCacheExpire,
   }) async {
-    clientId ??= client_id;
+    //
     parameters ??= {};
 
     isAutoGetChat ??= false;
@@ -1008,7 +1005,6 @@ class Tdlib extends LibTdJson {
         onTimeout: () {
           return {
             "@type": "error",
-
           };
         },
       );
@@ -1226,12 +1222,10 @@ class Tdlib extends LibTdJson {
 
     if (parameters["is_sync"] != null) {
       return invokeSync(
-        method,
         parameters: makeParametersApi({
           "@type": method,
           ...parameters,
         }),
-        clientId: clientId,
         isThrowOnError: isInvokeThrowOnError ?? false,
       );
     } else {
@@ -1272,20 +1266,20 @@ class Tdlib extends LibTdJson {
   Future<Map> request(
     String method, {
     Map? parameters,
-    int? clientId,
+    required int clientId,
     bool isVoid = false,
     Duration? delayDuration,
     Duration? invokeTimeOut,
     String? extra,
     bool? isAutoGetChat,
-    FutureOr<String> Function(int client_id, LibTdJson libTdJson)? onGenerateExtraInvoke,
-    FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)? onGetInvokeData,
+    FutureOr<String> Function(int client_id, TdlibNative libTdJson)? onGenerateExtraInvoke,
+    FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)? onGetInvokeData,
     bool? isInvokeThrowOnError,
     bool isAutoExtendMessage = false,
     bool? isUseCache,
     Duration? durationCacheExpire,
   }) async {
-    clientId ??= client_id;
+    //
     parameters ??= {};
 
     if (isAutoExtendMessage) {
@@ -1402,17 +1396,16 @@ class Tdlib extends LibTdJson {
   Future<Map> getMessage(
     dynamic chat_id,
     dynamic message_id, {
-      // getMessageLocally
+    // getMessageLocally
     required String methodName,
     bool is_detail = false,
     bool is_skip_reply_message = false,
     bool is_super_detail = false,
-    required int? clientId,
+    required int clientId,
     String? extra,
     bool? isUseCache,
     Duration? durationCacheExpire,
   }) async {
-    clientId ??= client_id;
     var get_message = await invoke(
       methodName,
       parameters: {
@@ -1452,12 +1445,11 @@ class Tdlib extends LibTdJson {
     List? entities,
     bool? disable_web_page_preview = false,
     Map? reply_markup,
-    required int? clientId,
+    required int clientId,
     String? extra,
     bool? isUseCache,
     Duration? durationCacheExpire,
   }) async {
-    clientId ??= client_id;
     entities ??= [];
     var pesan = parseMode(text, parse_mode, entities);
     if (inline_message_id is String && inline_message_id.isNotEmpty) {
@@ -1509,12 +1501,11 @@ class Tdlib extends LibTdJson {
     List? entities,
     bool? disable_web_page_preview = false,
     Map? reply_markup,
-    required int? clientId,
+    required int clientId,
     String? extra,
     bool? isUseCache,
     Duration? durationCacheExpire,
   }) async {
-    clientId ??= client_id;
     entities ??= [];
     var pesan = parseMode(caption, parse_mode, entities);
     if (inline_message_id is String && inline_message_id.isNotEmpty) {
@@ -1560,12 +1551,11 @@ class Tdlib extends LibTdJson {
   Future<Map> getChatMember(
     dynamic chat_id,
     dynamic user_id, {
-    required int? clientId,
+    required int clientId,
     String? extra,
     bool? isUseCache,
     Duration? durationCacheExpire,
   }) async {
-    clientId ??= client_id;
     chat_id ??= 0;
     user_id ??= 0;
     if (RegExp("^@.*", caseSensitive: false).hashData(chat_id)) {
@@ -1652,12 +1642,11 @@ class Tdlib extends LibTdJson {
     bool is_detail = false,
     bool is_super_detail = false,
     bool is_more_detail = false,
-    required int? clientId,
+    required int clientId,
     bool? isUseCache,
     Duration? durationCacheExpire,
     String? extra,
   }) async {
-    clientId ??= client_id;
     try {
       if (chat_id is String && RegExp(r"^((@)?[a-z0-9_]+)$", caseSensitive: false).hashData(chat_id)) {
         var search_public_chat = await invoke(
@@ -2006,13 +1995,11 @@ class Tdlib extends LibTdJson {
     bool show_alert = false,
     String? url,
     int? cache_time,
-    required int? clientId,
+    required int clientId,
     String? extra,
     bool? isUseCache,
     Duration? durationCacheExpire,
   }) async {
-    clientId ??= client_id;
-
     Map<String, dynamic> data = {
       "callback_query_id": callback_query_id,
     };
@@ -2052,9 +2039,8 @@ class Tdlib extends LibTdJson {
     bool is_super_detail = false,
     bool is_more_detail = false,
     bool is_from_send_message = false,
-    required int? clientId,
+    required int clientId,
   }) async {
-    clientId ??= client_id;
     try {
       if (update["@type"] == "message") {
         Map json = {
@@ -2971,12 +2957,11 @@ class Tdlib extends LibTdJson {
   /// ```
   Future<Map> getUser(
     dynamic user_id, {
-    required int? clientId,
+    required int clientId,
     bool? isUseCache,
     Duration? durationCacheExpire,
     String? extra,
   }) async {
-    clientId ??= client_id;
     var get_user = await invoke(
       "getUser",
       parameters: {

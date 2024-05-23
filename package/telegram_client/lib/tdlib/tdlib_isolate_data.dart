@@ -31,11 +31,10 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 <!-- END LICENSE --> */
 import 'package:telegram_client/isolate/isolate.dart';
-import 'package:telegram_client/scheme/scheme.dart';
+
 
 class TdlibIsolateData {
-  SendPort sendPort;
-  TdlibClient tdlibClient;
+  SendPort sendPort; 
   String pathTdlib;
   bool isAndroid;
   bool isCli;
@@ -43,8 +42,7 @@ class TdlibIsolateData {
   double timeOutUpdate;
   TdlibIsolateData({
     required this.isCli,
-    required this.sendPort,
-    required this.tdlibClient,
+    required this.sendPort, 
     required this.pathTdlib,
     required this.isAndroid,
     required this.delayUpdate,

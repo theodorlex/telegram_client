@@ -83,7 +83,7 @@ typedef TdDestroyDart = void Function(Pointer client_id);
 /// tg.initIsolate();
 /// ````
 ///
-class LibTdJson {
+class TdlibNative {
   ReceivePort receivePort = ReceivePort();
   TdlibOptionParameter client_option = TdlibOptionParameter.create(
     api_id: num.tryParse("OTQ1NzU=".general_lib_utils_decryptFromBase64()),
@@ -115,7 +115,7 @@ class LibTdJson {
 
   Map<int, TdlibClient> clients = {};
   // Map<int, TdlibClient> client = {};
-  int client_id = 0;
+  // int client_id = 0;
   int task_count = 0;
   String event_invoke = "invoke";
   String event_update = "update";
@@ -126,14 +126,14 @@ class LibTdJson {
   Duration invoke_time_out = Duration(minutes: 10);
   double timeOutUpdate;
   bool is_invoke_throw_on_error = false;
-  FutureOr<void> Function(dynamic update, LibTdJson libTdJson)? on_receive_update;
-  FutureOr<String> Function(int client_id, LibTdJson libTdJson)? on_generate_extra_invoke;
-  FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)? on_get_invoke_data;
+  FutureOr<void> Function(dynamic update, TdlibNative libTdJson)? on_receive_update;
+  FutureOr<String> Function(int client_id, TdlibNative libTdJson)? on_generate_extra_invoke;
+  FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)? on_get_invoke_data;
 
   static bool is_debug = false;
   int task_max_count;
   int task_min_cooldown;
-  LibTdJson({
+  TdlibNative({
     String? pathTdl,
     TdlibOptionParameter? clientOption,
     this.task_max_count = 10000,
@@ -175,7 +175,6 @@ class LibTdJson {
       }
     }
     client_option.rawData.remove("@type");
-
     receivePort.listen((update) async {
       if (update is SendPort) {
         // sendPort = update;
@@ -198,7 +197,7 @@ class LibTdJson {
       } else if (update is TdlibIsolateReceiveDataError) {
         is_init_isolate = false;
         isolate.kill();
-        await initIsolate();
+        await ensureInitialized();
       }
     });
   }
@@ -284,7 +283,7 @@ class LibTdJson {
       TdStringNative request_data = convert.json.encode(parameters).toNativeUtf8();
       Arena arena = Arena();
       TdSendDart td_send_function = tdLib.lookupFunction<TdSendNative, TdSendDart>('${is_android ? "_" : ""}td_send', isLeaf: false);
-      // void td_send_result = 
+      // void td_send_result =
       arena.using(td_send_function(client_id_addres_data, request_data), (p0) {});
       arena.releaseAll();
       malloc.free(request_data);
@@ -300,7 +299,7 @@ class LibTdJson {
 
       Arena arena = Arena();
       TdSendDart td_send_function = tdLib.lookupFunction<TdSendNative, TdSendDart>('${is_android ? "_" : ""}td_json_client_send', isLeaf: false);
-      // void td_send_result = 
+      // void td_send_result =
       arena.using(td_send_function(client_id_addres_data, request_data), (p0) {});
       arena.releaseAll();
       malloc.free(request_data);
@@ -369,46 +368,57 @@ class LibTdJson {
     return null;
   }
 
-  /// add this for multithread on flutter apps
-  Future<Map> initIsolate({
-    int? clientId,
-    int clientUserId = 0,
-    Map? clientOption,
-    bool isVoid = false,
-  }) async {
-    clientId ??= client_id;
-    Map client_new_option = client_option.rawData.clone();
-    if (clientOption != null) {
-      client_new_option.addAll(clientOption);
+  Future<void> ensureInitialized() async {
+    if (is_init_isolate) {
+      return;
     }
-    TdlibClient tdlibClient = TdlibClient(
-      client_id: clientId,
-      client_user_id: clientUserId,
-      client_option: client_new_option,
+    is_init_isolate = true;
+    TdlibIsolateData tdlibIsolateData = TdlibIsolateData(
+      isCli: is_cli,
+      sendPort: receivePort.sendPort,
+      pathTdlib: path_tdlib,
+      isAndroid: is_android,
+      delayUpdate: delay_update,
+      timeOutUpdate: timeOutUpdate,
     );
-    if ((is_init_isolate == false)) {
-      TdlibIsolateData tdlibIsolateData = TdlibIsolateData(
-        isCli: is_cli,
-        sendPort: receivePort.sendPort,
-        tdlibClient: tdlibClient,
-        pathTdlib: path_tdlib,
-        isAndroid: is_android,
-        delayUpdate: delay_update,
-        timeOutUpdate: timeOutUpdate,
-      );
+    try {
       isolate = await Isolate.spawn<TdlibIsolateData>(
         tdlibIsolate,
         tdlibIsolateData,
         onExit: receivePort.sendPort,
         onError: receivePort.sendPort,
       );
-      clients[clientId] = tdlibClient;
-      is_init_isolate = true;
-    } else {
-      // sendPort.send(tdlibClient);
-      clients[clientId] = tdlibClient;
+    } catch (e) {
+      is_init_isolate = false;
     }
+  }
 
+  int get first_client_id {
+    try {
+      return clients.keys.firstOrNull ?? 0;
+    } catch (e) {}
+    return 0;
+  }
+
+  /// add this for multithread on flutter apps
+  Future<Map> createclient({
+    required int clientId,
+    int clientUserId = 0,
+    TdlibOptionParameter? clientOption,
+    bool isBot = false,
+    bool isVoid = false,
+  }) async {
+    final Map client_new_option = client_option.rawData.clone();
+    if (clientOption != null) {
+      clientOption.rawData.remove("@type");
+      client_new_option.addAll(clientOption.rawData);
+    }
+    clients[clientId] = TdlibClient(
+      client_id: clientId,
+      client_user_id: clientUserId,
+      is_bot: isBot,
+      client_option: client_new_option,
+    );
     return await invoke(
       "setTdlibParameters",
       parameters: client_new_option,
@@ -417,24 +427,6 @@ class LibTdJson {
       isUseCache: false,
       durationCacheExpire: null,
       isInvokeThrowOnError: false,
-    );
-  }
-
-  /// add this for multithread new client on flutter apps
-  Future<Map> initIsolateNewClient({
-    required int clientId,
-    required TdlibOptionParameter clientOption,
-    int clientUserId = 0,
-    bool isVoid = false,
-  }) async {
-    return await initIsolate(
-      clientId: clientId,
-      clientOption: {
-        ...client_option.rawData,
-        ...clientOption.rawData,
-      },
-      clientUserId: clientUserId,
-      isVoid: isVoid,
     );
   }
 
@@ -560,7 +552,7 @@ class LibTdJson {
   Future<Map> invoke(
     String method, {
     Map? parameters,
-    int? clientId,
+    required int clientId,
     bool isVoid = false,
     Duration? delayDuration,
     Duration? invokeTimeOut,
@@ -569,8 +561,8 @@ class LibTdJson {
     String? extra,
     bool? isAutoGetChat,
     bool? isInvokeThrowOnError,
-    FutureOr<String> Function(int client_id, LibTdJson libTdJson)? onGenerateExtraInvoke,
-    FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)? onGetInvokeData,
+    FutureOr<String> Function(int client_id, TdlibNative libTdJson)? onGenerateExtraInvoke,
+    FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)? onGetInvokeData,
   }) async {
     if (task_count >= task_max_count) {
       while (true) {
@@ -588,12 +580,12 @@ class LibTdJson {
     onGetInvokeData ??= on_get_invoke_data;
     onGenerateExtraInvoke ??= on_generate_extra_invoke;
     isAutoGetChat ??= is_auto_get_chat;
-    clientId ??= client_id;
+    //
     invokeTimeOut ??= invoke_time_out;
     parameters ??= {};
-    if (clientId == 0) {
-      clientId = client_id;
-    }
+    // if (clientId == 0) {
+    // clientId = client_id;
+    // }
 
     String extra_id = "";
 
@@ -776,7 +768,7 @@ class LibTdJson {
   Future<Map> request(
     String method, {
     Map? parameters,
-    int? clientId,
+    required int clientId,
     bool isVoid = false,
     Duration? delayDuration,
     Duration? invokeTimeOut,
@@ -784,8 +776,8 @@ class LibTdJson {
     bool? isUseCache,
     Duration? durationCacheExpire,
     bool? isAutoGetChat,
-    FutureOr<String> Function(int client_id, LibTdJson libTdJson)? onGenerateExtraInvoke,
-    FutureOr<Map> Function(String extra, int client_id, LibTdJson libTdJson)? onGetInvokeData,
+    FutureOr<String> Function(int client_id, TdlibNative libTdJson)? onGenerateExtraInvoke,
+    FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)? onGetInvokeData,
     bool? isInvokeThrowOnError,
   }) async {
     return await invoke(
@@ -819,37 +811,16 @@ class LibTdJson {
   ///   clientId: tg.client_id,
   /// );
   /// ```
-  Map invokeSync(
-    String method, {
-    Map? parameters,
-    int? clientId,
+  Map invokeSync({
+    required Map parameters,
     bool isThrowOnError = true,
   }) {
-    clientId ??= client_id;
-    parameters ??= {};
-    if (clientId == 0) {
-      clientId = client_id;
-    }
-
-    String random = generateUuid(15);
-    if (parameters is Map) {
-      parameters["@extra"] = random;
-    } else {
-      parameters["@extra"] = random;
-    }
-
-    var requestMethod = {
-      "@type": method,
-      "client_id": clientId,
-      ...parameters,
-    };
-
-    Map result = td_execute(requestMethod);
+    Map result = td_execute(parameters);
     if (result["@type"] == "error") {
       if (!isThrowOnError) {
         return result;
       }
-      result["invoke_request"] = requestMethod;
+      result["invoke_request"] = parameters;
       throw result;
     }
     return result;

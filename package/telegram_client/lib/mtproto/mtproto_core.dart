@@ -203,11 +203,10 @@ class Mtproto {
 
   /// add this for multithread on flutter apps
   Future<void> initIsolate({
-    int? clientId,
+    required int clientId,
     int clientUserId = 0,
     Map? clientOption,
   }) async {
-    clientId ??= client_id;
     Map client_new_option = client_option.clone();
     if (clientOption != null) {
       client_new_option.addAll(clientOption);
@@ -333,7 +332,7 @@ class Mtproto {
   Future<Map> invoke(
     String method, {
     Map<String, dynamic>? parameters,
-    int? clientId,
+    required int clientId,
     bool isVoid = false,
     Duration? delayDuration,
     Duration? invokeTimeOut,
@@ -346,7 +345,7 @@ class Mtproto {
     onGetInvokeData ??= on_get_invoke_data;
     onGenerateExtraInvoke ??= on_generate_extra_invoke;
     iSAutoGetChat ??= is_auto_get_chat;
-    clientId ??= client_id;
+
     invokeTimeOut ??= invoke_time_out;
     parameters ??= {};
     if (clientId == 0) {
@@ -465,10 +464,9 @@ class Mtproto {
   Map invokeSync(
     String method, {
     Map<String, dynamic>? parameters,
-    int? clientId,
+    required int clientId,
     bool isThrowOnError = true,
   }) {
-    clientId ??= client_id;
     parameters ??= {};
     if (clientId == 0) {
       clientId = client_id;

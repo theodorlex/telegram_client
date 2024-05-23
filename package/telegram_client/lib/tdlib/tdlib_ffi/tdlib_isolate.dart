@@ -43,7 +43,7 @@ import 'package:telegram_client/tdlib/tdlib_ffi/tdlib_io.dart';
 
 /// add this for multithread new client on flutter apps
 Future<void> tdlibIsolate(TdlibIsolateData tdlibIsolateData) async {
-  LibTdJson.opentdLib(
+  TdlibNative.opentdLib(
     isCli: tdlibIsolateData.isCli,
     pathTdlib: tdlibIsolateData.pathTdlib,
   );
@@ -51,7 +51,7 @@ Future<void> tdlibIsolate(TdlibIsolateData tdlibIsolateData) async {
     // Duration duration = tdlibIsolateData.delayUpdate ?? Duration(microseconds: 1);
     while (true) {
       // await Future.delayed(duration);
-      Map? new_update = LibTdJson.td_receive_static(
+      Map? new_update = TdlibNative.td_receive_static(
         timeout: tdlibIsolateData.timeOutUpdate,
         isAndroid: tdlibIsolateData.isAndroid,
       );
