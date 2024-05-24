@@ -68,7 +68,7 @@ extension MessageDataDataOn on TelegramClient {
             (message_from_json["from"] as Map).addAll({
               "first_name": "",
               "last_name": "",
-              "is_lite": true,
+              "type": "user", 
             });
           } else {
             var res = await request(
@@ -134,6 +134,7 @@ extension MessageDataDataOn on TelegramClient {
         if (message["chat_id"] == message_sender_chat_json["sender_chat"]["id"]) {
           message_from_json["from"] = <dynamic, dynamic>{
             "id": 1087968824,
+            "is_bot": true,
           };
           if (is_lite) {
           } else {
@@ -174,6 +175,7 @@ extension MessageDataDataOn on TelegramClient {
       "chat": message_chat_json,
       "date": message["date"],
       "is_outgoing": (message["is_outgoing"] == true),
+      "is_lite": is_lite,
       "content_type": "",
     };
 
@@ -713,8 +715,8 @@ extension MessageDataDataOn on TelegramClient {
         message: message,
         telegramClientData: telegramClientData,
         is_lite: is_lite,
-        isUseCache: updataOptionTelegramClient.updataMessageTelegramClient.is_use_cache,
-        durationCacheExpire: updataOptionTelegramClient.updataMessageTelegramClient.duration_expire_cache,
+        // isUseCache: updataOptionTelegramClient.updataMessageTelegramClient.is_use_cache,
+        // durationCacheExpire: updataOptionTelegramClient.updataMessageTelegramClient.duration_expire_cache,
       );
 
       if (msg["chat"]["type"] == "channel") {

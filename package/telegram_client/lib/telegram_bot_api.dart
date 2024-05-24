@@ -30,8 +30,6 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
-export "tdlib_core.dart";
-export "update_td.dart";
-export "tdlib_isolate_data.dart";
-export "tdlib_invoke_result.dart";
-export "tdlib_isolate_receive_data.dart";
+
+export 'package:telegram_client/telegram_bot_api_server/telegram_bot_api_server.dart';
+export "package:telegram_client/telegram_bot_api/telegram_bot_api.dart"; 

@@ -302,8 +302,9 @@ class TdlibNative {
   }
 
   /// get all client id
-  List<int> getAllClientIds() {
-    return clients.entries.map((e) => e.key).toList();
+  Iterable<int> getAllClientIds() {
+    return clients.keys;
+    // return clients.entries.map((e) => e.key).toList();
     // return clients
     //     .map((e) {
     //       return e.client_id;

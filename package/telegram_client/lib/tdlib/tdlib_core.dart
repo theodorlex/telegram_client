@@ -38,6 +38,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 import 'dart:async';
 import 'dart:convert' as convert;
 import 'package:general_lib/general_lib.dart';
+import 'package:telegram_client/tdlib/tdlib_invoke_result.dart';
 import 'package:telegram_client/util/util.dart';
 import 'package:universal_io/io.dart';
 import 'tdlib_ffi/tdlib.dart';
@@ -291,14 +292,11 @@ class Tdlib extends TdlibNative {
   }
 
   /// getMe all client
-  Future<List<Map>> getMeClients({
+  Stream<Map> getMeClients({
     bool? isUseCache,
     Duration? durationCacheExpire,
-  }) async {
-    List<int> get_all_client_ids = getAllClientIds();
-    List<Map> array = [];
-    for (var i = 0; i < get_all_client_ids.length; i++) {
-      int clientId = get_all_client_ids[i];
+  }) async* {
+    for (int clientId in getAllClientIds()) {
       try {
         Map get_me_result = await getMeClient(
           clientId: clientId,
@@ -306,15 +304,14 @@ class Tdlib extends TdlibNative {
           durationCacheExpire: durationCacheExpire,
         );
         if (get_me_result["ok"] == true && get_me_result["result"] is Map) {
-          array.add((get_me_result["result"] as Map));
+          yield (get_me_result["result"] as Map);
         }
       } catch (e) {}
     }
-    return array;
   }
 
   /// invoke request all client
-  Future<List<Map>> invokeAllClients(
+  Stream<TdlibInvokeResult> invokeAllClients(
     String method, {
     Map? parameters,
     bool isVoid = false,
@@ -323,13 +320,10 @@ class Tdlib extends TdlibNative {
     Duration? delayDuration,
     Duration? invokeTimeOut,
     String? extra,
-  }) async {
-    List<int> get_all_client_ids = getAllClientIds();
-    List<Map> array = [];
-    for (var i = 0; i < get_all_client_ids.length; i++) {
-      int clientId = get_all_client_ids[i];
+  }) async* {
+    for (int clientId in getAllClientIds()) {
       try {
-        var result = await invoke(
+        Map result = await invoke(
           method,
           parameters: parameters,
           isUseCache: isUseCache,
@@ -339,69 +333,63 @@ class Tdlib extends TdlibNative {
           delayDuration: delayDuration,
           invokeTimeOut: invokeTimeOut,
           extra: extra,
+          isInvokeThrowOnError: false,
         );
-        array.add({
-          "@type": "invoke",
-          "@client_id": clientId,
-          "data": result,
-        });
+
+        yield TdlibInvokeResult(
+          client_id: clientId,
+          result: result,
+        );
       } catch (e) {
-        array.add({
-          "@type": "error",
-          "@client_id": clientId,
-          "message": "${e}",
-        });
+        if (e is Map) {
+          yield TdlibInvokeResult(
+            client_id: clientId,
+            result: e,
+          );
+        }
       }
     }
-    return array;
   }
 
   /// invokeSync  request all client
-  List<Map> invokeSyncAllClients({
+  Stream<TdlibInvokeResult> invokeSyncAllClients({
     required Map parameters,
     bool isVoid = false,
     Duration? delayDuration,
     Duration? invokeTimeOut,
     String? extra,
-  }) {
-    List<int> get_all_client_ids = getAllClientIds();
-    List<Map> array = [];
-    for (var i = 0; i < get_all_client_ids.length; i++) {
-      int clientId = get_all_client_ids[i];
+  }) async* {
+    for (int clientId in getAllClientIds()) {
       try {
         var result = invokeSync(
           parameters: parameters,
         );
-        array.add({
-          "@type": "invoke",
-          "@client_id": clientId,
-          "data": result,
-        });
+        yield TdlibInvokeResult(
+          client_id: clientId,
+          result: result,
+        );
       } catch (e) {
-        array.add({
-          "@type": "error",
-          "@client_id": clientId,
-          "message": "${e}",
-        });
+        if (e is Map) {
+          yield TdlibInvokeResult(
+            client_id: clientId,
+            result: e,
+          );
+        }
       }
     }
-    return array;
   }
 
   /// invoke request all client
-  Future<List<Map>> requestAllClients(
+  Stream<TdlibInvokeResult> requestAllClients(
     String method, {
     Map? parameters,
     bool isVoid = false,
     String? extra,
     bool? isUseCache,
     Duration? durationCacheExpire,
-  }) async {
+  }) async* {
     parameters ??= {};
-    List<int> get_all_client_ids = getAllClientIds();
-    List<Map> array = [];
-    for (var i = 0; i < get_all_client_ids.length; i++) {
-      int clientId = get_all_client_ids[i];
+    for (int clientId in getAllClientIds()) {
       try {
         var result = await request(
           method,
@@ -412,20 +400,20 @@ class Tdlib extends TdlibNative {
           isUseCache: isUseCache,
           durationCacheExpire: durationCacheExpire,
         );
-        array.add({
-          "@type": "invoke",
-          "@client_id": clientId,
-          "data": result,
-        });
+        yield TdlibInvokeResult(
+          client_id: clientId,
+          result: result,
+        );
       } catch (e) {
-        array.add({
-          "@type": "error",
-          "@client_id": clientId,
-          "message": "${e}",
-        });
+        if (e is Map){
+
+        yield TdlibInvokeResult(
+          client_id: clientId,
+          result: e,
+        );
+        }
       }
     }
-    return array;
   }
 
   /// getRandom uuid for parameters @

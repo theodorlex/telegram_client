@@ -99,11 +99,7 @@ void main(List<String> args) async {
         Map? update = await updateTelegramClient.updateRaw(
           is_lite: false,
           updataOptionTelegramClient: UpdataOptionTelegramClient(
-            updataMessageTelegramClient: UpdataMessageTelegramClient(
-              is_use_cache: true,
-              duration_expire_cache: Duration(
-                minutes: 10,
-              ),
+            updataMessageTelegramClient: UpdataMessageTelegramClient( 
             ),
           ),
         );

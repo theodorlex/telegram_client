@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 /* <!-- START LICENSE -->
 
 
@@ -30,8 +32,13 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
-export "tdlib_core.dart";
-export "update_td.dart";
-export "tdlib_isolate_data.dart";
-export "tdlib_invoke_result.dart";
-export "tdlib_isolate_receive_data.dart";
+
+///
+class TdlibInvokeResult {
+  final int client_id;
+  final Map result;
+  TdlibInvokeResult({
+    required this.client_id,
+    required this.result,
+  });
+}
