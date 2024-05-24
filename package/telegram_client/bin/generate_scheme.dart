@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 /* <!-- START LICENSE -->
 
 
@@ -55,7 +57,7 @@ void main(List<String> args) async {
       "database_key": "",
       "start": true,
       "database_encryption_key": "",
-  "use_test_dc": false,
+      "use_test_dc": false,
     },
   ];
 

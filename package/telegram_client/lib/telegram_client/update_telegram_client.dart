@@ -62,11 +62,14 @@ class UpdateTelegramClient {
   }
 
   Map tgClientData() {
-    if (telegramClientData.telegramClientType == TelegramClientType.telegam_bot_api) {
-      Map decyprt = json.decode(tg.telegramBotApi.telegram_crypto.decrypt(data_base64: query["tg"]));
+    if (telegramClientData.telegramClientType ==
+        TelegramClientType.telegam_bot_api) {
+      Map decyprt = json.decode(
+          tg.telegramBotApi.telegram_crypto.decrypt(data_base64: query["tg"]));
 
       if (decyprt["client_user_id"] == null || decyprt["client_user_id"] == 0) {
-        decyprt["client_user_id"] = TgUtils.parserBotUserIdFromToken(decyprt["client_token"]);
+        decyprt["client_user_id"] =
+            TgUtils.parserBotUserIdFromToken(decyprt["client_token"]);
       }
       return decyprt;
     }
@@ -78,14 +81,16 @@ class UpdateTelegramClient {
     required bool is_lite,
     required UpdataOptionTelegramClient updataOptionTelegramClient,
   }) async {
-    if (telegramClientData.telegramClientType == TelegramClientType.telegam_bot_api) {
+    if (telegramClientData.telegramClientType ==
+        TelegramClientType.telegam_bot_api) {
       return rawData;
     }
     if (rawData["@type"] == "updateAuthorizationState") {
       return rawData;
     }
 
-    if (rawData["@type"] == "updateNewCallbackQuery" || rawData["@type"] == "updateNewInlineCallbackQuery") {
+    if (rawData["@type"] == "updateNewCallbackQuery" ||
+        rawData["@type"] == "updateNewInlineCallbackQuery") {
       return await tg.callbackQuery_toJson(
         update: rawData,
         telegramClientData: telegramClientData,
@@ -118,8 +123,8 @@ class UpdateTelegramClient {
       is_lite: true,
       updataOptionTelegramClient: UpdataOptionTelegramClient(
         updataMessageTelegramClient: UpdataMessageTelegramClient(
-          // is_use_cache: true,
-        ),
+            // is_use_cache: true,
+            ),
       ),
     );
   }

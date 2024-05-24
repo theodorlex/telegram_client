@@ -48,7 +48,8 @@ class TelegramClientTdlibOption {
   EventEmitter? eventEmitter;
   bool isAutoGetChat;
 
-  FutureOr<Map<dynamic, dynamic>> Function(String, int, TdlibNative)? on_get_invoke_data;
+  FutureOr<Map<dynamic, dynamic>> Function(String, int, TdlibNative)?
+      on_get_invoke_data;
   FutureOr<void> Function(dynamic, TdlibNative)? on_receive_update;
   FutureOr<String> Function(int, TdlibNative)? on_generate_extra_invoke;
   bool isInvokeThrowOnError;

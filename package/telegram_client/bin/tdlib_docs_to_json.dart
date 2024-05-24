@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps
 
 import 'package:general_lib/general_lib.dart';
 
@@ -50,8 +50,13 @@ string 	application_version_
       .trim();
 
   Map parameters_data = {};
-  
-  List<RegExpMatch> parameters_regex = params.split("\n").map((e) => RegExp("^(([a-z]+)([ \t])+((.*)(_)))", caseSensitive: false).firstMatch(e)).whereType<RegExpMatch>().toList();
+
+  List<RegExpMatch> parameters_regex = params
+      .split("\n")
+      .map((e) => RegExp("^(([a-z]+)([ \t])+((.*)(_)))", caseSensitive: false)
+          .firstMatch(e))
+      .whereType<RegExpMatch>()
+      .toList();
   for (var i = 0; i < parameters_regex.length; i++) {
     RegExpMatch regExpMatch = parameters_regex[i];
     String value = regExpMatch.group(2) ?? "";

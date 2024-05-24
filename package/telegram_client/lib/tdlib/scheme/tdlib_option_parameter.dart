@@ -2,21 +2,37 @@
 import "package:general_lib/general_lib.dart";
 // import "dart:convert";
 
-
- 
 class TdlibOptionParameter extends JsonScheme {
-
-  
   TdlibOptionParameter(super.rawData);
-   
+
   static Map get defaultData {
-    return {"@type":"tdlibOptionParameter","api_id":0,"api_hash":"","database_directory":"tg_db","files_directory":"tg_file","use_file_database":true,"use_chat_info_database":true,"use_message_database":true,"use_secret_chats":true,"enable_storage_optimizer":true,"system_language_code":"en","new_verbosity_level":0,"application_version":"v1","device_model":"Telegram Client","system_version":"Linux 6.8.0-31-generic #31-Ubuntu SMP PREEMPT_DYNAMIC Sat Apr 20 00:40:06 UTC 2024","database_key":"","start":true,"database_encryption_key":"","use_test_dc":false};
+    return {
+      "@type": "tdlibOptionParameter",
+      "api_id": 0,
+      "api_hash": "",
+      "database_directory": "tg_db",
+      "files_directory": "tg_file",
+      "use_file_database": true,
+      "use_chat_info_database": true,
+      "use_message_database": true,
+      "use_secret_chats": true,
+      "enable_storage_optimizer": true,
+      "system_language_code": "en",
+      "new_verbosity_level": 0,
+      "application_version": "v1",
+      "device_model": "Telegram Client",
+      "system_version":
+          "Linux 6.8.0-31-generic #31-Ubuntu SMP PREEMPT_DYNAMIC Sat Apr 20 00:40:06 UTC 2024",
+      "database_key": "",
+      "start": true,
+      "database_encryption_key": "",
+      "use_test_dc": false
+    };
   }
 
-  
   String? get special_type {
     try {
-      if (rawData["@type"] is String == false){
+      if (rawData["@type"] is String == false) {
         return null;
       }
       return rawData["@type"] as String;
@@ -25,16 +41,13 @@ class TdlibOptionParameter extends JsonScheme {
     }
   }
 
-  
   set special_type(String? value) {
     rawData["@type"] = value;
   }
 
-
-  
   num? get api_id {
     try {
-      if (rawData["api_id"] is num == false){
+      if (rawData["api_id"] is num == false) {
         return null;
       }
       return rawData["api_id"] as num;
@@ -43,16 +56,13 @@ class TdlibOptionParameter extends JsonScheme {
     }
   }
 
-  
   set api_id(num? value) {
     rawData["api_id"] = value;
   }
 
-
-  
   String? get api_hash {
     try {
-      if (rawData["api_hash"] is String == false){
+      if (rawData["api_hash"] is String == false) {
         return null;
       }
       return rawData["api_hash"] as String;
@@ -61,16 +71,13 @@ class TdlibOptionParameter extends JsonScheme {
     }
   }
 
-  
   set api_hash(String? value) {
     rawData["api_hash"] = value;
   }
 
-
-  
   String? get database_directory {
     try {
-      if (rawData["database_directory"] is String == false){
+      if (rawData["database_directory"] is String == false) {
         return null;
       }
       return rawData["database_directory"] as String;
@@ -79,16 +86,13 @@ class TdlibOptionParameter extends JsonScheme {
     }
   }
 
-  
   set database_directory(String? value) {
     rawData["database_directory"] = value;
   }
 
-
-  
   String? get files_directory {
     try {
-      if (rawData["files_directory"] is String == false){
+      if (rawData["files_directory"] is String == false) {
         return null;
       }
       return rawData["files_directory"] as String;
@@ -97,16 +101,13 @@ class TdlibOptionParameter extends JsonScheme {
     }
   }
 
-  
   set files_directory(String? value) {
     rawData["files_directory"] = value;
   }
 
-
-  
   bool? get use_file_database {
     try {
-      if (rawData["use_file_database"] is bool == false){
+      if (rawData["use_file_database"] is bool == false) {
         return null;
       }
       return rawData["use_file_database"] as bool;
@@ -115,16 +116,13 @@ class TdlibOptionParameter extends JsonScheme {
     }
   }
 
-  
   set use_file_database(bool? value) {
     rawData["use_file_database"] = value;
   }
 
-
-  
   bool? get use_chat_info_database {
     try {
-      if (rawData["use_chat_info_database"] is bool == false){
+      if (rawData["use_chat_info_database"] is bool == false) {
         return null;
       }
       return rawData["use_chat_info_database"] as bool;
@@ -133,16 +131,13 @@ class TdlibOptionParameter extends JsonScheme {
     }
   }
 
-  
   set use_chat_info_database(bool? value) {
     rawData["use_chat_info_database"] = value;
   }
 
-
-  
   bool? get use_message_database {
     try {
-      if (rawData["use_message_database"] is bool == false){
+      if (rawData["use_message_database"] is bool == false) {
         return null;
       }
       return rawData["use_message_database"] as bool;
@@ -151,16 +146,13 @@ class TdlibOptionParameter extends JsonScheme {
     }
   }
 
-  
   set use_message_database(bool? value) {
     rawData["use_message_database"] = value;
   }
 
-
-  
   bool? get use_secret_chats {
     try {
-      if (rawData["use_secret_chats"] is bool == false){
+      if (rawData["use_secret_chats"] is bool == false) {
         return null;
       }
       return rawData["use_secret_chats"] as bool;
@@ -169,16 +161,13 @@ class TdlibOptionParameter extends JsonScheme {
     }
   }
 
-  
   set use_secret_chats(bool? value) {
     rawData["use_secret_chats"] = value;
   }
 
-
-  
   bool? get enable_storage_optimizer {
     try {
-      if (rawData["enable_storage_optimizer"] is bool == false){
+      if (rawData["enable_storage_optimizer"] is bool == false) {
         return null;
       }
       return rawData["enable_storage_optimizer"] as bool;
@@ -187,16 +176,13 @@ class TdlibOptionParameter extends JsonScheme {
     }
   }
 
-  
   set enable_storage_optimizer(bool? value) {
     rawData["enable_storage_optimizer"] = value;
   }
 
-
-  
   String? get system_language_code {
     try {
-      if (rawData["system_language_code"] is String == false){
+      if (rawData["system_language_code"] is String == false) {
         return null;
       }
       return rawData["system_language_code"] as String;
@@ -205,16 +191,13 @@ class TdlibOptionParameter extends JsonScheme {
     }
   }
 
-  
   set system_language_code(String? value) {
     rawData["system_language_code"] = value;
   }
 
-
-  
   num? get new_verbosity_level {
     try {
-      if (rawData["new_verbosity_level"] is num == false){
+      if (rawData["new_verbosity_level"] is num == false) {
         return null;
       }
       return rawData["new_verbosity_level"] as num;
@@ -223,16 +206,13 @@ class TdlibOptionParameter extends JsonScheme {
     }
   }
 
-  
   set new_verbosity_level(num? value) {
     rawData["new_verbosity_level"] = value;
   }
 
-
-  
   String? get application_version {
     try {
-      if (rawData["application_version"] is String == false){
+      if (rawData["application_version"] is String == false) {
         return null;
       }
       return rawData["application_version"] as String;
@@ -241,16 +221,13 @@ class TdlibOptionParameter extends JsonScheme {
     }
   }
 
-  
   set application_version(String? value) {
     rawData["application_version"] = value;
   }
 
-
-  
   String? get device_model {
     try {
-      if (rawData["device_model"] is String == false){
+      if (rawData["device_model"] is String == false) {
         return null;
       }
       return rawData["device_model"] as String;
@@ -259,16 +236,13 @@ class TdlibOptionParameter extends JsonScheme {
     }
   }
 
-  
   set device_model(String? value) {
     rawData["device_model"] = value;
   }
 
-
-  
   String? get system_version {
     try {
-      if (rawData["system_version"] is String == false){
+      if (rawData["system_version"] is String == false) {
         return null;
       }
       return rawData["system_version"] as String;
@@ -277,16 +251,13 @@ class TdlibOptionParameter extends JsonScheme {
     }
   }
 
-  
   set system_version(String? value) {
     rawData["system_version"] = value;
   }
 
-
-  
   String? get database_key {
     try {
-      if (rawData["database_key"] is String == false){
+      if (rawData["database_key"] is String == false) {
         return null;
       }
       return rawData["database_key"] as String;
@@ -295,16 +266,13 @@ class TdlibOptionParameter extends JsonScheme {
     }
   }
 
-  
   set database_key(String? value) {
     rawData["database_key"] = value;
   }
 
-
-  
   bool? get start {
     try {
-      if (rawData["start"] is bool == false){
+      if (rawData["start"] is bool == false) {
         return null;
       }
       return rawData["start"] as bool;
@@ -313,16 +281,13 @@ class TdlibOptionParameter extends JsonScheme {
     }
   }
 
-  
   set start(bool? value) {
     rawData["start"] = value;
   }
 
-
-  
   String? get database_encryption_key {
     try {
-      if (rawData["database_encryption_key"] is String == false){
+      if (rawData["database_encryption_key"] is String == false) {
         return null;
       }
       return rawData["database_encryption_key"] as String;
@@ -331,16 +296,13 @@ class TdlibOptionParameter extends JsonScheme {
     }
   }
 
-  
   set database_encryption_key(String? value) {
     rawData["database_encryption_key"] = value;
   }
 
-
-  
   bool? get use_test_dc {
     try {
-      if (rawData["use_test_dc"] is bool == false){
+      if (rawData["use_test_dc"] is bool == false) {
         return null;
       }
       return rawData["use_test_dc"] as bool;
@@ -349,15 +311,11 @@ class TdlibOptionParameter extends JsonScheme {
     }
   }
 
-  
   set use_test_dc(bool? value) {
     rawData["use_test_dc"] = value;
   }
 
-
-  
   static TdlibOptionParameter create({
-
     String special_type = "tdlibOptionParameter",
     num? api_id,
     String? api_hash,
@@ -377,10 +335,9 @@ class TdlibOptionParameter extends JsonScheme {
     bool? start,
     String? database_encryption_key,
     bool? use_test_dc,
-})  {
+  }) {
     // TdlibOptionParameter tdlibOptionParameter = TdlibOptionParameter({
-Map tdlibOptionParameter_data_create_json = {
-  
+    Map tdlibOptionParameter_data_create_json = {
       "@type": special_type,
       "api_id": api_id,
       "api_hash": api_hash,
@@ -400,17 +357,13 @@ Map tdlibOptionParameter_data_create_json = {
       "start": start,
       "database_encryption_key": database_encryption_key,
       "use_test_dc": use_test_dc,
+    };
 
+    tdlibOptionParameter_data_create_json
+        .removeWhere((key, value) => value == null);
+    TdlibOptionParameter tdlibOptionParameter_data_create =
+        TdlibOptionParameter(tdlibOptionParameter_data_create_json);
 
-};
-
-
-          tdlibOptionParameter_data_create_json.removeWhere((key, value) => value == null);
-TdlibOptionParameter tdlibOptionParameter_data_create = TdlibOptionParameter(tdlibOptionParameter_data_create_json);
-
-return tdlibOptionParameter_data_create;
-
-
-
-      }
+    return tdlibOptionParameter_data_create;
+  }
 }

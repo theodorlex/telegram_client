@@ -38,7 +38,9 @@ import 'package:telegram_client/tdlib/tdlib.dart';
 
 void main(List<String> args) async {
   print("Start Program");
-  Tdlib tdlib = Tdlib(pathTdl: "path_to_tdlib/libtdjson.so", clientOption: TdlibOptionParameter.create());
+  Tdlib tdlib = Tdlib(
+      pathTdl: "path_to_tdlib/libtdjson.so",
+      clientOption: TdlibOptionParameter.create());
 
   tdlib.on(tdlib.event_update, (UpdateTd updateTd) async {
     Map update = updateTd.update;
@@ -46,7 +48,8 @@ void main(List<String> args) async {
     if (update["@type"] == "updateAuthorizationState") {
       if (update["authorization_state"] is Map) {
         Map authorization_state = update["authorization_state"];
-        if (authorization_state["@type"] == "authorizationStateWaitPhoneNumber") {
+        if (authorization_state["@type"] ==
+            "authorizationStateWaitPhoneNumber") {
           Map res = await tdlib.invoke(
             "setAuthenticationPhoneNumber",
             parameters: {
