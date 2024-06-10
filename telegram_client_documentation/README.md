@@ -1,0 +1,1 @@
+flutter build web --release --web-renderer html --no-web-resources-cdn --pwa-strategy none --output ../docs/web --no-tree-shake-icons
