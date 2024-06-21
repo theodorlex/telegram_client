@@ -48,7 +48,7 @@ import "package:path/path.dart" as path;
 Logger logger = Logger();
 
 /// Telegram Client Api For Interact With Library
-Future<void> packageFullTemplateDartCli(List<String> args_raw) async {
+Future<void> telegramClientCli(List<String> args_raw) async {
   TelegramClientApi packageFullTemplateDartApi = TelegramClientApi();
   Args args = Args(args_raw);
 
