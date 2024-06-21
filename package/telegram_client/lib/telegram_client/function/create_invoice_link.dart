@@ -34,6 +34,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 import 'dart:async';
 
+import 'package:general_lib/general_lib.dart';
 import 'package:telegram_client/telegram_client/telegram_client.dart';
 
 import 'package:telegram_client/telegram_client/call_api_invoke.dart';
@@ -45,9 +46,52 @@ extension CreateInvoiceLinkDataOn on TelegramClient {
     required Map parameters,
     required TelegramClientCallApiInvoke callApiInvoke,
   }) async {
-    Map newScheme = {
-      "@type": "template",
+    // "@type": "createInvoiceLink",
+    // "title": "slebew",
+    // "description": "slennew",
+    // "payload": "salpDlpd",
+    // "currency": "XTR",
+    // "prices": [
+    //   {
+    //     "label": "Slebewff",
+    //     "amount": 1,
+    //   }
+    // ]
+    if (parameters["prices"] is List == false) {
+      parameters["prices"] = {};
+    }
+
+    Map request_parameters = <dynamic, dynamic>{
+      "@type": "createInvoiceLink",
+      "invoice": <dynamic, dynamic>{
+        "@type": "inputMessageInvoice",
+        "title": parameters["title"],
+        "description": parameters["description"],
+        "payload": parameters["payload"].toString().general_lib_utils_encryptToBase64(),
+        "invoice": <dynamic, dynamic>{
+          "@type": "invoice",
+          "currency": parameters["currency"],
+          "price_parts": (parameters["prices"] as List)
+              .map((e) {
+                if (e is Map == false) {
+                  return null;
+                }
+                Map<dynamic, dynamic> json_data_price = <dynamic, dynamic>{
+                  "@type": "labeledPricePart",
+                  ...e,
+                };
+                return json_data_price;
+              })
+              .whereType<Map>()
+              .toList(),
+        },
+      }
     };
-    return newScheme;
+
+    Map message_send = await callApiInvoke(
+      parameters: request_parameters,
+    );
+    message_send["result"] = message_send["url"];
+    return message_send;
   }
 }

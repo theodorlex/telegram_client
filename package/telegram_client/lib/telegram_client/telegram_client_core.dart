@@ -39,6 +39,7 @@ import 'package:telegram_client/telegram_client/function/answer_inline_query.dar
 import 'package:telegram_client/telegram_client/function/ban_chat_member.dart';
 import 'package:telegram_client/telegram_client/function/ban_chat_sender_chat.dart';
 import 'package:telegram_client/telegram_client/function/copy_message.dart';
+import 'package:telegram_client/telegram_client/function/create_invoice_link.dart';
 import 'package:telegram_client/telegram_client/function/delete_message.dart';
 import 'package:telegram_client/telegram_client/function/delete_messages.dart';
 import 'package:telegram_client/telegram_client/function/edit_message_caption.dart';
@@ -80,8 +81,7 @@ import 'package:telegram_client/telegram_client/function/un_pin_all_chat_message
 import 'package:telegram_client/telegram_client/function/un_pin_chat_message.dart';
 import 'package:telegram_client/telegram_client/function/view_message.dart';
 import 'package:telegram_client/telegram_client/function/view_messages.dart';
-import "package:telegram_client/telegram_client/scheme/scheme.dart"
-    as telegram_client_scheme;
+import "package:telegram_client/telegram_client/scheme/scheme.dart" as telegram_client_scheme;
 import 'package:universal_io/io.dart';
 
 /// return original data json
@@ -134,11 +134,9 @@ class TelegramClient {
         event_update: event_update,
         clientOption: telegramClientTelegramBotApiOption.clientOption,
         eventEmitter: event_emitter,
-        serverUniverseNative:
-            telegramClientTelegramBotApiOption.serverUniverseNative,
+        serverUniverseNative: telegramClientTelegramBotApiOption.serverUniverseNative,
         telegramCryptoKey: telegramClientTelegramBotApiOption.telegramCryptoKey,
-        telegramUrlWebhook:
-            telegramClientTelegramBotApiOption.telegramUrlWebhook,
+        telegramUrlWebhook: telegramClientTelegramBotApiOption.telegramUrlWebhook,
         httpClient: telegramClientTelegramBotApiOption.httpClient,
       );
       telegramBotApi.initServer();
@@ -155,8 +153,7 @@ class TelegramClient {
         delayUpdate: telegramClientTdlibOption.delayUpdate,
         delayInvoke: telegramClientTdlibOption.delayInvoke,
         isAutoGetChat: telegramClientTdlibOption.isAutoGetChat,
-        on_generate_extra_invoke:
-            telegramClientTdlibOption.on_generate_extra_invoke,
+        on_generate_extra_invoke: telegramClientTdlibOption.on_generate_extra_invoke,
         on_get_invoke_data: telegramClientTdlibOption.on_get_invoke_data,
         on_receive_update: telegramClientTdlibOption.on_receive_update,
         isInvokeThrowOnError: telegramClientTdlibOption.isInvokeThrowOnError,
@@ -168,8 +165,7 @@ class TelegramClient {
   }
 
   Future<void> autoSetData(UpdateTelegramClient updateTelegramClient) async {
-    if (updateTelegramClient.telegramClientData.telegramClientType ==
-        TelegramClientType.tdlib) {
+    if (updateTelegramClient.telegramClientData.telegramClientType == TelegramClientType.tdlib) {
       Map update_raw = updateTelegramClient.rawData;
 
       if (update_raw["@type"] == "updateAuthorizationState") {
@@ -195,16 +191,13 @@ class TelegramClient {
               return "";
             }();
 
-            TdlibClient? tdlibClient = tdlib.clients[
-                updateTelegramClient.telegramClientData.tdlib_client_id];
+            TdlibClient? tdlibClient = tdlib.clients[updateTelegramClient.telegramClientData.tdlib_client_id];
             if (tdlibClient == null) {
               tdlibClient ??= TdlibClient(
-                client_id:
-                    updateTelegramClient.telegramClientData.tdlib_client_id,
+                client_id: updateTelegramClient.telegramClientData.tdlib_client_id,
                 client_option: updateTelegramClient.client_option,
               );
-              tdlib.clients[updateTelegramClient
-                  .telegramClientData.tdlib_client_id] = tdlibClient;
+              tdlib.clients[updateTelegramClient.telegramClientData.tdlib_client_id] = tdlibClient;
             }
 
             bool is_constain_update = false;
@@ -219,41 +212,32 @@ class TelegramClient {
                 updateTelegramClient.telegramClientData.is_bot = true;
               }
             }
-            if (updateTelegramClient.client_option["client_first_name"] !=
-                user["first_name"]) {
+            if (updateTelegramClient.client_option["client_first_name"] != user["first_name"]) {
               is_constain_update = true;
-              tdlibClient.client_option["client_first_name"] =
-                  user["first_name"];
+              tdlibClient.client_option["client_first_name"] = user["first_name"];
             }
-            if (updateTelegramClient.client_option["client_first_name"] !=
-                user["last_name"]) {
+            if (updateTelegramClient.client_option["client_first_name"] != user["last_name"]) {
               is_constain_update = true;
               tdlibClient.client_option["client_last_name"] = user["last_name"];
             }
 
-            if (updateTelegramClient.client_option["client_title"] !=
-                "${user["first_name"]} ${user["last_name"]}".trim()) {
+            if (updateTelegramClient.client_option["client_title"] != "${user["first_name"]} ${user["last_name"]}".trim()) {
               is_constain_update = true;
-              tdlibClient.client_option["client_title"] =
-                  "${user["first_name"]} ${user["last_name"]}".trim();
+              tdlibClient.client_option["client_title"] = "${user["first_name"]} ${user["last_name"]}".trim();
             }
             if (tdlibClient.client_option["client_user_id"] != user["id"]) {
               is_constain_update = true;
               tdlibClient.client_option["client_user_id"] = user["id"];
             }
 
-            if (updateTelegramClient.client_option["client_username"] !=
-                user_usename) {
+            if (updateTelegramClient.client_option["client_username"] != user_usename) {
               is_constain_update = true;
               tdlibClient.client_option["client_username"] = user_usename;
-              updateTelegramClient.telegramClientData.client_user_name =
-                  user_usename;
+              updateTelegramClient.telegramClientData.client_user_name = user_usename;
             }
 
             if (is_constain_update) {
-              await tdlib.updateClientById(
-                  updateTelegramClient.telegramClientData.tdlib_client_id,
-                  newTdlibClient: tdlibClient);
+              await tdlib.updateClientById(updateTelegramClient.telegramClientData.tdlib_client_id, newTdlibClient: tdlibClient);
             }
           }
         }
@@ -263,8 +247,7 @@ class TelegramClient {
         if (update_raw["user"] is Map) {
           Map user = update_raw["user"];
 
-          if (user["id"] ==
-              updateTelegramClient.telegramClientData.client_user_id) {
+          if (user["id"] == updateTelegramClient.telegramClientData.client_user_id) {
             // int user_id = user["id"];
             String user_usename = () {
               if (user["usernames"] is Map) {
@@ -275,18 +258,15 @@ class TelegramClient {
               return "";
             }();
 
-            TdlibClient? tdlibClient = tdlib.clients[
-                updateTelegramClient.telegramClientData.tdlib_client_id];
+            TdlibClient? tdlibClient = tdlib.clients[updateTelegramClient.telegramClientData.tdlib_client_id];
 
             bool is_constain_update = false;
             if (tdlibClient == null) {
               tdlibClient ??= TdlibClient(
-                client_id:
-                    updateTelegramClient.telegramClientData.tdlib_client_id,
+                client_id: updateTelegramClient.telegramClientData.tdlib_client_id,
                 client_option: updateTelegramClient.client_option,
               );
-              tdlib.clients[updateTelegramClient
-                  .telegramClientData.tdlib_client_id] = tdlibClient;
+              tdlib.clients[updateTelegramClient.telegramClientData.tdlib_client_id] = tdlibClient;
               is_constain_update = true;
             }
 
@@ -298,41 +278,32 @@ class TelegramClient {
                 updateTelegramClient.telegramClientData.is_bot = true;
               }
             }
-            if (updateTelegramClient.client_option["client_first_name"] !=
-                user["first_name"]) {
+            if (updateTelegramClient.client_option["client_first_name"] != user["first_name"]) {
               is_constain_update = true;
-              tdlibClient.client_option["client_first_name"] =
-                  user["first_name"];
+              tdlibClient.client_option["client_first_name"] = user["first_name"];
             }
-            if (updateTelegramClient.client_option["client_first_name"] !=
-                user["last_name"]) {
+            if (updateTelegramClient.client_option["client_first_name"] != user["last_name"]) {
               is_constain_update = true;
               tdlibClient.client_option["client_last_name"] = user["last_name"];
             }
 
-            if (updateTelegramClient.client_option["client_title"] !=
-                "${user["first_name"]} ${user["last_name"]}".trim()) {
+            if (updateTelegramClient.client_option["client_title"] != "${user["first_name"]} ${user["last_name"]}".trim()) {
               is_constain_update = true;
-              tdlibClient.client_option["client_title"] =
-                  "${user["first_name"]} ${user["last_name"]}".trim();
+              tdlibClient.client_option["client_title"] = "${user["first_name"]} ${user["last_name"]}".trim();
             }
             if (tdlibClient.client_option["client_user_id"] != user["id"]) {
               is_constain_update = true;
               tdlibClient.client_option["client_user_id"] = user["id"];
             }
 
-            if (updateTelegramClient.client_option["client_username"] !=
-                user_usename) {
+            if (updateTelegramClient.client_option["client_username"] != user_usename) {
               is_constain_update = true;
               tdlibClient.client_option["client_username"] = user_usename;
-              updateTelegramClient.telegramClientData.client_user_name =
-                  user_usename;
+              updateTelegramClient.telegramClientData.client_user_name = user_usename;
             }
 
             if (is_constain_update) {
-              await tdlib.updateClientById(
-                  updateTelegramClient.telegramClientData.tdlib_client_id,
-                  newTdlibClient: tdlibClient);
+              await tdlib.updateClientById(updateTelegramClient.telegramClientData.tdlib_client_id, newTdlibClient: tdlibClient);
             }
           }
         }
@@ -343,11 +314,8 @@ class TelegramClient {
   /// return original data json
   EventEmitterListener on({
     required String event_name,
-    required FutureOr<dynamic> Function(
-            UpdateTelegramClient updateTelegramClient)
-        onUpdate,
-    required FutureOr<dynamic> Function(Object error, StackTrace stackTrace)
-        onError,
+    required FutureOr<dynamic> Function(UpdateTelegramClient updateTelegramClient) onUpdate,
+    required FutureOr<dynamic> Function(Object error, StackTrace stackTrace) onError,
   }) {
     return event_emitter.on(event_name, null, (ev, context) async {
       try {
@@ -370,11 +338,9 @@ class TelegramClient {
         }
 
         if (ev.eventData is TdlibIsolateReceiveData) {
-          TdlibIsolateReceiveData tdlibIsolateReceiveData =
-              (ev.eventData as TdlibIsolateReceiveData);
+          TdlibIsolateReceiveData tdlibIsolateReceiveData = (ev.eventData as TdlibIsolateReceiveData);
 
-          TdlibClient? tdlibClient =
-              tdlib.clients[tdlibIsolateReceiveData.clientId];
+          TdlibClient? tdlibClient = tdlib.clients[tdlibIsolateReceiveData.clientId];
 
           UpdateTd updateTd = UpdateTd(
             update: tdlibIsolateReceiveData.updateData,
@@ -402,8 +368,7 @@ class TelegramClient {
                 client_user_name: () {
                   try {
                     if (tdlibClient != null) {
-                      if (tdlibClient.client_option["client_username"]
-                          is String) {
+                      if (tdlibClient.client_option["client_username"] is String) {
                         return tdlibClient.client_option["client_username"];
                       }
                     }
@@ -456,15 +421,11 @@ class TelegramClient {
     bool? isAutoGetChat,
     bool isInvokeThrowOnError = true,
     bool isAutoExtendMessage = false,
-    FutureOr<String> Function(int client_id, TdlibNative libTdJson)?
-        onGenerateExtraInvoke,
-    FutureOr<Map<dynamic, dynamic>> Function(
-            String, int client_id, TdlibNative libTdJson)?
-        onGetInvokeData,
+    FutureOr<String> Function(int client_id, TdlibNative libTdJson)? onGenerateExtraInvoke,
+    FutureOr<Map<dynamic, dynamic>> Function(String, int client_id, TdlibNative libTdJson)? onGetInvokeData,
   }) async {
     // telegramClientLib ??= telegram_client_lib;
-    if (telegramClientData.telegramClientType ==
-        TelegramClientType.telegam_bot_api) {
+    if (telegramClientData.telegramClientType == TelegramClientType.telegam_bot_api) {
       Map respond = await telegramBotApi.request(
         parameters["@type"],
         tokenBot: telegramClientData.telegram_bot_api_token_bot,
@@ -550,11 +511,8 @@ class TelegramClient {
     bool? isAutoGetChat,
     bool isInvokeThrowOnError = true,
     bool isAutoExtendMessage = false,
-    FutureOr<String> Function(int client_id, TdlibNative libTdJson)?
-        onGenerateExtraInvoke,
-    FutureOr<Map<dynamic, dynamic>> Function(
-            String, int client_id, TdlibNative libTdJson)?
-        onGetInvokeData,
+    FutureOr<String> Function(int client_id, TdlibNative libTdJson)? onGenerateExtraInvoke,
+    FutureOr<Map<dynamic, dynamic>> Function(String, int client_id, TdlibNative libTdJson)? onGetInvokeData,
   }) async {
     if (telegramClientData.telegramClientType != TelegramClientType.tdlib) {
       return await invoke(
@@ -607,8 +565,7 @@ class TelegramClient {
       );
     }
 
-    if (RegExp(r"^(answerCallbackQuery)$", caseSensitive: false)
-        .hasMatch(method)) {
+    if (RegExp(r"^(answerCallbackQuery)$", caseSensitive: false).hasMatch(method)) {
       return requestReturnAsApi(
         is_return_as_api: is_return_as_api,
         result: await answerCallbackQuery(
@@ -618,8 +575,7 @@ class TelegramClient {
       );
     }
 
-    if (RegExp(r"^(answerInlineQuery)$", caseSensitive: false)
-        .hasMatch(method)) {
+    if (RegExp(r"^(answerInlineQuery)$", caseSensitive: false).hasMatch(method)) {
       return requestReturnAsApi(
         is_return_as_api: is_return_as_api,
         result: await answerInlineQuery(
@@ -638,8 +594,7 @@ class TelegramClient {
         ),
       );
     }
-    if (RegExp(r"^(banChatSenderChat)$", caseSensitive: false)
-        .hasMatch(method)) {
+    if (RegExp(r"^(banChatSenderChat)$", caseSensitive: false).hasMatch(method)) {
       return requestReturnAsApi(
         is_return_as_api: is_return_as_api,
         result: await banChatSenderChat(
@@ -655,6 +610,15 @@ class TelegramClient {
           parameters: parameters,
           callApiInvoke: callApiInvoke,
           telegramClientData: telegramClientData,
+        ),
+      );
+    }
+    if (RegExp(r"^(createInvoiceLink)$", caseSensitive: false).hasMatch(method)) {
+      return requestReturnAsApi(
+        is_return_as_api: is_return_as_api,
+        result: await createInvoiceLink(
+          parameters: parameters,
+          callApiInvoke: callApiInvoke, 
         ),
       );
     }
@@ -686,8 +650,7 @@ class TelegramClient {
         ),
       );
     }
-    if (RegExp(r"^(editMessageCaption)$", caseSensitive: false)
-        .hasMatch(method)) {
+    if (RegExp(r"^(editMessageCaption)$", caseSensitive: false).hasMatch(method)) {
       return requestReturnAsApi(
         is_return_as_api: is_return_as_api,
         result: await editMessageCaption(
@@ -697,8 +660,7 @@ class TelegramClient {
         ),
       );
     }
-    if (RegExp(r"^(editMessageMedia)$", caseSensitive: false)
-        .hasMatch(method)) {
+    if (RegExp(r"^(editMessageMedia)$", caseSensitive: false).hasMatch(method)) {
       return requestReturnAsApi(
         is_return_as_api: is_return_as_api,
         result: await editMessageMedia(
@@ -708,8 +670,7 @@ class TelegramClient {
         ),
       );
     }
-    if (RegExp(r"^(editMessageReplyMarkup)$", caseSensitive: false)
-        .hasMatch(method)) {
+    if (RegExp(r"^(editMessageReplyMarkup)$", caseSensitive: false).hasMatch(method)) {
       return requestReturnAsApi(
         is_return_as_api: is_return_as_api,
         result: await editMessageReplyMarkup(
@@ -730,8 +691,7 @@ class TelegramClient {
         ),
       );
     }
-    if (RegExp(r"^(getChatAdministrators)$", caseSensitive: false)
-        .hasMatch(method)) {
+    if (RegExp(r"^(getChatAdministrators)$", caseSensitive: false).hasMatch(method)) {
       return requestReturnAsApi(
         is_return_as_api: is_return_as_api,
         result: await getChatAdministrators(
@@ -833,8 +793,7 @@ class TelegramClient {
         ),
       );
     }
-    if (RegExp(r"^(sendChatScreenshotTakenNotification)$", caseSensitive: false)
-        .hasMatch(method)) {
+    if (RegExp(r"^(sendChatScreenshotTakenNotification)$", caseSensitive: false).hasMatch(method)) {
       return requestReturnAsApi(
         is_return_as_api: is_return_as_api,
         result: await sendChatScreenshotTakenNotification(
@@ -1014,8 +973,7 @@ class TelegramClient {
       );
     }
 
-    if (RegExp(r"^(unPinAllChatMessages)$", caseSensitive: false)
-        .hasMatch(method)) {
+    if (RegExp(r"^(unPinAllChatMessages)$", caseSensitive: false).hasMatch(method)) {
       return requestReturnAsApi(
         is_return_as_api: is_return_as_api,
         result: await unPinAllChatMessages(
@@ -1024,8 +982,7 @@ class TelegramClient {
         ),
       );
     }
-    if (RegExp(r"^(unPinChatMessage)$", caseSensitive: false)
-        .hasMatch(method)) {
+    if (RegExp(r"^(unPinChatMessage)$", caseSensitive: false).hasMatch(method)) {
       return requestReturnAsApi(
         is_return_as_api: is_return_as_api,
         result: await unPinChatMessage(
