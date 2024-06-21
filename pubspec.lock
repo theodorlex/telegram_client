@@ -125,10 +125,10 @@ packages:
     dependency: "direct main"
     description:
       name: general_lib
-      sha256: "0a7f8153446681257ba5cd4b03fbe8eb3495270f70ec04f00bc600f0eacdef4c"
+      sha256: "31a7b5d3ddecf4f2cbec40f63343dac1394a6d66354ec95f82c6e2aa70a4237d"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.38"
+    version: "0.0.42"
   github:
     dependency: transitive
     description:
@@ -261,10 +261,10 @@ packages:
     dependency: "direct main"
     description:
       name: packagex
-      sha256: "7ab6a1216debd0e625a3a5858c41d71b3f6c2f2165387a5b91745ab6c6abe764"
+      sha256: "89368e19112ffe14c0c0dff39b43b8e9f6b4414a9677d201758b35fd804ff5a7"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.54"
+    version: "0.0.58"
   path:
     dependency: "direct main"
     description:
@@ -274,13 +274,13 @@ packages:
     source: hosted
     version: "1.9.0"
   pointycastle:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: pointycastle
-      sha256: "43ac87de6e10afabc85c445745a7b799e04de84cebaa4fd7bf55a5e1e9604d29"
+      sha256: "70fe966348fe08c34bf929582f1d8247d9d9408130723206472b4687227e4333"
       url: "https://pub.dev"
     source: hosted
-    version: "3.7.4"
+    version: "3.8.0"
   pool:
     dependency: transitive
     description:
@@ -381,10 +381,10 @@ packages:
     dependency: transitive
     description:
       name: system_info_fetch
-      sha256: "20ccf57d86b0b18859a488030fad8299e3ad4dd8b1ce845e2e686196a4bf81ce"
+      sha256: c3189eec33c5666cf6ef232de838c07b0cd973363338f6d550aecf26bdd19462
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.16"
+    version: "0.0.21"
   term_glyph:
     dependency: transitive
     description:

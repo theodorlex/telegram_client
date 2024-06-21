@@ -93,12 +93,13 @@ Future<void> pubspecUpdate({
       if (yaml_code_clone["dependencies"] is Map) {
         (yaml_code_clone["dependencies"] as Map).forEach((key, value) {
           if (key == "general_lib") {
-            yaml_code_clone["dependencies"][key] = "^0.0.40";
-          }if (key == "packagex") {
-            yaml_code_clone["dependencies"][key] = "^0.0.55";
+            // yaml_code_clone["dependencies"][key] = "^0.0.42";
+          }
+          if (key == "packagex") {
+            // yaml_code_clone["dependencies"][key] = "^0.0.55";
           }
           if (key == "server_universe") {
-            yaml_code_clone["dependencies"][key] = "^0.0.13";
+            // yaml_code_clone["dependencies"][key] = "^0.0.13";
           }
         });
       }
