@@ -12,12 +12,21 @@ dependencies:
   telegram_client: '^0.8.20'
   general_lib: '^0.0.42'
   general_lib_flutter: '^0.0.22'
+  
+  markdown_flutter: '^0.0.7'
+  markdown_widget: '^2.3.2+2'
+
+  carousel_slider: '^4.2.1'
+  easy_rich_text: '^2.1.0'
 dev_dependencies: 
   flutter_test: 
     sdk: 'flutter'
   flutter_lints: '^3.0.0'
 flutter: 
   uses-material-design: true
+
+  assets:
+    - assets/logo/telegram.png
 dependency_overrides: 
   pointycastle: '3.8.0'
 funding: 
