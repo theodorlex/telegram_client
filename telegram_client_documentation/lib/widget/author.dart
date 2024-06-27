@@ -7,7 +7,15 @@ import 'package:telegram_client_documentation/data/my_social_medias.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class AuthorWidget extends StatefulWidget {
-  const AuthorWidget({super.key});
+  final Axis direction;
+  final bool isShowTitle;
+  final String title;
+  const AuthorWidget({
+    super.key,
+    this.direction = Axis.horizontal,
+    this.isShowTitle = true,
+    this.title = "Author / Created By"
+  });
 
   @override
   State<AuthorWidget> createState() => _AuthorWidgetState();
@@ -29,51 +37,54 @@ class _AuthorWidgetState extends State<AuthorWidget> {
     links.sort();
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(5),
-          child: Builder(
-            builder: (context) {
-              TextStyle textStyle = TextStyle(
-                color: context.theme.indicatorColor,
-                fontFamily: "MochiyPopOne",
-                fontSize: context.height / 67,
-                shadows: [
-                  BoxShadow(
-                    color: context.theme.shadowColor.withAlpha(110),
-                    spreadRadius: 1,
-                    blurRadius: 7,
-                    offset: const Offset(0, 3), // changes position of shadow
+        Visibility(
+          visible: widget.isShowTitle,
+          child: Padding(
+            padding: const EdgeInsets.all(5),
+            child: Builder(
+              builder: (context) {
+                TextStyle textStyle = TextStyle(
+                  color: context.theme.indicatorColor,
+                  fontFamily: "MochiyPopOne",
+                  fontSize: context.height / 67,
+                  shadows: [
+                    BoxShadow(
+                      color: context.theme.shadowColor.withAlpha(110),
+                      spreadRadius: 1,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3), // changes position of shadow
+                    ),
+                    BoxShadow(
+                      color: context.theme.shadowColor.withAlpha(110),
+                      spreadRadius: 1,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
+                );
+                return Stack(
+                  children: List.generate(
+                    2,
+                    (index) {
+                      return Text(
+                        "${widget.title}".trim(),
+                        style: (index == 0)
+                            ? textStyle.copyWith(
+                                color: null,
+                                foreground: Paint()
+                                  ..style = PaintingStyle.stroke
+                                  ..strokeWidth = 6
+                                  ..color = context.theme.canvasColor,
+                              )
+                            : textStyle,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                      );
+                    },
                   ),
-                  BoxShadow(
-                    color: context.theme.shadowColor.withAlpha(110),
-                    spreadRadius: 1,
-                    blurRadius: 7,
-                    offset: const Offset(0, 3), // changes position of shadow
-                  ),
-                ],
-              );
-              return Stack(
-                children: List.generate(
-                  2,
-                  (index) {
-                    return Text(
-                      "Author / Created By".trim(),
-                      style: (index == 0)
-                          ? textStyle.copyWith(
-                              color: null,
-                              foreground: Paint()
-                                ..style = PaintingStyle.stroke
-                                ..strokeWidth = 6
-                                ..color = context.theme.canvasColor,
-                            )
-                          : textStyle,
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.ellipsis,
-                    );
-                  },
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         ),
         Padding(
@@ -89,6 +100,7 @@ class _AuthorWidgetState extends State<AuthorWidget> {
               spacing: spacing,
               alignment: WrapAlignment.center,
 
+              direction: widget.direction,
               // mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
                 links.length,

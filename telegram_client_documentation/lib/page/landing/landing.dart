@@ -5,6 +5,7 @@ import 'package:telegram_client_documentation/page/mtproto/mtproto.dart';
 import 'package:telegram_client_documentation/scheme/scheme.dart';
 import 'package:telegram_client_documentation/telegram_client_documentation.dart';
 import 'package:telegram_client_documentation/widget/author.dart';
+import 'package:telegram_client_documentation/widget/footer.dart';
 import 'package:telegram_client_documentation/widget/markdown/markdown.dart';
 
 class LandingPageTelegramClientDocumentation extends StatefulWidget {
@@ -361,6 +362,8 @@ Berikut adalah beberapa contoh project yang menggunakan library telegram_client
                   },
                 ),
               ),
+              FooterWidget(),
+              
             ],
           ),
         ),
