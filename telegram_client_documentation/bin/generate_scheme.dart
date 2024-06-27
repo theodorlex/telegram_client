@@ -39,19 +39,50 @@ import 'package:path/path.dart';
 // import 'package:universal_io/io.dart';
 
 void main(List<String> args) async {
-
   await jsonToScripts(
     respond_schemes,
     directory: Directory(
       join(Directory.current.path, "lib", "scheme"),
     ),
   );
- 
 }
 
-
-  List<Map> respond_schemes = [
-    {
-      "@type": "tdlibOptionParameter",
-    },
-  ];
+List<Map> respond_schemes = [
+  {
+    "@type": "tdlibOptionParameter",
+  },
+  {
+    "@type": "accountData",
+    "id": 0,
+    "first_name": "",
+    "last_name": "",
+    "username": "",
+    "profile_picture": "",
+    "bio": "",
+    "social_medias": [
+      {
+        "@type": "linkData",
+        "icon": "",
+        "title": "",
+        "value": "",
+      },
+    ]
+  },
+  {
+    "@type": "docData",
+    "doc_id": "",
+    "title": "",
+    "description": "",
+  },
+  {
+    "@type": "docsData",
+    "doc_id": "",
+    "title": "",
+    "contents": [
+      {
+        "@type": "docContents",
+        "content": "",
+      },
+    ],
+  },
+];

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:general_lib_flutter/extension/build_context.dart';
 import 'package:general_lib_flutter/general_lib_flutter.dart';
+import 'package:telegram_client_documentation/data/mkdmk.dart';
+import 'package:telegram_client_documentation/page/mtproto/mtproto.dart';
+import 'package:telegram_client_documentation/scheme/scheme.dart';
 import 'package:telegram_client_documentation/telegram_client_documentation.dart';
+import 'package:telegram_client_documentation/widget/author.dart';
 import 'package:telegram_client_documentation/widget/markdown/markdown.dart';
 
 class LandingPageTelegramClientDocumentation extends StatefulWidget {
@@ -14,7 +16,7 @@ class LandingPageTelegramClientDocumentation extends StatefulWidget {
 
 class _LandingPageTelegramClientDocumentationState extends State<LandingPageTelegramClientDocumentation> {
   GlobalKey globalKey = GlobalKey();
-
+  ScrollController scrollController = ScrollController();
   @override
   void initState() {
     // TODO: implement initState
@@ -118,9 +120,17 @@ class _LandingPageTelegramClientDocumentationState extends State<LandingPageTele
         ),
       ),
       body: SingleChildScrollView(
+        controller: scrollController,
+        physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         child: ConstrainedBox(
-          constraints: BoxConstraints(minHeight: context.height, minWidth: context.width),
+          constraints: BoxConstraints(
+            minHeight: context.height,
+            minWidth: context.width,
+            maxHeight: double.maxFinite,
+            // maxWidth: context.width,
+          ),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox.fromSize(
                 size: globalKey.sizeRenderBox(),
@@ -157,6 +167,9 @@ sehingga mudah di gunakan untuk membuat project seperti applikasi, bot, userbot,
                       ),
                       textAlign: TextAlign.center,
                     ),
+
+                    //
+                    const AuthorWidget(),
                   ],
                 ),
               ),
@@ -205,13 +218,6 @@ flutter pub add telegram_client telegram_client_linux telegram_client_android te
 import 'package:telegram_client/telegram_client.dart';
 ``` 
 
-### Docs
- 
-1. [Github Docs](https://github.com/azkadev/telegram_client/tree/main/docs)
-2. [Support Group](https://t.me/DEVELOPER_GLOBAL_PUBLIC)
-3. [Youtube](https://youtube.com/@azkadev)
-
-
 ### Quick Start
 
 ```dart
@@ -241,8 +247,8 @@ void main(List<String> args) {
                   },
                 ),
               ),
-              
-              // 
+
+              //
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
@@ -272,9 +278,89 @@ Berikut adalah beberapa contoh project yang menggunakan library telegram_client
                 ),
               ),
 
-              // 
-              // 
-              
+              //
+              //
+
+              //
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Docs",
+                      style: TextStyle(
+                        color: context.theme.indicatorColor,
+                        fontSize: 30,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                ),
+              ),
+              Flexible(
+                child: Builder(
+                  builder: (context) {
+                    return GridView.builder(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisSpacing: 5, crossAxisSpacing: 5, childAspectRatio: 16 / 9),
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: docDatas.length,
+                      padding: const EdgeInsets.all(20),
+                      itemBuilder: (context, index) {
+                        DocData docData = docDatas[index];
+                        return Column(
+                          children: [
+                            Text(
+                              "${docData.title}",
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "${docData.description}".trim(),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: context.theme.dialogBackgroundColor.withOpacity(0.85),
+                                borderRadius: BorderRadiusDirectional.circular(20),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: context.theme.shadowColor.withAlpha(110),
+                                    spreadRadius: 1,
+                                    blurRadius: 7,
+                                    offset: const Offset(0, 3), // changes position of shadow
+                                  ),
+                                ],
+                              ),
+                              clipBehavior: Clip.antiAlias,
+                              child: MaterialButton(
+                                onPressed: () async {
+                                  if (docData.doc_id == "mtproto") {
+                                    context.navigator().push(MaterialPageRoute(
+                                      builder: (context) {
+                                        return const MtprotoPageTelegramClientDocumentation();
+                                      },
+                                    ));
+                                  }
+                                },
+                                child: const Text(
+                                  "Read More",
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),
