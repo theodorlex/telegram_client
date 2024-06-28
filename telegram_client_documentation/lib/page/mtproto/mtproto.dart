@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:general_lib_flutter/general_lib_flutter.dart';
 import 'package:telegram_client_documentation/telegram_client_documentation.dart';
 import 'package:telegram_client_documentation/widget/markdown/markdown.dart';
@@ -128,53 +126,133 @@ class _MtprotoPageTelegramClientDocumentationState extends State<MtprotoPageTele
             ),
             Expanded(
               child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        children: [
-                          TextButton(
-                            onPressed: () async {},
-                            child: Text(
-                              "Intro",
-                              style: TextStyle(color: context.theme.indicatorColor, fontSize: 25),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    VerticalDivider(
-                      color: context.theme.cardColor,
-                    ),
-                    Expanded(
-                      flex: 5,
-                      child: SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-                        child: ConstrainedBox(
-                          constraints: BoxConstraints(
-                            minHeight: context.height,
-                            minWidth: context.width,
-                          ),
-                          child: Column(
-                            // mainAxisSize: MainAxisSize.min,
-                            children: [
-                              MarkdownWidget(
-                                alignment: Alignment.center,
-                                text: () async {
-                                  return "sas";
-                                },
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: bodySideBar(),
+                  ),
+                  VerticalDivider(
+                    color: context.theme.cardColor,
+                  ),
+                  Expanded(
+                    flex: 5,
+                    child: bodyContent(),
+                  ),
+                ],
+              ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget bodySideBar() {
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          minHeight: context.height,
+          minWidth: context.width,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextButton(
+              onPressed: () async {},
+              child: Text(
+                "Intro",
+                style: TextStyle(color: context.theme.indicatorColor, fontSize: 25),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget bodyContent() {
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          minHeight: context.height,
+          minWidth: context.width,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: MarkdownWidget(
+            alignment: Alignment.center,
+            text: () async {
+              return """
+<h2 align="center">Ultra Fast, Enjoyable & Cross Platform Telegram Client</h2>
+
+**Telegram Client** Dart **library** for make telegram base flutter **bot**, **userbot**, **App** Support Run Server Side And Client Side, This library 100% easy for make multiples **client or accounts** because this library you just call function not execute shell command so update account will show at function event emitter
+
+## Features
+
+- 🚀 **Work On Cross Platform**: Mobile, Desktop, Browser, Server Side
+- ⚡ **Good Performance and efficient**
+- ❤️ **Simple, Easey Powerfull, Can Extend To Scala Bussiness**
+
+
+## Guide on how to use this library
+
+Before using this library, make sure you know basic coding
+And your laptop has the programming language installed [dart](https://dart.dev)
+
+### Install Library
+
+1. Install Library
+   
+   To install the library you need to type the command below in the terminal
+
+```bash
+dart pub add telegram_client
+```
+   
+  If you want to create your application use this command
+
+1. For Flutter
+```bash
+flutter pub add telegram_client telegram_client_linux telegram_client_android telegram_client_ios telegram_client_macos telegram_client_windows
+```
+
+### Add Library
+
+```dart
+import 'package:telegram_client/telegram_client.dart';
+``` 
+
+### Quick Start
+
+```dart
+import 'package:telegram_client/telegram_client/telegram_client.dart';
+
+void main(List<String> args) {
+  TelegramClient tg = TelegramClient();
+  tg.ensureInitialized();
+  tg.on(
+    event_name: tg.event_update,
+    onUpdate: (updateTelegramClient) {
+      // kode
+    },
+    onError: (error, stackTrace) {},
+  );
+  tg.tdlib.initIsolate();
+}
+``` 
+
+## Important
+
+**I really need funds so that this library can be easier to use. You can buy this library by subscribing/sponsoring me on GitHub:** [AZKADEV](https://github.com/azkadev)
+
+
+"""
+                  .trim();
+            },
+          ),
         ),
       ),
     );

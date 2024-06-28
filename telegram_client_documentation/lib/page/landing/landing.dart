@@ -316,10 +316,10 @@ Berikut adalah beberapa contoh project yang menggunakan library telegram_client
                           children: [
                             Text(
                               "${docData.title}",
-                      style: TextStyle(
-                        color: context.theme.indicatorColor,
-                        fontSize: 20,
-                      ),
+                              style: TextStyle(
+                                color: context.theme.indicatorColor,
+                                fontSize: 20,
+                              ),
                             ),
                             const SizedBox(
                               height: 10,
@@ -367,7 +367,8 @@ Berikut adalah beberapa contoh project yang menggunakan library telegram_client
                 ),
               ),
               FooterWidget(),
-
+            
+            
             ],
           ),
         ),
