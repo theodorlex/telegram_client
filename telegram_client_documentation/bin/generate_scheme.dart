@@ -85,4 +85,9 @@ List<Map> respond_schemes = [
       },
     ],
   },
+  {
+    "@type": "footerData",
+    "title": "",
+    "url": "",
+  },
 ];

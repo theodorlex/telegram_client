@@ -2,8 +2,11 @@ import 'package:icons_plus/icons_plus.dart';
 
 import 'package:flutter/material.dart';
 import 'package:general_lib_flutter/general_lib_flutter.dart';
+import 'package:telegram_client_documentation/data/footer.dart';
 import 'package:telegram_client_documentation/data/my_social_medias.dart';
+import 'package:telegram_client_documentation/scheme/footer_data.dart';
 import 'package:telegram_client_documentation/widget/author.dart';
+import 'package:telegram_client_documentation/widget/list_with_title.dart';
 
 class FooterWidget extends StatefulWidget {
   const FooterWidget({super.key});
@@ -34,65 +37,51 @@ class _FooterWidgetState extends State<FooterWidget> {
         ),
         Padding(
           padding: const EdgeInsets.all(5),
-          child: Builder(
-            builder: (context) {
-              TextStyle textStyle = TextStyle(
-                color: context.theme.indicatorColor,
-                fontFamily: "MochiyPopOne",
-                fontSize: context.height / 67,
-                shadows: [
-                  BoxShadow(
-                    color: context.theme.shadowColor.withAlpha(110),
-                    spreadRadius: 1,
-                    blurRadius: 7,
-                    offset: const Offset(0, 3), // changes position of shadow
-                  ),
-                  BoxShadow(
-                    color: context.theme.shadowColor.withAlpha(110),
-                    spreadRadius: 1,
-                    blurRadius: 7,
-                    offset: const Offset(0, 3), // changes position of shadow
-                  ),
-                ],
-              );
-              return Stack(
-                children: List.generate(
-                  2,
-                  (index) {
-                    return Text(
-                      "Author / Created By".trim(),
-                      style: (index == 0)
-                          ? textStyle.copyWith(
-                              color: null,
-                              foreground: Paint()
-                                ..style = PaintingStyle.stroke
-                                ..strokeWidth = 6
-                                ..color = context.theme.canvasColor,
-                            )
-                          : textStyle,
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.ellipsis,
-                    );
-                  },
-                ),
-              );
-            },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const AuthorWidget(
+                direction: Axis.vertical,
+                isShowTitle: true,
+                title: "My Social Media",
+              ),
+              Builder(
+                builder: (context) {
+                  List<FooterData> footer_datas = footer_other_informations;
+                  return ListWithWidget(
+                    itemCount: footer_datas.length,
+                    isShowTitle: true,
+                    title: "Other Information",
+                    direction: Axis.vertical,
+                    builder: (context, index) {
+                      FooterData footerData = footer_datas[index];
+                      return TextButton(
+                        onPressed: () {
+                          
+                        },
+                        child: Text("${footerData.title}".trim()),
+                      );
+                    },
+                  );
+                },
+              ),
+              const AuthorWidget(
+                direction: Axis.vertical,
+                isShowTitle: true,
+                title: "My Social Media",
+              ),
+            ],
           ),
         ),
-        const Row(
-          children: [
-            AuthorWidget(
-              direction: Axis.vertical,
-              isShowTitle: true,
-              title: "My Social Media",
+        Padding(
+          padding: const EdgeInsets.all(5),
+          child: Text(
+            "@ Copyright 2024 - ${DateTime.now().year}",
+            style: TextStyle(
+              color: context.theme.indicatorColor,
+              fontSize: 30,
             ),
-          ],
-        ),
-        Text(
-          "@ Copyright 2024 - ${DateTime.now().year}",
-          style: TextStyle(
-            color: context.theme.indicatorColor,
-            fontSize: 30,
           ),
         ),
       ],
