@@ -10,7 +10,7 @@ class DocContents extends JsonScheme {
   DocContents(super.rawData);
    
   static Map get defaultData {
-    return {"@type":"docContents","content":""};
+    return {"@type":"docContents","content_id":"","content":""};
   }
 
   
@@ -28,6 +28,24 @@ class DocContents extends JsonScheme {
   
   set special_type(String? value) {
     rawData["@type"] = value;
+  }
+
+
+  
+  String? get content_id {
+    try {
+      if (rawData["content_id"] is String == false){
+        return null;
+      }
+      return rawData["content_id"] as String;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  
+  set content_id(String? value) {
+    rawData["content_id"] = value;
   }
 
 
@@ -53,12 +71,14 @@ class DocContents extends JsonScheme {
   static DocContents create({
 
     String special_type = "docContents",
+    String? content_id,
     String? content,
 })  {
     // DocContents docContents = DocContents({
 Map docContents_data_create_json = {
   
       "@type": special_type,
+      "content_id": content_id,
       "content": content,
 
 

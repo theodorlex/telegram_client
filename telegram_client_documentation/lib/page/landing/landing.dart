@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:general_lib_flutter/general_lib_flutter.dart';
 import 'package:telegram_client_documentation/data/docs.dart';
-import 'package:telegram_client_documentation/page/mtproto/mtproto.dart';
+import 'package:telegram_client_documentation/page/documentation/documentation.dart';
 import 'package:telegram_client_documentation/scheme/scheme.dart';
 import 'package:telegram_client_documentation/telegram_client_documentation.dart';
 import 'package:telegram_client_documentation/widget/author.dart';
@@ -316,12 +316,12 @@ Berikut adalah beberapa contoh project yang menggunakan library telegram_client
                           children: [
                             Flexible(
                               child: Text(
-                              "${docData.title}",
-                              style: TextStyle(
-                                color: context.theme.indicatorColor,
-                                fontSize: 20,
+                                "${docData.title}",
+                                style: TextStyle(
+                                  color: context.theme.indicatorColor,
+                                  fontSize: 20,
+                                ),
                               ),
-                            ),
                             ),
                             const SizedBox(
                               height: 10,
@@ -351,13 +351,15 @@ Berikut adalah beberapa contoh project yang menggunakan library telegram_client
                               clipBehavior: Clip.antiAlias,
                               child: MaterialButton(
                                 onPressed: () async {
-                                  if (docData.doc_id == "mtproto") {
-                                    context.navigator().push(MaterialPageRoute(
+                                  context.navigator().push(
+                                    MaterialPageRoute(
                                       builder: (context) {
-                                        return const MtprotoPageTelegramClientDocumentation();
+                                        return DocumentationPageTelegramClientDocumentation(
+                                          docData: docData,
+                                        );
                                       },
-                                    ));
-                                  }
+                                    ),
+                                  );
                                 },
                                 child: const Text(
                                   "Read More",

@@ -78,9 +78,13 @@ List<Map> respond_schemes = [
     "@type": "docsData",
     "doc_id": "",
     "title": "",
+    "sidebars": [
+      docSideBar,
+    ],
     "contents": [
       {
         "@type": "docContents",
+        "content_id": "",
         "content": "",
       },
     ],
@@ -91,3 +95,9 @@ List<Map> respond_schemes = [
     "url": "",
   },
 ];
+
+Map docSideBar = {
+  "@type": "docSideBar",
+  "title": "",
+  "navigate_content_id": "content",
+};

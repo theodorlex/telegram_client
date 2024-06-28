@@ -1,4 +1,4 @@
-// ignore_for_file:, non_constant_identifier_names
+// ignore_for_file:, non_constant_identifier_names, unnecessary_brace_in_string_interps
 
 import 'dart:io';
 
@@ -83,7 +83,11 @@ class _ImagesWidgetState extends State<MediasWidget> {
           padding: const EdgeInsets.all(5),
           itemBuilder: (context, index) {
             String image_data = widget.medias[index];
-            return mediaWidget(image_data: image_data, isMoreData: false);
+            return mediaWidget(
+              index: index + 1,
+              image_data: image_data,
+              isMoreData: false,
+            );
           },
         ),
       );
@@ -92,11 +96,13 @@ class _ImagesWidgetState extends State<MediasWidget> {
     return mediaWidget(
       image_data: widget.medias.firstOrNull ?? "",
       isMoreData: false,
+      index: 1,
     );
   }
 
   Widget mediaWidget({
     required String image_data,
+    required int index,
     required bool isMoreData,
   }) {
     bool is_youtube = false;
@@ -117,28 +123,39 @@ class _ImagesWidgetState extends State<MediasWidget> {
       return Image.file(File(image_data));
     }();
     if (isMoreData == false) {
-      return Center(
-        child: MaterialButton(
-          onPressed: () {
-            if (is_youtube) {
-              launchUrlString(image_data, mode: LaunchMode.externalApplication);
-              return;
-            }
-            Navigator.push(
-              context,
-              PageRouteBuilder(
-                opaque: false,
-                barrierColor: Colors.black,
-                pageBuilder: (BuildContext context, _, __) {
-                  return FullScreenPage(
-                    dark: true,
-                    child: image,
-                  );
-                },
+      return MaterialButton(
+        onPressed: () {
+          if (is_youtube) {
+            launchUrlString(image_data, mode: LaunchMode.externalApplication);
+            return;
+          }
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              opaque: false,
+              barrierColor: Colors.black,
+              pageBuilder: (BuildContext context, _, __) {
+                return FullScreenPage(
+                  dark: true,
+                  child: image,
+                );
+              },
+            ),
+          );
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "${index}".trim(),
+              style: TextStyle(
+                color: context.theme.indicatorColor,
+                fontSize: 20,
               ),
-            );
-          },
-          child: image,
+            ),
+            image,
+          ],
         ),
       );
     }
@@ -170,10 +187,10 @@ class _ImagesWidgetState extends State<MediasWidget> {
           horizontal: 20,
         ),
         onPressed: () async {
-            if (is_youtube) {
-              launchUrlString(image_data, mode: LaunchMode.externalApplication);
-              return;
-            }
+          if (is_youtube) {
+            launchUrlString(image_data, mode: LaunchMode.externalApplication);
+            return;
+          }
           Navigator.push(
             context,
             PageRouteBuilder(

@@ -2,6 +2,7 @@
 import "package:general_lib/general_lib.dart";
 // import "dart:convert";
 
+import "doc_side_bar.dart";
 import "doc_contents.dart";
 
  
@@ -11,7 +12,7 @@ class DocsData extends JsonScheme {
   DocsData(super.rawData);
    
   static Map get defaultData {
-    return {"@type":"docsData","doc_id":"","title":"","contents":[{"@type":"docContents","content":""}]};
+    return {"@type":"docsData","doc_id":"","title":"","sidebars":[{"@type":"docSideBar","title":"","navigate_content_id":"content"}],"contents":[{"@type":"docContents","content_id":"","content":""}]};
   }
 
   
@@ -68,6 +69,25 @@ class DocsData extends JsonScheme {
   }
 
   
+  List<DocSideBar> get sidebars {
+    try {
+      if (rawData["sidebars"] is List == false){
+        return [];
+      }
+      return (rawData["sidebars"] as List).map((e) => DocSideBar(e as Map)).toList().cast<DocSideBar>();
+    } catch (e) {
+      return [];
+    }
+  }
+
+
+  
+  set sidebars(List<DocSideBar> values) {
+    rawData["sidebars"] = values.map((value) => value.toJson()).toList();
+  }
+
+
+  
   List<DocContents> get contents {
     try {
       if (rawData["contents"] is List == false){
@@ -93,6 +113,7 @@ class DocsData extends JsonScheme {
     String special_type = "docsData",
     String? doc_id,
     String? title,
+      List<DocSideBar>? sidebars,
       List<DocContents>? contents,
 })  {
     // DocsData docsData = DocsData({
@@ -101,6 +122,7 @@ Map docsData_data_create_json = {
       "@type": special_type,
       "doc_id": doc_id,
       "title": title,
+      "sidebars": (sidebars != null)? sidebars.toJson(): null,
       "contents": (contents != null)? contents.toJson(): null,
 
 
