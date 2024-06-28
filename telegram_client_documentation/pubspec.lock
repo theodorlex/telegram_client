@@ -177,6 +177,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.6"
+  documentation:
+    dependency: "direct main"
+    description:
+      name: documentation
+      sha256: "762983a3be35a4febc80faed4006987e0988c4f58f1b0a6990514de29b3d7fe3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
   easy_rich_text:
     dependency: "direct main"
     description:

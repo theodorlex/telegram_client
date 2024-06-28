@@ -1,6 +1,5 @@
-import 'package:telegram_client_documentation/telegram_client_documentation.dart';
-
+import 'documentation_main.dart';
 
 void main(List<String> args) {
-  telegram_client_documentation_main_app(args);
+  documentation_main_app(args);
 }
