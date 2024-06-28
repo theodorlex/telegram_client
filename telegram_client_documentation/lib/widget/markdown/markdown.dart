@@ -42,7 +42,7 @@ class MarkdownWidget extends StatelessWidget {
               
               markdownGeneratorConfig: MarkdownGenerator(
                 generators: [
-                  imagesGeneratorWithTag,
+                  mediaGeneratorWithTag,
                   // videoGeneratorWithTag,
                   SpanNodeGeneratorWithTag(
                     // <text data="https://www.youtube.com/watch?v=HjgD6ZhSFIA">

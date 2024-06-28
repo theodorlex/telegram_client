@@ -153,7 +153,7 @@ class _MtprotoPageTelegramClientDocumentationState extends State<MtprotoPageTele
       physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       child: ConstrainedBox(
         constraints: BoxConstraints(
-          minHeight: context.height,
+          minHeight: context.height - globalKey.sizeRenderBox().height,
           minWidth: context.width,
         ),
         child: Column(
@@ -177,7 +177,7 @@ class _MtprotoPageTelegramClientDocumentationState extends State<MtprotoPageTele
       physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       child: ConstrainedBox(
         constraints: BoxConstraints(
-          minHeight: context.height,
+          minHeight: context.height - globalKey.sizeRenderBox().height,
           minWidth: context.width,
         ),
         child: Padding(
@@ -196,6 +196,7 @@ class _MtprotoPageTelegramClientDocumentationState extends State<MtprotoPageTele
 - ⚡ **Good Performance and efficient**
 - ❤️ **Simple, Easey Powerfull, Can Extend To Scala Bussiness**
 
+<medias src="${("assets/logo/telegram.png " * 5).trim()}">
 
 ## Guide on how to use this library
 

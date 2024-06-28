@@ -314,18 +314,23 @@ Berikut adalah beberapa contoh project yang menggunakan library telegram_client
                         DocData docData = docDatas[index];
                         return Column(
                           children: [
-                            Text(
+                            Flexible(
+                              child: Text(
                               "${docData.title}",
                               style: TextStyle(
                                 color: context.theme.indicatorColor,
                                 fontSize: 20,
                               ),
                             ),
+                            ),
                             const SizedBox(
                               height: 10,
                             ),
-                            Text(
-                              "${docData.description}".trim(),
+                            Flexible(
+                              child: Text(
+                                "${docData.description}".trim(),
+                                // overflow: TextOverflow.ellipsis,
+                              ),
                             ),
                             const SizedBox(
                               height: 10,
@@ -367,8 +372,6 @@ Berikut adalah beberapa contoh project yang menggunakan library telegram_client
                 ),
               ),
               FooterWidget(),
-            
-            
             ],
           ),
         ),

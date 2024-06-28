@@ -1,4 +1,4 @@
-// ignore_for_file:
+// ignore_for_file:, non_constant_identifier_names
 
 import 'dart:io';
 
@@ -6,24 +6,23 @@ import 'package:flutter/material.dart';
 
 import 'package:markdown_widget/markdown_widget.dart';
 
-import 'package:carousel_slider/carousel_slider.dart';
-
 import 'package:general_lib_flutter/general_lib_flutter.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 // import 'widget.dart';
 
-SpanNodeGeneratorWithTag imagesGeneratorWithTag = SpanNodeGeneratorWithTag(
-  // <images src="https://www.youtube.com/watch?v=HjgD6ZhSFIA">
-  tag: "images",
+SpanNodeGeneratorWithTag mediaGeneratorWithTag = SpanNodeGeneratorWithTag(
+  // <medias src="https://www.youtube.com/watch?v=HjgD6ZhSFIA">
+  tag: "medias",
   generator: (e, config, visitor) {
-    return ImagesNode(e.attributes);
+    return MediasNode(e.attributes);
   },
 );
 
-class ImagesNode extends SpanNode {
+class MediasNode extends SpanNode {
   final Map<String, String> attribute;
 
-  ImagesNode(this.attribute);
+  MediasNode(this.attribute);
 
   @override
   InlineSpan build() {
@@ -36,108 +35,160 @@ class ImagesNode extends SpanNode {
       height = double.tryParse(attribute['height'] ?? "0");
     }
 
-    List<String> images = (attribute['src'] ?? "").split(" ");
+    List<String> medias = (attribute['src'] ?? "").split(" ");
 
     return WidgetSpan(
       child: SizedBox(
-          height: height, width: width, child: ImagesWidget(images: images)),
+        height: height,
+        width: width,
+        child: MediasWidget(
+          medias: medias,
+        ),
+      ),
     );
   }
 }
 
-class ImagesWidget extends StatefulWidget {
-  final List<String> images;
-  const ImagesWidget({
+class MediasWidget extends StatefulWidget {
+  final List<String> medias;
+  const MediasWidget({
     super.key,
-    required this.images,
+    required this.medias,
   });
 
   @override
-  State<ImagesWidget> createState() => _ImagesWidgetState();
+  State<MediasWidget> createState() => _ImagesWidgetState();
 }
 
-class _ImagesWidgetState extends State<ImagesWidget> {
+class _ImagesWidgetState extends State<MediasWidget> {
   @override
   Widget build(BuildContext context) {
-    return CarouselSlider.builder(
-      options: CarouselOptions(
-        height: context.width * 0.55,
-        aspectRatio: 16 / 9,
-        viewportFraction: 0.8,
-        initialPage: 0,
-        enableInfiniteScroll: true,
-        reverse: false,
-        autoPlay: false,
-        autoPlayInterval: const Duration(seconds: 3),
-        autoPlayAnimationDuration: const Duration(milliseconds: 800),
-        autoPlayCurve: Curves.fastOutSlowIn,
-        enlargeCenterPage: true,
-        enlargeFactor: 0.3,
-        onPageChanged: (index, reason) {},
-        scrollDirection: Axis.horizontal,
-      ),
-      itemCount: widget.images.length,
-      itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) {
-        String image_data = widget.images[itemIndex];
-        Image image = () {
-          if (RegExp(r"^(http(s)?:)", caseSensitive: false)
-              .hasMatch(image_data)) {
-            return Image.network(
-              image_data,
-            );
-          }
-          if (RegExp(r"^(assets|packages)", caseSensitive: false)
-              .hasMatch(image_data)) {
-            return Image.asset(
-              image_data,
-            );
-          }
-          return Image.file(File(image_data));
-        }();
-        return Container(
-          width: double.maxFinite,
-          height: context.width * 0.55,
-          margin: const EdgeInsets.symmetric(
-            vertical: 10,
-            // horizontal: 20
+    if (widget.medias.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    if (widget.medias.length > 1) {
+      return ConstrainedBox(
+        constraints: BoxConstraints(
+          maxHeight: context.width * 0.55,
+        ),
+        child: GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            childAspectRatio: 16 / 9,
           ),
-          decoration: BoxDecoration(
-            color: context.theme.dialogBackgroundColor,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: const [
-              BoxShadow(color: Colors.black12, blurRadius: 10),
-              BoxShadow(color: Colors.black12, blurRadius: 10),
-              BoxShadow(color: Colors.black12, blurRadius: 10),
-            ],
-            image: DecorationImage(
-              fit: BoxFit.fill,
-              image: image.image,
-            ),
-          ),
-          clipBehavior: Clip.antiAlias,
-          child: MaterialButton(
-            padding: const EdgeInsets.symmetric(
-              vertical: 25,
-              horizontal: 20,
-            ),
-            onPressed: () async {
-              Navigator.push(
-                context,
-                PageRouteBuilder(
-                  opaque: false,
-                  barrierColor: Colors.black,
-                  pageBuilder: (BuildContext context, _, __) {
-                    return FullScreenPage(
-                      dark: true,
-                      child: image,
-                    );
-                  },
-                ),
-              );
-            },
-          ),
+          itemCount: widget.medias.length,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          padding: const EdgeInsets.all(5),
+          itemBuilder: (context, index) {
+            String image_data = widget.medias[index];
+            return mediaWidget(image_data: image_data, isMoreData: false);
+          },
+        ),
+      );
+    }
+
+    return mediaWidget(
+      image_data: widget.medias.firstOrNull ?? "",
+      isMoreData: false,
+    );
+  }
+
+  Widget mediaWidget({
+    required String image_data,
+    required bool isMoreData,
+  }) {
+    bool is_youtube = false;
+    Image image = () {
+      if (RegExp(r"^(http(s)?:)", caseSensitive: false).hasMatch(image_data)) {
+        if (RegExp("(youtube.com)", caseSensitive: false).hasMatch(image_data)) {
+          is_youtube = true;
+        }
+        return Image.network(
+          image_data,
         );
-      },
+      }
+      if (RegExp(r"^(assets|packages)", caseSensitive: false).hasMatch(image_data)) {
+        return Image.asset(
+          image_data,
+        );
+      }
+      return Image.file(File(image_data));
+    }();
+    if (isMoreData == false) {
+      return Center(
+        child: MaterialButton(
+          onPressed: () {
+            if (is_youtube) {
+              launchUrlString(image_data, mode: LaunchMode.externalApplication);
+              return;
+            }
+            Navigator.push(
+              context,
+              PageRouteBuilder(
+                opaque: false,
+                barrierColor: Colors.black,
+                pageBuilder: (BuildContext context, _, __) {
+                  return FullScreenPage(
+                    dark: true,
+                    child: image,
+                  );
+                },
+              ),
+            );
+          },
+          child: image,
+        ),
+      );
+    }
+
+    return Container(
+      width: double.maxFinite,
+      height: context.width * 0.55,
+      margin: const EdgeInsets.symmetric(
+        vertical: 10,
+        // horizontal: 20
+      ),
+      decoration: BoxDecoration(
+        color: context.theme.dialogBackgroundColor,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: const [
+          BoxShadow(color: Colors.black12, blurRadius: 10),
+          BoxShadow(color: Colors.black12, blurRadius: 10),
+          BoxShadow(color: Colors.black12, blurRadius: 10),
+        ],
+        image: DecorationImage(
+          fit: BoxFit.fill,
+          image: image.image,
+        ),
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: MaterialButton(
+        padding: const EdgeInsets.symmetric(
+          vertical: 25,
+          horizontal: 20,
+        ),
+        onPressed: () async {
+            if (is_youtube) {
+              launchUrlString(image_data, mode: LaunchMode.externalApplication);
+              return;
+            }
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              opaque: false,
+              barrierColor: Colors.black,
+              pageBuilder: (BuildContext context, _, __) {
+                return FullScreenPage(
+                  dark: true,
+                  child: image,
+                );
+              },
+            ),
+          );
+        },
+      ),
     );
   }
 }

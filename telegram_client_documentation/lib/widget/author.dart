@@ -143,6 +143,8 @@ class _AuthorWidgetState extends State<AuthorWidget> {
       iconData = IonIcons.logo_twitter;
     } else if (RegExp("(github)", caseSensitive: false).hasMatch(link)) {
       iconData = IonIcons.logo_github;
+    } else  if (RegExp("(tiktok)", caseSensitive: false).hasMatch(link)) {
+      iconData = IonIcons.logo_tiktok;
     } else if (RegExp("(telegram|t[.]me)", caseSensitive: false).hasMatch(link)) {
       iconData = Icons.telegram;
     }

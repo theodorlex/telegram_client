@@ -38,57 +38,68 @@ class _FooterWidgetState extends State<FooterWidget> {
         ),
         Padding(
           padding: const EdgeInsets.all(5),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const AuthorWidget(
-                direction: Axis.vertical,
-                isShowTitle: true,
-                title: "My Social Media",
-              ),
-              Builder(
-                builder: (context) {
-                  List<FooterData> footer_datas = footer_other_informations;
-                  return ListWithWidget(
-                    itemCount: footer_datas.length,
-                    isShowTitle: true,
-                    title: "Other Information",
-                    direction: Axis.vertical,
-                    builder: (context, index) {
-                      FooterData footerData = footer_datas[index];
-                      return TextButton(
-                        onPressed: () async{
-                          await launchUrlString(footerData.url ?? "", mode: LaunchMode.externalApplication);
-                        },
-                        child: Text("${footerData.title}".trim()),
-                      );
-                    },
-                  );
-                },
-              ),
-              Builder(
-                builder: (context) {
-                  List<FooterData> footer_datas = footer_other_librarys;
-                  return ListWithWidget(
-                    itemCount: footer_datas.length,
-                    isShowTitle: true,
-                    title: "Other Library",
-                    direction: Axis.vertical,
-                    builder: (context, index) {
-                      FooterData footerData = footer_datas[index];
-                      return TextButton(
-                        onPressed: () async{
-                                                    await launchUrlString(footerData.url ?? "", mode: LaunchMode.externalApplication);
-
-                        },
-                        child: Text("${footerData.title}".trim()),
-                      );
-                    },
-                  );
-                },
-              ),
-            ],
+          child: Builder(
+            builder: (context) {
+              List<Widget> children = [
+                const AuthorWidget(
+                  direction: Axis.vertical,
+                  isShowTitle: true,
+                  title: "My Social Media",
+                ),
+                Builder(
+                  builder: (context) {
+                    List<FooterData> footer_datas = footer_other_informations;
+                    return ListWithWidget(
+                      itemCount: footer_datas.length,
+                      isShowTitle: true,
+                      title: "Other Information",
+                      direction: Axis.vertical,
+                      builder: (context, index) {
+                        FooterData footerData = footer_datas[index];
+                        return TextButton(
+                          onPressed: () async {
+                            await launchUrlString(footerData.url ?? "", mode: LaunchMode.externalApplication);
+                          },
+                          child: Text("${footerData.title}".trim()),
+                        );
+                      },
+                    );
+                  },
+                ),
+                Builder(
+                  builder: (context) {
+                    List<FooterData> footer_datas = footer_other_librarys;
+                    return ListWithWidget(
+                      itemCount: footer_datas.length,
+                      isShowTitle: true,
+                      title: "Other Library",
+                      direction: Axis.vertical,
+                      builder: (context, index) {
+                        FooterData footerData = footer_datas[index];
+                        return TextButton(
+                          onPressed: () async {
+                            await launchUrlString(footerData.url ?? "", mode: LaunchMode.externalApplication);
+                          },
+                          child: Text("${footerData.title}".trim()),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ];
+              if (context.orientation.isPortrait) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: children,
+                );
+              }
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: children,
+              );
+            },
           ),
         ),
         Padding(
