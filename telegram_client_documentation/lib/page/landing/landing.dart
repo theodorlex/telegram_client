@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:general_lib_flutter/general_lib_flutter.dart';
-import 'package:telegram_client_documentation/data/mkdmk.dart';
+import 'package:telegram_client_documentation/data/docs.dart';
 import 'package:telegram_client_documentation/page/mtproto/mtproto.dart';
 import 'package:telegram_client_documentation/scheme/scheme.dart';
 import 'package:telegram_client_documentation/telegram_client_documentation.dart';
@@ -316,6 +316,10 @@ Berikut adalah beberapa contoh project yang menggunakan library telegram_client
                           children: [
                             Text(
                               "${docData.title}",
+                      style: TextStyle(
+                        color: context.theme.indicatorColor,
+                        fontSize: 20,
+                      ),
                             ),
                             const SizedBox(
                               height: 10,
@@ -363,7 +367,7 @@ Berikut adalah beberapa contoh project yang menggunakan library telegram_client
                 ),
               ),
               FooterWidget(),
-              
+
             ],
           ),
         ),

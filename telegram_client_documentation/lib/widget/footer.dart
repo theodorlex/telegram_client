@@ -7,6 +7,7 @@ import 'package:telegram_client_documentation/data/my_social_medias.dart';
 import 'package:telegram_client_documentation/scheme/footer_data.dart';
 import 'package:telegram_client_documentation/widget/author.dart';
 import 'package:telegram_client_documentation/widget/list_with_title.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class FooterWidget extends StatefulWidget {
   const FooterWidget({super.key});
@@ -57,8 +58,8 @@ class _FooterWidgetState extends State<FooterWidget> {
                     builder: (context, index) {
                       FooterData footerData = footer_datas[index];
                       return TextButton(
-                        onPressed: () {
-                          
+                        onPressed: () async{
+                          await launchUrlString(footerData.url ?? "", mode: LaunchMode.externalApplication);
                         },
                         child: Text("${footerData.title}".trim()),
                       );
@@ -77,15 +78,16 @@ class _FooterWidgetState extends State<FooterWidget> {
                     builder: (context, index) {
                       FooterData footerData = footer_datas[index];
                       return TextButton(
-                        onPressed: () {
-                          
+                        onPressed: () async{
+                                                    await launchUrlString(footerData.url ?? "", mode: LaunchMode.externalApplication);
+
                         },
                         child: Text("${footerData.title}".trim()),
                       );
                     },
                   );
                 },
-              ), 
+              ),
             ],
           ),
         ),
