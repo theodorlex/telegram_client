@@ -66,11 +66,26 @@ class _FooterWidgetState extends State<FooterWidget> {
                   );
                 },
               ),
-              const AuthorWidget(
-                direction: Axis.vertical,
-                isShowTitle: true,
-                title: "My Social Media",
-              ),
+              Builder(
+                builder: (context) {
+                  List<FooterData> footer_datas = footer_other_librarys;
+                  return ListWithWidget(
+                    itemCount: footer_datas.length,
+                    isShowTitle: true,
+                    title: "Other Library",
+                    direction: Axis.vertical,
+                    builder: (context, index) {
+                      FooterData footerData = footer_datas[index];
+                      return TextButton(
+                        onPressed: () {
+                          
+                        },
+                        child: Text("${footerData.title}".trim()),
+                      );
+                    },
+                  );
+                },
+              ), 
             ],
           ),
         ),
