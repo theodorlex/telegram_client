@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:telegram_client_documentation/scheme/footer_data.dart';
 
 List<FooterData> get footer_other_informations => [
