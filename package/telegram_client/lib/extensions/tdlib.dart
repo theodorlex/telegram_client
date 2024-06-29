@@ -389,6 +389,7 @@ extension TdlibMethodExtensions on Tdlib {
       is_more_detail: true,
       isUseCache: isUseCache,
       durationCacheExpire: durationCacheExpire,
+      is_skip_reply_message: true,
     );
     if (chatResult["ok"] == false) {
       return {"@type": "error"};
