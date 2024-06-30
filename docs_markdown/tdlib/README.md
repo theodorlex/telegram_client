@@ -117,6 +117,8 @@ Our library is designed to make it very easy to add clients without adding a lot
     },
   );
 ```
+
+
 <!-- START GLOBAL CORPORATION -->
 <h3 align="center">
   Global Corporation

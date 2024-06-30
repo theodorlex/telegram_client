@@ -82,7 +82,7 @@ packages:
     source: hosted
     version: "8.9.2"
   carousel_slider:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: carousel_slider
       sha256: "9c695cc963bf1d04a47bd6021f68befce8970bcd61d24938e1fb0918cf5d9c42"
@@ -186,7 +186,7 @@ packages:
     source: hosted
     version: "0.0.2"
   easy_rich_text:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: easy_rich_text
       sha256: "581a04fac8a4b1331d587db792f67fbc6ae1bbb42abf1c015d5d317eb1c108dc"
@@ -247,7 +247,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_hicons:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: flutter_hicons
       sha256: "6a0312ebd6fc6ea73575f905e474b31abb7d1aba24890401f2f1327ebae2204a"
@@ -353,7 +353,7 @@ packages:
     source: hosted
     version: "4.0.2"
   icons_plus:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: icons_plus
       sha256: "8e2f601b8605d45dd55b106a0da084a1809125077a49574ca22e8bcd5b6e86f0"
@@ -441,7 +441,7 @@ packages:
     source: hosted
     version: "7.2.2"
   markdown_flutter:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: markdown_flutter
       sha256: cddc86d59c64a60e0c90c0fb33ce66b7e5798627bb06025ab645200e4255c864
@@ -449,7 +449,7 @@ packages:
     source: hosted
     version: "0.0.7"
   markdown_widget:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: markdown_widget
       sha256: "216dced98962d7699a265344624bc280489d739654585ee881c95563a3252fac"
@@ -638,7 +638,7 @@ packages:
     source: hosted
     version: "1.2.0"
   telegram_client:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: telegram_client
       sha256: "80ed440be0a52bd2ad740961ecf7059bf0b8e9d2028232f4e86fd65c71470098"
@@ -694,7 +694,7 @@ packages:
     source: hosted
     version: "2.2.2"
   url_launcher:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: url_launcher
       sha256: "6ce1e04375be4eed30548f10a315826fd933c1e493206eab82eed01f438c8d2e"
