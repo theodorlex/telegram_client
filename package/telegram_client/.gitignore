@@ -20,3 +20,9 @@ generate_script_templates
 *.binlog
 *.sqlite
 *.sqlite-*
+*.exe
+*.deb
+docs/canvaskit
+*/canvaskit
+.dart_tool/
+/build/

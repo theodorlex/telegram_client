@@ -17,3 +17,9 @@ node-js/telegram-client/node_modules/*
 *.sqlite-*
 *.sqlite
 # tg/
+*.exe
+*.deb
+docs/canvaskit
+*/canvaskit
+.dart_tool/
+/build/
