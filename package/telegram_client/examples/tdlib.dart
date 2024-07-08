@@ -1,4 +1,4 @@
- // ignore_for_file: non_constant_identifier_names,
+// ignore_for_file: non_constant_identifier_names,
 import 'package:general_lib/general_lib.dart';
 import 'package:telegram_client/tdlib/scheme/scheme.dart';
 import 'package:telegram_client/tdlib/tdlib.dart';
@@ -19,7 +19,8 @@ void main(List<String> args) async {
     if (update["@type"] == "updateAuthorizationState") {
       if (update["authorization_state"] is Map) {
         Map authorization_state = update["authorization_state"];
-        if (authorization_state["@type"] == "authorizationStateWaitPhoneNumber") {
+        if (authorization_state["@type"] ==
+            "authorizationStateWaitPhoneNumber") {
           Map res = await tdlib.invoke(
             "setAuthenticationPhoneNumber",
             parameters: {

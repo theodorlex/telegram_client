@@ -1,6 +1,6 @@
 name: 'telegram_client_android'
 description: 'Telegram Client Lightweight, blazing and Highly customizable for make application telegram based tdlib, mtproto, or bot api and support server side.'
-version: '0.8.20'
+version: '1.8.32'
 homepage: 'https://github.com/azkadev/telegram_client'
 repository: 'https://github.com/azkadev/telegram_client.git'
 issue_tracker: 'https://github.com/azkadev/telegram_client/issues'
@@ -11,6 +11,7 @@ funding:
 false_secrets: 
   - 'android/jniLibs/arm64-v8a/libtdjson.so'
   - 'android/jniLibs/armeabi-v7a/libtdjson.so'
+  - 'android/jniLibs/x86/libtdjson.so'
   - 'android/jniLibs/x86_64/libtdjson.so'
   - 'android/jniLibs'
 platforms: 

@@ -88,7 +88,6 @@ class TdlibNative {
   // bool is_init_send_port = false;
   late String path_tdlib;
   bool is_cli;
-  bool is_android = false;
   // List<TdlibClient> clients = [];
 
   Map<int, TdlibClient> clients = {};
@@ -148,9 +147,6 @@ class TdlibNative {
 
     if (clientOption != null) {
       client_option.rawData.addAll(clientOption.rawData);
-      if (clientOption["is_android"] == true) {
-        is_android = true;
-      }
     }
 
     receivePort.listen((update) async {

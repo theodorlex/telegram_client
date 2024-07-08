@@ -114,7 +114,6 @@ class TdlibNative {
   // bool is_init_send_port = false;
   late String path_tdlib;
   bool is_cli;
-  bool is_android = Platform.isAndroid;
   // List<TdlibClient> clients = [];
 
   Map<int, TdlibClient> clients = {};
@@ -177,9 +176,6 @@ class TdlibNative {
 
     if (clientOption != null) {
       client_option.rawData.addAll(clientOption.rawData);
-      if (clientOption["is_android"] == true) {
-        is_android = true;
-      }
     }
     client_option.rawData.remove("@type");
     receivePort.listen((update) async {
@@ -257,10 +253,9 @@ class TdlibNative {
   /// create client id for multi client
   int td_create_client_id() {
     int client_id_new = using((Arena arena) {
-      TdPointerFunctionNative td_pointer_native_function = tdLib
-          .lookupFunction<TdPointerFunctionNative, TdPointerFunctionNative>(
-              '${is_android ? "_" : ""}td_create_client_id',
-              isLeaf: false);
+      TdPointerFunctionNative td_pointer_native_function = tdLib.lookupFunction<
+          TdPointerFunctionNative,
+          TdPointerFunctionNative>('td_create_client_id', isLeaf: false);
       Pointer<NativeType> td_pointer_native_result =
           arena.using(td_pointer_native_function(), (p0) {});
       int client_id_new = td_pointer_native_result.address;
@@ -273,10 +268,9 @@ class TdlibNative {
   /// create client id for multi client
   int td_json_client_create() {
     int client_id_new = using((Arena arena) {
-      TdPointerFunctionNative td_pointer_native_function = tdLib
-          .lookupFunction<TdPointerFunctionNative, TdPointerFunctionNative>(
-              '${is_android ? "_" : ""}td_json_client_create',
-              isLeaf: false);
+      TdPointerFunctionNative td_pointer_native_function = tdLib.lookupFunction<
+          TdPointerFunctionNative,
+          TdPointerFunctionNative>('td_json_client_create', isLeaf: false);
       TdPointerNative td_pointer_native_result =
           arena.using(td_pointer_native_function(), (p0) {});
       int client_id_new = td_pointer_native_result.address;
@@ -298,10 +292,8 @@ class TdlibNative {
       TdStringNative request_data =
           convert.json.encode(parameters).toNativeUtf8();
       Arena arena = Arena();
-      TdSendDart td_send_function =
-          tdLib.lookupFunction<TdSendNative, TdSendDart>(
-              '${is_android ? "_" : ""}td_send',
-              isLeaf: false);
+      TdSendDart td_send_function = tdLib
+          .lookupFunction<TdSendNative, TdSendDart>('td_send', isLeaf: false);
       // void td_send_result =
       arena.using(
           td_send_function(client_id_addres_data, request_data), (p0) {});
@@ -320,8 +312,7 @@ class TdlibNative {
 
       Arena arena = Arena();
       TdSendDart td_send_function =
-          tdLib.lookupFunction<TdSendNative, TdSendDart>(
-              '${is_android ? "_" : ""}td_json_client_send',
+          tdLib.lookupFunction<TdSendNative, TdSendDart>('td_json_client_send',
               isLeaf: false);
       // void td_send_result =
       arena.using(
@@ -340,8 +331,7 @@ class TdlibNative {
           convert.json.encode(parameters).toNativeUtf8();
 
       TdExecuteNative td_execute_native_function =
-          tdLib.lookupFunction<TdExecuteNative, TdExecuteNative>(
-              '${is_android ? "_" : ""}td_execute',
+          tdLib.lookupFunction<TdExecuteNative, TdExecuteNative>('td_execute',
               isLeaf: false);
 
       TdStringNative td_execute_native_result =
@@ -362,7 +352,7 @@ class TdlibNative {
       Pointer client_id_addres_data = client_id_addres(clientId);
       TdDestroyDart td_destroy_dart_function =
           tdLib.lookupFunction<TdDestroyNative, TdDestroyDart>(
-              '${is_android ? "_" : ""}td_json_client_destroy',
+              'td_json_client_destroy',
               isLeaf: false);
       arena.using(td_destroy_dart_function(client_id_addres_data), (p0) {});
       arena.releaseAll();
@@ -378,8 +368,7 @@ class TdlibNative {
     try {
       Map<String, dynamic>? result = using((Arena arena) {
         TdReceiveDart td_receive_function =
-            tdLib.lookupFunction<TdReceiveNative, TdReceiveDart>(
-                '${isAndroid ? "_" : ""}td_receive',
+            tdLib.lookupFunction<TdReceiveNative, TdReceiveDart>('td_receive',
                 isLeaf: false);
         TdStringNative update =
             arena.using(td_receive_function(timeout), (p0) {});
@@ -415,7 +404,6 @@ class TdlibNative {
       isCli: is_cli,
       sendPort: receivePort.sendPort,
       pathTdlib: path_tdlib,
-      isAndroid: is_android,
       delayUpdate: delay_update,
       timeOutUpdate: timeOutUpdate,
     );

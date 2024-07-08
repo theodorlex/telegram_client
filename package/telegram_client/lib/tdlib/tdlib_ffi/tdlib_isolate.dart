@@ -53,7 +53,6 @@ Future<void> tdlibIsolate(TdlibIsolateData tdlibIsolateData) async {
       // await Future.delayed(duration);
       Map? new_update = TdlibNative.td_receive_static(
         timeout: tdlibIsolateData.timeOutUpdate,
-        isAndroid: tdlibIsolateData.isAndroid,
       );
       if (new_update != null) {
         tdlibIsolateData.sendPort.send(
@@ -63,7 +62,7 @@ Future<void> tdlibIsolate(TdlibIsolateData tdlibIsolateData) async {
           ),
         );
         //
-      }
+      } else {}
     }
   } catch (e) {
     tdlibIsolateData.sendPort.send(
