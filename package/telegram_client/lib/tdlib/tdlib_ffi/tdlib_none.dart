@@ -62,8 +62,8 @@ import 'package:telegram_client/tdlib/update_td.dart';
 /// ````
 ///
 class TdlibNative {
-  ReceivePort receivePort = ReceivePort();
-  TdlibOptionParameter client_option = TdlibOptionParameter.create(
+  final ReceivePort receivePort = ReceivePort();
+  final TdlibOptionParameter client_option = TdlibOptionParameter.create(
     api_id: 0,
     api_hash: '',
     database_directory: "tg_db",
@@ -86,29 +86,26 @@ class TdlibNative {
   late Isolate isolate;
   bool is_init_isolate = false;
   // bool is_init_send_port = false;
-  late String path_tdlib;
-  bool is_cli;
+  late final String path_tdlib;
+  final bool is_cli;
   // List<TdlibClient> clients = [];
 
-  Map<int, TdlibClient> clients = {};
+  final Map<int, TdlibClient> clients = {};
   // Map<int, TdlibClient> client = {};
   // int client_id = 0;
   int task_count = 0;
-  String event_invoke = "invoke";
-  String event_update = "update";
-  EventEmitter event_emitter = EventEmitter();
-  Duration? delay_update;
+  final String event_invoke;
+  final String event_update;
+   EventEmitter event_emitter = EventEmitter();
+   Duration? delay_update;
   Duration delay_invoke = Duration(milliseconds: 1);
   bool is_auto_get_chat = false;
   Duration invoke_time_out = Duration(minutes: 10);
   double timeOutUpdate;
   bool is_invoke_throw_on_error = false;
-  FutureOr<void> Function(dynamic update, TdlibNative libTdJson)?
-      on_receive_update;
-  FutureOr<String> Function(int client_id, TdlibNative libTdJson)?
-      on_generate_extra_invoke;
-  FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)?
-      on_get_invoke_data;
+  FutureOr<void> Function(dynamic update, TdlibNative libTdJson)? on_receive_update;
+  FutureOr<String> Function(int client_id, TdlibNative libTdJson)? on_generate_extra_invoke;
+  FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)? on_get_invoke_data;
   int task_max_count;
   int task_min_cooldown;
   TdlibNative({
@@ -369,21 +366,17 @@ class TdlibNative {
   }
 
   /// receive all update data
-  EventEmitterListener on(
-      String type_update, FutureOr<dynamic> Function(UpdateTd update) callback,
-      {void Function(Object data)? onError}) {
+  EventEmitterListener on(String type_update, FutureOr<dynamic> Function(UpdateTd update) callback, {void Function(Object data)? onError}) {
     return event_emitter.on(type_update, null, (Event ev, context) async {
       try {
         if (ev.eventData is TdlibIsolateReceiveData) {
-          TdlibIsolateReceiveData tdlibIsolateReceiveData =
-              (ev.eventData as TdlibIsolateReceiveData);
+          TdlibIsolateReceiveData tdlibIsolateReceiveData = (ev.eventData as TdlibIsolateReceiveData);
           await callback(UpdateTd(
             update: tdlibIsolateReceiveData.updateData,
             client_id: tdlibIsolateReceiveData.clientId,
             client_option: () {
               try {
-                TdlibClient? tdlibClient =
-                    clients[tdlibIsolateReceiveData.clientId];
+                TdlibClient? tdlibClient = clients[tdlibIsolateReceiveData.clientId];
                 if (tdlibClient != null) {
                   return tdlibClient.client_option;
                 }
@@ -424,10 +417,8 @@ class TdlibNative {
     String? extra,
     bool? isAutoGetChat,
     bool? isInvokeThrowOnError,
-    FutureOr<String> Function(int client_id, TdlibNative libTdJson)?
-        onGenerateExtraInvoke,
-    FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)?
-        onGetInvokeData,
+    FutureOr<String> Function(int client_id, TdlibNative libTdJson)? onGenerateExtraInvoke,
+    FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)? onGetInvokeData,
   }) async {
     isUseCache ??= false;
     isInvokeThrowOnError ??= is_invoke_throw_on_error;
@@ -467,9 +458,7 @@ class TdlibNative {
       parameters["@extra"] = extra_id;
     }
 
-    if (isAutoGetChat &&
-        RegExp(r"^(sendMessage|getChatMember)$", caseSensitive: false)
-            .hashData(method)) {
+    if (isAutoGetChat && RegExp(r"^(sendMessage|getChatMember)$", caseSensitive: false).hashData(method)) {
       if (parameters["chat_id"] is int) {
         td_send(
           clientId,
@@ -547,10 +536,8 @@ class TdlibNative {
     Duration? durationCacheExpire,
     String? extra,
     bool? isAutoGetChat,
-    FutureOr<String> Function(int client_id, TdlibNative libTdJson)?
-        onGenerateExtraInvoke,
-    FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)?
-        onGetInvokeData,
+    FutureOr<String> Function(int client_id, TdlibNative libTdJson)? onGenerateExtraInvoke,
+    FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)? onGetInvokeData,
     bool? isInvokeThrowOnError,
   }) async {
     return await invoke(

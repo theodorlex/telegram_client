@@ -36,13 +36,13 @@ import "package:server_universe/native/native.dart";
 // import 'package:telegram_client/serverUniverseNative/serverUniverseNative.dart';
 
 class TelegramClientTelegramBotApiOption {
-  Map clientOption;
-  String tokenBot;
-  ServerUniverseNative? serverUniverseNative;
-  String telegramCryptoKey;
-  Uri? telegramUrlWebhook;
-  Client? httpClient;
-  TelegramClientTelegramBotApiOption({
+  final Map clientOption;
+  final String tokenBot;
+  final ServerUniverseNative? serverUniverseNative;
+  final String telegramCryptoKey;
+  final Uri? telegramUrlWebhook;
+  final Client? httpClient;
+  const TelegramClientTelegramBotApiOption({
     required this.tokenBot,
     required this.clientOption,
     this.serverUniverseNative,

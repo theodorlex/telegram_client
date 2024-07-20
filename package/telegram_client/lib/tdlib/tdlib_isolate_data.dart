@@ -38,7 +38,7 @@ class TdlibIsolateData {
   final bool isCli;
   final Duration? delayUpdate;
   final double timeOutUpdate;
-  TdlibIsolateData({
+  const TdlibIsolateData({
     required this.isCli,
     required this.sendPort,
     required this.pathTdlib,

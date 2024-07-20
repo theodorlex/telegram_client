@@ -10,16 +10,16 @@ import 'package:telegram_client/templates/telegram_userbot_telegram_client_templ
 /// telegram client projedct template
 class TelegramClientProjectTemplate {
   ///
-  String name;
+  final String name;
 
   ///
-  bool is_application;
+  final bool is_application;
 
   ///
-  FutureOr<List<ScriptGenerator>> Function() scripts;
+  final FutureOr<List<ScriptGenerator>> Function() scripts;
 
   ///
-  TelegramClientProjectTemplate({
+  const TelegramClientProjectTemplate({
     required this.name,
     required this.is_application,
     required this.scripts,

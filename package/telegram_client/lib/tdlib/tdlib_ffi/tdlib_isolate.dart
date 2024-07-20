@@ -51,7 +51,7 @@ Future<void> tdlibIsolate(TdlibIsolateData tdlibIsolateData) async {
     // Duration duration = tdlibIsolateData.delayUpdate ?? Duration(microseconds: 1);
     while (true) {
       // await Future.delayed(duration);
-      Map? new_update = TdlibNative.td_receive_static(
+      final Map? new_update = TdlibNative.td_receive_static(
         timeout: tdlibIsolateData.timeOutUpdate,
       );
       if (new_update != null) {

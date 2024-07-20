@@ -37,7 +37,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 class TdlibInvokeResult {
   final int client_id;
   final Map result;
-  TdlibInvokeResult({
+  const TdlibInvokeResult({
     required this.client_id,
     required this.result,
   });

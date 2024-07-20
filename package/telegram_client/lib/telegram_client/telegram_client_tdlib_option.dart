@@ -39,24 +39,23 @@ import 'package:telegram_client/tdlib/scheme/scheme.dart';
 import 'package:telegram_client/tdlib/tdlib_ffi/tdlib.dart';
 
 class TelegramClientTdlibOption {
-  TdlibOptionParameter? clientOption;
-  bool is_cli;
-  Duration? invokeTimeOut;
+  final TdlibOptionParameter? clientOption;
+  final bool is_cli;
+  final Duration? invokeTimeOut;
 
-  Duration? delayUpdate;
-  double timeOutUpdate;
-  EventEmitter? eventEmitter;
-  bool isAutoGetChat;
+  final Duration? delayUpdate;
+  final double timeOutUpdate;
+  final EventEmitter? eventEmitter;
+  final bool isAutoGetChat;
 
-  FutureOr<Map<dynamic, dynamic>> Function(String, int, TdlibNative)?
-      on_get_invoke_data;
-  FutureOr<void> Function(dynamic, TdlibNative)? on_receive_update;
-  FutureOr<String> Function(int, TdlibNative)? on_generate_extra_invoke;
-  bool isInvokeThrowOnError;
-  Duration? delayInvoke;
-  int task_max_count;
-  int task_min_cooldown;
-  TelegramClientTdlibOption({
+  final FutureOr<Map<dynamic, dynamic>> Function(String, int, TdlibNative)? on_get_invoke_data;
+  final FutureOr<void> Function(dynamic, TdlibNative)? on_receive_update;
+  final FutureOr<String> Function(int, TdlibNative)? on_generate_extra_invoke;
+  final bool isInvokeThrowOnError;
+  final Duration? delayInvoke;
+  final int task_max_count;
+  final int task_min_cooldown;
+  const TelegramClientTdlibOption({
     this.isAutoGetChat = false,
     this.task_max_count = 10000,
     this.task_min_cooldown = 10,

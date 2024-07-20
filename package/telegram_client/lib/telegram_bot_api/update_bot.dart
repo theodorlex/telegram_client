@@ -31,12 +31,12 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 <!-- END LICENSE --> */
 class UpdateBot {
-  Map<String, dynamic> body;
-  Map query;
-  String type;
-  Uri uri;
+  final Map<String, dynamic> body;
+  final Map query;
+  final String type;
+  final Uri uri;
 
-  UpdateBot({
+  const UpdateBot({
     required this.uri,
     required this.body,
     required this.query,

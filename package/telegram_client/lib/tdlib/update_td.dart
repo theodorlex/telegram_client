@@ -37,7 +37,7 @@ class UpdateTd {
   final Map update;
   final int client_id;
   final Map client_option;
-  UpdateTd({
+  const UpdateTd({
     required this.update,
     required this.client_id,
     required this.client_option,

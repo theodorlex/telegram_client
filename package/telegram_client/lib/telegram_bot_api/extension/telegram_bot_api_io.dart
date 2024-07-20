@@ -42,26 +42,21 @@ import 'package:universal_io/io.dart';
 extension TelegramBotApiTypeFileMethodExtensions on TelegramBotApi {
   /// test method
   Map typeFile(dynamic content) {
-    Map data = {};
+    // Map return {};
     if (content is String) {
       if (RegExp(r"^http", caseSensitive: false).hasMatch(content)) {
-        data = {"@type": 'inputFileRemote', "data": content};
-      } else if (RegExp(r"^(\/|\.\.?\/|~\/)", caseSensitive: false)
-          .hasMatch(content)) {
+        return {"@type": 'inputFileRemote', "data": content};
+      } else if (RegExp(r"^(\/|\.\.?\/|~\/)", caseSensitive: false).hasMatch(content)) {
         File file = File(content);
         // file.uri.;
-        data = {
-          "@type": 'inputFileLocal',
-          "data": TgUtils.telegram_bot_api_file(file: file)
-        };
+        return {"@type": 'inputFileLocal', "data": TgUtils.telegram_bot_api_file(file: file)};
       } else if (content is int) {
-        data = {"@type": 'inputFileId', "data": content};
+        return {"@type": 'inputFileId', "data": content};
       } else {
-        data = {"@type": 'inputFileRemote', "data": content};
+        return {"@type": 'inputFileRemote', "data": content};
       }
     } else {
-      data = {"@type": 'inputFileRemote', "data": content};
+      return {"@type": 'inputFileRemote', "data": content};
     }
-    return data;
-  }
+   }
 }
