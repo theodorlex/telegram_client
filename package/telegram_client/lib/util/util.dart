@@ -181,10 +181,10 @@ class TgUtils {
 
   /// ccreate offset for tl
   static List<String> splitByLength(String text, int length, {bool ignoreEmpty = false}) {
-    List<String> pieces = [];
+    final List<String> pieces = [];
 
     for (int i = 0; i < text.length; i += length) {
-      int offset = i + length;
+      final int offset = i + length;
       String piece = text.substring(i, offset >= text.length ? text.length : offset);
 
       if (ignoreEmpty) {
@@ -202,7 +202,7 @@ class TgUtils {
     required int limitCount,
   }) {
     int offset = 0;
-    List<int> listOffset = [0];
+    final List<int> listOffset = [0];
     for (var i = 0; i < (totalCount ~/ limitCount).toInt(); i++) {
       for (var ii = 0; ii <= limitCount; ii++) {
         if (ii == limitCount) {
@@ -266,7 +266,7 @@ class TgUtils {
     required String text,
     required String url,
   }) {
-    Map<String, String> queryParameters = {
+    final Map<String, String> queryParameters = {
       "url": url,
       "text": text,
     };
@@ -381,7 +381,7 @@ ${text}
   static dynamic parse_chat_id({
     required Map parameters,
   }) {
-    dynamic target_chat_id = () {
+    final dynamic target_chat_id = () {
       if (parameters["chat_id"] is int) {
         return (parameters["chat_id"]);
       }
@@ -400,7 +400,7 @@ ${text}
     required Map replyMarkup,
   }) {
     if (replyMarkup["keyboard"] is List) {
-      Map replyMarkupShowKeyboard = {
+      final Map replyMarkupShowKeyboard = <dynamic, dynamic>{
         "@type": "replyMarkupShowKeyboard",
       };
       replyMarkup.forEach((key, value) {
@@ -414,17 +414,17 @@ ${text}
         }
       });
 
-      List keyboards_old = (replyMarkup["keyboard"] as List);
+      final List keyboards_old = (replyMarkup["keyboard"] as List);
 
-      List keyboards = [];
+      final List keyboards = [];
       for (var i = 0; i < keyboards_old.length; i++) {
-        dynamic row = keyboards_old[i];
+        final dynamic row = keyboards_old[i];
         if (row is List) {
-          List new_keyboard = [];
+final           List new_keyboard = [];
           for (var index = 0; index < row.length; index++) {
-            dynamic data_row = row[index];
+      final      dynamic data_row = row[index];
             if (data_row is Map) {
-              Map jsonData = {
+           final   Map jsonData = <dynamic, dynamic>{
                 "@type": "keyboardButton",
                 "text": data_row["text"],
                 "type": <dynamic, dynamic>{"@type": "keyboardButtonTypeText"},
@@ -484,21 +484,21 @@ ${text}
     }
 
     if (replyMarkup["inline_keyboard"] is List) {
-      Map replyMarkupInlineKeyboard = {
+      final Map replyMarkupInlineKeyboard = <dynamic, dynamic>{
         "@type": "replyMarkupInlineKeyboard",
       };
 
-      List inline_keyboards_old = (replyMarkup["inline_keyboard"] as List);
+     final List inline_keyboards_old = (replyMarkup["inline_keyboard"] as List);
 
-      List inline_keyboards = [];
+    final   List inline_keyboards = [];
       for (var i = 0; i < inline_keyboards_old.length; i++) {
-        dynamic row = inline_keyboards_old[i];
+        final dynamic row = inline_keyboards_old[i];
         if (row is List) {
-          List new_keyboard = [];
+          final List new_keyboard = [];
           for (var index = 0; index < row.length; index++) {
-            dynamic data_row = row[index];
+            final dynamic data_row = row[index];
             if (data_row is Map) {
-              Map jsonData = {
+              final Map jsonData = {
                 "@type": "inlineKeyboardButton",
                 "text": data_row["text"],
                 "type": {},
@@ -555,13 +555,13 @@ ${text}
     if (content is Map) {
       if (content["is_post_buffer"] == true) {
         if (directory_temp != null) {
-          String name_file = () {
+          final String name_file = () {
             if (content["name"] is String && (content["name"] as String).isNotEmpty) {
               return content["name"];
             }
             return "${DateTime.now().millisecondsSinceEpoch}";
           }();
-          File file = File(join(directory_temp.path, name_file));
+          final File file = File(join(directory_temp.path, name_file));
           if (content["buffer"] is List<int>) {
             await file.writeAsBytes((content["buffer"] as List<int>));
           }
@@ -609,7 +609,7 @@ ${text}
     required Map replyMarkup,
   }) {
     if (replyMarkup["@type"] == "replyMarkupShowKeyboard") {
-      Map replyMarkupShowKeyboard = {};
+      final Map replyMarkupShowKeyboard = <dynamic, dynamic>{};
       replyMarkup.forEach((key, value) {
         if (["@type"].contains(key)) {
           return;
@@ -622,21 +622,21 @@ ${text}
       });
 
       if (replyMarkup["rows"] is List) {
-        List rows = replyMarkup["rows"];
+        final List rows = replyMarkup["rows"];
 
-        List keyboards = [];
+        final List keyboards = [];
         for (var i = 0; i < rows.length; i++) {
-          dynamic row = rows[i];
+          final dynamic row = rows[i];
           if (row is List) {
-            List new_keyboard = [];
+            final List new_keyboard = [];
             for (var index = 0; index < row.length; index++) {
-              dynamic data_row = row[index];
+              final dynamic data_row = row[index];
               if (data_row is Map) {
-                Map jsonData = {
+                final Map jsonData = <dynamic, dynamic>{
                   "text": data_row["text"],
                 };
                 if (data_row["type"] is Map) {
-                  Map data_row_type = data_row["type"];
+                  final Map data_row_type = data_row["type"];
                   if (data_row_type["@type"] == "keyboardButtonTypeText") {}
 
                   if (data_row_type["@type"] == "keyboardButtonTypeRequestChat") {
@@ -686,24 +686,24 @@ ${text}
       return replyMarkupShowKeyboard;
     }
     if (replyMarkup["@type"] == "replyMarkupInlineKeyboard") {
-      Map replyMarkupInlineKeyboard = {};
+      final Map replyMarkupInlineKeyboard = <dynamic, dynamic>{};
 
       if (replyMarkup["rows"] is List) {
-        List rows = replyMarkup["rows"];
+        final List rows = replyMarkup["rows"];
 
-        List inline_keyboards = [];
+        final List inline_keyboards = [];
         for (var i = 0; i < rows.length; i++) {
-          dynamic row = rows[i];
+          final dynamic row = rows[i];
           if (row is List) {
-            List new_keyboard = [];
+            final List new_keyboard = [];
             for (var index = 0; index < row.length; index++) {
-              dynamic data_row = row[index];
+              final dynamic data_row = row[index];
               if (data_row is Map) {
-                Map jsonData = {
+          final      Map jsonData = <dynamic, dynamic>{
                   "text": data_row["text"],
                 };
                 if (data_row["type"] is Map) {
-                  Map data_row_type = data_row["type"];
+                final  Map data_row_type = data_row["type"];
                   if (data_row_type["@type"] == "inlineKeyboardButtonTypeCallback") {
                     jsonData["callback_data"] = utf8.decode(base64.decode(data_row_type["data"]));
                   }
@@ -759,7 +759,7 @@ ${text}
     required TelegramClient tg,
   }) {
     if (inputMessageContent.containsKey("message_text")) {
-      Map new_scheme = {
+      final Map new_scheme = <dynamic, dynamic>{
         "@type": "inputMessageText",
       };
 
@@ -773,12 +773,12 @@ ${text}
         }
       });
 
-      Map formatted_text = {
+      Map formatted_text = <dynamic, dynamic>{
         "@type": "formattedText",
         "text": inputMessageContent["message_text"],
       };
 
-      String parse_mode = () {
+      final String parse_mode = () {
         if (inputMessageContent["parse_mode"] is String) {
           return inputMessageContent["parse_mode"];
         }
