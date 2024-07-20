@@ -36,9 +36,9 @@ import 'package:telegram_client/telegram_client/telegram_client_type.dart';
 
 /// return original data json
 class TelegramClientData {
-  final int tdlib_client_id;
+   int tdlib_client_id;
   final TelegramClientType telegramClientType;
-  final String telegram_bot_api_token_bot;
+   String telegram_bot_api_token_bot;
   bool is_bot;
   final int client_user_id;
   String client_user_name;
