@@ -36,11 +36,11 @@ import 'dart:typed_data';
 
 // parse to telegram bot api file data
 class TelegramBotApiFileData {
-  String name;
-  Uint8List buffer_data;
+ final String name;
+  final Uint8List buffer_data;
 
 // parse to telegram bot api file data
-  TelegramBotApiFileData({
+  const TelegramBotApiFileData({
     required this.name,
     required this.buffer_data,
   });

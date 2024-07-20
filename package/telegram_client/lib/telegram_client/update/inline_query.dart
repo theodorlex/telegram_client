@@ -52,7 +52,7 @@ extension InlineQueryDataDataOn on TelegramClient {
     Duration? durationCacheExpire,
   }) async {
     // Map message_inline_message_id = {};
-    Map message_sender_chat_json = {};
+    final Map message_sender_chat_json = <dynamic, dynamic>{};
 
     if (inlineQuery["sender_user_id"] is int) {
       if (is_lite) {
@@ -60,7 +60,7 @@ extension InlineQueryDataDataOn on TelegramClient {
           "id": inlineQuery["sender_user_id"],
         };
       } else {
-        var res = await request(
+        final Map res = await request(
           parameters: {
             "@type": "getUser",
             "user_id": inlineQuery["sender_user_id"],
@@ -74,7 +74,7 @@ extension InlineQueryDataDataOn on TelegramClient {
         message_sender_chat_json["from"] = res;
       }
     }
-    Map new_scheme_data = {
+    final Map new_scheme_data = <dynamic, dynamic>{
       "id": inlineQuery["id"],
       ...message_sender_chat_json,
     };
@@ -103,7 +103,7 @@ extension InlineQueryDataDataOn on TelegramClient {
   }) async {
     // http://0.0.0.0:8704/classtd_1_1td__api_1_1message.html
     if (update["@type"] == "updateNewInlineQuery") {
-      Map callback_query = await inlineQuery_InlineQuery(
+      final Map callback_query = await inlineQuery_InlineQuery(
         inlineQuery: update,
         telegramClientData: telegramClientData,
         is_lite: is_lite,
