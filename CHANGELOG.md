@@ -1,3 +1,3 @@
-## 0.8.5
+## 0.8.22
 
-- Fix pub score.
+- Support Tdlib Latest 1.8.34.

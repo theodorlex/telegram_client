@@ -39,7 +39,7 @@ class JsonScheme {
   Map rawData;
 
   /// return original data json
-   JsonScheme(this.rawData);
+  JsonScheme(this.rawData);
 
   /// return original data json
   static Map get defaultData {
