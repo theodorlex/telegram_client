@@ -1,280 +1,79 @@
-# name: Build Tdlib Cross Compile 
-# on: [workflow_dispatch]
-# jobs:
-#   build-tdlib-desktop:
-#     name: Build 
-#     runs-on: ${{ matrix.os }}
-#     strategy:
-#       matrix:
-#         os: [ubuntu-20.04, windows-latest, macOS-latest]
-#         include:
-#           - os: ubuntu-20.04
-#             output-name: linux
-#           - os: macOS-latest
-#             output-name: macos
-#           - os: windows-latest
-#             output-name: windows
-#     steps:
-#       - name: Export Release Timestamp
-#         run: echo "APP_VERSION=v$(date +'%Y.%m.%d.%H.%M.%S')" >> $GITHUB_ENV
-#       - uses: actions/checkout@v3
-#         with:
-#           repository: tdlib/td
-#       - name: Install Dependencies
-#         continue-on-error: true
-#         run: |
-#           if [ "$RUNNER_OS" == "Linux" ]; then
-#             sudo apt update -y
-#             sudo apt-get install -y make git zlib1g-dev libssl-dev gperf cmake clang libc++-dev libc++abi-dev ninja-build zip
-#           fi
-#           if [ "$RUNNER_OS" == "macOS" ]; then
-#             brew update
-#             brew upgrade
-#             xcode-select --install
-#             curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
-#             brew install gperf cmake openssl coreutils
-#           fi
-#           if [ "$RUNNER_OS" == "Windows" ]; then
-#             git clone https://github.com/Microsoft/vcpkg.git
-#             cd vcpkg
-#             git checkout 1b1ae50e1a69f7c659bd7d731e80b358d21c86ad
-#             ./bootstrap-vcpkg.bat
-#             ./vcpkg.exe install gperf:x64-windows openssl:x64-windows zlib:x64-windows
-#           fi
-#         shell: bash
-#       - name: Compile Tdlib
-#         continue-on-error: true
-#         run: |
-#           mkdir build
-#           cd build
-#           if [ "$RUNNER_OS" == "Linux" ]; then 
-#             cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../tdlib ..
-#             cmake --build .
-
-#           fi
-#           if [ "$RUNNER_OS" == "macOS" ]; then
-#             cmake -DCMAKE_BUILD_TYPE=Release -DOPENSSL_ROOT_DIR=/opt/homebrew/opt/openssl/ -DCMAKE_INSTALL_PREFIX:PATH=../tdlib ..
-#             cmake --build .
-#           fi
-#           if [ "$RUNNER_OS" == "Windows" ]; then
-#             cmake -A x64 -DCMAKE_INSTALL_PREFIX:PATH=../tdlib -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../vcpkg/scripts/buildsystems/vcpkg.cmake ..
-#             cmake --build .
-#             cd tdlib/bin
-#             ls
-#             mv libcrypto-1_1-x64.dll libcrypto-1_1.dll
-#             mv libssl-1_1-x64.dll libssl-1_1.dll
-#             7z a -tzip dlls.zip libcrypto-1_1.dll libssl-1_1.dll tdjson.dll zlib1.dll
-#           fi
-#         shell: bash
-#       - name: Publish Release
-#         uses: marvinpinto/action-automatic-releases@latest
-#         continue-on-error: true
-#         with:
-#           repo_token: "${{ github.token }}"
-#           automatic_release_tag: "latest-tdlib-${{ matrix.output-name }}"
-#           prerelease: false
-#           title: "Release Tdlib ${{ matrix.output-name }}"
-#           files: |
-#             tdlib/.*
-  
-
-
-name: Build Tdlib Cross Platform
-
+name: Build Tdlib Cross Compile 
 on: [workflow_dispatch]
-
 jobs:
-  
-
-
-
-  build-macos-intel:
-    runs-on: macos-11
+  build-tdlib-desktop:
+    name: Build 
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, windows-latest, macOS-latest]
+        include:
+          - os: ubuntu-20.04
+            output-name: linux
+          - os: macOS-latest
+            output-name: macos
+          - os: windows-latest
+            output-name: windows
     steps:
+      - name: Export Release Timestamp
+        run: echo "APP_VERSION=v$(date +'%Y.%m.%d.%H.%M.%S')" >> $GITHUB_ENV
       - uses: actions/checkout@v3
         with:
           repository: tdlib/td
-
-      - name: setup
-        run: |
-          brew install gperf cmake coreutils
-
-      - name: setup td
-        run: |
-          cd example/ios
-          sed -i '.bak' '11s/.*/platforms="macOS"/' build-openssl.sh
-          sed -i '.bak' '24s/.*/platforms="macOS"/' build.sh
-
-      - name: build ssl
-        run: |
-          cd example/ios
-          ./build-openssl.sh
-
-      - name: build
-        run: |
-          cd example/ios
-          ./build.sh
-
-#      - name: fake build
-#        run: |
-#          mkdir -p example/ios/tdjson/macOS/lib/
-#          cd example/ios/tdjson/macOS/lib/
-#          echo "libtdjson" > libtdjson.dylib
-
-      - name: zip
-        run: |
-          cd example/ios/tdjson/macOS/lib/
-          zip libtdjson.zip libtdjson.dylib
-
-      - name: Publish Release
-        uses: marvinpinto/action-automatic-releases@latest
+      - name: Install Dependencies
         continue-on-error: true
-        with:
-          repo_token: "${{ github.token }}"
-          automatic_release_tag: "latest-tdlib-macos"
-          prerelease: false
-          title: "Release Tdlib MacOs"
-          files: |
-            example/ios/tdjson/macOS/lib/libtdjson.zip
-
-
-  build-ios:
-    runs-on: macos-11
-    steps: 
-      - uses: actions/checkout@v3
-        with:
-          repository: tdlib/td
-
-      - name: setup
         run: |
-          brew install gperf cmake coreutils
-
-      - name: setup td
-        run: |
-          mkdir native-build
-          cd native-build
-          cmake ..
-          cmake --build . --target prepare_cross_compiling
-          cd ../example/ios
-          sed -i '.bak' '11s/.*/platforms="iOS"/' build-openssl.sh
-          sed -i '.bak' '24s/.*/platforms="iOS"/' build.sh
-
-      - name: build ssl
-        run: |
-          cd example/ios
-          ./build-openssl.sh
-
-      - name: build
-        run: |
-          cd example/ios
-          ./build.sh
-
-#      - name: fake build
-#        run: |
-#          mkdir -p example/ios/tdjson/iOS/lib/
-#          cd example/ios/tdjson/iOS/lib/
-#          echo "libtdjson" > libtdjson.dylib
-
-      - name: zip
-        run: |
-          cd example/ios/tdjson/iOS/lib/
-          zip libtdjson.zip libtdjson.dylib
- 
-      - name: Publish Release
-        uses: marvinpinto/action-automatic-releases@latest
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            sudo apt update -y
+            sudo apt-get install -y make git zlib1g-dev libssl-dev gperf cmake clang libc++-dev libc++abi-dev ninja-build zip
+          fi
+          if [ "$RUNNER_OS" == "macOS" ]; then
+            brew update
+            brew upgrade
+            xcode-select --install
+            curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+            brew install gperf cmake openssl coreutils
+          fi
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            git clone https://github.com/Microsoft/vcpkg.git
+            cd vcpkg
+            git checkout 1b1ae50e1a69f7c659bd7d731e80b358d21c86ad
+            ./bootstrap-vcpkg.bat
+            ./vcpkg.exe install gperf:x64-windows openssl:x64-windows zlib:x64-windows
+          fi
+        shell: bash
+      - name: Compile Tdlib
         continue-on-error: true
-        with:
-          repo_token: "${{ github.token }}"
-          automatic_release_tag: "latest-tdlib-ios"
-          prerelease: false
-          title: "Release Tdlib Ios"
-          files: |
-            example/ios/tdjson/iOS/lib/libtdjson.zip
-
-
-  build-linux-x64:
-    runs-on: ubuntu-24.04
-    steps:
-    
-      - uses: actions/checkout@v3
-        with:
-          repository: tdlib/td
-
-      - name: setup
         run: |
-          sudo apt-get install make git zlib1g-dev libssl-dev gperf php-cli cmake g++
-
-      - name: build
-        run: | 
-          rm -rf build
           mkdir build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../tdlib ..
-          cmake --build .
- 
+          if [ "$RUNNER_OS" == "Linux" ]; then 
+            cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../tdlib ..
+            cmake --build .
 
-      - name: zip
-        run: |
-          cd tdlib/lib
-          zip libtdjson.zip libtdjson.so
-
+          fi
+          if [ "$RUNNER_OS" == "macOS" ]; then
+            cmake -DCMAKE_BUILD_TYPE=Release -DOPENSSL_ROOT_DIR=/opt/homebrew/opt/openssl/ -DCMAKE_INSTALL_PREFIX:PATH=../tdlib ..
+            cmake --build .
+          fi
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            cmake -A x64 -DCMAKE_INSTALL_PREFIX:PATH=../tdlib -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../vcpkg/scripts/buildsystems/vcpkg.cmake ..
+            cmake --build .
+            cd tdlib/bin
+            ls
+            mv libcrypto-1_1-x64.dll libcrypto-1_1.dll
+            mv libssl-1_1-x64.dll libssl-1_1.dll
+            7z a -tzip dlls.zip libcrypto-1_1.dll libssl-1_1.dll tdjson.dll zlib1.dll
+          fi
+        shell: bash
       - name: Publish Release
         uses: marvinpinto/action-automatic-releases@latest
         continue-on-error: true
         with:
           repo_token: "${{ github.token }}"
-          automatic_release_tag: "latest-tdlib-linux"
+          automatic_release_tag: "latest-tdlib-${{ matrix.output-name }}"
           prerelease: false
-          title: "Release Tdlib Linux"
+          title: "Release Tdlib ${{ matrix.output-name }}"
           files: |
-            tdlib/lib/libtdjson.zip
-
-  build-windows-x64:
-    runs-on: windows-2022
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          repository: tdlib/td
-
-    
-      - name: setup vcpkg
-        run: | 
-          git clone https://github.com/Microsoft/vcpkg.git
-          cd vcpkg
-          git checkout cd5e746ec203c8c3c61647e0886a8df8c1e78e41
-          ./bootstrap-vcpkg.bat
-          ./vcpkg.exe install gperf:x64-windows openssl:x64-windows zlib:x64-windows
-
-      - name: build
-        run: | 
-          mkdir build
-          cd build
-          cmake -A x64 -DCMAKE_INSTALL_PREFIX:PATH=../tdlib -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../vcpkg/scripts/buildsystems/vcpkg.cmake ..
-          cmake --build . --target install --config Release
-
-#      - name: fake build
-#        run: |
-#          mkdir -p tdlib/bin
-#          echo test > tdlib/bin/libcrypto-1_1-x64.dll
-#          echo test > tdlib/bin/libssl-1_1-x64.dll
-#          echo test > tdlib/bin/tdjson.dll
-#          echo test > tdlib/bin/zlib1.dll
-
-      - name: zip
-        run: |
-          cd tdlib/bin
-          ls
-          mv libcrypto-1_1-x64.dll libcrypto-1_1.dll
-          mv libssl-1_1-x64.dll libssl-1_1.dll
-          7z a -tzip libtdjson.zip libcrypto-1_1.dll libssl-1_1.dll tdjson.dll zlib1.dll
- 
-      - name: Publish Release
-        uses: marvinpinto/action-automatic-releases@latest
-        continue-on-error: true
-        with:
-          repo_token: "${{ github.token }}"
-          automatic_release_tag: "latest-tdlib-windows"
-          prerelease: false
-          title: "Release Tdlib Windows"
-          files: |
-            tdlib/bin/libtdjson.zip
+            tdlib/.*
+   
