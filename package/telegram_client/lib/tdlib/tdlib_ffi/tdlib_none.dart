@@ -103,12 +103,9 @@ class TdlibNative {
   Duration invoke_time_out = Duration(minutes: 10);
   double timeOutUpdate;
   bool is_invoke_throw_on_error = false;
-  FutureOr<void> Function(dynamic update, TdlibNative libTdJson)?
-      on_receive_update;
-  FutureOr<String> Function(int client_id, TdlibNative libTdJson)?
-      on_generate_extra_invoke;
-  FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)?
-      on_get_invoke_data;
+  FutureOr<void> Function(dynamic update, TdlibNative libTdJson)? on_receive_update;
+  FutureOr<String> Function(int client_id, TdlibNative libTdJson)? on_generate_extra_invoke;
+  FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)? on_get_invoke_data;
   int task_max_count;
   int task_min_cooldown;
   TdlibNative({
@@ -258,6 +255,7 @@ class TdlibNative {
     TdlibOptionParameter? clientOption,
     bool isBot = false,
     bool isVoid = false,
+    bool isAutoSetOptionIfEmpty = true,
   }) async {
     //
     Map client_new_option = client_option.rawData.clone();
@@ -266,7 +264,7 @@ class TdlibNative {
     }
     TdlibClient tdlibClient = TdlibClient(
       client_id: clientId,
-      client_user_id: clientUserId,
+      client_tg_user_id: clientUserId,
       client_option: client_new_option,
     );
     if ((is_init_isolate == false)) {
@@ -292,7 +290,7 @@ class TdlibNative {
   TdlibClient? getClientByUserId(int clientUserId) {
     List<MapEntry<int, TdlibClient>> entries = clients.entries.toList();
     for (var i = 0; i < entries.length; i++) {
-      if (entries[i].value.client_user_id == clientUserId) {
+      if (entries[i].value.client_tg_user_id == clientUserId) {
         return entries[i].value;
       }
     }
@@ -369,21 +367,17 @@ class TdlibNative {
   }
 
   /// receive all update data
-  EventEmitterListener on(
-      String type_update, FutureOr<dynamic> Function(UpdateTd update) callback,
-      {void Function(Object data)? onError}) {
+  EventEmitterListener on(String type_update, FutureOr<dynamic> Function(UpdateTd update) callback, {void Function(Object data)? onError}) {
     return event_emitter.on(type_update, null, (Event ev, context) async {
       try {
         if (ev.eventData is TdlibIsolateReceiveData) {
-          TdlibIsolateReceiveData tdlibIsolateReceiveData =
-              (ev.eventData as TdlibIsolateReceiveData);
+          TdlibIsolateReceiveData tdlibIsolateReceiveData = (ev.eventData as TdlibIsolateReceiveData);
           await callback(UpdateTd(
             update: tdlibIsolateReceiveData.updateData,
             client_id: tdlibIsolateReceiveData.clientId,
             client_option: () {
               try {
-                TdlibClient? tdlibClient =
-                    clients[tdlibIsolateReceiveData.clientId];
+                TdlibClient? tdlibClient = clients[tdlibIsolateReceiveData.clientId];
                 if (tdlibClient != null) {
                   return tdlibClient.client_option;
                 }
@@ -424,10 +418,8 @@ class TdlibNative {
     String? extra,
     bool? isAutoGetChat,
     bool? isInvokeThrowOnError,
-    FutureOr<String> Function(int client_id, TdlibNative libTdJson)?
-        onGenerateExtraInvoke,
-    FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)?
-        onGetInvokeData,
+    FutureOr<String> Function(int client_id, TdlibNative libTdJson)? onGenerateExtraInvoke,
+    FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)? onGetInvokeData,
   }) async {
     isUseCache ??= false;
     isInvokeThrowOnError ??= is_invoke_throw_on_error;
@@ -467,9 +459,7 @@ class TdlibNative {
       parameters["@extra"] = extra_id;
     }
 
-    if (isAutoGetChat &&
-        RegExp(r"^(sendMessage|getChatMember)$", caseSensitive: false)
-            .hashData(method)) {
+    if (isAutoGetChat && RegExp(r"^(sendMessage|getChatMember)$", caseSensitive: false).hashData(method)) {
       if (parameters["chat_id"] is int) {
         td_send(
           clientId,
@@ -547,10 +537,8 @@ class TdlibNative {
     Duration? durationCacheExpire,
     String? extra,
     bool? isAutoGetChat,
-    FutureOr<String> Function(int client_id, TdlibNative libTdJson)?
-        onGenerateExtraInvoke,
-    FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)?
-        onGetInvokeData,
+    FutureOr<String> Function(int client_id, TdlibNative libTdJson)? onGenerateExtraInvoke,
+    FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)? onGetInvokeData,
     bool? isInvokeThrowOnError,
   }) async {
     return await invoke(

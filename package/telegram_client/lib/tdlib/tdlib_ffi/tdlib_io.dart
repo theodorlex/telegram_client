@@ -59,10 +59,8 @@ typedef TdStringNative = Pointer<Utf8>;
 typedef TdReceiveNative = TdStringNative Function(Double timout);
 typedef TdReceiveDart = TdStringNative Function(double timout);
 
-typedef TdSendNative = Void Function(
-    TdPointerNative client, TdStringNative request);
-typedef TdSendDart = void Function(
-    TdPointerNative client, TdStringNative request);
+typedef TdSendNative = Void Function(TdPointerNative client, TdStringNative request);
+typedef TdSendDart = void Function(TdPointerNative client, TdStringNative request);
 
 typedef TdExecuteNative = TdStringNative Function(TdStringNative parameters);
 
@@ -89,8 +87,7 @@ class TdlibNative {
   final ReceivePort receivePort = ReceivePort();
   final TdlibOptionParameter client_option = TdlibOptionParameter.create(
     api_id: num.tryParse("OTQ1NzU=".general_lib_utils_decryptFromBase64()),
-    api_hash: 'YTM0MDZkZThkMTcxYmI0MjJiYjZkZGYzYmJkODAwZTI='
-        .general_lib_utils_decryptFromBase64(),
+    api_hash: 'YTM0MDZkZThkMTcxYmI0MjJiYjZkZGYzYmJkODAwZTI='.general_lib_utils_decryptFromBase64(),
     database_directory: "tg_db",
     files_directory: "tg_file",
     use_file_database: true,
@@ -101,8 +98,7 @@ class TdlibNative {
     system_language_code: 'en',
     new_verbosity_level: 0,
     application_version: 'v1',
-    device_model: 'VGVsZWdyYW0gQ2xpZW50IEFaS0FERVYgR0xPQkFMIENPUlBPUkFUSU9O'
-        .general_lib_utils_decryptFromBase64(),
+    device_model: 'VGVsZWdyYW0gQ2xpZW50IEFaS0FERVYgR0xPQkFMIENPUlBPUkFUSU9O'.general_lib_utils_decryptFromBase64(),
     system_version: Platform.operatingSystemVersion,
     database_key: "",
     start: true,
@@ -129,12 +125,9 @@ class TdlibNative {
   Duration invoke_time_out = Duration(minutes: 10);
   double timeOutUpdate;
   bool is_invoke_throw_on_error = false;
-  FutureOr<void> Function(dynamic update, TdlibNative libTdJson)?
-      on_receive_update;
-  FutureOr<String> Function(int client_id, TdlibNative libTdJson)?
-      on_generate_extra_invoke;
-  FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)?
-      on_get_invoke_data;
+  FutureOr<void> Function(dynamic update, TdlibNative libTdJson)? on_receive_update;
+  FutureOr<String> Function(int client_id, TdlibNative libTdJson)? on_generate_extra_invoke;
+  FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)? on_get_invoke_data;
 
   static bool is_debug = false;
   int task_max_count;
@@ -253,11 +246,8 @@ class TdlibNative {
   /// create client id for multi client
   int td_create_client_id() {
     int client_id_new = using((Arena arena) {
-      TdPointerFunctionNative td_pointer_native_function = tdLib.lookupFunction<
-          TdPointerFunctionNative,
-          TdPointerFunctionNative>('td_create_client_id', isLeaf: false);
-      Pointer<NativeType> td_pointer_native_result =
-          arena.using(td_pointer_native_function(), (p0) {});
+      TdPointerFunctionNative td_pointer_native_function = tdLib.lookupFunction<TdPointerFunctionNative, TdPointerFunctionNative>('td_create_client_id', isLeaf: false);
+      Pointer<NativeType> td_pointer_native_result = arena.using(td_pointer_native_function(), (p0) {});
       int client_id_new = td_pointer_native_result.address;
       arena.releaseAll();
       return client_id_new;
@@ -268,11 +258,8 @@ class TdlibNative {
   /// create client id for multi client
   int td_json_client_create() {
     int client_id_new = using((Arena arena) {
-      TdPointerFunctionNative td_pointer_native_function = tdLib.lookupFunction<
-          TdPointerFunctionNative,
-          TdPointerFunctionNative>('td_json_client_create', isLeaf: false);
-      TdPointerNative td_pointer_native_result =
-          arena.using(td_pointer_native_function(), (p0) {});
+      TdPointerFunctionNative td_pointer_native_function = tdLib.lookupFunction<TdPointerFunctionNative, TdPointerFunctionNative>('td_json_client_create', isLeaf: false);
+      TdPointerNative td_pointer_native_result = arena.using(td_pointer_native_function(), (p0) {});
       int client_id_new = td_pointer_native_result.address;
       arena.releaseAll();
       return client_id_new;
@@ -289,14 +276,11 @@ class TdlibNative {
   void td_send(int clientId, [Map? parameters]) {
     using((Arena arena) {
       Pointer client_id_addres_data = client_id_addres(clientId);
-      TdStringNative request_data =
-          convert.json.encode(parameters).toNativeUtf8();
+      TdStringNative request_data = convert.json.encode(parameters).toNativeUtf8();
       Arena arena = Arena();
-      TdSendDart td_send_function = tdLib
-          .lookupFunction<TdSendNative, TdSendDart>('td_send', isLeaf: false);
+      TdSendDart td_send_function = tdLib.lookupFunction<TdSendNative, TdSendDart>('td_send', isLeaf: false);
       // void td_send_result =
-      arena.using(
-          td_send_function(client_id_addres_data, request_data), (p0) {});
+      arena.using(td_send_function(client_id_addres_data, request_data), (p0) {});
       arena.releaseAll();
       malloc.free(request_data);
     });
@@ -307,16 +291,12 @@ class TdlibNative {
   void td_json_client_send(int clientId, [Map? parameters]) {
     using((Arena arena) {
       Pointer client_id_addres_data = client_id_addres(clientId);
-      TdStringNative request_data =
-          convert.json.encode(parameters).toNativeUtf8();
+      TdStringNative request_data = convert.json.encode(parameters).toNativeUtf8();
 
       Arena arena = Arena();
-      TdSendDart td_send_function =
-          tdLib.lookupFunction<TdSendNative, TdSendDart>('td_json_client_send',
-              isLeaf: false);
+      TdSendDart td_send_function = tdLib.lookupFunction<TdSendNative, TdSendDart>('td_json_client_send', isLeaf: false);
       // void td_send_result =
-      arena.using(
-          td_send_function(client_id_addres_data, request_data), (p0) {});
+      arena.using(td_send_function(client_id_addres_data, request_data), (p0) {});
       arena.releaseAll();
       malloc.free(request_data);
     });
@@ -327,17 +307,12 @@ class TdlibNative {
   /// client_execute
   Map<String, dynamic> td_execute(Map parameters) {
     Map<String, dynamic> result_data = using((Arena arena) {
-      TdStringNative request_data =
-          convert.json.encode(parameters).toNativeUtf8();
+      TdStringNative request_data = convert.json.encode(parameters).toNativeUtf8();
 
-      TdExecuteNative td_execute_native_function =
-          tdLib.lookupFunction<TdExecuteNative, TdExecuteNative>('td_execute',
-              isLeaf: false);
+      TdExecuteNative td_execute_native_function = tdLib.lookupFunction<TdExecuteNative, TdExecuteNative>('td_execute', isLeaf: false);
 
-      TdStringNative td_execute_native_result =
-          arena.using(td_execute_native_function(request_data), (p0) {});
-      Map<String, dynamic> result_data =
-          convert.json.decode(td_execute_native_result.toDartString());
+      TdStringNative td_execute_native_result = arena.using(td_execute_native_function(request_data), (p0) {});
+      Map<String, dynamic> result_data = convert.json.decode(td_execute_native_result.toDartString());
       arena.releaseAll();
       malloc.free(request_data);
 
@@ -350,10 +325,7 @@ class TdlibNative {
   void td_json_client_destroy(int clientId) {
     using((Arena arena) {
       Pointer client_id_addres_data = client_id_addres(clientId);
-      TdDestroyDart td_destroy_dart_function =
-          tdLib.lookupFunction<TdDestroyNative, TdDestroyDart>(
-              'td_json_client_destroy',
-              isLeaf: false);
+      TdDestroyDart td_destroy_dart_function = tdLib.lookupFunction<TdDestroyNative, TdDestroyDart>('td_json_client_destroy', isLeaf: false);
       arena.using(td_destroy_dart_function(client_id_addres_data), (p0) {});
       arena.releaseAll();
     });
@@ -367,11 +339,8 @@ class TdlibNative {
   }) {
     try {
       Map<String, dynamic>? result = using((Arena arena) {
-        TdReceiveDart td_receive_function =
-            tdLib.lookupFunction<TdReceiveNative, TdReceiveDart>('td_receive',
-                isLeaf: false);
-        TdStringNative update =
-            arena.using(td_receive_function(timeout), (p0) {});
+        TdReceiveDart td_receive_function = tdLib.lookupFunction<TdReceiveNative, TdReceiveDart>('td_receive', isLeaf: false);
+        TdStringNative update = arena.using(td_receive_function(timeout), (p0) {});
         if (update.address != 0) {
           String update_string = update.toDartString();
           arena.releaseAll();
@@ -433,15 +402,37 @@ class TdlibNative {
     TdlibOptionParameter? clientOption,
     bool isBot = false,
     bool isVoid = false,
+    bool isAutoSetOptionIfEmpty = true,
   }) async {
     final Map client_new_option = client_option.rawData.clone();
     if (clientOption != null) {
       clientOption.rawData.remove("@type");
       client_new_option.addAll(clientOption.rawData);
     }
+    if (isAutoSetOptionIfEmpty) {
+      final Map<String, String> tdlib_option_should_not_empty = {
+        "system_language_code": "en",
+        "device_model": "Unknown",
+        "application_version": "v1",
+      };
+      tdlib_option_should_not_empty.forEach((key, value) {
+        try {
+          if (client_new_option[key] is String == false) {
+            client_new_option[key] = value;
+            return;
+          }
+          final String value_default = client_new_option[key].toString().trim();
+          if (value_default.isEmpty) {
+            client_new_option[key] = value;
+          }
+        } catch (e) {
+          client_new_option[key] = value;
+        }
+      });
+    }
     clients[clientId] = TdlibClient(
       client_id: clientId,
-      client_user_id: clientUserId,
+      client_tg_user_id: clientUserId,
       is_bot: isBot,
       client_option: client_new_option,
     );
@@ -460,7 +451,7 @@ class TdlibNative {
   TdlibClient? getClientByUserId(int clientUserId) {
     List<MapEntry<int, TdlibClient>> entries = clients.entries.toList();
     for (var i = 0; i < entries.length; i++) {
-      if (entries[i].value.client_user_id == clientUserId) {
+      if (entries[i].value.client_tg_user_id == clientUserId) {
         return entries[i].value;
       }
     }
@@ -536,21 +527,17 @@ class TdlibNative {
   }
 
   /// receive all update data
-  EventEmitterListener on(
-      String type_update, FutureOr<dynamic> Function(UpdateTd update) callback,
-      {void Function(Object data)? onError}) {
+  EventEmitterListener on(String type_update, FutureOr<dynamic> Function(UpdateTd update) callback, {void Function(Object data)? onError}) {
     return event_emitter.on(type_update, null, (Event ev, context) async {
       try {
         if (ev.eventData is TdlibIsolateReceiveData) {
-          TdlibIsolateReceiveData tdlibIsolateReceiveData =
-              (ev.eventData as TdlibIsolateReceiveData);
+          TdlibIsolateReceiveData tdlibIsolateReceiveData = (ev.eventData as TdlibIsolateReceiveData);
           await callback(UpdateTd(
             update: tdlibIsolateReceiveData.updateData,
             client_id: tdlibIsolateReceiveData.clientId,
             client_option: () {
               try {
-                TdlibClient? tdlibClient =
-                    clients[tdlibIsolateReceiveData.clientId];
+                TdlibClient? tdlibClient = clients[tdlibIsolateReceiveData.clientId];
                 if (tdlibClient != null) {
                   return tdlibClient.client_option;
                 }
@@ -591,10 +578,8 @@ class TdlibNative {
     String? extra,
     bool? isAutoGetChat,
     bool? isInvokeThrowOnError,
-    FutureOr<String> Function(int client_id, TdlibNative libTdJson)?
-        onGenerateExtraInvoke,
-    FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)?
-        onGetInvokeData,
+    FutureOr<String> Function(int client_id, TdlibNative libTdJson)? onGenerateExtraInvoke,
+    FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)? onGetInvokeData,
   }) async {
     if (isVoid == false) {
       if (task_count >= task_max_count) {
@@ -650,9 +635,7 @@ class TdlibNative {
       parameters["@extra"] = extra_id;
     }
 
-    if (isAutoGetChat &&
-        RegExp(r"^(sendMessage|getChatMember)$", caseSensitive: false)
-            .hashData(method)) {
+    if (isAutoGetChat && RegExp(r"^(sendMessage|getChatMember)$", caseSensitive: false).hashData(method)) {
       if (parameters["chat_id"] is int) {
         td_send(
           clientId,
@@ -812,10 +795,8 @@ class TdlibNative {
     bool? isUseCache,
     Duration? durationCacheExpire,
     bool? isAutoGetChat,
-    FutureOr<String> Function(int client_id, TdlibNative libTdJson)?
-        onGenerateExtraInvoke,
-    FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)?
-        onGetInvokeData,
+    FutureOr<String> Function(int client_id, TdlibNative libTdJson)? onGenerateExtraInvoke,
+    FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)? onGetInvokeData,
     bool? isInvokeThrowOnError,
   }) async {
     return await invoke(

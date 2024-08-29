@@ -37,7 +37,7 @@ import 'dart:convert';
 /// add state data
 class TdlibClient {
   int client_id;
-  int client_user_id;
+  int client_tg_user_id;
   bool is_bot;
   Map client_option;
   Map client_dynamic = {};
@@ -49,14 +49,14 @@ class TdlibClient {
     required this.client_id,
     required this.client_option,
     this.is_bot = false,
-    this.client_user_id = 0,
+    this.client_tg_user_id = 0,
   });
 
   /// add state data
   Map toJson() {
     return {
       "client_id": client_id,
-      "client_user_id": client_user_id,
+      "client_tg_user_id": client_tg_user_id,
       "join_date": join_date.millisecondsSinceEpoch,
     };
   }

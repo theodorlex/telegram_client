@@ -37,7 +37,7 @@ import 'package:telegram_client/telegram_client/telegram_client_type.dart';
 /// return original data json
 class TelegramClientData {
   final TelegramClientType telegramClientType;
-  final int client_user_id;
+  final int client_tg_user_id;
 
   int tdlib_client_id;
   String telegram_bot_api_token_bot;
@@ -51,7 +51,7 @@ class TelegramClientData {
     required this.telegramClientType,
     required this.tdlib_client_id,
     this.client_user_name = "",
-    this.client_user_id = 0,
+    this.client_tg_user_id = 0,
     this.is_bot = false,
   });
 
@@ -59,7 +59,7 @@ class TelegramClientData {
   static TelegramClientData tdlib({
     required int tdlib_client_id,
     String client_user_name = "",
-    int client_user_id = 0,
+    int client_tg_user_id = 0,
     bool is_bot = true,
   }) {
     return TelegramClientData(
@@ -67,7 +67,7 @@ class TelegramClientData {
       telegramClientType: TelegramClientType.tdlib,
       tdlib_client_id: tdlib_client_id,
       client_user_name: client_user_name,
-      client_user_id: client_user_id,
+      client_tg_user_id: client_tg_user_id,
       is_bot: is_bot,
     );
   }
@@ -76,7 +76,7 @@ class TelegramClientData {
   static TelegramClientData telegramBotApi({
     required String token_bot,
     String client_user_name = "",
-    int client_user_id = 0,
+    int client_tg_user_id = 0,
     bool is_bot = true,
   }) {
     return TelegramClientData(
@@ -84,7 +84,7 @@ class TelegramClientData {
       telegramClientType: TelegramClientType.telegam_bot_api,
       tdlib_client_id: 0,
       client_user_name: client_user_name,
-      client_user_id: client_user_id,
+      client_tg_user_id: client_tg_user_id,
       is_bot: is_bot,
     );
   }

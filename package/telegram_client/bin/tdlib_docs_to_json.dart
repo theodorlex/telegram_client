@@ -4,60 +4,18 @@ import 'package:general_lib/general_lib.dart';
 
 void main(List<String> args) async {
   String params = """
-
-int64 	id_
- 	Session identifier.
  
-bool 	is_current_
- 	True, if this session is the current session.
- 
-bool 	is_password_pending_
- 	True, if a 2-step verification password is needed to complete authorization of the session.
- 
-bool 	is_unconfirmed_
- 	True, if the session wasn't confirmed from another session.
- 
-bool 	can_accept_secret_chats_
- 	True, if incoming secret chats can be accepted by the session.
- 
-bool 	can_accept_calls_
- 	True, if incoming calls can be accepted by the session.
- 
-object_ptr< SessionType > 	type_
- 	Session type based on the system and application version, which can be used to display a corresponding icon.
- 
-int32 	api_id_
- 	Telegram API identifier, as provided by the application.
- 
-string 	application_name_
- 	Name of the application, as provided by the application.
- 
-string 	application_version_
- 	The version of the application, as provided by the application.
- 
-bool 	is_official_application_
- 	True, if the application is an official application or uses the api_id of an official application.
+string 	system_language_code_
+ 	IETF language tag of the user's operating system language; must be non-empty.
  
 string 	device_model_
- 	Model of the device the application has been run or is running on, as provided by the application.
- 
-string 	platform_
- 	Operating system the application has been run or is running on, as provided by the application.
+ 	Model of the device the application is being run on; must be non-empty.
  
 string 	system_version_
- 	Version of the operating system the application has been run or is running on, as provided by the application.
+ 	Version of the operating system the application is being run on. If empty, the version is automatically detected by TDLib.
  
-int32 	log_in_date_
- 	Point in time (Unix timestamp) when the user has logged in.
- 
-int32 	last_active_date_
- 	Point in time (Unix timestamp) when the session was last used.
- 
-string 	ip_address_
- 	IP address from which the session was created, in human-readable format.
- 
-string 	location_
- 	A human-readable description of the location from which the session was created, based on the IP address.
+string 	application_version_
+ 	Application version; must be non-empty.
 """
       .trim();
 

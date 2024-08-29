@@ -40,13 +40,13 @@ import 'package:telegram_client/isolate/isolate.dart';
 class MtprotoClient {
   int client_id;
   Isolate isolate;
-  int client_user_id;
+  int client_tg_user_id;
   DateTime join_date = DateTime.now();
 
   MtprotoClient({
     required this.client_id,
     required this.isolate,
-    this.client_user_id = 0,
+    this.client_tg_user_id = 0,
   });
 
   /// close
@@ -57,7 +57,7 @@ class MtprotoClient {
   Map toJson() {
     return {
       "client_id": client_id,
-      "client_user_id": client_user_id,
+      "client_tg_user_id": client_tg_user_id,
       "join_date": join_date.toString(),
     };
   }
@@ -73,7 +73,7 @@ extension MtprotoClients on List<MtprotoClient> {
   MtprotoClient? getClientByUserId(int clientUserId) {
     for (var i = 0; i < length; i++) {
       MtprotoClient tdlibClient = this[i];
-      if (tdlibClient.client_user_id == clientUserId) {
+      if (tdlibClient.client_tg_user_id == clientUserId) {
         return tdlibClient;
       }
     }

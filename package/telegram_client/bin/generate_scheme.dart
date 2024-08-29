@@ -77,7 +77,7 @@ void main(List<String> args) async {
       "created_at": "2022-12-26T05:26:40.500935+00:00",
       // "group": [],
       // "private": [],
-      "client_user_id": 0,
+      "client_tg_user_id": 0,
       "client_title": "",
       "client_token": "",
       "owner_user_id": 0,
