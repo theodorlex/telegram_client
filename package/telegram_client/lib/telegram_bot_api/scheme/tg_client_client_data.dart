@@ -6,7 +6,25 @@ class TgClientClientData extends JsonScheme {
   TgClientClientData(super.rawData);
 
   static Map get defaultData {
-    return {"@type": "tgClientClientData", "id": 0, "created_at": "2022-12-26T05:26:40.500935+00:00", "client_tg_user_id": 0, "client_title": "", "client_token": "", "owner_user_id": 0, "client_type": "", "from_bot_type": null, "can_join_groups": false, "can_read_all_group_messages": false, "from_bot_user_id": 0, "expire_date": 0, "client_username": "", "version": "", "client_id": 0, "client_data": "{}"};
+    return {
+      "@type": "tgClientClientData",
+      "id": 0,
+      "created_at": "2022-12-26T05:26:40.500935+00:00",
+      "client_tg_user_id": 0,
+      "client_title": "",
+      "client_token": "",
+      "owner_user_id": 0,
+      "client_type": "",
+      "from_bot_type": null,
+      "can_join_groups": false,
+      "can_read_all_group_messages": false,
+      "from_bot_user_id": 0,
+      "expire_date": 0,
+      "client_username": "",
+      "version": "",
+      "client_id": 0,
+      "client_data": "{}"
+    };
   }
 
   String? get special_type {
@@ -304,8 +322,10 @@ class TgClientClientData extends JsonScheme {
       "client_data": client_data,
     };
 
-    tgClientClientData_data_create_json.removeWhere((key, value) => value == null);
-    TgClientClientData tgClientClientData_data_create = TgClientClientData(tgClientClientData_data_create_json);
+    tgClientClientData_data_create_json
+        .removeWhere((key, value) => value == null);
+    TgClientClientData tgClientClientData_data_create =
+        TgClientClientData(tgClientClientData_data_create_json);
 
     return tgClientClientData_data_create;
   }

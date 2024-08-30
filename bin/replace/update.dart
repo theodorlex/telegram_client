@@ -43,7 +43,7 @@ import "package:path/path.dart" as path;
 import "package:yaml/yaml.dart" as yaml;
 import "package:yaml_writer/yaml_writer.dart";
 
-String version_package = "0.8.22";
+String version_package = "0.8.23";
 Future<void> pubspecUpdate({
   required File filePubspec,
 }) async {
@@ -65,7 +65,7 @@ Future<void> pubspecUpdate({
         "version": version_package,
         "repository": "https://github.com/azkadev/telegram_client.git",
         "homepage": "https://github.com/azkadev/telegram_client",
-        "issue_tracker": "https://github.com/azkadev/telegram_client/issues",
+        "issue_tracker": "https://t.me/DEVELOPER_GLOBAL_PUBLIC",
         "documentation": "https://github.com/azkadev/telegram_client/tree/main/docs",
         "funding": [
           "https://github.com/sponsors/azkadev",
