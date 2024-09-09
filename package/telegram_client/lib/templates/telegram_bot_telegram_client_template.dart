@@ -81,6 +81,7 @@ import 'package:telegram_bot/logger/logger.dart';
 import 'package:general_lib/general_lib.dart';
 
 import 'package:path/path.dart';
+import 'package:telegram_client/tdlib/scheme/tdlib_option_parameter.dart';
 import 'package:telegram_client/telegram_client.dart';
 
 void main(List<String> arguments) async {
@@ -143,11 +144,13 @@ void main(List<String> arguments) async {
 
   tg.ensureInitialized(
     telegramClientTdlibOption: TelegramClientTdlibOption(
-      clientOption: {
-        'database_directory': database_user.path,
-        'files_directory': database_user.path,
-        "use_test_dc": false,
-      },
+      clientOption: TdlibOptionParameter(
+        {
+          'database_directory': database_user.path,
+          'files_directory': database_user.path,
+          "use_test_dc": false,
+        },
+      ),
       invokeTimeOut: Duration(minutes: 1),
       delayInvoke: Duration(milliseconds: 10),
       delayUpdate: Duration.zero,
@@ -338,7 +341,8 @@ void main(List<String> arguments) async {
     },
   );
 
-  Map init_res = await tg.tdlib.initIsolate();
+  Map init_res =
+      await tg.tdlib.createclient(clientId: tg.tdlib.td_create_client_id());
   if (init_res["@type"] == "error") {
     init_res.printPretty();
 
@@ -635,7 +639,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
-// ignore_for_file: non_constant_identifier_names, 
+// ignore_for_file: non_constant_identifier_names, unused_local_variable
 
 import 'dart:async';
 
@@ -807,7 +811,8 @@ export "package:telegram_bot/update/update.dart";
         file_system_entity: File("test/telegram_bot_test.dart"),
         state_data: {},
         file_system_entity_type: FileSystemEntityType.file,
-        value: r"""""",
+        value: r"""
+""",
         children: [],
       )
     ],
@@ -821,7 +826,25 @@ export "package:telegram_bot/update/update.dart";
     value: r"""# https://dart.dev/guides/libraries/private-files
 # Created by `dart pub`
 .dart_tool/
-""",
+*.exe
+*.deb
+*.sqlite-*
+*.sqlite
+docs/canvaskit
+*/canvaskit
+/build/
+generate_glx_*
+node_modules/
+build/
+ephemeral/
+flutter/ephemeral
+android/.gradle
+android/flutter/ephemeral
+linux/flutter/ephemeral
+macos/Flutter/ephemeral
+windows/ephemeral
+tmp/
+temp/""",
     children: [],
   ),
   ScriptGenerator(
@@ -909,18 +932,17 @@ funding:
   - 'https://github.com/sponsors/azkadev'
 publish_to: 'none'
 environment: 
-  sdk: '^3.3.0'
-dependencies:  
+  sdk: '>=3.3.3 <4.0.0'
+dependencies: 
   http: '^1.1.2'
   mason_logger: '^0.2.12'
-  packagex: '^0.0.53'
+  packagex: '^0.0.59'
   path: '^1.9.0'
-  system_info_fetch: '^0.0.16'
+  system_info_fetch: '^0.0.23'
   translate_client: '^0.0.2'
-  
-  general_lib: '^0.0.38'
-  telegram_client: '^0.8.16'
-  server_universe: '^0.0.13'
+  general_lib: '^0.0.44'
+  telegram_client: '^0.8.23'
+  server_universe: '^0.0.19'
 dev_dependencies: 
   lints: '^3.0.0'
   test: '^1.24.0'
@@ -928,6 +950,8 @@ server_universe:
   supabase: 
     input_file: 'bin/telegram_bot_supabase.dart'
     output_directory: 'supabase/functions/telegram_bot'
+dependency_overrides: 
+  pointycastle: '3.8.0'
 """,
     children: [],
   ),
