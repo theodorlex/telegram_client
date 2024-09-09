@@ -37,8 +37,8 @@ import 'dart:convert';
 import 'package:general_lib/general_lib.dart';
 import 'package:mason_logger/mason_logger.dart';
 import 'package:path/path.dart';
-import 'package:telegram_client/tdlib/scheme/scheme.dart';
-import 'package:telegram_client/telegram_client.dart';
+import 'package:telegram_client/scheme/telegram_client_library_tdlib_option_parameter.dart';
+ import 'package:telegram_client/telegram_client.dart';
 import 'package:universal_io/io.dart';
 
 void main(List<String> args) async {
@@ -232,7 +232,7 @@ void main(List<String> args) async {
   tg.ensureInitialized(
     pathTdlib: TgUtils.pathTdlib(),
     telegramClientTdlibOption: TelegramClientTdlibOption(
-      clientOption: TdlibOptionParameter.create(
+      clientOption: TelegramClientLibraryTdlibOptionParameter.create(
         database_directory: database_directory.path,
         files_directory: directory_tg.path,
       ),

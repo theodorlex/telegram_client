@@ -34,7 +34,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 import 'dart:async';
 
-import 'package:telegram_client/tdlib/tdlib_ffi/tdlib.dart';
+import 'package:telegram_client/tdlib/tdlib_library/tdlib.dart';
 
 import 'package:telegram_client/telegram_client/telegram_client_data.dart';
 

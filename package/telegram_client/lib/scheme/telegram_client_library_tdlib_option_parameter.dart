@@ -2,12 +2,14 @@
 import "package:general_lib/general_lib.dart";
 // import "dart:convert";
 
-class TdlibOptionParameter extends JsonScheme {
-  TdlibOptionParameter(super.rawData);
+class TelegramClientLibraryTdlibOptionParameter extends JsonScheme {
+  TelegramClientLibraryTdlibOptionParameter(super.rawData);
 
+  /// return default data
+  ///
   static Map get defaultData {
     return {
-      "@type": "tdlibOptionParameter",
+      "@type": "telegramClientLibraryTdlibOptionParameter",
       "api_id": 0,
       "api_hash": "",
       "database_directory": "tg_db",
@@ -28,6 +30,12 @@ class TdlibOptionParameter extends JsonScheme {
       "database_encryption_key": "",
       "use_test_dc": false
     };
+  }
+
+  /// create [TelegramClientLibraryTdlibOptionParameter]
+  /// Empty
+  static TelegramClientLibraryTdlibOptionParameter empty() {
+    return TelegramClientLibraryTdlibOptionParameter({});
   }
 
   String? get special_type {
@@ -315,8 +323,9 @@ class TdlibOptionParameter extends JsonScheme {
     rawData["use_test_dc"] = value;
   }
 
-  static TdlibOptionParameter create({
-    String special_type = "tdlibOptionParameter",
+  static TelegramClientLibraryTdlibOptionParameter create({
+    bool schemeUtilsIsSetDefaultData = false,
+    String special_type = "telegramClientLibraryTdlibOptionParameter",
     num? api_id,
     String? api_hash,
     String? database_directory,
@@ -336,8 +345,8 @@ class TdlibOptionParameter extends JsonScheme {
     String? database_encryption_key,
     bool? use_test_dc,
   }) {
-    // TdlibOptionParameter tdlibOptionParameter = TdlibOptionParameter({
-    Map tdlibOptionParameter_data_create_json = {
+    // TelegramClientLibraryTdlibOptionParameter telegramClientLibraryTdlibOptionParameter = TelegramClientLibraryTdlibOptionParameter({
+    final Map telegramClientLibraryTdlibOptionParameter_data_create_json = {
       "@type": special_type,
       "api_id": api_id,
       "api_hash": api_hash,
@@ -359,11 +368,20 @@ class TdlibOptionParameter extends JsonScheme {
       "use_test_dc": use_test_dc,
     };
 
-    tdlibOptionParameter_data_create_json
+    telegramClientLibraryTdlibOptionParameter_data_create_json
         .removeWhere((key, value) => value == null);
-    TdlibOptionParameter tdlibOptionParameter_data_create =
-        TdlibOptionParameter(tdlibOptionParameter_data_create_json);
 
-    return tdlibOptionParameter_data_create;
+    if (schemeUtilsIsSetDefaultData) {
+      defaultData.forEach((key, value) {
+        if (telegramClientLibraryTdlibOptionParameter_data_create_json
+                .containsKey(key) ==
+            false) {
+          telegramClientLibraryTdlibOptionParameter_data_create_json[key] =
+              value;
+        }
+      });
+    }
+    return TelegramClientLibraryTdlibOptionParameter(
+        telegramClientLibraryTdlibOptionParameter_data_create_json);
   }
 }

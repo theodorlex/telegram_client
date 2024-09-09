@@ -41,7 +41,7 @@ import 'package:general_lib/general_lib.dart';
 import 'package:telegram_client/tdlib/tdlib_invoke_result.dart';
 import 'package:telegram_client/util/util.dart';
 import 'package:universal_io/io.dart';
-import 'tdlib_ffi/tdlib.dart';
+import 'tdlib_library/tdlib.dart';
 import 'update_td.dart';
 
 /// Cheatset
@@ -162,21 +162,7 @@ class Tdlib extends TdlibNative {
     super.on_receive_update,
     super.on_generate_extra_invoke,
     super.isInvokeThrowOnError,
-  }) {
-    if (client_option['new_verbosity_level'] is int == false) {
-      client_option['new_verbosity_level'] = 0;
-    }
-
-    if (client_option["start"] == true) {
-      invokeSync(
-        parameters: {
-          "@type": "setLogVerbosityLevel",
-          "new_verbosity_level": client_option['new_verbosity_level'],
-        },
-      );
-      ensureInitialized();
-    }
-  }
+  });
 
   /// set up authorizationStateWaitTdlibParameters new client without more code
   Future<Map?> initClient(
@@ -928,9 +914,9 @@ class Tdlib extends TdlibNative {
     Duration? invokeTimeOut,
     String? extra,
     bool? isAutoGetChat,
-    FutureOr<String> Function(int client_id, TdlibNative libTdJson)?
+    FutureOr<String> Function(int client_id, TdlibBase libTdJson)?
         onGenerateExtraInvoke,
-    FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)?
+    FutureOr<Map> Function(String extra, int client_id, TdlibBase libTdJson)?
         onGetInvokeData,
     bool? isInvokeThrowOnError,
     bool isAutoExtendMessage = false,
@@ -1358,9 +1344,9 @@ class Tdlib extends TdlibNative {
     Duration? invokeTimeOut,
     String? extra,
     bool? isAutoGetChat,
-    FutureOr<String> Function(int client_id, TdlibNative libTdJson)?
+    FutureOr<String> Function(int client_id, TdlibBase libTdJson)?
         onGenerateExtraInvoke,
-    FutureOr<Map> Function(String extra, int client_id, TdlibNative libTdJson)?
+    FutureOr<Map> Function(String extra, int client_id, TdlibBase libTdJson)?
         onGetInvokeData,
     bool? isInvokeThrowOnError,
     bool isAutoExtendMessage = false,

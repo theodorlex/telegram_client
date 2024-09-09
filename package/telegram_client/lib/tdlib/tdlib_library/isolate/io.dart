@@ -1,3 +1,5 @@
+// ignore_for_file:
+
 /* <!-- START LICENSE -->
 
 
@@ -30,7 +32,41 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
-export "error.dart";
-export "json_dart.dart";
+// ignore_for_file: non_constant_identifier_names, camel_case_extensions, camel_case_extensions empty_catches
 
-export "ok.dart";
+// import 'dart:io';
+
+// import 'package:telegram_client/isolate/isolate.dart';
+// import 'package:telegram_client/dart_scheme/tdlib_client.dart';
+import 'package:telegram_client/tdlib/tdlib.dart';
+import 'package:telegram_client/tdlib/tdlib_library/io.dart';
+
+/// add this for multithread new client on flutter apps
+Future<void> tdlibIsolate(TdlibIsolateData tdlibIsolateData) async {
+  TdlibNative.opentdLib(
+    isCli: tdlibIsolateData.isCli,
+    pathTdlib: tdlibIsolateData.pathTdlib,
+  );
+  try {
+    // Duration duration = tdlibIsolateData.delayUpdate ?? Duration(microseconds: 1);
+    while (true) {
+      // await Future.delayed(duration);
+      final Map? new_update = TdlibNative.td_receive_static(
+        timeout: tdlibIsolateData.timeOutUpdate,
+      );
+      if (new_update != null) {
+        tdlibIsolateData.sendPort.send(
+          TdlibIsolateReceiveData(
+            updateData: new_update,
+            clientId: new_update["@client_id"],
+          ),
+        );
+        //
+      } else {}
+    }
+  } catch (e) {
+    tdlibIsolateData.sendPort.send(
+      TdlibIsolateReceiveDataError(),
+    );
+  }
+}

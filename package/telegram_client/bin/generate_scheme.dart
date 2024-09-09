@@ -34,73 +34,28 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 <!-- END LICENSE --> */
 import 'package:general_lib/general_lib.dart';
 import 'package:path/path.dart';
+import 'package:telegram_client/schemes/schemes.dart';
 import 'package:universal_io/io.dart';
 
 void main(List<String> args) async {
-  List<Map> tdlib_schemes = [
-    {
-      "@type": "tdlibOptionParameter",
-      'api_id': 0,
-      'api_hash': '',
-      'database_directory': "tg_db",
-      'files_directory': "tg_file",
-      "use_file_database": true,
-      "use_chat_info_database": true,
-      "use_message_database": true,
-      "use_secret_chats": true,
-      'enable_storage_optimizer': true,
-      'system_language_code': 'en',
-      'new_verbosity_level': 0,
-      'application_version': 'v1',
-      'device_model': 'Telegram Client',
-      'system_version': Platform.operatingSystemVersion,
-      "database_key": "",
-      "start": true,
-      "database_encryption_key": "",
-      "use_test_dc": false,
-    },
-  ];
-
-  await jsonToScripts(
-    tdlib_schemes,
-    directory: Directory(
-      join(Directory.current.path, "lib", "tdlib", "scheme"),
-      // "/home/galaxeus/Documents/galaxeus/app/telegram_client/package/telegram_client/lib/telegram_bot_api/scheme",
+  Directory directory_scheme = Directory(
+    join(
+      Directory.current.uri.toFilePath(),
+      "lib",
+      "scheme",
     ),
   );
-
-  List<Map> datas = [
-    {
-      "@type": "tgClientClientData",
-
-      "id": 0,
-      "created_at": "2022-12-26T05:26:40.500935+00:00",
-      // "group": [],
-      // "private": [],
-      "client_tg_user_id": 0,
-      "client_title": "",
-      "client_token": "",
-      "owner_user_id": 0,
-      "client_type": "",
-      "from_bot_type": null,
-      "can_join_groups": false,
-      "can_read_all_group_messages": false,
-      "from_bot_user_id": 0,
-      "expire_date": 0,
-      "client_username": "",
-      "version": "",
-      "client_id": 0,
-
-      "client_data": "{}"
-      // "channel": [],
-    }
-  ];
-
+  if (directory_scheme.existsSync()) {
+    directory_scheme.deleteSync(recursive: true);
+  }
+  directory_scheme.createSync(recursive: true);
   await jsonToScripts(
-    datas,
-    directory: Directory(
-      join(Directory.current.path, "lib", "telegram_bot_api", "scheme"),
-      // "/home/galaxeus/Documents/galaxeus/app/telegram_client/package/telegram_client/lib/telegram_bot_api/scheme",
-    ),
+    telegram_client_schemes,
+    directory: directory_scheme,
   );
+  Process.runSync("dart", [
+    "format",
+    directory_scheme.uri.toFilePath(),
+  ]);
+  exit(0);
 }

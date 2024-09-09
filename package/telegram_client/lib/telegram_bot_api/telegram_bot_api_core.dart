@@ -40,8 +40,8 @@ import 'dart:async' show Completer, Future, FutureOr, Stream, StreamTransformer;
 // import 'package:serverUniverseNative/serverUniverseNative.dart';
 import 'package:general_lib/general_lib.dart';
 import 'package:http/http.dart';
+import 'package:telegram_client/scheme/telegram_client_library_client_data.dart';
 // import 'package:telegram_client/serverUniverseNative/serverUniverseNative.dart';
-import 'package:telegram_client/telegram_bot_api/scheme/tg_client_client_data.dart';
 // import 'package:telegram_client/telegram_bot_api/telegram_bot_api.dart';
 import 'package:telegram_client/telegram_bot_api/update_bot.dart';
 import 'package:telegram_client/util/telegram_bot_api_file_data.dart';
@@ -168,7 +168,7 @@ class TelegramBotApi {
 
   /// Parse Query Http To TgClientClientData
   ///
-  TgClientClientData tgClientData({
+  TelegramClientLibraryClientData tgClientData({
     required Map query,
   }) {
     if (query["tg"] is String == false) {
@@ -182,7 +182,7 @@ class TelegramBotApi {
       decyprt["client_tg_user_id"] =
           TgUtils.parserBotUserIdFromToken(decyprt["client_token"]);
     }
-    return TgClientClientData(decyprt);
+    return TelegramClientLibraryClientData(decyprt);
   }
 
   Future<Map> initIsolate({

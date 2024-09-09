@@ -1,3 +1,5 @@
+// ignore_for_file:
+
 /* <!-- START LICENSE -->
 
 
@@ -30,14 +32,14 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
+// ignore_for_file: non_constant_identifier_names, camel_case_extensions, camel_case_extensions empty_catches
 
-export 'package:telegram_client/tdlib/tdlib.dart';
-export 'package:telegram_client/telegram_bot_api_server/telegram_bot_api_server.dart';
-export "package:telegram_client/telegram_bot_api/telegram_bot_api.dart";
-export "package:telegram_client/telegram_bot_api/extension/telegram_bot_api.dart";
-export "package:telegram_client/extensions/extensions.dart";
-export "package:telegram_client/util/util.dart";
-export "package:telegram_client/dart_scheme/scheme.dart";
-export "package:telegram_client/mtproto/mtproto.dart";
-export "package:telegram_client/telegram_login_widget/telegram_login_widget.dart";
-export "package:telegram_client/telegram_client/telegram_client.dart";
+// import 'dart:io';
+
+// import 'package:telegram_client/isolate/isolate.dart';
+// import 'package:telegram_client/dart_scheme/tdlib_client.dart';
+
+import 'package:telegram_client/tdlib/tdlib_isolate_data.dart';
+
+/// add this for multithread new client on flutter apps
+Future<void> tdlibIsolate(TdlibIsolateData tdlibIsolateData) async {}

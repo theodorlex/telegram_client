@@ -34,6 +34,13 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 import 'dart:async';
 import 'package:general_lib/general_lib.dart';
+import 'package:telegram_client/dart_scheme/tdlib_client.dart';
+import 'package:telegram_client/scheme/telegram_client_library_error.dart';
+import 'package:telegram_client/tdlib/tdlib_core.dart';
+import 'package:telegram_client/tdlib/tdlib_isolate_receive_data.dart';
+import 'package:telegram_client/tdlib/tdlib_library/base.dart';
+import 'package:telegram_client/tdlib/update_td.dart';
+import 'package:telegram_client/telegram_bot_api/telegram_bot_api_core.dart';
 import 'package:telegram_client/telegram_client/function/answer_callback_query.dart';
 import 'package:telegram_client/telegram_client/function/answer_inline_query.dart';
 import 'package:telegram_client/telegram_client/function/ban_chat_member.dart';
@@ -48,9 +55,7 @@ import 'package:telegram_client/telegram_client/function/edit_message_reply_mark
 import 'package:telegram_client/telegram_client/function/edit_message_text.dart';
 import 'package:telegram_client/telegram_client/function/forward_message.dart';
 import 'package:telegram_client/telegram_client/function/function.dart';
-import 'package:telegram_client/tdlib/tdlib_ffi/tdlib.dart';
 import 'package:telegram_client/telegram_bot_api/update_bot.dart';
-import 'package:telegram_client/telegram_client.dart';
 import 'package:telegram_client/telegram_client/function/get_chat_administrators.dart';
 import 'package:telegram_client/telegram_client/function/get_chat_member.dart';
 import 'package:telegram_client/telegram_client/function/get_me.dart';
@@ -81,9 +86,13 @@ import 'package:telegram_client/telegram_client/function/un_pin_all_chat_message
 import 'package:telegram_client/telegram_client/function/un_pin_chat_message.dart';
 import 'package:telegram_client/telegram_client/function/view_message.dart';
 import 'package:telegram_client/telegram_client/function/view_messages.dart';
-import "package:telegram_client/telegram_client/scheme/scheme.dart"
-    as telegram_client_scheme;
+import 'package:telegram_client/telegram_client/telegram_client_tdlib_option.dart';
+import 'package:telegram_client/telegram_client/telegram_client_telegram_bot_api_option.dart';
+import 'package:telegram_client/telegram_client/update_telegram_client.dart';
 import 'package:universal_io/io.dart';
+
+import 'telegram_client_data.dart';
+import 'telegram_client_type.dart';
 
 /// return original data json
 class TelegramClient {
@@ -459,10 +468,10 @@ class TelegramClient {
     bool? isAutoGetChat,
     bool isInvokeThrowOnError = true,
     bool isAutoExtendMessage = false,
-    FutureOr<String> Function(int client_id, TdlibNative libTdJson)?
+    FutureOr<String> Function(int client_id, TdlibBase libTdJson)?
         onGenerateExtraInvoke,
     FutureOr<Map<dynamic, dynamic>> Function(
-            String, int client_id, TdlibNative libTdJson)?
+            String, int client_id, TdlibBase libTdJson)?
         onGetInvokeData,
   }) async {
     // telegramClientLib ??= telegram_client_lib;
@@ -499,8 +508,8 @@ class TelegramClient {
       ));
       return respond;
     }
-    final telegram_client_scheme.Error error =
-        telegram_client_scheme.Error.create(
+
+    final TelegramClientLibraryError error = TelegramClientLibraryError.create(
       special_extra: "error",
       code: 500,
       message: "telegram_client_type_not_found",
@@ -554,10 +563,10 @@ class TelegramClient {
     bool? isAutoGetChat,
     bool isInvokeThrowOnError = true,
     bool isAutoExtendMessage = false,
-    FutureOr<String> Function(int client_id, TdlibNative libTdJson)?
+    FutureOr<String> Function(int client_id, TdlibBase libTdJson)?
         onGenerateExtraInvoke,
     FutureOr<Map<dynamic, dynamic>> Function(
-            String, int client_id, TdlibNative libTdJson)?
+            String, int client_id, TdlibBase libTdJson)?
         onGetInvokeData,
   }) async {
     if (telegramClientData.telegramClientType != TelegramClientType.tdlib) {
@@ -1068,7 +1077,7 @@ class TelegramClient {
       );
     }
 
-    telegram_client_scheme.Error error = telegram_client_scheme.Error.create(
+    final TelegramClientLibraryError error = TelegramClientLibraryError.create(
       special_extra: "error",
       code: 500,
       message: "telegram_client_type_not_found",

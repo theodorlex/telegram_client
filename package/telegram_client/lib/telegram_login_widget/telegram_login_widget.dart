@@ -31,8 +31,8 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 <!-- END LICENSE --> */
 // ignore_for_file: unused_catch_stack, non_constant_identifier_names, unnecessary_brace_in_string_interps
+import 'package:telegram_client/scheme/telegram_client_library_telegram_login_widget_user.dart';
 import 'package:telegram_client/telegram_login_widget/http_session.dart';
-import 'package:telegram_client/telegram_login_widget/scheme/scheme.dart';
 import 'package:http/http.dart' as http;
 
 /// run executable telegram bot api
@@ -227,7 +227,7 @@ class TelegramLogin {
   }
 
   /// run executable telegram bot api
-  Future<UserTelegramLoginWidget> getMe({
+  Future<TelegramClientLibraryTelegramLoginWidgetUser> getMe({
     http.Client? httpClient,
   }) async {
     httpClient ??= http_client;
@@ -257,7 +257,7 @@ class TelegramLogin {
       headers: headers,
       httpClient: httpClient,
     );
-    Map userData = {"@type": "userTelegramLoginWidget"};
+    Map userData = {"@type": "telegramClientLibraryTelegramLoginWidgetUser"};
     try {
       String id = ans.split('"id":')[1].split(',')[0];
       String firstName = ans.split('"first_name":"')[1].split('",')[0];
@@ -269,9 +269,9 @@ class TelegramLogin {
       userData["hash"] = hash;
     } catch (e, stack) {
       userData["@type"] = "error";
-      return UserTelegramLoginWidget(userData);
+      return TelegramClientLibraryTelegramLoginWidgetUser(userData);
     }
-    userData["@type"] = "userTelegramLoginWidget";
-    return UserTelegramLoginWidget(userData);
+    userData["@type"] = "telegramClientLibraryTelegramLoginWidgetUser";
+    return TelegramClientLibraryTelegramLoginWidgetUser(userData);
   }
 }

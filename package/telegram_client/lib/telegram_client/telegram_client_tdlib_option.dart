@@ -34,12 +34,12 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 import 'dart:async';
 
-import 'package:general_lib/event_emitter/event_emitter.dart';
-import 'package:telegram_client/tdlib/scheme/scheme.dart';
-import 'package:telegram_client/tdlib/tdlib_ffi/tdlib.dart';
+import 'package:general_lib/event_emitter/event_emitter.dart'; 
+import 'package:telegram_client/scheme/telegram_client_library_tdlib_option_parameter.dart';
+import 'package:telegram_client/tdlib/tdlib_library/base.dart';
 
 class TelegramClientTdlibOption {
-  final TdlibOptionParameter? clientOption;
+  final TelegramClientLibraryTdlibOptionParameter? clientOption;
   final bool is_cli;
   final Duration? invokeTimeOut;
 
@@ -48,10 +48,10 @@ class TelegramClientTdlibOption {
   final EventEmitter? eventEmitter;
   final bool isAutoGetChat;
 
-  final FutureOr<Map<dynamic, dynamic>> Function(String, int, TdlibNative)?
+  final FutureOr<Map<dynamic, dynamic>> Function(String, int, TdlibBase td)?
       on_get_invoke_data;
-  final FutureOr<void> Function(dynamic, TdlibNative)? on_receive_update;
-  final FutureOr<String> Function(int, TdlibNative)? on_generate_extra_invoke;
+  final FutureOr<void> Function(dynamic, TdlibBase)? on_receive_update;
+  final FutureOr<String> Function(int, TdlibBase)? on_generate_extra_invoke;
   final bool isInvokeThrowOnError;
   final Duration? delayInvoke;
   final int task_max_count;

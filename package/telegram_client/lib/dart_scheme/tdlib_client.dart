@@ -30,52 +30,38 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
-// ignore_for_file: non_constant_identifier_names, camel_case_extensions, camel_case_extensions unused_import
-import "json_dart.dart";
-// import "dart:convert";
+// ignore_for_file: non_constant_identifier_names, camel_case_extensions, camel_case_extensions empty_catches, unnecessary_brace_in_string_interps, constant_identifier_names,
 
-class Ok extends JsonScheme {
-  Ok(super.rawData);
+import 'dart:convert';
 
-  static Map get defaultData {
-    return {"@type": "ok", "@extra": ""};
-  }
+/// add state data
+class TdlibClient {
+  int client_id;
+  int client_tg_user_id;
+  bool is_bot;
+  Map client_option;
+  Map client_dynamic = {};
+  DateTime join_date = DateTime.now();
 
-  String? get special_type {
-    try {
-      if (rawData["@type"] is String == false) {
-        return null;
-      }
-      return rawData["@type"] as String;
-    } catch (e) {
-      return null;
-    }
-  }
+  TdlibClient({
+    required this.client_id,
+    required this.client_option,
+    this.is_bot = false,
+    this.client_tg_user_id = 0,
+  });
 
-  String? get special_extra {
-    try {
-      if (rawData["@extra"] is String == false) {
-        return null;
-      }
-      return rawData["@extra"] as String;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  static Ok create({
-    String special_type = "ok",
-    String special_extra = "",
-  }) {
-    // Ok ok = Ok({
-    Map ok_data_create_json = {
-      "@type": special_type,
-      "@extra": special_extra,
+  /// add state data
+  Map toJson() {
+    return {
+      "client_id": client_id,
+      "client_tg_user_id": client_tg_user_id,
+      "join_date": join_date.millisecondsSinceEpoch,
     };
+  }
 
-    ok_data_create_json.removeWhere((key, value) => value == null);
-    Ok ok_data_create = Ok(ok_data_create_json);
-
-    return ok_data_create;
+  /// add state data
+  @override
+  String toString() {
+    return json.encode(toJson());
   }
 }

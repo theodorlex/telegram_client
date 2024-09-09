@@ -1,3 +1,5 @@
+// ignore_for_file:
+
 /* <!-- START LICENSE -->
 
 
@@ -30,9 +32,14 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
-export "tdlib_none.dart"
-    if (dart.library.io) 'tdlib_io.dart'
-    if (dart.library.html) 'tdlib_none.dart';
-// export 'tdlib_io.dart';
-// //
-// export "tdlib_none.dart";
+// ignore_for_file: non_constant_identifier_names, camel_case_extensions, camel_case_extensions empty_catches
+
+// import 'dart:io';
+
+// import 'package:telegram_client/isolate/isolate.dart';
+// import 'package:telegram_client/dart_scheme/tdlib_client.dart';
+
+import 'package:telegram_client/tdlib/tdlib_isolate_data.dart';
+
+/// add this for multithread new client on flutter apps
+Future<void> tdlibIsolate(TdlibIsolateData tdlibIsolateData) async {}

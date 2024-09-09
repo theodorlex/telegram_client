@@ -1,17 +1,27 @@
 // ignore_for_file: non_constant_identifier_names,
 import 'package:general_lib/general_lib.dart';
-import 'package:telegram_client/tdlib/scheme/scheme.dart';
+import 'package:telegram_client/scheme/scheme.dart';
 import 'package:telegram_client/tdlib/tdlib.dart';
+import 'package:universal_io/io.dart';
+import "package:path/path.dart" as path;
 
 void main(List<String> args) async {
   print("Start Program");
-  Tdlib tdlib = Tdlib(
-    pathTdl: "path_to_tdlib/libtdjson.so",
-    clientOption: TdlibOptionParameter.create(
-      api_id: 0,
-      api_hash: "",
+  final Tdlib tdlib = Tdlib(
+    // pathTdl: "path_to_tdlib/libtdjson.so",
+    pathTdl: "libtdjson.so",
+    clientOption: TelegramClientLibraryTdlibOptionParameter.create(
+      // api_id: 0,
+      // api_hash: "",
+      database_directory:
+          Directory(path.join(Directory.current.uri.toFilePath(), "temp", "db"))
+              .path,
+      files_directory: Directory(
+              path.join(Directory.current.uri.toFilePath(), "temp", "file"))
+          .path,
     ),
   );
+  await tdlib.ensureInitialized();
 
   tdlib.on(tdlib.event_update, (UpdateTd updateTd) async {
     Map update = updateTd.update;
@@ -53,8 +63,9 @@ void main(List<String> args) async {
     }
   });
 
-  await tdlib.createclient(
+  Map res = await tdlib.createclient(
     clientId: tdlib.td_create_client_id(),
   );
   print("Client running...");
+  res.printPretty();
 }

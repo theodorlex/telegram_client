@@ -39,7 +39,7 @@ import 'dart:async' show Future, FutureOr;
 
 import 'package:general_lib/general_lib.dart';
 import 'package:telegram_client/isolate/isolate.dart';
-import 'package:telegram_client/scheme/scheme.dart';
+import 'package:telegram_client/dart_scheme/scheme.dart';
 import 'package:universal_io/io.dart';
 
 import 'mtproto_isolate_receive_data.dart';

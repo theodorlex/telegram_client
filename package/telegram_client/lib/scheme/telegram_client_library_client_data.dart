@@ -2,12 +2,14 @@
 import "package:general_lib/general_lib.dart";
 // import "dart:convert";
 
-class TgClientClientData extends JsonScheme {
-  TgClientClientData(super.rawData);
+class TelegramClientLibraryClientData extends JsonScheme {
+  TelegramClientLibraryClientData(super.rawData);
 
+  /// return default data
+  ///
   static Map get defaultData {
     return {
-      "@type": "tgClientClientData",
+      "@type": "telegramClientLibraryClientData",
       "id": 0,
       "created_at": "2022-12-26T05:26:40.500935+00:00",
       "client_tg_user_id": 0,
@@ -25,6 +27,12 @@ class TgClientClientData extends JsonScheme {
       "client_id": 0,
       "client_data": "{}"
     };
+  }
+
+  /// create [TelegramClientLibraryClientData]
+  /// Empty
+  static TelegramClientLibraryClientData empty() {
+    return TelegramClientLibraryClientData({});
   }
 
   String? get special_type {
@@ -282,8 +290,9 @@ class TgClientClientData extends JsonScheme {
     rawData["client_data"] = value;
   }
 
-  static TgClientClientData create({
-    String special_type = "tgClientClientData",
+  static TelegramClientLibraryClientData create({
+    bool schemeUtilsIsSetDefaultData = false,
+    String special_type = "telegramClientLibraryClientData",
     num? id,
     String? created_at,
     num? client_tg_user_id,
@@ -301,8 +310,8 @@ class TgClientClientData extends JsonScheme {
     num? client_id,
     String? client_data,
   }) {
-    // TgClientClientData tgClientClientData = TgClientClientData({
-    Map tgClientClientData_data_create_json = {
+    // TelegramClientLibraryClientData telegramClientLibraryClientData = TelegramClientLibraryClientData({
+    final Map telegramClientLibraryClientData_data_create_json = {
       "@type": special_type,
       "id": id,
       "created_at": created_at,
@@ -322,11 +331,18 @@ class TgClientClientData extends JsonScheme {
       "client_data": client_data,
     };
 
-    tgClientClientData_data_create_json
+    telegramClientLibraryClientData_data_create_json
         .removeWhere((key, value) => value == null);
-    TgClientClientData tgClientClientData_data_create =
-        TgClientClientData(tgClientClientData_data_create_json);
 
-    return tgClientClientData_data_create;
+    if (schemeUtilsIsSetDefaultData) {
+      defaultData.forEach((key, value) {
+        if (telegramClientLibraryClientData_data_create_json.containsKey(key) ==
+            false) {
+          telegramClientLibraryClientData_data_create_json[key] = value;
+        }
+      });
+    }
+    return TelegramClientLibraryClientData(
+        telegramClientLibraryClientData_data_create_json);
   }
 }
