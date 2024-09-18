@@ -41,6 +41,9 @@ extension TelegramClientExtension_on_ObjectData on Object {
         if ((this as Map)["message"] == "time_out_limit") {
           return true;
         }
+        if ((this as Map)["message"] == "timeout") {
+          return true;
+        }
       }
     } catch (e) {}
     return false;

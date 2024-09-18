@@ -66,8 +66,7 @@ class TdlibNative extends TdlibBase {
     super.invokeTimeOut,
     super.isAutoGetChat,
     super.isInvokeThrowOnError,
-    super.is_cli,
-    super.on_generate_extra_invoke,
+     super.on_generate_extra_invoke,
     super.on_get_invoke_data,
     super.on_receive_update,
     super.pathTdl,
@@ -86,24 +85,15 @@ class TdlibNative extends TdlibBase {
   Map<String, dynamic> td_execute(Map parameters) {
     return {"@type": "error"};
   }
+  
 
   @override
-  int td_json_client_create() {
-    return 0;
-  }
-
-  @override
-  void td_json_client_destroy(int clientId) {
-    // TODO: implement td_json_client_destroy
-  }
-
-  @override
-  void td_json_client_send(int clientId, [Map? parameters]) {
-    // TODO: implement td_json_client_send
-  }
-
-  @override
-  void td_send(int clientId, [Map? parameters]) {
+  void td_send(int clientId, Map parameters) {
     // TODO: implement td_send
+  }
+
+  @override
+  String platformType() {
+    return "none";
   }
 }

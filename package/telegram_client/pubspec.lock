@@ -473,6 +473,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  system_info_fetch:
+    dependency: "direct dev"
+    description:
+      name: system_info_fetch
+      sha256: fdafcbe8c494024accffac365060c000728d121fccec3d73e7e31f5561491ece
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.23"
   term_glyph:
     dependency: transitive
     description:

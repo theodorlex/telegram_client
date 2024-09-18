@@ -50,28 +50,31 @@ import 'package:universal_io/io.dart';
 
 abstract class TdlibBaseCore {
   /// create client id for multi client
+  String platformType() {
+    return "unknown";
+  }
 
   int td_create_client_id() {
     return 0;
   }
 
-  /// create client id for multi client
+  // /// create client id for multi client
 
-  int td_json_client_create() {
-    return 0;
-  }
+  // int td_json_client_create() {
+  //   return 0;
+  // }
 
   /// td_send
 
-  void td_send(int clientId, [Map? parameters]) {
+  void td_send(int clientId, Map parameters) {
     return;
   }
 
   /// td_send
 
-  void td_json_client_send(int clientId, [Map? parameters]) {
-    return;
-  }
+  // void td_json_client_send(int clientId, Map parameters) {
+  //   return;
+  // }
 
   /// client_execute
 
@@ -79,16 +82,15 @@ abstract class TdlibBaseCore {
     return {};
   }
 
-  /// client_destroy
+  // /// client_destroy
 
-  void td_json_client_destroy(int clientId) {
-    return;
-  }
+  // void td_json_client_destroy(int clientId) {
+  //   return;
+  // }
 
   /// fetch update
   static Map<String, dynamic>? td_receive_static({
     double timeout = 1.0,
-    bool isAndroid = false,
   }) {
     return null;
   }
@@ -136,7 +138,7 @@ abstract class TdlibBase implements TdlibBaseCore {
   bool is_init_isolate = false;
   // bool is_init_send_port = false;
   late String path_tdlib;
-  bool is_cli;
+  // bool is_cli;
   // List<TdlibClient> clients = [];
 
   final Map<int, TdlibClient> clients = {};
@@ -145,7 +147,7 @@ abstract class TdlibBase implements TdlibBaseCore {
   int task_count = 0;
   final String event_invoke;
   final String event_update;
-  EventEmitter event_emitter = EventEmitter();
+  late final EventEmitter event_emitter;
   Duration? delay_update;
   Duration delay_invoke = Duration(milliseconds: 1);
   bool is_auto_get_chat = false;
@@ -155,8 +157,6 @@ abstract class TdlibBase implements TdlibBaseCore {
   FutureOr<void> Function(dynamic update, TdlibBase libTdJson)? on_receive_update;
   FutureOr<String> Function(int client_id, TdlibBase libTdJson)? on_generate_extra_invoke;
   FutureOr<Map> Function(String extra, int client_id, TdlibBase libTdJson)? on_get_invoke_data;
-
-  static bool is_debug = false;
   int task_max_count;
   int task_min_cooldown;
   TdlibBase({
@@ -164,7 +164,6 @@ abstract class TdlibBase implements TdlibBaseCore {
     TelegramClientLibraryTdlibOptionParameter? clientOption,
     this.task_max_count = 10000,
     this.task_min_cooldown = 10,
-    this.is_cli = false,
     this.event_invoke = "invoke",
     this.event_update = "update",
     EventEmitter? eventEmitter,
@@ -186,12 +185,14 @@ abstract class TdlibBase implements TdlibBaseCore {
     is_invoke_throw_on_error = isInvokeThrowOnError;
     pathTdl ??= "libtdjson.${getFormatLibrary}";
     path_tdlib = pathTdl;
-    opentdLib(isCli: is_cli, pathTdlib: path_tdlib);
+    // opentdLib(pathTdlib: path_tdlib);
     is_auto_get_chat = isAutoGetChat;
     invokeTimeOut ??= Duration(minutes: 5);
     invoke_time_out = invokeTimeOut;
     if (eventEmitter != null) {
       event_emitter = eventEmitter;
+    } else {
+      event_emitter = EventEmitter();
     }
     if (clientOption != null) {
       client_option.rawData.addAll(clientOption.rawData);
@@ -209,12 +210,12 @@ abstract class TdlibBase implements TdlibBaseCore {
         TdlibIsolateReceiveData tdlibIsolateReceiveData = update;
         try {
           if (tdlibIsolateReceiveData.updateData["@extra"] is String) {
-            event_emitter.emit(event_invoke, null, tdlibIsolateReceiveData);
+            event_emitter.emit(eventName: event_invoke, value: tdlibIsolateReceiveData);
           } else {
-            event_emitter.emit(event_update, null, tdlibIsolateReceiveData);
+            event_emitter.emit(eventName: event_update, value: tdlibIsolateReceiveData);
           }
         } catch (e) {
-          event_emitter.emit(event_update, null, tdlibIsolateReceiveData);
+          event_emitter.emit(eventName: event_update, value: tdlibIsolateReceiveData);
         }
       } else if (update is TdlibIsolateReceiveDataError) {
         is_init_isolate = false;
@@ -257,7 +258,6 @@ abstract class TdlibBase implements TdlibBaseCore {
   }
 
   static void opentdLib({
-    required bool isCli,
     required String pathTdlib,
   }) {}
 
@@ -275,7 +275,6 @@ abstract class TdlibBase implements TdlibBaseCore {
     }
     is_init_isolate = true;
     TdlibIsolateData tdlibIsolateData = TdlibIsolateData(
-      isCli: is_cli,
       sendPort: receivePort.sendPort,
       pathTdlib: path_tdlib,
       delayUpdate: delay_update,
@@ -448,32 +447,193 @@ abstract class TdlibBase implements TdlibBaseCore {
   }
 
   /// receive all update data
-  EventEmitterListener on(String type_update, FutureOr<dynamic> Function(UpdateTd update) callback, {void Function(Object data)? onError}) {
-    return event_emitter.on(type_update, null, (Event ev, context) async {
+  EventEmitterListener on(
+    String type_update,
+    FutureOr<dynamic> Function(UpdateTd update) callback, {
+    final Map<dynamic, dynamic>? stateData,
+    void Function(Object data)? onError,
+  }) {
+    return event_emitter.on(
+      eventName: type_update,
+      stateData: stateData ?? {},
+      onCallback: (listener, update) async {
+        try {
+          if (update is TdlibIsolateReceiveData) {
+            // final TdlibIsolateReceiveData tdlibIsolateReceiveData = update;
+            await callback(UpdateTd(
+              update: update.updateData,
+              client_id: update.clientId,
+              client_option: () {
+                try {
+                  final TdlibClient? tdlibClient = clients[update.clientId];
+                  if (tdlibClient != null) {
+                    return tdlibClient.client_option;
+                  }
+                } catch (e) {}
+                return {};
+              }(),
+            ));
+            return;
+          }
+        } catch (e) {
+          if (onError != null) {
+            return onError(e);
+          }
+        }
+      },
+    );
+  }
+
+  /// call api latest [Tdlib-Methods](https://core.telegram.org/tdlib/docs/classtd_1_1td__api_1_1_function.html)
+  /// example:
+  /// ```dart
+  /// tg.invoke(
+  ///  "getChat",
+  ///  parameters: {
+  ///    "chat_id": 0,
+  ///  },
+  ///  clientId: tg.client_id,
+  /// );
+  /// ```
+  Future<Map> invokeRaw({
+    required Map parameters,
+    required int clientId,
+    required bool isVoid,
+    required Duration delayDuration,
+    required Duration invokeTimeOut,
+    required Duration functionTimeOut,
+    required bool isUseCache,
+    required Duration durationCacheExpire,
+    required String extra,
+    required bool isAutoGetChat,
+    required bool isInvokeThrowOnError,
+    required FutureOr<String> Function(int client_id, TdlibBase libTdJson)? onGenerateExtraInvoke,
+    required FutureOr<Map> Function(String extra, int client_id, TdlibBase libTdJson)? onGetInvokeData,
+  }) async {
+    final Completer<Map> completer = Completer<Map>();
+    late final EventEmitterListener listener;
+
+    final Map result = await Future(() async {
       try {
-        if (ev.eventData is TdlibIsolateReceiveData) {
-          TdlibIsolateReceiveData tdlibIsolateReceiveData = (ev.eventData as TdlibIsolateReceiveData);
-          await callback(UpdateTd(
-            update: tdlibIsolateReceiveData.updateData,
-            client_id: tdlibIsolateReceiveData.clientId,
-            client_option: () {
-              try {
-                TdlibClient? tdlibClient = clients[tdlibIsolateReceiveData.clientId];
-                if (tdlibClient != null) {
-                  return tdlibClient.client_option;
-                }
-              } catch (e) {}
-              return {};
-            }(),
-          ));
-          return;
+        if (isVoid == false) {
+          if (task_count >= task_max_count) {
+            while (true) {
+              await Future.delayed(Duration(microseconds: 1));
+              if (task_count < task_min_cooldown) {
+                break;
+              }
+            }
+          }
         }
+        final String extra_id = await () async {
+          if (parameters["@extra"] is String == false) {
+            if (extra.isEmpty) {
+              parameters["@extra"] = extra;
+            } else if (onGenerateExtraInvoke != null) {
+              parameters["@extra"] = await onGenerateExtraInvoke(clientId, this);
+            } else {
+              parameters["@extra"] = generateUuid(15);
+            }
+          }
+          final String extra_procces = parameters["@extra"];
+          if (extra_procces.isEmpty) {
+            parameters["@extra"] = generateUuid(15);
+            return parameters["@extra"];
+          }
+          return extra_procces;
+        }();
+
+        if (isAutoGetChat && RegExp(r"^(sendMessage|getChatMember)$", caseSensitive: false).hashData(parameters["@type"])) {
+          if (parameters["chat_id"] is int) {
+            td_send(clientId, {
+              "@type": "getChat",
+              "chat_id": parameters["chat_id"],
+            });
+          }
+          if (parameters["user_id"] is int) {
+            td_send(clientId, {
+              "@type": "getUser",
+              "user_id": parameters["user_id"],
+            });
+          }
+        }
+        if (isVoid) {
+          td_send(
+            clientId,
+            parameters,
+          );
+          return {
+            "@type": "ok",
+            "@extra": extra,
+          };
+        }
+        if (onGetInvokeData != null) {
+          td_send(
+            clientId,
+            parameters,
+          );
+          return await onGetInvokeData(extra_id, clientId, this);
+        }
+        listener = on(event_invoke, (UpdateTd update) async {
+          try {
+            if (update.client_id == clientId) {
+              final Map updateOrigin = update.raw;
+              if (updateOrigin["@extra"] == extra_id) {
+                updateOrigin.remove("@extra");
+                updateOrigin.remove("@client_id");
+                completer.complete(updateOrigin);
+              }
+            }
+          } catch (e) {
+            completer.complete({"@type": "error"});
+            // result["@type"] = "error";
+          }
+        });
+        td_send(
+          clientId,
+          parameters,
+        );
+        task_increase();
+        final Map result = await completer.future.timeout(
+          invokeTimeOut,
+          onTimeout: () {
+            return {"@type": "error", "message": "timeout"};
+          },
+        );
+        return result;
       } catch (e) {
-        if (onError != null) {
-          return onError(e);
+        if (e is Map) {
+          return e;
         }
+        return {
+          "@type": "error",
+          "message": "crash",
+        };
       }
-    });
+    }).timeout(
+      functionTimeOut,
+      onTimeout: () {
+        return {
+          "@type": "error",
+          "message": "timeout",
+        };
+      },
+    );
+    task_decrease();
+    try {
+      completer.complete({});
+    } catch (e) {}
+    try {
+      event_emitter.off(listener: listener);
+    } catch (e) {}
+
+    if (result.isEmpty || result["@type"] is String == false || result["@type"] == "error") {
+      if (isInvokeThrowOnError) {
+        result["@type"] = "error";
+        throw result;
+      }
+    }
+    return result;
   }
 
   /// call api latest [Tdlib-Methods](https://core.telegram.org/tdlib/docs/classtd_1_1td__api_1_1_function.html)
@@ -491,6 +651,7 @@ abstract class TdlibBase implements TdlibBaseCore {
     String method, {
     Map? parameters,
     required int clientId,
+    Duration? functionTimeOut,
     bool isVoid = false,
     Duration? delayDuration,
     Duration? invokeTimeOut,
@@ -502,16 +663,6 @@ abstract class TdlibBase implements TdlibBaseCore {
     FutureOr<String> Function(int client_id, TdlibBase libTdJson)? onGenerateExtraInvoke,
     FutureOr<Map> Function(String extra, int client_id, TdlibBase libTdJson)? onGetInvokeData,
   }) async {
-    if (isVoid == false) {
-      if (task_count >= task_max_count) {
-        while (true) {
-          await Future.delayed(Duration(microseconds: 1));
-          if (task_count < task_min_cooldown) {
-            break;
-          }
-        }
-      }
-    }
     isUseCache ??= false;
     durationCacheExpire ??= Duration(
       minutes: 1,
@@ -523,186 +674,22 @@ abstract class TdlibBase implements TdlibBaseCore {
     //
     invokeTimeOut ??= invoke_time_out;
     parameters ??= {};
-    // if (clientId == 0) {
-    // clientId = client_id;
-    // }
-
-    String extra_id = "";
-
-    bool is_set_extra_from_function = false;
-    if (parameters["@extra"] is String == false) {
-      if (extra != null) {
-        extra_id = extra;
-      } else if (onGenerateExtraInvoke != null) {
-        extra_id = (await onGenerateExtraInvoke(clientId, this));
-        is_set_extra_from_function = true;
-      } else {
-        extra_id = generateUuid(15);
-      }
-      parameters["@extra"] = extra_id;
-    } else {
-      extra_id = parameters["@extra"];
-    }
-
-    if (extra_id.isEmpty) {
-      if (is_set_extra_from_function == false) {
-        if (onGenerateExtraInvoke != null) {
-          extra_id = (await onGenerateExtraInvoke(clientId, this));
-        }
-      }
-    }
-    if (extra_id.isEmpty) {
-      extra_id = generateUuid(15);
-      parameters["@extra"] = extra_id;
-    }
-
-    if (isAutoGetChat && RegExp(r"^(sendMessage|getChatMember)$", caseSensitive: false).hashData(method)) {
-      if (parameters["chat_id"] is int) {
-        td_send(
-          clientId,
-          {
-            "@type": "getChat",
-            "chat_id": parameters["chat_id"],
-          },
-        );
-      }
-      if (parameters["user_id"] is int) {
-        td_send(
-          clientId,
-          {
-            "@type": "getUser",
-            "user_id": parameters["user_id"],
-          },
-        );
-      }
-    }
-
-    // TdlibClient? tdlib_client_procces = clients[clientId];
-    // bool is_has_get_cache_found = false;
-    // var (String key_cache, bool is_can_get_cache) = TdlibClientCache.createKeyAndCanGetCache(methodName: method, parameter: parameters);
-    // if (is_can_get_cache) {
-    //   if (isUseCache) {
-    //     if (tdlib_client_procces != null) {
-    //       TdlibClientCacheData? tdlibClientCacheData = tdlib_client_procces.tdlibClientCache.getCacheByMethod(
-    //         methodName: method,
-    //         parameter: parameters,
-    //       );
-    //       is_has_get_cache_found = true;
-    //       if (tdlibClientCacheData != null && tdlibClientCacheData.result.isNotEmpty) {
-    //         Map result_data = {...tdlibClientCacheData.result};
-    //         result_data.addAll({
-    //           "@extra": extra,
-    //           "@client_id": clientId,
-    //         });
-    //         return result_data;
-    //       }
-    //     }
-    //   }
-    // }
-
-    Map requestMethod = {
-      "@type": method,
-      "client_id": clientId,
-      ...parameters,
-    };
-
-    if (isVoid) {
-      td_send(
-        clientId,
-        requestMethod,
-      );
-      return {
-        "@type": "ok",
-        "@extra": extra,
-      };
-    }
-    if (onGetInvokeData != null) {
-      td_send(
-        clientId,
-        requestMethod,
-      );
-      return await onGetInvokeData(extra_id, clientId, this);
-    }
-
-    // if (isUseCache) {
-    //   if (tdlib_client_procces != null) {
-    //     TdlibClientCacheData? tdlibClientCacheData = tdlib_client_procces.tdlibClientCache.getCacheByMethod(
-    //       methodName: method,
-    //       parameter: parameters,
-    //     );
-    //     if (tdlibClientCacheData != null && tdlibClientCacheData.result.isNotEmpty && is_has_get_cache_found == false) {
-    //       Map result_data = {...tdlibClientCacheData.result};
-    //       result_data.addAll({
-    //         "@extra": extra,
-    //         "@client_id": clientId,
-    //       });
-    //       return result_data;
-    //     }
-    //   }
-    // }
-    Completer<Map> completer = Completer<Map>();
-
-    EventEmitterListener listener = on(event_invoke, (UpdateTd update) async {
-      try {
-        if (update.client_id == clientId) {
-          Map updateOrigin = update.raw;
-          if (updateOrigin["@extra"] == extra_id) {
-            updateOrigin.remove("@extra");
-            updateOrigin.remove("@client_id");
-            completer.complete(updateOrigin);
-            // result = updateOrigin;
-          }
-        }
-      } catch (e) {
-        completer.complete({"@type": "error,"});
-        // result["@type"] = "error";
-      }
-    });
-    td_send(
-      clientId,
-      requestMethod,
+    parameters["@type"] = method;
+    return await invokeRaw(
+      parameters: parameters,
+      clientId: clientId,
+      isVoid: isVoid,
+      delayDuration: delayDuration ?? Duration(microseconds: 1),
+      invokeTimeOut: invokeTimeOut,
+      functionTimeOut: functionTimeOut ?? Duration(minutes: 15),
+      isUseCache: isUseCache,
+      durationCacheExpire: durationCacheExpire,
+      extra: extra ?? "",
+      isAutoGetChat: isAutoGetChat,
+      isInvokeThrowOnError: isInvokeThrowOnError,
+      onGenerateExtraInvoke: onGenerateExtraInvoke,
+      onGetInvokeData: onGetInvokeData,
     );
-    task_increase();
-    Map result = await completer.future.timeout(
-      invokeTimeOut,
-      onTimeout: () {
-        return {
-          "@type": "error",
-          "message": "time_out_limit",
-          "invoke_request": requestMethod,
-        };
-      },
-    );
-    task_decrease();
-    event_emitter.off(listener);
-
-    if (result["@type"] is String) {
-      if (result["@type"] == "error") {
-        if (!isInvokeThrowOnError) {
-          return result;
-        }
-
-        result["invoke_request"] = requestMethod;
-        throw result;
-      }
-
-      // if (isUseCache) {
-      //   if (tdlib_client_procces != null) {
-      //     tdlib_client_procces.tdlibClientCache.addCacheByMethod(
-      //       methodName: method,
-      //       parameter: parameters,
-      //       result: result,
-      //       durationExpired: durationCacheExpire,
-      //     );
-      //   }
-      // }
-
-      return result;
-    }
-
-    throw result;
-
-    // }
   }
 
   Future<Map> request(

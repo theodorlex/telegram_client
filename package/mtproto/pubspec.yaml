@@ -28,3 +28,4 @@ topics:
   - 'bot'
 dependency_overrides: 
   pointycastle: '3.8.0'
+dependencies: {}

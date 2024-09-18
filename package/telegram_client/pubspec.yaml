@@ -26,10 +26,11 @@ environment:
 dev_dependencies: 
   lints: '^3.0.0'
   test: '^1.25.4'
+  system_info_fetch: '^0.0.23'
 dependencies: 
   ffi: '^2.1.2'
   http: '>=1.1.2 <=2.1.2'
-  path: '>=1.8.2 <=4.9.0'
+  path: '^1.9.0'
   universal_io: '^2.2.2'
   web_ffi: '^0.7.2'
   mason_logger: '^0.2.15'

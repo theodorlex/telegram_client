@@ -511,7 +511,7 @@ extension SendMessageRawDataOn on TelegramClient {
         };
       },
     );
-    event_emitter.off(listen);
+    event_emitter.off(listener: listen);
     if (result["@type"] is String) {
       if (result["@type"] == "error") {
         throw result;
@@ -804,11 +804,11 @@ extension SendMessageRawDataOn on TelegramClient {
         };
       },
     );
-    event_emitter.off(listen);
+    event_emitter.off(listener: listen);
 
     if (result["@type"] is String) {
       // tdlib.task_decrease();
-      event_emitter.off(listen);
+      event_emitter.off(listener: listen);
 
       if (result["@type"] == "error") {
         throw result;
