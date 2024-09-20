@@ -115,6 +115,7 @@ class TdlibNative extends TdlibBase {
   }
   static late DynamicLibrary tdLib;
   static bool is_open_tdlib = false;
+  
   static late final TdExecuteNative td_execute_native_function;
   static late final TdSendDart td_send_function;
   static late final TdCreateClientIdDart td_pointer_native_function;

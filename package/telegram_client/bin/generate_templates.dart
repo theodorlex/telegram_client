@@ -21,7 +21,9 @@ void main(List<String> args) async {
   for (var element in fileSystemEntitys) {
     String base_name = "${path.basename(element.path)}_telegram_client";
     if (element is Directory) {
-      List<ScriptGenerator> scirpts = element.listSync().toScriptGenerate();
+      List<ScriptGenerator> scirpts = element.listSync().toScriptGenerate(
+        scriptGeneratorOptions: ScriptGeneratorOptions(fileSystemEntityIgnore: "", isVerbose: false)
+      );
       String script = scirpts.toScriptDart(scriptName: base_name);
       File file = File(path.join(Directory.current.path, "lib", "templates", "${base_name}_template.dart"));
       if (file.parent.existsSync() == false) {

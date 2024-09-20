@@ -24,8 +24,8 @@ topics:
 environment: 
   sdk: '>=3.3.3 <4.0.0'
 dev_dependencies: 
-  lints: '^3.0.0'
-  test: '^1.25.4'
+  lints: '^4.0.0'
+  test: '^1.25.8'
   system_info_fetch: '^0.0.23'
 dependencies: 
   ffi: '^2.1.2'
@@ -40,9 +40,6 @@ dependencies:
   server_universe: '^0.0.19'
   yaml: '^3.1.2'
   yaml_writer: '^2.0.0'
-executables: 
-  telegram_client: 'telegram_client'
-  tg_cli: 'telegram_client'
 screenshots: 
   - description: 'Telegram Logo'
     path: 'assets/telegram.png'

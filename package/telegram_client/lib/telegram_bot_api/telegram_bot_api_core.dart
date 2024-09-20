@@ -406,9 +406,9 @@ class TelegramBotApi {
     }
     try {
       if (is_form) {
-        HttpClient httpClientForm = HttpClient();
+        final httpClientForm = HttpClient();
         final request = await httpClientForm.postUrl(Uri.parse(url));
-        var form = MultipartRequest("post", Uri.parse(url));
+        final  form = MultipartRequest("post", Uri.parse(url));
 
         parameters.forEach((key, value) async {
           if (value is File) {
@@ -481,7 +481,8 @@ class TelegramBotApi {
           form.headers[HttpHeaders.contentTypeHeader]!,
         );
         int byteCount = 0;
-        Stream<List<int>> streamUpload = msStream.transform(
+        Stream<List<int>> streamUpload = msStream
+        .transform(
           StreamTransformer.fromHandlers(
             handleData: (data, sink) {
               sink.add(data);
@@ -519,7 +520,7 @@ class TelegramBotApi {
       } else {
         utils_remove_parameters(data: parameters);
         option["body"] = convert.json.encode(parameters);
-        var response = await httpClient.post(
+        final response = await httpClient.post(
           Uri.parse(url),
           headers: {
             'Accept': 'application/json',
