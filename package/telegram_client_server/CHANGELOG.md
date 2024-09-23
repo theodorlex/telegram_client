@@ -1,3 +1,4 @@
-## 0.8.23
+## 0.8.24
 
-- Update: 2024-08-30 14:33:46.212507 - update librarry.
+- Update: 2024-09-24 02:31:41.945998 - update library.
+- Revisi And Change Style Code for improve MAX speed 

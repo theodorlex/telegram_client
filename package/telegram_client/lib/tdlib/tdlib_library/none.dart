@@ -66,7 +66,7 @@ class TdlibNative extends TdlibBase {
     super.invokeTimeOut,
     super.isAutoGetChat,
     super.isInvokeThrowOnError,
-     super.on_generate_extra_invoke,
+    super.on_generate_extra_invoke,
     super.on_get_invoke_data,
     super.on_receive_update,
     super.pathTdl,
@@ -85,7 +85,6 @@ class TdlibNative extends TdlibBase {
   Map<String, dynamic> td_execute(Map parameters) {
     return {"@type": "error"};
   }
-  
 
   @override
   void td_send(int clientId, Map parameters) {

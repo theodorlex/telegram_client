@@ -43,7 +43,7 @@ import "package:path/path.dart" as path;
 import "package:yaml/yaml.dart" as yaml;
 import "package:yaml_writer/yaml_writer.dart";
 
-String version_package = "0.8.23";
+String version_package = "0.8.24";
 Future<void> pubspecUpdate({
   required File filePubspec,
 }) async {
@@ -134,7 +134,8 @@ void main(List<String> args) async {
       await file_changelog.writeAsString("""
 ## ${version_package}
 
-- Update: ${DateTime.now()} - update librarry.
+- Update: ${DateTime.now()} - update library.
+- Revisi And Change Style Code for improve MAX speed 
 """);
       File file_pubspec = File(path.join(fileSystemEntity.path, "pubspec.yaml"));
 

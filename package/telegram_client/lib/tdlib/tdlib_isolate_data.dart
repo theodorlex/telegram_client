@@ -34,10 +34,10 @@ import 'package:telegram_client/isolate/isolate.dart';
 
 class TdlibIsolateData {
   final SendPort sendPort;
-  final String pathTdlib; 
+  final String pathTdlib;
   final Duration? delayUpdate;
   final double timeOutUpdate;
-  const TdlibIsolateData({ 
+  const TdlibIsolateData({
     required this.sendPort,
     required this.pathTdlib,
     required this.delayUpdate,
