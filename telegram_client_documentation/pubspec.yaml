@@ -4,6 +4,7 @@ publish_to: 'none'
 version: '0.0.0'
 funding: 
   - 'https://github.com/sponsors/azkadev'
+  - 'https://github.com/sponsors/generalfoss'
 environment: 
   sdk: '>=3.3.3 <4.0.0'
 dependencies: 
@@ -17,10 +18,14 @@ dependencies:
 dev_dependencies: 
   flutter_test: 
     sdk: 'flutter'
-  flutter_lints: '^3.0.0'
+  flutter_lints: '^4.0.0'
 flutter: 
   uses-material-design: true
   assets: 
     - 'assets/logo/logo.png'
 dependency_overrides: 
   pointycastle: '3.8.0'
+homepage: 'https://youtube.com/@azkadev'
+repository: 'https://github.com/azkadev/general_framework'
+issue_tracker: 'https://t.me/DEVELOPER_GLOBAL_PUBLIC'
+documentation: 'https://youtube.com/@azkadev'
