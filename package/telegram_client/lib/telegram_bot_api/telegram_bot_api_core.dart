@@ -30,9 +30,8 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
-// ignore_for_file: non_constant_identifier_names, camel_case_extensions, camel_case_extensions slash_for_doc_comments, empty_catches, unnecessary_brace_in_string_interps
+// ignore_for_file: non_constant_identifier_names, camel_case_extensions, slash_for_doc_comments, empty_catches, unnecessary_brace_in_string_interps
 
-// ignore: slash_for_doc_comments
 //
 import 'dart:async' show Completer, Future, FutureOr, Stream, StreamTransformer;
 // import 'dart:convert';

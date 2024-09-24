@@ -1,4 +1,5 @@
-// ignore_for_file: non_constant_identifier_names,, unnecessary_brace_in_string_interps
+// ignore_for_file: unnecessary_brace_in_string_interps, non_constant_identifier_names
+
 import 'dart:convert';
 
 import 'package:general_lib/general_lib.dart';
@@ -31,8 +32,8 @@ void main(List<String> args) async {
     // update.printPretty();
     if (update["@type"] == "updateAuthorizationState") {
       if (update["authorization_state"] is Map) {
-        Map authorization_state = update["authorization_state"];
-        if (authorization_state["@type"] ==
+        Map authorizationState = update["authorization_state"];
+        if (authorizationState["@type"] ==
             "authorizationStateWaitPhoneNumber") {
           Map res = await tdlib.invoke(
             "setAuthenticationPhoneNumber",
@@ -44,7 +45,7 @@ void main(List<String> args) async {
           print(res);
         }
 
-        if (authorization_state["@type"] == "authorizationStateWaitCode") {
+        if (authorizationState["@type"] == "authorizationStateWaitCode") {
           Map res = await tdlib.invoke(
             "checkAuthenticationCode",
             parameters: {
@@ -55,12 +56,12 @@ void main(List<String> args) async {
           print(res);
         }
 
-        if (authorization_state["@type"] == "authorizationStateReady") {
-          Map get_me = await tdlib.invoke(
+        if (authorizationState["@type"] == "authorizationStateReady") {
+          Map getMe = await tdlib.invoke(
             "getMe",
             clientId: updateTd.client_id,
           );
-          get_me.printPretty();
+          getMe.printPretty();
         }
       }
     }

@@ -1,3 +1,5 @@
+// ignore_for_file: empty_catches
+
 /* <!-- START LICENSE -->
 
 
@@ -30,7 +32,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
-// ignore_for_file: non_constant_identifier_names, camel_case_extensions, camel_case_extensions empty_catches, unnecessary_type_check, void_checks, unnecessary_brace_in_string_interps, unused_catch_stack, empty_catches
+// ignore_for_file: non_constant_identifier_names, camel_case_extensions empty_catches, unnecessary_type_check, void_checks, unnecessary_brace_in_string_interps, unused_catch_stack, empty_catches
 
 // ignore: slash_for_doc_comments
 //
@@ -613,26 +615,22 @@ class Tdlib extends TdlibNative {
     entities ??= [];
     dynamic pesan = {"text": text};
     var parseMode = 'textParseModeHTML';
-    if (parse_mode is String) {
-      parse_mode = parse_mode.toLowerCase();
-      if (parse_mode == 'markdown') {
-        parseMode = 'textParseModeMarkdown';
-      } else if (parse_mode == 'html') {
-        parseMode = 'textParseModeHTML';
-      }
+    parse_mode = parse_mode.toLowerCase();
+    if (parse_mode == 'markdown') {
+      parseMode = 'textParseModeMarkdown';
+    } else if (parse_mode == 'html') {
+      parseMode = 'textParseModeHTML';
     }
 
-    if (parse_mode is String) {
-      try {
-        pesan = td_execute(
-          {
-            "@type": 'parseTextEntities',
-            "parse_mode": {"@type": parseMode},
-            "text": text
-          },
-        );
-      } catch (e) {}
-    }
+    try {
+      pesan = td_execute(
+        {
+          "@type": 'parseTextEntities',
+          "parse_mode": {"@type": parseMode},
+          "text": text
+        },
+      );
+    } catch (e) {}
 
     return pesan;
   }
@@ -3042,7 +3040,7 @@ class Tdlib extends TdlibNative {
               }
               json["reply_markup"]["inline_keyboard"] = keyboards_data;
             }
-          } catch (e, stack) {}
+          } catch (e) {}
         }
         if (is_detail && is_from_send_message) {
           return {"ok": true, "result": json};

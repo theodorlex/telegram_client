@@ -30,7 +30,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
-// ignore_for_file: non_constant_identifier_names, camel_case_extensions, camel_case_extensions camel_case_types
+// ignore_for_file: non_constant_identifier_names, camel_case_extensions, camel_case_types
 
 import 'dart:async';
 
