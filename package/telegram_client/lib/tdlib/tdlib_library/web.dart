@@ -73,8 +73,18 @@ class TdlibNative extends TdlibBase {
     super.task_max_count,
     super.task_min_cooldown,
     super.timeOutUpdate,
-  });
-
+  }) {
+    opentdLib(pathTdlib: path_tdlib);
+    if (client_option["start"] == true) {
+      invokeSync(
+        parameters: {
+          "@type": "setLogVerbosityLevel",
+          "new_verbosity_level": client_option['new_verbosity_level'],
+        },
+      );
+      ensureInitialized();
+    }
+  }
   @override
   int td_create_client_id() {
     // TODO: implement td_create_client_id
@@ -95,4 +105,11 @@ class TdlibNative extends TdlibBase {
   String platformType() {
     return "web";
   }
+}
+
+Future<void> opentdLib({
+  required String pathTdlib,
+}) async{
+
+  //final url ='https://unpkg.com/isar@${Isar.version}/isar.wasm'; 
 }
