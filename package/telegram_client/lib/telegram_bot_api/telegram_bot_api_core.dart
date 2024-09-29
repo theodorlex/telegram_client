@@ -182,6 +182,7 @@ class TelegramBotApi {
     }
     return TelegramClientLibraryClientData(decyprt);
   }
+ 
 
   Future<Map> initIsolate({
     String? tokenBot,
@@ -195,11 +196,11 @@ class TelegramBotApi {
   }) async {
     tokenBot ??= token_bot;
 
-    Map getMe = await request(
+    final Map getMe = await request(
       "getMe",
       tokenBot: tokenBot,
     );
-    Map client_data = {
+    final Map client_data = {
       "client_token": tokenBot,
       "owner_user_id": owner_user_id,
       "client_type": type_bot,
@@ -209,27 +210,43 @@ class TelegramBotApi {
       "expire_date": expire_date,
       "version": version,
     };
-    String query_telegram_webhook =
-        telegram_crypto.encryptMapToBase64(data: client_data);
-    Map result_webhook = await request(
+    final String query_telegram_webhook = telegram_crypto.encryptMapToBase64(data: client_data);
+
+    final get_webhook_info_old_procces = await request(
+      "getWebhookInfo",
+      tokenBot: tokenBot,
+    );
+
+    final String url_webhook_old = get_webhook_info_old_procces["result"]["url"];
+    final String url_webhook_new = telegram_url_webhook.replace(
+      path: path,
+      pathSegments: pathSegments,
+      queryParameters: {
+        "tg": query_telegram_webhook,
+      },
+    ).toString(); 
+
+    if (url_webhook_old == url_webhook_new) {
+      final Map new_scheme = {
+        "webhook": true,
+        "user": getMe["result"],
+        "client_data": client_data,
+      };
+
+      return new_scheme;
+    }
+    final Map result_webhook = await request(
       "setWebhook",
       parameters: {
-        "url": telegram_url_webhook.replace(
-          path: path,
-          pathSegments: pathSegments,
-          queryParameters: {
-            "tg": query_telegram_webhook,
-          },
-        ).toString()
+        "url": url_webhook_new,
       },
       tokenBot: tokenBot,
     );
-    Map new_scheme = {
+    final Map new_scheme = {
       "webhook": result_webhook["result"],
       "user": getMe["result"],
       "client_data": client_data,
     };
-
     return new_scheme;
   }
 

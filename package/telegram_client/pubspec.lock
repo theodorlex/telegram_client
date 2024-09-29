@@ -293,10 +293,10 @@ packages:
     dependency: transitive
     description:
       name: meta
-      sha256: "25dfcaf170a0190f47ca6355bdd4552cb8924b430512ff0cafb8db9bd41fe33b"
+      sha256: bdb68674043280c3428e9ec998512fb681678676b3c54e773629ffe74419f8c7
       url: "https://pub.dev"
     source: hosted
-    version: "1.14.0"
+    version: "1.15.0"
   mime:
     dependency: "direct main"
     description:
@@ -561,6 +561,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "14.2.5"
+  wasm_ffi:
+    dependency: "direct main"
+    description:
+      name: wasm_ffi
+      sha256: "20520670922bee88efef57a02551073203814f54afca80b2bc74be8bcdb95bc1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   watcher:
     dependency: transitive
     description:
@@ -577,14 +585,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
-  web_ffi:
-    dependency: "direct main"
-    description:
-      name: web_ffi
-      sha256: "48ef8037f7bc051d11b88d0f2903e02bec21092c51833d37c3361c36e3edc4f7"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.7.2"
   web_socket:
     dependency: transitive
     description:
@@ -634,4 +634,4 @@ packages:
     source: hosted
     version: "2.0.0"
 sdks:
-  dart: ">=3.5.0 <4.0.0"
+  dart: ">=3.5.1 <4.0.0"

@@ -38,6 +38,18 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 // import 'dart:ffi';
 
 import 'package:telegram_client/tdlib/tdlib_library/base.dart';
+import 'package:universal_io/io.dart';
+import 'package:wasm_ffi/ffi.dart';
+
+typedef TdCharNative = Pointer<Char>;
+typedef TdReceiveNative = TdCharNative Function(Double timout);
+typedef TdReceiveDart = TdCharNative Function(double timout);
+
+typedef TdCreateClientIdNative = Int Function();
+typedef TdCreateClientIdDart = int Function();
+typedef TdSendNative = Void Function(Int client, TdCharNative request);
+typedef TdSendDart = void Function(int client, TdCharNative request);
+typedef TdExecuteNative = TdCharNative Function(TdCharNative parameters);
 
 /// Cheatset
 ///
@@ -85,6 +97,14 @@ class TdlibNative extends TdlibBase {
       ensureInitialized();
     }
   }
+  static late DynamicLibrary tdLib;
+  static bool is_open_tdlib = false;
+
+  static late final TdExecuteNative td_execute_native_function;
+  static late final TdSendDart td_send_function;
+  static late final TdCreateClientIdDart td_pointer_native_function;
+  static late final TdReceiveDart td_receive_function;
+
   @override
   int td_create_client_id() {
     // TODO: implement td_create_client_id
@@ -109,7 +129,19 @@ class TdlibNative extends TdlibBase {
 
 Future<void> opentdLib({
   required String pathTdlib,
-}) async{
-
-  //final url ='https://unpkg.com/isar@${Isar.version}/isar.wasm'; 
+}) async {
+  //final url ='https://unpkg.com/isar@${Isar.version}/isar.wasm';
+  if (TdlibNative.is_open_tdlib) {
+    return;
+  }
+  if (Platform.isIOS || Platform.isMacOS) {
+    TdlibNative.tdLib = await DynamicLibrary.open(pathTdlib);
+  } else {
+    TdlibNative.tdLib = await DynamicLibrary.open(pathTdlib);
+  }
+  TdlibNative.is_open_tdlib = true;
+  TdlibNative.td_execute_native_function = TdlibNative.tdLib.lookupFunction<TdExecuteNative, TdExecuteNative>('td_execute');
+  TdlibNative.td_send_function = TdlibNative.tdLib.lookupFunction<TdSendNative, TdSendDart>('td_send');
+  TdlibNative.td_pointer_native_function = TdlibNative.tdLib.lookupFunction<TdCreateClientIdNative, TdCreateClientIdDart>('td_create_client_id');
+  TdlibNative.td_receive_function = TdlibNative.tdLib.lookupFunction<TdReceiveNative, TdReceiveDart>('td_receive');
 }
