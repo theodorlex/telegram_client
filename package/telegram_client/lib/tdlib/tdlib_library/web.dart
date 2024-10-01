@@ -86,7 +86,9 @@ class TdlibNative extends TdlibBase {
     super.task_min_cooldown,
     super.timeOutUpdate,
   }) {
-    opentdLib(pathTdlib: path_tdlib);
+    opentdLib(pathTdlib: path_tdlib).then((a){
+
+    
     if (client_option["start"] == true) {
       invokeSync(
         parameters: {
@@ -96,6 +98,8 @@ class TdlibNative extends TdlibBase {
       );
       ensureInitialized();
     }
+    });
+    
   }
   static late DynamicLibrary tdLib;
   static bool is_open_tdlib = false;
