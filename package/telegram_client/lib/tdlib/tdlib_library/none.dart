@@ -74,7 +74,6 @@ class TdlibNative extends TdlibBase {
     super.task_min_cooldown,
     super.timeOutUpdate,
   });
-
   @override
   int td_create_client_id() {
     // TODO: implement td_create_client_id
@@ -94,5 +93,10 @@ class TdlibNative extends TdlibBase {
   @override
   String platformType() {
     return "none";
+  }
+
+  @override
+  Future<bool> is_td_initialized() async{
+    return true;
   }
 }

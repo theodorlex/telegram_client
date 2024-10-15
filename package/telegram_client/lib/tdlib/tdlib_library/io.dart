@@ -187,4 +187,9 @@ class TdlibNative extends TdlibBase {
   String platformType() {
     return "io";
   }
+
+  @override
+  Future<bool> is_td_initialized() async{
+    return true;
+  }
 }

@@ -37,9 +37,10 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 // import 'dart:ffi';
 
+import 'dart:async';
+
 import 'package:telegram_client/tdlib/tdlib_library/base.dart';
-import 'package:universal_io/io.dart';
-import 'package:wasm_ffi/ffi.dart';
+import 'package:wasm_ffi/ffi.dart'; 
 
 typedef TdCharNative = Pointer<Char>;
 typedef TdReceiveNative = TdCharNative Function(Double timout);
@@ -68,6 +69,7 @@ typedef TdExecuteNative = TdCharNative Function(TdCharNative parameters);
 /// ````
 ///
 class TdlibNative extends TdlibBase {
+  static final Completer<bool> _td_completer = Completer<bool>();
   TdlibNative({
     super.clientOption,
     super.delayInvoke,
@@ -86,20 +88,17 @@ class TdlibNative extends TdlibBase {
     super.task_min_cooldown,
     super.timeOutUpdate,
   }) {
-    opentdLib(pathTdlib: path_tdlib).then((a){
-
-    
-    if (client_option["start"] == true) {
-      invokeSync(
-        parameters: {
-          "@type": "setLogVerbosityLevel",
-          "new_verbosity_level": client_option['new_verbosity_level'],
-        },
-      );
-      ensureInitialized();
-    }
+    opentdLib(pathTdlib: path_tdlib).then((a) {
+      if (client_option["start"] == true) {
+        invokeSync(
+          parameters: {
+            "@type": "setLogVerbosityLevel",
+            "new_verbosity_level": client_option['new_verbosity_level'],
+          },
+        );
+        ensureInitialized();
+      }
     });
-    
   }
   static late DynamicLibrary tdLib;
   static bool is_open_tdlib = false;
@@ -129,6 +128,11 @@ class TdlibNative extends TdlibBase {
   String platformType() {
     return "web";
   }
+
+  @override
+  Future<bool> is_td_initialized() {
+    return _td_completer.future;
+  }
 }
 
 Future<void> opentdLib({
@@ -138,14 +142,12 @@ Future<void> opentdLib({
   if (TdlibNative.is_open_tdlib) {
     return;
   }
-  if (Platform.isIOS || Platform.isMacOS) {
-    TdlibNative.tdLib = await DynamicLibrary.open(pathTdlib);
-  } else {
-    TdlibNative.tdLib = await DynamicLibrary.open(pathTdlib);
-  }
+ 
+  TdlibNative.tdLib = await DynamicLibrary.open(pathTdlib);
   TdlibNative.is_open_tdlib = true;
   TdlibNative.td_execute_native_function = TdlibNative.tdLib.lookupFunction<TdExecuteNative, TdExecuteNative>('td_execute');
   TdlibNative.td_send_function = TdlibNative.tdLib.lookupFunction<TdSendNative, TdSendDart>('td_send');
   TdlibNative.td_pointer_native_function = TdlibNative.tdLib.lookupFunction<TdCreateClientIdNative, TdCreateClientIdDart>('td_create_client_id');
   TdlibNative.td_receive_function = TdlibNative.tdLib.lookupFunction<TdReceiveNative, TdReceiveDart>('td_receive');
+  TdlibNative._td_completer.complete(true);
 }

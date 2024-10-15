@@ -38,3 +38,11 @@ macos/Flutter/ephemeral
 windows/ephemeral
 tmp/
 temp/
+
+wasm/
+
+
+dev/
+
+tg_db/
+tg_file/
