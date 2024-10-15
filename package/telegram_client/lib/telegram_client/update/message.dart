@@ -44,17 +44,37 @@ extension MessageDataDataOn on TelegramClient {
     required Map message,
     required TelegramClientData telegramClientData,
     bool is_skip_reply_message = false,
+    bool is_in_thread = false,
     required bool is_lite,
     bool? isUseCache,
     Duration? durationCacheExpire,
   }) async {
-    // message.printPretty(2);
     final Map message_thread_json = <dynamic, dynamic>{};
-    // message.printPretty(2);
     if (message["message_thread_id"] is num && message["message_thread_id"] > 0) {
       if (message["is_topic_message"] == true) {
         message_thread_json["message_tdlib_thread_id"] = message["message_thread_id"];
         message_thread_json["message_thread_id"] = TgUtils.messageTdlibToApi(message["message_thread_id"]);
+
+        if (is_skip_reply_message && is_in_thread) {
+          if (is_lite == false) {
+            final Map getForumTopic = await invoke(
+              parameters: {
+                "@type": "getForumTopic",
+                "chat_id": message["chat_id"],
+                "message_thread_id": message["message_thread_id"],
+              },
+              isUseCache: isUseCache,
+              durationCacheExpire: durationCacheExpire,
+              telegramClientData: telegramClientData,
+            );
+            if (getForumTopic["info"] is Map) {
+              message_thread_json["forum_topic_created"] = {
+                "name": getForumTopic["info"]["name"],
+                if (getForumTopic["info"]["icon"] is Map) "icon_color": getForumTopic["info"]["icon"]["color"] 
+              };
+            }
+          }
+        }
       }
     }
     final Map message_from_json = <dynamic, dynamic>{};
@@ -212,6 +232,34 @@ extension MessageDataDataOn on TelegramClient {
               );
             } catch (e) {}
           }
+        }
+      }
+    } else if (message_thread_json.isNotEmpty) {
+      if (is_skip_reply_message == false) {
+        final int message_chat_id = message["chat_id"];
+        final int message_thread_id = message["message_thread_id"];
+        if (message_thread_id > 0) {
+          try {
+            final Map message_reply_to = await invoke(
+              parameters: {
+                "@type": "getRepliedMessage",
+                "chat_id": message_chat_id,
+                "message_id": message["id"],
+              },
+              isUseCache: isUseCache,
+              durationCacheExpire: durationCacheExpire,
+              telegramClientData: telegramClientData,
+            );
+            msg["reply_to_message"] = await message_Message(
+              message: message_reply_to,
+              telegramClientData: telegramClientData,
+              is_skip_reply_message: true,
+              is_in_thread: true,
+              is_lite: is_lite,
+              isUseCache: isUseCache,
+              durationCacheExpire: durationCacheExpire,
+            );
+          } catch (e) {}
         }
       }
     }
