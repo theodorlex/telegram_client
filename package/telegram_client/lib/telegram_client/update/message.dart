@@ -56,7 +56,12 @@ extension MessageDataDataOn on TelegramClient {
         message_thread_json["message_thread_id"] = TgUtils.messageTdlibToApi(message["message_thread_id"]);
 
         if (is_skip_reply_message && is_in_thread) {
-          if (is_lite == false) {
+          if (is_lite) {
+            message_thread_json["forum_topic_created"] = {
+              "name": "",
+              "icon_color": 0,
+            };
+          } else {
             final Map getForumTopic = await invoke(
               parameters: {
                 "@type": "getForumTopic",
@@ -68,10 +73,7 @@ extension MessageDataDataOn on TelegramClient {
               telegramClientData: telegramClientData,
             );
             if (getForumTopic["info"] is Map) {
-              message_thread_json["forum_topic_created"] = {
-                "name": getForumTopic["info"]["name"],
-                if (getForumTopic["info"]["icon"] is Map) "icon_color": getForumTopic["info"]["icon"]["color"] 
-              };
+              message_thread_json["forum_topic_created"] = {"name": getForumTopic["info"]["name"], if (getForumTopic["info"]["icon"] is Map) "icon_color": getForumTopic["info"]["icon"]["color"]};
             }
           }
         }
