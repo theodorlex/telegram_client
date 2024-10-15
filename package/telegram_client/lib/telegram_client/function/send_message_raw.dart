@@ -104,6 +104,11 @@ extension SendMessageRawDataOn on TelegramClient {
     if (parameters.containsKey("message_id")) {
       request_parameters["message_id"] = TgUtils.messageApiToTdlib(parameters["message_id"]);
     }
+
+    if (parameters.containsKey("message_tdlib_id")) {
+      request_parameters["message_id"] = parameters["message_tdlib_id"];
+    }
+
     if (parameters.containsKey("inline_message_id")) {
       request_parameters["inline_message_id"] = parameters["inline_message_id"];
     }
