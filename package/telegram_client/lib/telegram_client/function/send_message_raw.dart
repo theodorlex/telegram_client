@@ -113,19 +113,19 @@ extension SendMessageRawDataOn on TelegramClient {
       request_parameters["inline_message_id"] = parameters["inline_message_id"];
     }
     if (parameters["reply_to_message_id"] is int) {
-      request_parameters["reply_to"] = {
+      request_parameters["reply_to"] = <dynamic, dynamic>{
         "@type": "inputMessageReplyToMessage",
         "chat_id": request_parameters["chat_id"],
         "message_id": TgUtils.messageApiToTdlib(parameters["reply_to_message_id"]),
       };
     } else if (parameters["reply_to_story_id"] is int) {
-      request_parameters["reply_to"] = {
+      request_parameters["reply_to"] = <dynamic, dynamic>{
         "@type": "inputMessageReplyToStory",
         "story_sender_chat_id": request_parameters["chat_id"],
         "story_id": parameters["reply_to_story_id"],
       };
     }
-    Map? formatted_text = {
+    Map? formatted_text = <dynamic, dynamic>{
       "@type": "formattedText",
     };
 
@@ -227,7 +227,7 @@ extension SendMessageRawDataOn on TelegramClient {
           request_parameters["input_message_content"]["in_game_share"] = parameters["in_game_share"];
         }
         if (RegExp(r"^(copyMessage)$", caseSensitive: false).hashData(parameters["@type"])) {
-          request_parameters["input_message_content"]["copy_options"] = {
+          request_parameters["input_message_content"]["copy_options"] = <dynamic, dynamic>{
             "@type": "messageCopyOptions",
             "send_copy": true,
           };
@@ -275,19 +275,17 @@ extension SendMessageRawDataOn on TelegramClient {
       }
       if (RegExp(r"^(sendContact)$", caseSensitive: false).hashData(parameters["@type"])) {
         request_parameters["input_message_content"]["@type"] = "inputMessageContact";
-        request_parameters["input_message_content"]["contact"] = {
-          "@type": "contact",
-          "latitude": parameters["latitude"],
-          "longitude": parameters["longitude"],
+        request_parameters["input_message_content"]["contact"] = <dynamic, dynamic>{
+          "@type": "contact", 
         };
-        List<String> contact_parameters = [
+        final List<String> contact_parameters = [
           "phone_number",
           "first_name",
           "last_name",
           "vcard",
           "user_id",
         ];
-        for (var contact_parameter in contact_parameters) {
+        for (final contact_parameter in contact_parameters) {
           if (parameters.containsKey(contact_parameter)) {
             request_parameters["input_message_content"]["contact"][contact_parameter] = parameters[contact_parameter];
           }
@@ -295,7 +293,7 @@ extension SendMessageRawDataOn on TelegramClient {
       }
       if (RegExp(r"^(sendVenue)$", caseSensitive: false).hashData(parameters["@type"])) {
         request_parameters["input_message_content"]["@type"] = "inputMessageVenue";
-        request_parameters["input_message_content"]["venue"] = {
+        request_parameters["input_message_content"]["venue"] = <dynamic, dynamic>{
           "@type": "location",
           "latitude": parameters["latitude"],
           "longitude": parameters["longitude"],
@@ -315,7 +313,7 @@ extension SendMessageRawDataOn on TelegramClient {
       }
       if (RegExp(r"^(sendLocation)$", caseSensitive: false).hashData(parameters["@type"])) {
         request_parameters["input_message_content"]["@type"] = "inputMessageLocation";
-        request_parameters["input_message_content"]["location"] = {
+        request_parameters["input_message_content"]["location"] = <dynamic, dynamic>{
           "@type": "location",
           "latitude": parameters["latitude"],
           "longitude": parameters["longitude"],
@@ -530,13 +528,13 @@ extension SendMessageRawDataOn on TelegramClient {
       request_parameters["inline_message_id"] = parameters["inline_message_id"];
     }
     if (parameters["reply_to_message_id"] is int) {
-      request_parameters["reply_to"] = {
+      request_parameters["reply_to"] = <dynamic, dynamic>{
         "@type": "inputMessageReplyToMessage",
         "chat_id": request_parameters["chat_id"],
         "message_id": TgUtils.messageApiToTdlib(request_parameters["message_id"]),
       };
     } else if (parameters["reply_to_story_id"] is int) {}
-    Map? formatted_text = {
+    Map? formatted_text = <dynamic, dynamic>{
       "@type": "formattedText",
     };
 

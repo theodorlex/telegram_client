@@ -432,7 +432,7 @@ extension MessageDataDataOn on TelegramClient {
           if (message["content"]["video"]["@type"] == "video") {
             final Map jsonVideo = <dynamic, dynamic>{};
             final Map contentVideo = message["content"]["video"];
-            jsonVideo["id"] = contentVideo["video"]["id"]; 
+            jsonVideo["id"] = contentVideo["video"]["id"];
             jsonVideo["duration"] = contentVideo["duration"];
             jsonVideo["height"] = contentVideo["height"];
             jsonVideo["file_name"] = contentVideo["file_name"];
@@ -456,7 +456,15 @@ extension MessageDataDataOn on TelegramClient {
         }
       }
 
-      // http://localhost:8080/classtd_1_1td__api_1_1audio.html
+      if (message_content["@type"] == "messageDice") {
+        final String contentType = "dice";
+        msg["content_type"] = contentType;
+        final Map jsonContent = <dynamic, dynamic>{};
+         jsonContent["emoji"] = message_content["emoji"];
+        jsonContent["value"] = message_content["value"];
+        msg[contentType] = jsonContent;
+      }
+
       if (message["content"]["@type"] == "messageAudio") {
         final String contentType = "audio";
         msg["content_type"] = "audio";
@@ -482,6 +490,7 @@ extension MessageDataDataOn on TelegramClient {
           }
         }
       }
+
       // http://localhost:8080/classtd_1_1td__api_1_1file.html
       // https://core.telegram.org/bots/api#contact
       if (message["content"]["@type"] == "messageContact") {
@@ -530,7 +539,7 @@ extension MessageDataDataOn on TelegramClient {
           if (message["content"][contentType]["@type"] == contentType) {
             final Map jsonContent = <dynamic, dynamic>{};
             final Map contentUpdate = message["content"][contentType];
-            jsonContent["id"] = contentUpdate[contentType]["id"]; 
+            jsonContent["id"] = contentUpdate[contentType]["id"];
             jsonContent["file_name"] = contentUpdate["file_name"];
             jsonContent["mime_type"] = contentUpdate["mime_type"];
 
@@ -550,7 +559,7 @@ extension MessageDataDataOn on TelegramClient {
             final Map jsonContent = <dynamic, dynamic>{};
             final Map contentUpdate = message["content"][contentType];
 
-            jsonContent["id"] = contentUpdate[contentType]["id"]; 
+            jsonContent["id"] = contentUpdate[contentType]["id"];
             jsonContent["set_id"] = contentUpdate["set_id"];
 
             try {
@@ -603,7 +612,7 @@ extension MessageDataDataOn on TelegramClient {
             final Map jsonContent = <dynamic, dynamic>{};
             final Map contentUpdate = message["content"][contentType];
 
-            jsonContent["id"] = contentUpdate["voice"]["id"]; 
+            jsonContent["id"] = contentUpdate["voice"]["id"];
 
             jsonContent["duration"] = contentUpdate["duration"];
             jsonContent["waveform"] = contentUpdate["waveform"];
