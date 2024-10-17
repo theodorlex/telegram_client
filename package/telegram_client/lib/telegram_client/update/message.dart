@@ -52,6 +52,7 @@ extension MessageDataDataOn on TelegramClient {
     final Map message_thread_json = <dynamic, dynamic>{};
     if (message["message_thread_id"] is num && message["message_thread_id"] > 0) {
       if (message["is_topic_message"] == true) {
+        message_thread_json["is_topic_message"] = message["is_topic_message"];
         message_thread_json["message_tdlib_thread_id"] = message["message_thread_id"];
         message_thread_json["message_thread_id"] = TgUtils.messageTdlibToApi(message["message_thread_id"]);
 
@@ -368,9 +369,9 @@ extension MessageDataDataOn on TelegramClient {
 
         /// http://0.0.0.0:8080/classtd_1_1td__api_1_1animation.html
         final Map animation = <dynamic, dynamic>{};
-        if (message["animation"] is Map) {
-          if (message["animation"]["animation"] is Map) {
-            final Map message_animation = message["animation"]["animation"];
+        if (message["content"]["animation"] is Map) {
+          if (message["content"]["animation"]["animation"] is Map) {
+            final Map message_animation = message["content"]["animation"]["animation"];
             animation["id"] = message_animation["id"];
             if (message_animation["local"] is Map) {
               animation["file_path"] = message_animation["local"]["path"];
@@ -383,12 +384,12 @@ extension MessageDataDataOn on TelegramClient {
               animation["file_size"] = message_animation["remote"]["size"];
             }
           }
-          animation["width"] = message["animation"]["width"];
-          animation["height"] = message["animation"]["height"];
-          animation["duration"] = message["animation"]["duration"];
+          animation["width"] = message["content"]["animation"]["width"];
+          animation["height"] = message["content"]["animation"]["height"];
+          animation["duration"] = message["content"]["animation"]["duration"];
           // Map msg_content_thumbnail = <dynamic, dynamic>{};
-          animation["file_name"] = message["animation"]["file_name"];
-          animation["mime_type"] = message["animation"]["mime_type"];
+          animation["file_name"] = message["content"]["animation"]["file_name"];
+          animation["mime_type"] = message["content"]["animation"]["mime_type"];
         }
         msg["animation"] = animation;
       }
@@ -431,6 +432,7 @@ extension MessageDataDataOn on TelegramClient {
           if (message["content"]["video"]["@type"] == "video") {
             final Map jsonVideo = <dynamic, dynamic>{};
             final Map contentVideo = message["content"]["video"];
+            jsonVideo["id"] = contentVideo["video"]["id"]; 
             jsonVideo["duration"] = contentVideo["duration"];
             jsonVideo["height"] = contentVideo["height"];
             jsonVideo["file_name"] = contentVideo["file_name"];
@@ -528,6 +530,7 @@ extension MessageDataDataOn on TelegramClient {
           if (message["content"][contentType]["@type"] == contentType) {
             final Map jsonContent = <dynamic, dynamic>{};
             final Map contentUpdate = message["content"][contentType];
+            jsonContent["id"] = contentUpdate[contentType]["id"]; 
             jsonContent["file_name"] = contentUpdate["file_name"];
             jsonContent["mime_type"] = contentUpdate["mime_type"];
 
@@ -546,6 +549,8 @@ extension MessageDataDataOn on TelegramClient {
           if (message["content"][contentType]["@type"] == contentType) {
             final Map jsonContent = <dynamic, dynamic>{};
             final Map contentUpdate = message["content"][contentType];
+
+            jsonContent["id"] = contentUpdate[contentType]["id"]; 
             jsonContent["set_id"] = contentUpdate["set_id"];
 
             try {
@@ -597,6 +602,8 @@ extension MessageDataDataOn on TelegramClient {
           if (message["content"][contentType]["@type"] == "voiceNote") {
             final Map jsonContent = <dynamic, dynamic>{};
             final Map contentUpdate = message["content"][contentType];
+
+            jsonContent["id"] = contentUpdate["voice"]["id"]; 
 
             jsonContent["duration"] = contentUpdate["duration"];
             jsonContent["waveform"] = contentUpdate["waveform"];
