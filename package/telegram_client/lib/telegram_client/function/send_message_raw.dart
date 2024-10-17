@@ -276,7 +276,7 @@ extension SendMessageRawDataOn on TelegramClient {
       if (RegExp(r"^(sendContact)$", caseSensitive: false).hashData(parameters["@type"])) {
         request_parameters["input_message_content"]["@type"] = "inputMessageContact";
         request_parameters["input_message_content"]["contact"] = <dynamic, dynamic>{
-          "@type": "contact", 
+          "@type": "contact",
         };
         final List<String> contact_parameters = [
           "phone_number",
@@ -290,6 +290,52 @@ extension SendMessageRawDataOn on TelegramClient {
             request_parameters["input_message_content"]["contact"][contact_parameter] = parameters[contact_parameter];
           }
         }
+      }
+      if (RegExp(r"^(sendPoll)$", caseSensitive: false).hashData(parameters["@type"])) {
+        request_parameters["input_message_content"]["@type"] = "inputMessagePoll";
+        if (parameters["question"] is String) {
+          final Map<dynamic, dynamic> result_poll_question = <dynamic, dynamic>{
+            "@type": "formattedText",
+            "text": parameters["question"],
+          };
+          request_parameters["input_message_content"]["question"] = result_poll_question;
+        }
+        if (parameters["options"] is List) {
+          final poll_options = (parameters["options"] as List);
+          final result_poll_options = <Map>[];
+          for (final poll_option in poll_options) {
+            if (poll_option is Map) {
+              final Map<dynamic, dynamic> result_poll_option = <dynamic, dynamic>{};
+              if (poll_option["text"] is String) {
+                result_poll_option["@type"] = "formattedText";
+                result_poll_option["text"] = poll_option["text"];
+              }
+              if (result_poll_option.isEmpty) {
+                continue;
+              }
+              result_poll_options.add(poll_option);
+            }
+          }
+          request_parameters["input_message_content"]["options"] = result_poll_options;
+        }
+
+        if (parameters.containsKey("is_anonymous")) {
+          request_parameters["input_message_content"]["is_anonymous"] = parameters["is_anonymous"];
+        }
+        if (parameters.containsKey("type")) {
+          request_parameters["input_message_content"]["type"] = {
+            "@type": "pollType${parameters["type"].toString().trim().toLowerCase().toUpperCaseFirstData()}",
+          };
+        }
+        if (parameters.containsKey("open_period")) {
+          request_parameters["input_message_content"]["open_period"] = parameters["open_period"];
+        }
+        if (parameters.containsKey("close_date")) {
+          request_parameters["input_message_content"]["close_date"] = parameters["close_date"];
+        }
+        if (parameters.containsKey("is_closed")) {
+          request_parameters["input_message_content"]["is_closed"] = parameters["is_closed"];
+        } 
       }
       if (RegExp(r"^(sendVenue)$", caseSensitive: false).hashData(parameters["@type"])) {
         request_parameters["input_message_content"]["@type"] = "inputMessageVenue";

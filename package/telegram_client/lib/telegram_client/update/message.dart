@@ -460,7 +460,7 @@ extension MessageDataDataOn on TelegramClient {
         final String contentType = "dice";
         msg["content_type"] = contentType;
         final Map jsonContent = <dynamic, dynamic>{};
-         jsonContent["emoji"] = message_content["emoji"];
+        jsonContent["emoji"] = message_content["emoji"];
         jsonContent["value"] = message_content["value"];
         msg[contentType] = jsonContent;
       }
@@ -510,23 +510,76 @@ extension MessageDataDataOn on TelegramClient {
         }
       }
 
-      if (message["content"]["@type"] == "messagePoll") {
+      if (message_content["@type"] == "messagePoll") {
         final String contentType = "poll";
         msg["content_type"] = contentType;
-        if (message["content"][contentType] is Map) {
-          if (message["content"][contentType]["@type"] == contentType) {
+        if (message_content[contentType] is Map) {
+          if (message_content[contentType]["@type"] == contentType) {
             final Map jsonContent = <dynamic, dynamic>{};
-            final Map contentUpdate = message["content"][contentType];
+            final Map contentUpdate = message_content[contentType];
             jsonContent["id"] = contentUpdate["id"];
-            jsonContent["question"] = contentUpdate["question"];
-            jsonContent["options"] = contentUpdate["options"];
+            if (contentUpdate["question"] is Map) {
+              if (contentUpdate["question"]["text"] is String) {
+                jsonContent["question"] = contentUpdate["question"]["text"];
+              }
+              if (contentUpdate["question"]["entities"] is List) {
+                jsonContent["question_entities"] = await entitiesToApi(
+                  oldEntities: contentUpdate["question"]["entities"],
+                  telegramClientData: telegramClientData,
+                  is_lite: is_lite,
+                  isUseCache: isUseCache,
+                  durationCacheExpire: durationCacheExpire,
+                );
+              }
+            }
+            if (contentUpdate["options"] is List) {
+              final poll_options = (contentUpdate["options"] as List);
+              final result_poll_options = <Map>[];
+
+              for (final poll_option in poll_options) {
+                if (poll_option is Map) {
+                  final Map<dynamic, dynamic> result_poll_option = <dynamic, dynamic>{};
+                  if (poll_option["text"] is Map) {
+                    if (poll_option["text"]["text"] is String) {
+                      result_poll_option["text"] = poll_option["text"]["text"];
+                    }
+                    if (poll_option["text"]["entities"] is List) {
+                      result_poll_option["text_entities"] = await entitiesToApi(
+                        oldEntities: poll_option["text"]["entities"],
+                        telegramClientData: telegramClientData,
+                        is_lite: is_lite,
+                        isUseCache: isUseCache,
+                        durationCacheExpire: durationCacheExpire,
+                      );
+                    }
+                  }
+                  poll_option.forEach((key, value) {
+                    if (key == "@type") {
+                      return;
+                    }
+                    if (value is Map || value is List) {
+                      return;
+                    }
+                    result_poll_option[key] = value;
+                  });
+
+                  result_poll_options.add(result_poll_option);
+                }
+              }
+              jsonContent["options"] = result_poll_options;
+            }
             jsonContent["total_voter_count"] = contentUpdate["total_voter_count"];
+            jsonContent["is_closed"] = contentUpdate["is_closed"] == true;
+            jsonContent["is_anonymous"] = contentUpdate["is_anonymous"] == true;
+            if (contentUpdate["type"] is Map) {
+              if (contentUpdate["type"]["@type"] is String) {
+                jsonContent["type"] = contentUpdate["type"]["@type"].toString().replaceAll(RegExp("(pollType)"), "").trim().toLowerCase();
+              }
+              jsonContent["allow_multiple_answers"] = contentUpdate["type"]["allow_multiple_answers"] == true;
+            }
             jsonContent["recent_voter_user_ids"] = contentUpdate["recent_voter_user_ids"];
-            jsonContent["is_anonymous"] = contentUpdate["is_anonymous"];
-            jsonContent["type"] = contentUpdate["type"];
             jsonContent["open_period"] = contentUpdate["open_period"];
             jsonContent["close_date"] = contentUpdate["close_date"];
-            jsonContent["is_closed"] = contentUpdate["is_closed"];
             msg[contentType] = jsonContent;
           }
         }
