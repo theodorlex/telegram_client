@@ -1,5 +1,4 @@
 name: Build Tdlib Cross Compile 
-
 on: [workflow_dispatch]
 jobs:
   # build-tdlib-desktop:
@@ -111,6 +110,4 @@ jobs:
           prerelease: false
           title: "Release Tdlib Android"
           files: |
-            example/android/Dockerfile
-          # example/android/tdlib/tdlib.zip
-          # example/android/tdlib/tdlib.zip
+            example/android/tdlib/tdlib.zip 
