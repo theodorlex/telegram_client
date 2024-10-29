@@ -1,4 +1,5 @@
 name: Build Tdlib Cross Compile 
+
 on: [workflow_dispatch]
 jobs:
   # build-tdlib-desktop:
@@ -98,7 +99,7 @@ jobs:
         continue-on-error: true
         run: |
           cd example/android/
-          docker build --build-arg TDLIB_INTERFACE=JSON --build-arg OPENSSL_VERSION="openssl-3.4.0" --build-arg ANDROID_NDK_VERSION="27.2.12479018" --output tdlib .
+          # docker build --build-arg TDLIB_INTERFACE=JSON --build-arg OPENSSL_VERSION="openssl-3.4.0" --build-arg ANDROID_NDK_VERSION="27.2.12479018" --output tdlib .
 
         shell: bash
       - name: Publish Release
@@ -110,5 +111,6 @@ jobs:
           prerelease: false
           title: "Release Tdlib Android"
           files: |
-            example/android/tdlib/.*
-   
+            example/android/Dockerfile
+          # example/android/tdlib/tdlib.zip
+          # example/android/tdlib/tdlib.zip
