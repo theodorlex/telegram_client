@@ -75,9 +75,9 @@ jobs:
           prerelease: false
           title: "Release Tdlib ${{ matrix.output-name }}"
           files: |
-            tdlib/.*
-
+            tdlib/tg_cli
             tdlib/libtdjson.*
+      
    
 
   # build-tdlib-android:
