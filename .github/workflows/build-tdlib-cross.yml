@@ -98,7 +98,7 @@ jobs:
         continue-on-error: true
         run: |
           cd example/android/
-          # docker build --build-arg TDLIB_INTERFACE=JSON --build-arg OPENSSL_VERSION="openssl-3.4.0" --build-arg ANDROID_NDK_VERSION="27.2.12479018" --output tdlib .
+          docker build --build-arg TDLIB_INTERFACE=JSON --build-arg OPENSSL_VERSION="openssl-3.4.0" --build-arg ANDROID_NDK_VERSION="27.2.12479018" --output tdlib .
 
         shell: bash
       - name: Publish Release
