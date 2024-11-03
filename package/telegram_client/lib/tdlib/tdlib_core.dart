@@ -709,18 +709,22 @@ class Tdlib extends TdlibNative {
     try {
       if (get_me["profile_photo"] is Map) {
         result["profile_photo"] = {
-          "id": get_me["profile_photo"]["id"],
+          "id": 0,
           "path": "",
           "file_id": "",
         };
-        if (get_me["profile_photo"]["big"] is Map) {
-          (get_me["profile_photo"]["big"]["local"] as Map).forEach((key, value) {
-            if (key != "@type") {
-              result["profile_photo"][key.toString()] = value;
+        for (final element in ["small", "big"]) {
+          if (get_me["profile_photo"][element] is Map) {
+            result["profile_photo"]["id"] = get_me["profile_photo"][element]["id"];
+            (get_me["profile_photo"][element]["local"] as Map).forEach((key, value) {
+              if (key != "@type") {
+                result["profile_photo"][key.toString()] = value;
+              }
+            });
+            if (get_me["profile_photo"][element]["remote"] is Map) {
+              result["profile_photo"]["file_id"] = get_me["profile_photo"][element]["remote"]["id"];
             }
-          });
-          if (get_me["profile_photo"]["big"]["remote"] is Map) {
-            result["profile_photo"]["file_id"] = get_me["profile_photo"]["big"]["remote"]["id"];
+            break;
           }
         }
       }
