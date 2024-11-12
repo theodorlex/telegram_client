@@ -37,3 +37,9 @@ enum TelegramClientType {
   tdlib,
   telegam_bot_api,
 }
+
+enum TelegramClientTelegramType {
+  bot,
+  userbot,
+  telegram,
+}
