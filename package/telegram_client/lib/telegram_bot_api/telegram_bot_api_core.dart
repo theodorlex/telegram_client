@@ -66,7 +66,7 @@ class TelegramBotApi {
   bool is_init_server = false;
   Uri telegram_url_webhook = Uri.parse("http://0.0.0.0:8080/telegram/webhook");
   final Crypto telegram_crypto;
-  Client http_client = Client();
+  final Client http_client;
   final Map client_option = {
     "api_id": 0,
     "api_hash": "",
@@ -94,7 +94,7 @@ class TelegramBotApi {
     ],
   };
 
-  EventEmitter event_emitter = EventEmitter();
+  final EventEmitter event_emitter;
   final List state_data = [];
   final String event_invoke;
   final String event_update;
@@ -109,24 +109,19 @@ class TelegramBotApi {
     required this.token_bot,
     Map? clientOption,
     this.serverUniverseNative,
-    String telegramCryptoKey = "aeatmlvodkm9ii37l2p0WGkaAAF3BWCh",
+    Crypto? crypto,
     EventEmitter? eventEmitter,
     this.event_invoke = "invoke",
     this.event_update = "update",
     Uri? telegramUrlWebhook,
     Client? httpClient,
-  }) : telegram_crypto = Crypto(key: telegramCryptoKey) {
-    if (httpClient != null) {
-      http_client = httpClient;
-    }
-
+  })  : telegram_crypto = crypto ?? Crypto(key: "aeatmlvodkm9ii37l2p0WGkaAAF3BWCh"),
+        http_client = httpClient ?? Client(),
+        event_emitter = eventEmitter ?? EventEmitter() {
     if (telegramUrlWebhook != null) {
       telegram_url_webhook = telegramUrlWebhook;
     }
 
-    if (eventEmitter != null) {
-      event_emitter = eventEmitter;
-    }
     if (clientOption != null) {
       client_option.addAll(clientOption);
     }

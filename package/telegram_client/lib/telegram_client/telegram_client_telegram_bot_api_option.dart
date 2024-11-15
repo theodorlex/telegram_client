@@ -30,6 +30,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
+import 'package:general_lib/general_lib.dart';
 import 'package:http/http.dart';
 import 'package:server_universe/native/core/server_universe_native.dart';
 import "package:server_universe/native/native.dart";
@@ -39,14 +40,14 @@ class TelegramClientTelegramBotApiOption {
   final Map clientOption;
   final String tokenBot;
   final ServerUniverseNative? serverUniverseNative;
-  final String telegramCryptoKey;
+  final Crypto? crypto;
   final Uri? telegramUrlWebhook;
   final Client? httpClient;
   const TelegramClientTelegramBotApiOption({
     required this.tokenBot,
     required this.clientOption,
     this.serverUniverseNative,
-    this.telegramCryptoKey = "aeatmlvodkm9ii37l2p0WGkaAAF3BWCh",
+    this.crypto,
     this.telegramUrlWebhook,
     this.httpClient,
   });
