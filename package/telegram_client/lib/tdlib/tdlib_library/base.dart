@@ -48,8 +48,12 @@ import 'package:telegram_client/tdlib/update_td.dart';
 
 import 'package:universal_io/io.dart';
 
+typedef TdlibOnReceiveUpdate = FutureOr<void> Function(dynamic update, TdlibBase libTdJson);
+typedef TdlibOnGenerateExtraInvoke = FutureOr<String> Function(int client_id, TdlibBase libTdJson);
+typedef TdlibOnGetInvokeData = FutureOr<Map> Function(String extra, int client_id, TdlibBase libTdJson);
+
 abstract class TdlibBaseCore {
-  Future<bool> is_td_initialized() async{
+  Future<bool> is_td_initialized() async {
     return false;
   }
 
@@ -110,7 +114,7 @@ abstract class TdlibBaseCore {
 ///   "api_hash": "saskaspasad"
 ///  },
 /// );
-/// tg.on("update", (UpdateTd update) async {
+/// tg.on("update", (UpdateTelegramClientTdlib update) async {
 ///   print(update.raw);
 /// });
 /// tg.initIsolate();
@@ -151,23 +155,23 @@ abstract class TdlibBase implements TdlibBaseCore {
   int task_count = 0;
   final String event_invoke;
   final String event_update;
-  late final EventEmitter event_emitter;
+  final EventEmitter eventEmitter;
   Duration? delay_update;
   Duration delay_invoke = Duration(milliseconds: 1);
   bool is_auto_get_chat = false;
   Duration invoke_time_out = Duration(minutes: 10);
   double timeOutUpdate;
   bool is_invoke_throw_on_error = false;
-  FutureOr<void> Function(dynamic update, TdlibBase libTdJson)? on_receive_update;
-  FutureOr<String> Function(int client_id, TdlibBase libTdJson)? on_generate_extra_invoke;
-  FutureOr<Map> Function(String extra, int client_id, TdlibBase libTdJson)? on_get_invoke_data;
-  int task_max_count;
-  int task_min_cooldown;
+  TdlibOnReceiveUpdate? onReceiveUpdate;
+  TdlibOnGenerateExtraInvoke? onGenerateExtraInvoke;
+  TdlibOnGetInvokeData? onGetInvokeData;
+  int taskMaxCount;
+  int taskMinCooldown;
   TdlibBase({
     String? pathTdl,
     TelegramClientLibraryTdlibOptionParameter? clientOption,
-    this.task_max_count = 10000,
-    this.task_min_cooldown = 10,
+    this.taskMaxCount = 10000,
+    this.taskMinCooldown = 10,
     this.event_invoke = "invoke",
     this.event_update = "update",
     EventEmitter? eventEmitter,
@@ -177,10 +181,10 @@ abstract class TdlibBase implements TdlibBaseCore {
     Duration? invokeTimeOut,
     bool isAutoGetChat = false,
     bool isInvokeThrowOnError = true,
-    this.on_generate_extra_invoke,
-    this.on_get_invoke_data,
-    this.on_receive_update,
-  }) {
+    this.onGenerateExtraInvoke,
+    this.onGetInvokeData,
+    this.onReceiveUpdate,
+  }) : eventEmitter = eventEmitter ?? EventEmitter() {
     if (delayInvoke != null) {
       delay_invoke = delayInvoke;
     }
@@ -193,11 +197,6 @@ abstract class TdlibBase implements TdlibBaseCore {
     is_auto_get_chat = isAutoGetChat;
     invokeTimeOut ??= Duration(minutes: 5);
     invoke_time_out = invokeTimeOut;
-    if (eventEmitter != null) {
-      event_emitter = eventEmitter;
-    } else {
-      event_emitter = EventEmitter();
-    }
     if (clientOption != null) {
       client_option.rawData.addAll(clientOption.rawData);
     }
@@ -208,18 +207,19 @@ abstract class TdlibBase implements TdlibBaseCore {
         // is_init_send_port = true;
         return;
       }
-      if (on_receive_update != null) {
-        await on_receive_update!(update, this);
+      final onReceiveUpdate = this.onReceiveUpdate;
+      if (onReceiveUpdate != null) {
+        await onReceiveUpdate(update, this);
       } else if (update is TdlibIsolateReceiveData) {
         TdlibIsolateReceiveData tdlibIsolateReceiveData = update;
         try {
           if (tdlibIsolateReceiveData.updateData["@extra"] is String) {
-            event_emitter.emit(eventName: event_invoke, value: tdlibIsolateReceiveData);
+            this.eventEmitter.emit(eventName: event_invoke, value: tdlibIsolateReceiveData);
           } else {
-            event_emitter.emit(eventName: event_update, value: tdlibIsolateReceiveData);
+            this.eventEmitter.emit(eventName: event_update, value: tdlibIsolateReceiveData);
           }
         } catch (e) {
-          event_emitter.emit(eventName: event_update, value: tdlibIsolateReceiveData);
+          this.eventEmitter.emit(eventName: event_update, value: tdlibIsolateReceiveData);
         }
       } else if (update is TdlibIsolateReceiveDataError) {
         is_init_isolate = false;
@@ -453,18 +453,18 @@ abstract class TdlibBase implements TdlibBaseCore {
   /// receive all update data
   EventEmitterListener on(
     String type_update,
-    FutureOr<dynamic> Function(UpdateTd update) callback, {
+    FutureOr<dynamic> Function(UpdateTelegramClientTdlib update) callback, {
     final Map<dynamic, dynamic>? stateData,
     void Function(Object data)? onError,
   }) {
-    return event_emitter.on(
+    return eventEmitter.on(
       eventName: type_update,
       stateData: stateData ?? {},
       onCallback: (listener, update) async {
         try {
           if (update is TdlibIsolateReceiveData) {
             // final TdlibIsolateReceiveData tdlibIsolateReceiveData = update;
-            await callback(UpdateTd(
+            await callback(UpdateTelegramClientTdlib(
               update: update.updateData,
               client_id: update.clientId,
               client_option: () {
@@ -520,10 +520,10 @@ abstract class TdlibBase implements TdlibBaseCore {
     final Map result = await Future(() async {
       try {
         if (isVoid == false) {
-          if (task_count >= task_max_count) {
+          if (task_count >= taskMaxCount) {
             while (true) {
               await Future.delayed(Duration(microseconds: 1));
-              if (task_count < task_min_cooldown) {
+              if (task_count < taskMinCooldown) {
                 break;
               }
             }
@@ -578,7 +578,7 @@ abstract class TdlibBase implements TdlibBaseCore {
           );
           return await onGetInvokeData(extra_id, clientId, this);
         }
-        listener = on(event_invoke, (UpdateTd update) async {
+        listener = on(event_invoke, (UpdateTelegramClientTdlib update) async {
           try {
             if (update.client_id == clientId) {
               final Map updateOrigin = update.raw;
@@ -628,7 +628,7 @@ abstract class TdlibBase implements TdlibBaseCore {
       completer.complete({});
     } catch (e) {}
     try {
-      event_emitter.off(listener: listener);
+      eventEmitter.off(listener: listener);
     } catch (e) {}
 
     if (result.isEmpty || result["@type"] is String == false || result["@type"] == "error") {
@@ -664,16 +664,16 @@ abstract class TdlibBase implements TdlibBaseCore {
     String? extra,
     bool? isAutoGetChat,
     bool? isInvokeThrowOnError,
-    FutureOr<String> Function(int client_id, TdlibBase libTdJson)? onGenerateExtraInvoke,
-    FutureOr<Map> Function(String extra, int client_id, TdlibBase libTdJson)? onGetInvokeData,
+    TdlibOnGenerateExtraInvoke? onGenerateExtraInvoke,
+    TdlibOnGetInvokeData? onGetInvokeData,
   }) async {
     isUseCache ??= false;
     durationCacheExpire ??= Duration(
       minutes: 1,
     );
     isInvokeThrowOnError ??= is_invoke_throw_on_error;
-    onGetInvokeData ??= on_get_invoke_data;
-    onGenerateExtraInvoke ??= on_generate_extra_invoke;
+    onGetInvokeData ??= this.onGetInvokeData;
+    onGenerateExtraInvoke ??= this.onGenerateExtraInvoke;
     isAutoGetChat ??= is_auto_get_chat;
     //
     invokeTimeOut ??= invoke_time_out;

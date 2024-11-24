@@ -32,15 +32,12 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 <!-- END LICENSE --> */
 // ignore_for_file: non_constant_identifier_names, camel_case_extensions
 
-import 'dart:async';
-
 import 'package:general_lib/event_emitter/event_emitter.dart';
 import 'package:telegram_client/scheme/telegram_client_library_tdlib_option_parameter.dart';
-import 'package:telegram_client/tdlib/tdlib_library/base.dart';
+import 'base.dart';
 
 class TelegramClientTdlibOption {
   final TelegramClientLibraryTdlibOptionParameter? clientOption;
-  final bool is_cli;
   final Duration? invokeTimeOut;
 
   final Duration? delayUpdate;
@@ -48,28 +45,44 @@ class TelegramClientTdlibOption {
   final EventEmitter? eventEmitter;
   final bool isAutoGetChat;
 
-  final FutureOr<Map<dynamic, dynamic>> Function(String, int, TdlibBase td)?
-      on_get_invoke_data;
-  final FutureOr<void> Function(dynamic, TdlibBase)? on_receive_update;
-  final FutureOr<String> Function(int, TdlibBase)? on_generate_extra_invoke;
+  final TdlibOnGetInvokeData? onGetInvokeData;
+  final TdlibOnReceiveUpdate? onReceiveUpdate;
+  final TdlibOnGenerateExtraInvoke? onGenerateExtraInvoke;
   final bool isInvokeThrowOnError;
   final Duration? delayInvoke;
-  final int task_max_count;
-  final int task_min_cooldown;
+  final int taskMaxCount;
+  final int taskMinCooldown;
   const TelegramClientTdlibOption({
     this.isAutoGetChat = false,
-    this.task_max_count = 10000,
-    this.task_min_cooldown = 10,
+    this.taskMaxCount = 10000,
+    this.taskMinCooldown = 10,
     this.clientOption,
-    this.is_cli = false,
     this.invokeTimeOut,
     this.timeOutUpdate = 1.0,
     this.delayInvoke,
     this.delayUpdate,
-    this.on_generate_extra_invoke,
-    this.on_get_invoke_data,
+    this.onGenerateExtraInvoke,
+    this.onGetInvokeData,
     this.eventEmitter,
-    this.on_receive_update,
+    this.onReceiveUpdate,
     this.isInvokeThrowOnError = true,
   });
+
+  TelegramClientTdlibOption copyWith({
+    TelegramClientLibraryTdlibOptionParameter? clientOption,
+    Duration? invokeTimeOut,
+    Duration? delayUpdate,
+    double? timeOutUpdate,
+    EventEmitter? eventEmitter,
+    bool? isAutoGetChat,
+    TdlibOnGetInvokeData? onGetInvokeData,
+    TdlibOnReceiveUpdate? onReceiveUpdate,
+    TdlibOnGenerateExtraInvoke? onGenerateExtraInvoke,
+    bool? isInvokeThrowOnError,
+    Duration? delayInvoke,
+    int? taskMaxCount,
+    int? taskMinCooldown,
+  }) {
+    return TelegramClientTdlibOption();
+  }
 }

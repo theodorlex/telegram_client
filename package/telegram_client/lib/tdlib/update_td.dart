@@ -33,11 +33,11 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 // ignore_for_file: non_constant_identifier_names, camel_case_extensions
 
 /// Update td for make update support raw, raw api, raw api light
-class UpdateTd {
+class UpdateTelegramClientTdlib {
   final Map update;
   final int client_id;
   final Map client_option;
-  const UpdateTd({
+  const UpdateTelegramClientTdlib({
     required this.update,
     required this.client_id,
     required this.client_option,

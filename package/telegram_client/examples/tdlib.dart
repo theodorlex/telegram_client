@@ -17,24 +17,19 @@ void main(List<String> args) async {
     clientOption: TelegramClientLibraryTdlibOptionParameter.create(
       // api_id: 0,
       // api_hash: "",
-      database_directory:
-          Directory(path.join(Directory.current.uri.toFilePath(), "temp", "db"))
-              .path,
-      files_directory: Directory(
-              path.join(Directory.current.uri.toFilePath(), "temp", "file"))
-          .path,
+      database_directory: Directory(path.join(Directory.current.uri.toFilePath(), "temp", "db")).path,
+      files_directory: Directory(path.join(Directory.current.uri.toFilePath(), "temp", "file")).path,
     ),
   );
   await tdlib.ensureInitialized();
 
-  tdlib.on(tdlib.event_update, (UpdateTd updateTd) async {
+  tdlib.on(tdlib.event_update, (UpdateTelegramClientTdlib updateTd) async {
     Map update = updateTd.update;
     // update.printPretty();
     if (update["@type"] == "updateAuthorizationState") {
       if (update["authorization_state"] is Map) {
         Map authorizationState = update["authorization_state"];
-        if (authorizationState["@type"] ==
-            "authorizationStateWaitPhoneNumber") {
+        if (authorizationState["@type"] == "authorizationStateWaitPhoneNumber") {
           Map res = await tdlib.invoke(
             "setAuthenticationPhoneNumber",
             parameters: {
@@ -73,8 +68,7 @@ void main(List<String> args) async {
   for (var i = 1; i <= 1000; i++) {
     print(i);
     await Future.delayed(Duration(microseconds: 10));
-    Directory directory =
-        Directory(path.join(Directory.current.path, "temp", "lp_${i}"));
+    Directory directory = Directory(path.join(Directory.current.path, "temp", "lp_${i}"));
     Map res = await tdlib.createclient(
       clientId: tdlib.td_create_client_id(),
       clientOption: TelegramClientLibraryTdlibOptionParameter.create(
@@ -84,8 +78,7 @@ void main(List<String> args) async {
     );
     res.printPretty();
   }
-  print(DateTime.now()
-      .extension_general_lib_countAgoFromDateTime(dateTime: dateTime));
+  print(DateTime.now().extension_general_lib_countAgoFromDateTime(dateTime: dateTime));
   stdin.listen((e) async {
     try {
       DateTime dateTime = DateTime.now();
@@ -106,8 +99,7 @@ void main(List<String> args) async {
       } else {
         return;
       }
-      print(DateTime.now()
-          .extension_general_lib_countAgoFromDateTime(dateTime: dateTime));
+      print(DateTime.now().extension_general_lib_countAgoFromDateTime(dateTime: dateTime));
     } catch (e) {
       print(e);
     }

@@ -86,8 +86,8 @@ import 'package:telegram_client/telegram_client/function/un_pin_all_chat_message
 import 'package:telegram_client/telegram_client/function/un_pin_chat_message.dart';
 import 'package:telegram_client/telegram_client/function/view_message.dart';
 import 'package:telegram_client/telegram_client/function/view_messages.dart';
-import 'package:telegram_client/telegram_client/telegram_client_tdlib_option.dart';
-import 'package:telegram_client/telegram_client/telegram_client_telegram_bot_api_option.dart';
+import 'package:telegram_client/tdlib/tdlib_library/option.dart';
+import 'package:telegram_client/telegram_bot_api/option.dart';
 import 'package:telegram_client/telegram_client/update_telegram_client.dart';
 import 'package:universal_io/io.dart';
 
@@ -127,12 +127,11 @@ class TelegramClient {
   }) {
     telegramClientTdlibOption ??= TelegramClientTdlibOption(
       isAutoGetChat: false,
-      is_cli: false,
       timeOutUpdate: 1.0,
       delayInvoke: Duration(milliseconds: 1),
       delayUpdate: Duration(milliseconds: 1),
-      task_max_count: 10000,
-      task_min_cooldown: 10,
+      taskMaxCount: 10000,
+      taskMinCooldown: 10,
       isInvokeThrowOnError: true,
     );
     telegramClientTelegramBotApiOption ??= TelegramClientTelegramBotApiOption(
@@ -142,8 +141,8 @@ class TelegramClient {
     if (is_init_telegram_bot_api) {
       telegramBotApi = TelegramBotApi(
         token_bot: telegramClientTelegramBotApiOption.tokenBot,
-        event_invoke: event_invoke,
-        event_update: event_update,
+        eventInvoke: event_invoke,
+        eventUpdate: event_update,
         clientOption: telegramClientTelegramBotApiOption.clientOption,
         eventEmitter: event_emitter,
         serverUniverseNative: telegramClientTelegramBotApiOption.serverUniverseNative,
@@ -164,13 +163,13 @@ class TelegramClient {
         delayUpdate: telegramClientTdlibOption.delayUpdate,
         delayInvoke: telegramClientTdlibOption.delayInvoke,
         isAutoGetChat: telegramClientTdlibOption.isAutoGetChat,
-        on_generate_extra_invoke: telegramClientTdlibOption.on_generate_extra_invoke,
-        on_get_invoke_data: telegramClientTdlibOption.on_get_invoke_data,
-        on_receive_update: telegramClientTdlibOption.on_receive_update,
+        onGenerateExtraInvoke: telegramClientTdlibOption.onGenerateExtraInvoke,
+        onGetInvokeData: telegramClientTdlibOption.onGetInvokeData,
+        onReceiveUpdate: telegramClientTdlibOption.onReceiveUpdate,
         isInvokeThrowOnError: telegramClientTdlibOption.isInvokeThrowOnError,
         eventEmitter: event_emitter,
-        task_max_count: telegramClientTdlibOption.task_max_count,
-        task_min_cooldown: telegramClientTdlibOption.task_min_cooldown,
+        taskMaxCount: telegramClientTdlibOption.taskMaxCount,
+        taskMinCooldown: telegramClientTdlibOption.taskMinCooldown,
       );
     }
   }
@@ -332,7 +331,7 @@ class TelegramClient {
         eventName: event_name,
         onCallback: (listener, update) async {
           try {
-            if (update is UpdateBot) {
+            if (update is UpdateTelegramClientTelegramBotApi) {
               await onUpdate(
                 UpdateTelegramClient(
                   uri: update.uri,
@@ -352,7 +351,7 @@ class TelegramClient {
             if (update is TdlibIsolateReceiveData) {
               final TdlibClient? tdlibClient = tdlib.clients[update.clientId];
 
-              final UpdateTd updateTd = UpdateTd(
+              final UpdateTelegramClientTdlib updateTd = UpdateTelegramClientTdlib(
                 update: update.updateData,
                 client_id: update.clientId,
                 client_option: () {

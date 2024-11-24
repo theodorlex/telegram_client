@@ -63,10 +63,8 @@ import "package:server_universe/native/native.dart";
 class TelegramBotApi {
   late final String token_bot;
   ServerUniverseNative? serverUniverseNative;
-  bool is_init_server = false;
-  Uri telegram_url_webhook = Uri.parse("http://0.0.0.0:8080/telegram/webhook");
-  final Crypto telegram_crypto;
-  final Client http_client;
+  final Crypto crypto;
+  final Client httpClient;
   final Map client_option = {
     "api_id": 0,
     "api_hash": "",
@@ -94,10 +92,11 @@ class TelegramBotApi {
     ],
   };
 
-  final EventEmitter event_emitter;
-  final List state_data = [];
-  final String event_invoke;
-  final String event_update;
+  final EventEmitter eventEmitter;
+  final String eventInvoke;
+  final String eventUpdate;
+
+  Uri telegramUrlWebhook;
 
   /// list methods:
   /// api:
@@ -111,51 +110,53 @@ class TelegramBotApi {
     this.serverUniverseNative,
     Crypto? crypto,
     EventEmitter? eventEmitter,
-    this.event_invoke = "invoke",
-    this.event_update = "update",
+    this.eventInvoke = "invoke",
+    this.eventUpdate = "update",
     Uri? telegramUrlWebhook,
     Client? httpClient,
-  })  : telegram_crypto = crypto ?? Crypto(key: "aeatmlvodkm9ii37l2p0WGkaAAF3BWCh"),
-        http_client = httpClient ?? Client(),
-        event_emitter = eventEmitter ?? EventEmitter() {
-    if (telegramUrlWebhook != null) {
-      telegram_url_webhook = telegramUrlWebhook;
-    }
-
+  })  : crypto = crypto ?? Crypto(key: "aeatmlvodkm9ii37l2p0WGkaAAF3BWCh"),
+        httpClient = httpClient ?? Client(),
+        eventEmitter = eventEmitter ?? EventEmitter(),
+        telegramUrlWebhook = telegramUrlWebhook ?? Uri.parse("http://0.0.0.0:8080/telegram/webhook") {
     if (clientOption != null) {
       client_option.addAll(clientOption);
     }
   }
 
+  bool is_init_server = false;
   void initServer() {
-    if (serverUniverseNative != null) {
-      if (Dart.isWeb == false) {
-        if (is_init_server == false) {
-          is_init_server = true;
-
-          serverUniverseNative!.post(telegram_url_webhook.path, (HttpRequest req, HttpResponse res) async {
-            try {
-              Map query = (req.uri.queryParameters).clone();
-              Map<String, dynamic> body = await req.bodyAsJsonMap;
-              event_emitter.emit(
-                eventName: event_update,
-                value: UpdateBot(
-                  uri: req.uri,
-                  body: body,
-                  query: query,
-                  type: "glx",
-                ),
-              );
-              return {"@type": "ok"};
-            } catch (e) {
-              return {
-                "@type": "ok",
-              };
-            }
-          });
-        }
-      }
+    final serverUniverseNative = this.serverUniverseNative;
+    if (serverUniverseNative == null) {
+      return;
     }
+    if (Dart.isWeb) {
+      return;
+    }
+    if (is_init_server) {
+      return;
+    }
+    is_init_server = true;
+
+    serverUniverseNative.post(telegramUrlWebhook.path, (HttpRequest req, HttpResponse res) async {
+      try {
+        Map query = (req.uri.queryParameters).clone();
+        Map<String, dynamic> body = await req.bodyAsJsonMap;
+        eventEmitter.emit(
+          eventName: eventUpdate,
+          value: UpdateTelegramClientTelegramBotApi(
+            uri: req.uri,
+            body: body,
+            query: query,
+            type: "glx",
+          ),
+        );
+        return {"@type": "ok"};
+      } catch (e) {
+        return {
+          "@type": "ok",
+        };
+      }
+    });
   }
 
   /// Parse Query Http To TgClientClientData
@@ -166,7 +167,7 @@ class TelegramBotApi {
     if (query["tg"] is String == false) {
       query["tg"] = "";
     }
-    Map decyprt = convert.json.decode(telegram_crypto.decrypt(data_base64: query["tg"]));
+    Map decyprt = convert.json.decode(crypto.decrypt(data_base64: query["tg"]));
 
     if (decyprt["client_tg_user_id"] == null || decyprt["client_tg_user_id"] == 0) {
       decyprt["client_tg_user_id"] = TgUtils.parserBotUserIdFromToken(decyprt["client_token"]);
@@ -200,7 +201,7 @@ class TelegramBotApi {
       "expire_date": expire_date,
       "version": version,
     };
-    final String query_telegram_webhook = telegram_crypto.encryptMapToBase64(data: client_data);
+    final String query_telegram_webhook = crypto.encryptMapToBase64(data: client_data);
 
     final get_webhook_info_old_procces = await request(
       "getWebhookInfo",
@@ -208,7 +209,7 @@ class TelegramBotApi {
     );
 
     final String url_webhook_old = get_webhook_info_old_procces["result"]["url"];
-    final String url_webhook_new = telegram_url_webhook.replace(
+    final String url_webhook_new = telegramUrlWebhook.replace(
       path: path,
       pathSegments: pathSegments,
       queryParameters: {
@@ -269,12 +270,12 @@ class TelegramBotApi {
   /// });
   /// ```
   /// add this for handle update api
-  EventEmitterListener on(String type_update, FutureOr<dynamic> Function(UpdateBot updateBot) callback) {
-    return event_emitter.on(
+  EventEmitterListener on(String type_update, FutureOr<dynamic> Function(UpdateTelegramClientTelegramBotApi updateBot) callback) {
+    return eventEmitter.on(
       eventName: type_update,
       onCallback: (listener, update) async {
         try {
-          if (update is UpdateBot) {
+          if (update is UpdateTelegramClientTelegramBotApi) {
             await callback(update);
             return;
           }
@@ -290,8 +291,8 @@ class TelegramBotApi {
   /// tg.emit(tg.event_update, "");
   /// ```
   /// add this for handle update api
-  void emit(String type_update, UpdateBot updateBot) {
-    return event_emitter.emit(eventName: type_update, value: updateBot);
+  void emit(String type_update, UpdateTelegramClientTelegramBotApi updateBot) {
+    return eventEmitter.emit(eventName: type_update, value: updateBot);
     // return event_emitter.emit(type_update, null, updateBot);
   }
 
@@ -330,9 +331,7 @@ class TelegramBotApi {
     String? clientType,
     bool isThrowOnError = true,
     void Function(int bytesCount, int totalBytes)? onUploadProgress,
-    Client? httpClient,
   }) async {
-    httpClient ??= http_client;
     parameters ??= {};
     clientType ??= client_option["type"];
     urlApi ??= client_option["api"];
@@ -666,7 +665,6 @@ class TelegramBotApi {
                 clientType: clientType,
                 onUploadProgress: onUploadProgress,
                 isThrowOnError: isThrowOnError,
-                httpClient: httpClient,
               );
               result.add(res);
             } catch (e) {
@@ -702,7 +700,6 @@ class TelegramBotApi {
                 clientType: clientType,
                 onUploadProgress: onUploadProgress,
                 isThrowOnError: isThrowOnError,
-                httpClient: httpClient,
               );
               result.add(res);
             } catch (e) {
@@ -723,7 +720,6 @@ class TelegramBotApi {
       clientType: clientType,
       onUploadProgress: onUploadProgress,
       isThrowOnError: isThrowOnError,
-      httpClient: httpClient,
     );
   }
 

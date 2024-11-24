@@ -62,7 +62,7 @@ import 'update_td.dart';
 ///     "database_key": "",
 ///   },
 /// );
-/// tg.on(tg.event_update, (UpdateTd update) async {
+/// tg.on(tg.event_update, (UpdateTelegramClientTdlib update) async {
 ///   print(update.raw);
 /// });
 /// tg.ensureInitializedIsolate();
@@ -148,8 +148,8 @@ class Tdlib extends TdlibNative {
   Tdlib({
     super.pathTdl,
     super.clientOption,
-    super.task_max_count,
-    super.task_min_cooldown,
+    super.taskMaxCount,
+    super.taskMinCooldown,
     super.invokeTimeOut,
     super.event_invoke = "invoke",
     super.event_update = "update",
@@ -158,9 +158,9 @@ class Tdlib extends TdlibNative {
     super.eventEmitter,
     super.delayInvoke,
     super.isAutoGetChat = false,
-    super.on_get_invoke_data,
-    super.on_receive_update,
-    super.on_generate_extra_invoke,
+    super.onGenerateExtraInvoke,
+    super.onGetInvokeData,
+    super.onReceiveUpdate,
     super.isInvokeThrowOnError,
   });
   FutureOr<void> closeClients() async {
@@ -181,7 +181,7 @@ class Tdlib extends TdlibNative {
 
   /// set up authorizationStateWaitTdlibParameters new client without more code
   Future<Map?> initClient(
-    UpdateTd update, {
+    UpdateTelegramClientTdlib update, {
     Map? tdlibParameters,
     required int clientId,
     bool isVoid = false,
@@ -950,7 +950,7 @@ class Tdlib extends TdlibNative {
 
       Completer<Map> completer = Completer<Map>();
 
-      var listen = on(event_update, (UpdateTd update) async {
+      var listen = on(event_update, (UpdateTelegramClientTdlib update) async {
         if (update.client_id != clientId) {
           return;
         }
@@ -995,7 +995,7 @@ class Tdlib extends TdlibNative {
         },
       );
 
-      event_emitter.off(listener: listen);
+      eventEmitter.off(listener: listen);
       if (result["@type"] is String) {
         // task_decrease();
         if (result["@type"] == "error") {

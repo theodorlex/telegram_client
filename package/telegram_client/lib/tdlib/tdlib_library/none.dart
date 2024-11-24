@@ -49,7 +49,7 @@ import 'package:telegram_client/tdlib/tdlib_library/base.dart';
 ///   "api_hash": "saskaspasad"
 ///  },
 /// );
-/// tg.on("update", (UpdateTd update) async {
+/// tg.on("update", (UpdateTelegramClientTdlib update) async {
 ///   print(update.raw);
 /// });
 /// tg.initIsolate();
@@ -66,12 +66,12 @@ class TdlibNative extends TdlibBase {
     super.invokeTimeOut,
     super.isAutoGetChat,
     super.isInvokeThrowOnError,
-    super.on_generate_extra_invoke,
-    super.on_get_invoke_data,
-    super.on_receive_update,
+    super.onGenerateExtraInvoke,
+    super.onGetInvokeData,
+    super.onReceiveUpdate,
     super.pathTdl,
-    super.task_max_count,
-    super.task_min_cooldown,
+    super.taskMaxCount,
+    super.taskMinCooldown,
     super.timeOutUpdate,
   });
   @override
@@ -96,7 +96,7 @@ class TdlibNative extends TdlibBase {
   }
 
   @override
-  Future<bool> is_td_initialized() async{
+  Future<bool> is_td_initialized() async {
     return true;
   }
 }

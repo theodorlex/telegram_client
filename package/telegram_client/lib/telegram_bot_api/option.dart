@@ -51,4 +51,22 @@ class TelegramClientTelegramBotApiOption {
     this.telegramUrlWebhook,
     this.httpClient,
   });
+
+  TelegramClientTelegramBotApiOption copyWith({
+    String? tokenBot,
+    Map<dynamic, dynamic>? clientOption,
+    ServerUniverseNative? serverUniverseNative,
+    Crypto? crypto,
+    Uri? telegramUrlWebhook,
+    Client? httpClient,
+  }) {
+    return TelegramClientTelegramBotApiOption(
+      tokenBot: tokenBot ?? this.tokenBot,
+      clientOption: clientOption ?? this.clientOption,
+      serverUniverseNative: serverUniverseNative ?? this.serverUniverseNative,
+      crypto: crypto ?? this.crypto,
+      telegramUrlWebhook: telegramUrlWebhook ?? this.telegramUrlWebhook,
+      httpClient: httpClient ?? this.httpClient,
+    );
+  }
 }
